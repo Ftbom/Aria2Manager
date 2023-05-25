@@ -1,0 +1,269 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Xml;
+using Aria2Manager.Models;
+using Aria2Manager.Utils;
+using System.Windows.Controls;
+using System.IO;
+
+namespace Aria2Manager.ViewModels
+{
+    public class ManageServersViewModel : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public ICommand AddNewServerCommand { get; set; }
+        public ICommand SaveEditCommand { get; set; }
+        public ICommand SaveSettingsCommand { get; set; }
+
+        private ObservableCollection<Aria2ServerModel> _servers;
+        private Aria2ServerModel _editserver;
+        private Aria2ServerModel _currentserver;
+        private int _serverindex;
+
+        public string? ProxyType { get; set; }
+        public string? ProxyAddress { get; set; }
+        public string? ProxyPort { get; set; }
+        public string? ProxyUser { get; set; }
+        public string? ProxyPasswd { get; set; }
+        public List<string> ProxyTypes { get; set; }
+        public Aria2ServerModel CurrentServer
+        {
+            get
+            {
+                foreach (Aria2ServerModel server in Servers)
+                {
+                    if (server.ServerName == _currentserver.ServerName)
+                    {
+                        return server;
+                    }
+                }
+                return _currentserver;
+            }
+            set
+            {
+                for (int i = 0; i < Servers.Count; i++)
+                {
+                    if (Servers[i].ServerName == value.ServerName)
+                    {
+                        _serverindex = i;
+                        break;
+                    }
+                }
+            }
+        }
+        public Aria2ServerModel EditServer
+        {
+            get => _editserver;
+            set
+            {
+                if (value != _editserver)
+                {
+                    _editserver = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ObservableCollection<Aria2ServerModel> Servers
+        {
+            get => _servers;
+            set
+            {
+                if (value != _servers)
+                {
+                    _servers = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public ManageServersViewModel(Aria2ServerModel? Server = null)
+        {
+            if (Server == null)
+            {
+                _currentserver = new Aria2ServerModel();
+            }
+            else
+            {
+                _currentserver = Server;
+            }
+            AddNewServerCommand = new RelayCommand(AddNewServer);
+            SaveEditCommand = new RelayCommand(SaveServers);
+            SaveSettingsCommand = new RelayCommand(SaveSettings);
+            //从配置文件中加载服务器信息
+            _servers = new ObservableCollection<Aria2ServerModel>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Configurations\\Aria2Servers.xml");
+            var current = doc.SelectSingleNode($"/Servers/Avaliable");
+            try
+            {
+                if (current == null)
+                {
+                    throw new Exception("Fail to read config file");
+                }
+                foreach (string name in current.InnerText.Split(','))
+                {
+                    _servers.Add(new Aria2ServerModel(name));
+                }
+                _editserver = _servers[0];
+            }
+            catch
+            {
+                _servers.Add(new Aria2ServerModel());
+                _editserver = _servers[0];
+            }
+            //从文件中读取代理信息
+            try
+            {
+                var proxy = doc.SelectSingleNode("/Servers/Proxy");
+                if (proxy == null)
+                {
+                    throw new Exception("Config of Proxy don't find");
+                }
+                foreach (XmlNode node in proxy.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
+                        case "Address":
+                            ProxyAddress = node.InnerText;
+                            break;
+                        case "Port":
+                            ProxyPort = node.InnerText;
+                            break;
+                        case "Type":
+                            ProxyType = node.InnerText;
+                            break;
+                        case "User":
+                            ProxyUser = node.InnerText;
+                            break;
+                        case "Passwd":
+                            ProxyPasswd = node.InnerText;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+                ProxyType = "http";
+                ProxyAddress = "127.0.0.1";
+                ProxyPort = "10809";
+                ProxyUser = "";
+                ProxyPasswd = "";
+            }
+            ProxyTypes = new List<string>();
+            ProxyTypes.AddRange(new string[] { "http", "socks4", "socks5" });
+        }
+
+        private void AddNewServer(object? parameter)
+        {
+            Aria2ServerModel NewServer = new Aria2ServerModel();
+            Servers.Add(NewServer);
+            EditServer = NewServer;
+        }
+
+        private void SaveServers(object? parameter)
+        {
+            //若当前仅有一个服务器配置，将其作为当前配置
+            if (Servers.Count == 1)
+            {
+                _currentserver.ServerName = Servers[0].ServerName;
+                _currentserver.ServerAddress = Servers[0].ServerAddress;
+                _currentserver.ServerPort = Servers[0].ServerPort;
+                _currentserver.ServerSecret = Servers[0].ServerSecret;
+                _currentserver.IsHttps = Servers[0].IsHttps;
+                _currentserver.UseProxy = Servers[0].UseProxy;
+            }
+            //保存到文件
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Configurations\\Aria2Servers.xml");
+            XmlNode Node = doc.SelectSingleNode("/Servers/Current");
+            Node.InnerText = CurrentServer.ServerName;
+            List<string> server_names = new List<string>();
+            XmlNode ServerConfigsNode = doc.SelectSingleNode("/Servers/ServerConfigs");
+            ServerConfigsNode.RemoveAll();
+            foreach (Aria2ServerModel server in Servers)
+            {
+                XmlNode ServerNode = doc.CreateElement(server.ServerName);
+                XmlNode TempNode = doc.CreateElement("Address");
+                TempNode.InnerText = server.ServerAddress;
+                ServerNode.AppendChild(TempNode);
+                TempNode = doc.CreateElement("Port");
+                TempNode.InnerText = server.ServerPort;
+                ServerNode.AppendChild(TempNode);
+                TempNode = doc.CreateElement("Secret");
+                TempNode.InnerText = server.ServerSecret;
+                ServerNode.AppendChild(TempNode);
+                TempNode = doc.CreateElement("IsHttps");
+                TempNode.InnerText = server.IsHttps.ToString();
+                ServerNode.AppendChild(TempNode);
+                TempNode = doc.CreateElement("UseProxy");
+                TempNode.InnerText = server.UseProxy.ToString();
+                ServerNode.AppendChild(TempNode);
+                ServerConfigsNode.AppendChild(ServerNode);
+                server_names.Add(server.ServerName);
+            }
+            Node = doc.SelectSingleNode("/Servers/Avaliable");
+            Node.InnerText = String.Join(',', server_names.ToArray());
+            doc.Save("Configurations\\Aria2Servers.xml");
+            MessageBox.Show(Application.Current.FindResource("SavedSuccessfully").ToString(),
+                    "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.None);
+        }
+
+        private void SaveSettings(object? parameter)
+        {
+            _currentserver.ServerName = Servers[_serverindex].ServerName;
+            _currentserver.ServerAddress = Servers[_serverindex].ServerAddress;
+            _currentserver.ServerPort = Servers[_serverindex].ServerPort;
+            _currentserver.ServerSecret = Servers[_serverindex].ServerSecret;
+            _currentserver.IsHttps = Servers[_serverindex].IsHttps;
+            _currentserver.UseProxy = Servers[_serverindex].UseProxy;
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Configurations\\Aria2Servers.xml");
+            var proxy = doc.SelectSingleNode("/Servers/Proxy");
+            foreach (XmlNode node in proxy.ChildNodes)
+            {
+                switch (node.Name)
+                {
+                    case "Address":
+                        node.InnerText = ProxyAddress;
+                        break;
+                    case "Port":
+                        node.InnerText = ProxyPort;
+                        break;
+                    case "Type":
+                        node.InnerText = ProxyType;
+                        break;
+                    case "User":
+                        node.InnerText = ProxyUser;
+                        break;
+                    case "Passwd":
+                        node.InnerText = ProxyPasswd;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            doc.Save("Configurations\\Aria2Servers.xml");
+            MessageBox.Show(Application.Current.FindResource("SavedSuccessfully").ToString(),
+                    "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.None);
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+    }
+}

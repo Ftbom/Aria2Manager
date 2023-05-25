@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria2Manager", "Aria2Manager.csproj", "{1157A798-22E4-4E13-8ECD-F6144CDA4B63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1157A798-22E4-4E13-8ECD-F6144CDA4B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1157A798-22E4-4E13-8ECD-F6144CDA4B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1157A798-22E4-4E13-8ECD-F6144CDA4B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1157A798-22E4-4E13-8ECD-F6144CDA4B63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD1364A3-205F-4D83-8113-B59E36CC3B85}
+	EndGlobalSection
+EndGlobal

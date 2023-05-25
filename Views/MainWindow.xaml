@@ -1,0 +1,52 @@
+﻿<Window x:Class="Aria2Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aria2Manager.ViewModels"
+        mc:Ignorable="d"
+        Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    <DockPanel LastChildFill="False">
+        <Menu DockPanel.Dock="Top" Height="24" Width="800">
+            <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Settings}" Height="24">
+                <MenuItem x:Name="ManageAria2ServersMenu" Header="{DynamicResource Aria2Manager}" Click="ManageAria2ServersMenu_Click">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf828;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="Aria2SettingsMenu" Header="{DynamicResource Aria2Settings}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf1de;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="ProgramSettingsMenu" Header="{DynamicResource ProgramSettings}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf013;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="ExitMenu" Header="{DynamicResource Exit}" Height="24" Command="{Binding ExitCommand}" >
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf00d;" FontFamily="{StaticResource FontAwesome}" FontSize="20" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="HelpMenu" Header="{DynamicResource Help}" InputGestureText="">
+                <MenuItem x:Name="Aria2WebsiteMenu" Header="{DynamicResource Aria2Website}" Command="{Binding OpenAria2WebsiteCommand}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf0ac;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="AboutMenu" Header="{DynamicResource About}" Click="AboutMenu_Click">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf05a;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+    </DockPanel>
+</Window>

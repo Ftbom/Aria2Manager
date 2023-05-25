@@ -1,0 +1,33 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+     xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="Settings">Settings</system:String>
+    <system:String x:Key="Aria2Manager">Manage Aria2 Servers</system:String>
+    <system:String x:Key="Aria2Settings">Current Aria2 Settings</system:String>
+    <system:String x:Key="ProgramSettings">Program Settings</system:String>
+    <system:String x:Key="Exit">Exit</system:String>
+    <system:String x:Key="Help">Help</system:String>
+    <system:String x:Key="Aria2Website">Aria2 Website</system:String>
+    <system:String x:Key="About">About</system:String>
+    <system:String x:Key="ManageServers">ManageServers</system:String>
+    <system:String x:Key="New">New</system:String>
+    <system:String x:Key="ServerName">Server Name</system:String>
+    <system:String x:Key="ServerAddress">Server Address</system:String>
+    <system:String x:Key="ServerPort">Server Port</system:String>
+    <system:String x:Key="ServerSecret">Server Secret</system:String>
+    <system:String x:Key="ShowSecret">Show Secret</system:String>
+    <system:String x:Key="UseHttps">HTTPS</system:String>
+    <system:String x:Key="UseProxy">Use Proxy</system:String>
+    <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="Edit">Edit</system:String>
+    <system:String x:Key="CurrentServer">Current Server</system:String>
+    <system:String x:Key="SetProxy">Set proxy for servers:</system:String>
+    <system:String x:Key="ProxyType">Proxy Type</system:String>
+    <system:String x:Key="ProxyAddress">Proxy Address</system:String>
+    <system:String x:Key="ProxyPort">Proxy Port</system:String>
+    <system:String x:Key="ProxyUser">Proxy User</system:String>
+    <system:String x:Key="ProxyPasswd">Proxy Passwd</system:String>
+    <system:String x:Key="NoServersAvaliable">No server configurations found. Please create a server in the settings first</system:String>
+    <system:String x:Key="SavedSuccessfully">Saved Successfully</system:String>
+</ResourceDictionary>
