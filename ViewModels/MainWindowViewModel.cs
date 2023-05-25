@@ -33,7 +33,7 @@ namespace Aria2Manager.ViewModels
             }
             catch (System.ComponentModel.Win32Exception noBrowser)
             {
-                //没有浏览器
+                //未发现浏览器
                 if (noBrowser.ErrorCode == -2147467259)
                 {
                     MessageBox.Show(noBrowser.Message);

@@ -6,13 +6,14 @@ namespace Aria2Manager.Models
 {
     public class Aria2ServerModel
     {
-        public string? ServerName { get; set; }
-        public string? ServerAddress { get; set; }
-        public string? ServerPort { get; set; }
-        public string? ServerSecret { get; set; }
-        public bool IsHttps { get; set; }
-        public bool UseProxy { get; set; }
+        public string? ServerName { get; set; } //服务器名
+        public string? ServerAddress { get; set; } //服务器地址
+        public string? ServerPort { get; set; } //端口
+        public string? ServerSecret { get; set; } //密钥
+        public bool IsHttps { get; set; } //是否使用https
+        public bool UseProxy { get; set; } //是否使用代理
 
+        //通过服务器名称从文件读取服务器配置
         private void ReadFromFileByName(string server_name)
         {
             XmlDocument doc = new XmlDocument();
@@ -52,6 +53,7 @@ namespace Aria2Manager.Models
             }
         }
 
+        //初始化
         public Aria2ServerModel(bool read_file = false)
         {
             if (!read_file)
@@ -65,6 +67,7 @@ namespace Aria2Manager.Models
             }
             else
             {
+                //从配置文件读取当前服务器
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Configurations\\Aria2Servers.xml");
                 var current = doc.SelectSingleNode($"/Servers/Current");
@@ -80,6 +83,7 @@ namespace Aria2Manager.Models
             }
         }
 
+        //通过参数初始化
         public Aria2ServerModel(string server_name, string server_address, string server_port,
             string server_secret, bool is_https, bool use_proxy)
         {
@@ -91,6 +95,7 @@ namespace Aria2Manager.Models
             UseProxy = use_proxy;
         }
 
+        //通过服务器名初始化
         public Aria2ServerModel(string server_name)
         {
             ReadFromFileByName(server_name);

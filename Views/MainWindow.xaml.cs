@@ -18,6 +18,7 @@ namespace Aria2Manager
             var app = (App)Application.Current;
             app.SetLanguageDictionary(); //设置界面语言
 
+            //从文件读取当前服务器信息
             try
             {
                 Aria2Server = new Aria2ServerModel(true);
@@ -25,6 +26,7 @@ namespace Aria2Manager
             catch
             {
                 Aria2Server = new Aria2ServerModel();
+                //未发现配置，提示创建服务器信息
                 MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

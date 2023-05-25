@@ -20,15 +20,18 @@ namespace Aria2Manager.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        //用于绑定的指令
         public ICommand AddNewServerCommand { get; set; }
         public ICommand SaveEditCommand { get; set; }
         public ICommand SaveSettingsCommand { get; set; }
 
-        private ObservableCollection<Aria2ServerModel> _servers;
-        private Aria2ServerModel _editserver;
-        private Aria2ServerModel _currentserver;
-        private int _serverindex;
 
+        private ObservableCollection<Aria2ServerModel> _servers; //服务器配置列表
+        private Aria2ServerModel _editserver; //正在编辑的服务器配置
+        private Aria2ServerModel _currentserver; //当前正使用的服务器
+        private int _serverindex; //选中的服务器在列表中的位置
+
+        //代理设置
         public string? ProxyType { get; set; }
         public string? ProxyAddress { get; set; }
         public string? ProxyPort { get; set; }
@@ -39,6 +42,7 @@ namespace Aria2Manager.ViewModels
         {
             get
             {
+                //根据_currentserver返回服务器列表中对应元素
                 foreach (Aria2ServerModel server in Servers)
                 {
                     if (server.ServerName == _currentserver.ServerName)
@@ -50,6 +54,7 @@ namespace Aria2Manager.ViewModels
             }
             set
             {
+                //根据选中的服务器，更新index
                 for (int i = 0; i < Servers.Count; i++)
                 {
                     if (Servers[i].ServerName == value.ServerName)
@@ -68,7 +73,7 @@ namespace Aria2Manager.ViewModels
                 if (value != _editserver)
                 {
                     _editserver = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(); //更改通知
                 }
             }
         }
@@ -89,12 +94,13 @@ namespace Aria2Manager.ViewModels
         {
             if (Server == null)
             {
-                _currentserver = new Aria2ServerModel();
+                _currentserver = new Aria2ServerModel(); //储存当前服务器信息
             }
             else
             {
                 _currentserver = Server;
             }
+            //设置指令
             AddNewServerCommand = new RelayCommand(AddNewServer);
             SaveEditCommand = new RelayCommand(SaveServers);
             SaveSettingsCommand = new RelayCommand(SaveSettings);
@@ -117,6 +123,7 @@ namespace Aria2Manager.ViewModels
             }
             catch
             {
+                //配置文件无信息则使用默认值
                 _servers.Add(new Aria2ServerModel());
                 _editserver = _servers[0];
             }
@@ -154,6 +161,7 @@ namespace Aria2Manager.ViewModels
             }
             catch
             {
+                //默认代理信息
                 ProxyType = "http";
                 ProxyAddress = "127.0.0.1";
                 ProxyPort = "10809";
@@ -161,9 +169,10 @@ namespace Aria2Manager.ViewModels
                 ProxyPasswd = "";
             }
             ProxyTypes = new List<string>();
-            ProxyTypes.AddRange(new string[] { "http", "socks4", "socks5" });
+            ProxyTypes.AddRange(new string[] { "http", "socks4", "socks5" }); //代理类型
         }
 
+        //添加新代理
         private void AddNewServer(object? parameter)
         {
             Aria2ServerModel NewServer = new Aria2ServerModel();
@@ -171,6 +180,7 @@ namespace Aria2Manager.ViewModels
             EditServer = NewServer;
         }
 
+        //保存服务器编辑结果
         private void SaveServers(object? parameter)
         {
             //若当前仅有一个服务器配置，将其作为当前配置
@@ -215,18 +225,22 @@ namespace Aria2Manager.ViewModels
             Node = doc.SelectSingleNode("/Servers/Avaliable");
             Node.InnerText = String.Join(',', server_names.ToArray());
             doc.Save("Configurations\\Aria2Servers.xml");
+            //保存成功提示
             MessageBox.Show(Application.Current.FindResource("SavedSuccessfully").ToString(),
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.None);
         }
 
+        //保存服务器设置
         private void SaveSettings(object? parameter)
         {
+            //更新当前服务器信息
             _currentserver.ServerName = Servers[_serverindex].ServerName;
             _currentserver.ServerAddress = Servers[_serverindex].ServerAddress;
             _currentserver.ServerPort = Servers[_serverindex].ServerPort;
             _currentserver.ServerSecret = Servers[_serverindex].ServerSecret;
             _currentserver.IsHttps = Servers[_serverindex].IsHttps;
             _currentserver.UseProxy = Servers[_serverindex].UseProxy;
+            //保存代理设置
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Aria2Servers.xml");
             var proxy = doc.SelectSingleNode("/Servers/Proxy");
@@ -254,6 +268,7 @@ namespace Aria2Manager.ViewModels
                 }
             }
             doc.Save("Configurations\\Aria2Servers.xml");
+            //成功提示
             MessageBox.Show(Application.Current.FindResource("SavedSuccessfully").ToString(),
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.None);
         }
