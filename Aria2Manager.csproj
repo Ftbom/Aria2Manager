@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aria2.NET" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Font-Awesome.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

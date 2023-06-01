@@ -9,6 +9,7 @@
     <system:String x:Key="Exit">Exit</system:String>
     <system:String x:Key="Help">Help</system:String>
     <system:String x:Key="Aria2Website">Aria2 Website</system:String>
+    <system:String x:Key="Aria2Info">Aria2 Server Info</system:String>
     <system:String x:Key="About">About</system:String>
     <system:String x:Key="ManageServers">ManageServers</system:String>
     <system:String x:Key="New">New</system:String>
@@ -30,4 +31,6 @@
     <system:String x:Key="ProxyPasswd">Proxy Passwd</system:String>
     <system:String x:Key="NoServersAvaliable">No server configurations found. Please create a server in the settings first</system:String>
     <system:String x:Key="SavedSuccessfully">Saved Successfully</system:String>
+    <system:String x:Key="Aria2Version">Aria2 Version:</system:String>
+    <system:String x:Key="Aria2Features">Aria2 Enabled Features:</system:String>
 </ResourceDictionary>

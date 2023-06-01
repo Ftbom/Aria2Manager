@@ -10,7 +10,7 @@
         <local:MainWindowViewModel/>
     </Window.DataContext>
     <DockPanel LastChildFill="False">
-        <Menu DockPanel.Dock="Top" Height="24" Width="800">
+        <Menu DockPanel.Dock="Top" Height="24">
             <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Settings}" Height="24">
                 <MenuItem x:Name="ManageAria2ServersMenu" Header="{DynamicResource Aria2Manager}" Click="ManageAria2ServersMenu_Click">
                     <MenuItem.Icon>
@@ -40,6 +40,11 @@
                         <TextBlock Text="&#xf0ac;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem x:Name="Aria2Info" Header="{DynamicResource Aria2Info}" Click="Aria2Info_Click">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf059;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
                 <MenuItem x:Name="AboutMenu" Header="{DynamicResource About}" Click="AboutMenu_Click">
                     <MenuItem.Icon>
@@ -48,5 +53,11 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
+        <ToolBarTray DockPanel.Dock="Top" Height="35">
+            <ToolBar HorizontalAlignment="Center" Height="35" VerticalAlignment="Center" Width="800"/>
+        </ToolBarTray>
+        <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Height="35">
+            <StatusBar Width="800"/>
+        </DockPanel>
     </DockPanel>
 </Window>

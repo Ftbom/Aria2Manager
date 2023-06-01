@@ -51,7 +51,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox x:Name="UseHttps" Content="{DynamicResource UseHttps}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="51" IsChecked="{Binding EditServer.IsHttps}"/>
+                    <CheckBox x:Name="UseHttps" Content="{DynamicResource UseHttps}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="57" IsChecked="{Binding EditServer.IsHttps}"/>
                     <CheckBox x:Name="UseProxy" Grid.Column="1" Content="{DynamicResource UseProxy}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding EditServer.UseProxy}"/>
                 </Grid>
 

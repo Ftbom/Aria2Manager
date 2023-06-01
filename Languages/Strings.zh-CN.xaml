@@ -9,6 +9,7 @@
     <system:String x:Key="Exit">退出</system:String>
     <system:String x:Key="Help">帮助</system:String>
     <system:String x:Key="Aria2Website">Aria2官网</system:String>
+    <system:String x:Key="Aria2Info">Aria2服务器信息</system:String>
     <system:String x:Key="About">关于</system:String>
     <system:String x:Key="ManageServers">管理服务器</system:String>
     <system:String x:Key="New">新建</system:String>
@@ -30,4 +31,6 @@
     <system:String x:Key="ProxyPasswd">密码</system:String>
     <system:String x:Key="NoServersAvaliable">未找到服务器配置，请先在设置中创建服务器</system:String>
     <system:String x:Key="SavedSuccessfully">保存成功</system:String>
+    <system:String x:Key="Aria2Version">Aria2版本：</system:String>
+    <system:String x:Key="Aria2Features">启用的功能：</system:String>
 </ResourceDictionary>

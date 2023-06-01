@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 using Aria2Manager.Models;
 using Aria2Manager.Views;
 
@@ -50,6 +53,17 @@ namespace Aria2Manager
             MessageBox.Show(
                 name + "\nVersion " + version + "\n\n" + copyright + "\n" + email,
                 "About", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        //异步
+        private async void Aria2Info_Click(object sender, RoutedEventArgs e)
+        {
+            string? Aria2VersionStr = Application.Current.FindResource("Aria2Version").ToString();
+            string? Aria2FeaturesStr = Application.Current.FindResource("Aria2Features").ToString();
+            var client = new Aria2ClientModel(Aria2Server);
+            var Aria2Version = await client.Aria2Client.GetVersionAsync();
+            MessageBox.Show($"\n{Aria2VersionStr}{Aria2Version.Version}\n\n{Aria2FeaturesStr}\n{String.Join('\n', Aria2Version.EnabledFeatures)}",
+                "Version", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

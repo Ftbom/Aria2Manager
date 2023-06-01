@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows.Controls;
 using System.Xml;
 
@@ -99,6 +100,58 @@ namespace Aria2Manager.Models
         public Aria2ServerModel(string server_name)
         {
             ReadFromFileByName(server_name);
+        }
+
+        static public WebProxy? GetProxies()
+        {
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Configurations\\Aria2Servers.xml");
+                var proxy = doc.SelectSingleNode("/Servers/Proxy");
+                string ProxyAddress = "";
+                string ProxyPort = "";
+                string ProxyType = "";
+                string ProxyUser = "";
+                string ProxyPasswd = "";
+                foreach (XmlNode node in proxy.ChildNodes)
+                {
+                    switch (node.Name)
+                    {
+                        case "Address":
+                            ProxyAddress = node.InnerText;
+                            break;
+                        case "Port":
+                            ProxyPort = node.InnerText;
+                            break;
+                        case "Type":
+                            ProxyType = node.InnerText;
+                            break;
+                        case "User":
+                            ProxyUser = node.InnerText;
+                            break;
+                        case "Passwd":
+                            ProxyPasswd = node.InnerText;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                var ProxySetting = new WebProxy
+                {
+                    Address = new Uri($"{ProxyType}://{ProxyAddress}:{ProxyPort}"),
+                    BypassProxyOnLocal = false,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(
+                        userName: ProxyUser,
+                        password: ProxyPasswd)
+                };
+                return ProxySetting;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
