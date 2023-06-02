@@ -9,55 +9,63 @@
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
-    <DockPanel LastChildFill="False">
-        <Menu DockPanel.Dock="Top" Height="24">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
             <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Settings}" Height="24">
                 <MenuItem x:Name="ManageAria2ServersMenu" Header="{DynamicResource Aria2Manager}" Click="ManageAria2ServersMenu_Click">
                     <MenuItem.Icon>
-                        <TextBlock Text="&#xf828;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                        <TextBlock Text="&#xF828;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="Aria2SettingsMenu" Header="{DynamicResource Aria2Settings}">
                     <MenuItem.Icon>
-                        <TextBlock Text="&#xf1de;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                        <TextBlock Text="&#xF1DE;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="ProgramSettingsMenu" Header="{DynamicResource ProgramSettings}">
                     <MenuItem.Icon>
-                        <TextBlock Text="&#xf013;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                        <TextBlock Text="&#xF013;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
                 <MenuItem x:Name="ExitMenu" Header="{DynamicResource Exit}" Height="24" Command="{Binding ExitCommand}" >
                     <MenuItem.Icon>
-                        <TextBlock Text="&#xf00d;" FontFamily="{StaticResource FontAwesome}" FontSize="20" />
+                        <TextBlock Text="&#xF00D;" FontFamily="{StaticResource FontAwesome}" FontSize="20" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem x:Name="HelpMenu" Header="{DynamicResource Help}" InputGestureText="">
                 <MenuItem x:Name="Aria2WebsiteMenu" Header="{DynamicResource Aria2Website}" Command="{Binding OpenAria2WebsiteCommand}">
                     <MenuItem.Icon>
-                        <TextBlock Text="&#xf0ac;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                        <TextBlock Text="&#xF0AC;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem x:Name="Aria2Info" Header="{DynamicResource Aria2Info}" Click="Aria2Info_Click">
                     <MenuItem.Icon>
-                        <TextBlock Text="&#xf059;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                        <TextBlock Text="&#xF059;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
                 <MenuItem x:Name="AboutMenu" Header="{DynamicResource About}" Click="AboutMenu_Click">
                     <MenuItem.Icon>
-                        <TextBlock Text="&#xf05a;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                        <TextBlock Text="&#xF05A;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBarTray DockPanel.Dock="Top" Height="35">
-            <ToolBar HorizontalAlignment="Center" Height="35" VerticalAlignment="Center" Width="800"/>
-        </ToolBarTray>
-        <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Height="35">
-            <StatusBar Width="800"/>
-        </DockPanel>
-    </DockPanel>
+        <ToolBarTray Grid.Row="1"/>
+        <StatusBar Grid.Row="3"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </Grid>
 </Window>
