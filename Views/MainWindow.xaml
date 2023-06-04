@@ -12,7 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="27*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
@@ -59,7 +59,53 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBarTray Grid.Row="1"/>
+        <ToolBarTray x:Name="toolBarTray" Grid.Row="1">
+            <ToolBar Height="{Binding ActualHeight, ElementName=toolBarTray, Mode=OneWay}">
+                <Button x:Name="AddButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#x2b;" FontFamily="{StaticResource FontAwesome}" Foreground="LimeGreen" FontSize="20" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource Add}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="RemoveButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf1f8;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="20" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource Remove}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="ResumeButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf04b;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="20" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource Resume}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="PauseButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf04c;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="20" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource Pause}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Separator/>
+                <Button x:Name="RemoveAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf2ed;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="20" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource RemoveAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="ResumeAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf144;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="20" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource ResumeAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="PauseAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf28b;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="20" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource PauseAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
         <StatusBar Grid.Row="3"/>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

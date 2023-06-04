@@ -32,5 +32,11 @@
     <system:String x:Key="NoServersAvaliable">No server configurations found. Please create a server in the settings first</system:String>
     <system:String x:Key="SavedSuccessfully">Saved Successfully</system:String>
     <system:String x:Key="Aria2Version">Aria2 Version:</system:String>
-    <system:String x:Key="Aria2Features">Aria2 Enabled Features:</system:String>
+    <system:String x:Key="Add">Add</system:String>
+    <system:String x:Key="Remove">Remove</system:String>
+    <system:String x:Key="Resume">Resume</system:String>
+    <system:String x:Key="Pause">Pause</system:String>
+    <system:String x:Key="ResumeAll">ResumeAll</system:String>
+    <system:String x:Key="PauseAll">PauseAll</system:String>
+    <system:String x:Key="RemoveAll">RemoveAll</system:String>
 </ResourceDictionary>

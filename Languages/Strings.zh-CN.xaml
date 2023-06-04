@@ -33,4 +33,11 @@
     <system:String x:Key="SavedSuccessfully">保存成功</system:String>
     <system:String x:Key="Aria2Version">Aria2版本：</system:String>
     <system:String x:Key="Aria2Features">启用的功能：</system:String>
+    <system:String x:Key="Add">添加</system:String>
+    <system:String x:Key="Remove">移除</system:String>
+    <system:String x:Key="Resume">继续</system:String>
+    <system:String x:Key="Pause">暂停</system:String>
+    <system:String x:Key="ResumeAll">全部继续</system:String>
+    <system:String x:Key="PauseAll">全部暂停</system:String>
+    <system:String x:Key="RemoveAll">全部移除</system:String>
 </ResourceDictionary>
