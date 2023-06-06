@@ -3,12 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Aria2Manager.ViewModels"
         mc:Ignorable="d"
         Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <local:MainWindowViewModel/>
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -106,7 +102,22 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <StatusBar Grid.Row="3"/>
+        <StatusBar Grid.Row="3">
+            <StatusBarItem Height="37" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="{DynamicResource CurrentServer}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Aria2Server.ServerName}"/>
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem Height="37" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock TextWrapping="Wrap" Text="{DynamicResource UploadSpeed}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding UploadSpeed}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{DynamicResource DownloadSpeed}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding DownloadSpeed}"/>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

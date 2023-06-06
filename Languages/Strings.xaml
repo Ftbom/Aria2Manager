@@ -22,7 +22,7 @@
     <system:String x:Key="UseProxy">Use Proxy</system:String>
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Edit">Edit</system:String>
-    <system:String x:Key="CurrentServer">Current Server</system:String>
+    <system:String x:Key="CurrentServer">Current Server:</system:String>
     <system:String x:Key="SetProxy">Set proxy for servers:</system:String>
     <system:String x:Key="ProxyType">Proxy Type</system:String>
     <system:String x:Key="ProxyAddress">Proxy Address</system:String>
@@ -39,4 +39,6 @@
     <system:String x:Key="ResumeAll">ResumeAll</system:String>
     <system:String x:Key="PauseAll">PauseAll</system:String>
     <system:String x:Key="RemoveAll">RemoveAll</system:String>
+    <system:String x:Key="UploadSpeed">Upload Speed:</system:String>
+    <system:String x:Key="DownloadSpeed">Download Speed:</system:String>
 </ResourceDictionary>

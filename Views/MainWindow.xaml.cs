@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 using Aria2Manager.Models;
+using Aria2Manager.ViewModels;
 using Aria2Manager.Views;
 
 namespace Aria2Manager
@@ -33,6 +34,8 @@ namespace Aria2Manager
                 MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            MainWindowViewModel model = new MainWindowViewModel(Aria2Server);
+            DataContext = model;
         }
 
         private void ManageAria2ServersMenu_Click(object sender, RoutedEventArgs e)

@@ -22,7 +22,7 @@
     <system:String x:Key="UseProxy">使用代理</system:String>
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="Edit">编辑</system:String>
-    <system:String x:Key="CurrentServer">当前服务器</system:String>
+    <system:String x:Key="CurrentServer">当前服务器：</system:String>
     <system:String x:Key="SetProxy">设置服务器代理：</system:String>
     <system:String x:Key="ProxyType">代理类型</system:String>
     <system:String x:Key="ProxyAddress">代理地址</system:String>
@@ -40,4 +40,6 @@
     <system:String x:Key="ResumeAll">全部继续</system:String>
     <system:String x:Key="PauseAll">全部暂停</system:String>
     <system:String x:Key="RemoveAll">全部移除</system:String>
+    <system:String x:Key="UploadSpeed">上传速度：</system:String>
+    <system:String x:Key="DownloadSpeed">下载速度：</system:String>
 </ResourceDictionary>
