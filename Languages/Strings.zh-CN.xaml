@@ -42,4 +42,7 @@
     <system:String x:Key="RemoveAll">全部移除</system:String>
     <system:String x:Key="UploadSpeed">上传速度：</system:String>
     <system:String x:Key="DownloadSpeed">下载速度：</system:String>
+    <system:String x:Key="Downloading">下载中</system:String>
+    <system:String x:Key="Waiting">等待中</system:String>
+    <system:String x:Key="Stopped">已完成/已停止</system:String>
 </ResourceDictionary>

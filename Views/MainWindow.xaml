@@ -1,18 +1,12 @@
-﻿<Window x:Class="Aria2Manager.MainWindow"
+﻿<Window x:Name="window" x:Class="Aria2Manager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="27*"/>
-            <RowDefinition Height="3*"/>
-        </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Height="25">
             <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Settings}" Height="24">
                 <MenuItem x:Name="ManageAria2ServersMenu" Header="{DynamicResource Aria2Manager}" Click="ManageAria2ServersMenu_Click">
                     <MenuItem.Icon>
@@ -55,54 +49,54 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ToolBarTray Grid.Row="1">
+        <ToolBarTray DockPanel.Dock="Top" Height="37">
             <ToolBar>
                 <Button x:Name="AddButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#x2b;" FontFamily="{StaticResource FontAwesome}" Foreground="LimeGreen" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" Foreground="LimeGreen" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Add}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="RemoveButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf1f8;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Remove}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="ResumeButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf04b;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Resume}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="PauseButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf04c;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Pause}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Separator/>
                 <Button x:Name="RemoveAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf2ed;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF2ED;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource RemoveAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="ResumeAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf144;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF144;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource ResumeAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="PauseAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf28b;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF28B;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource PauseAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <StatusBar Grid.Row="3">
+        <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem x:Name="ServerInfo" Height="37" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock TextWrapping="Wrap" Text="{DynamicResource CurrentServer}" Margin="0,0,2,0"/>
@@ -118,7 +112,7 @@
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
-        <Grid Grid.Row="2">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="1*"/>
@@ -132,6 +126,26 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <ListBox>
+                <ListBoxItem Margin="0,0,0,5">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Stroke="Black" Fill="LawnGreen" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
+                        <TextBlock x:Name="Downloading" TextWrapping="Wrap" Text="{DynamicResource Downloading}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="0,0,0,5">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Stroke="Black" Fill="#FFFFDD00" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
+                        <TextBlock x:Name="Waiting" TextWrapping="Wrap" Text="{DynamicResource Waiting}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Stroke="Black" Fill="#FF651E1E" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
+                        <TextBlock x:Name="Stopped" TextWrapping="Wrap" Text="{DynamicResource Stopped}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
+                    </StackPanel>
+                </ListBoxItem>
+            </ListBox>
         </Grid>
-    </Grid>
+    </DockPanel>
 </Window>

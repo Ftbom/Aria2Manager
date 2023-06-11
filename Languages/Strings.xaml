@@ -41,4 +41,7 @@
     <system:String x:Key="RemoveAll">RemoveAll</system:String>
     <system:String x:Key="UploadSpeed">Upload Speed:</system:String>
     <system:String x:Key="DownloadSpeed">Download Speed:</system:String>
+    <system:String x:Key="Downloading">Downloading</system:String>
+    <system:String x:Key="Waiting">Waiting</system:String>
+    <system:String x:Key="Stopped">Finished/Stopped</system:String>
 </ResourceDictionary>
