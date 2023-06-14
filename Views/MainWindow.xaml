@@ -127,21 +127,27 @@
                 </ListView.View>
             </ListView>
             <ListBox>
-                <ListBoxItem Margin="0,0,0,5">
+                <ListBoxItem Margin="5,5,0,5">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Stroke="Black" Fill="Orange" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
+                        <TextBlock x:Name="All" TextWrapping="Wrap" Text="{DynamicResource All}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Stroke="Black" Fill="LawnGreen" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
                         <TextBlock x:Name="Downloading" TextWrapping="Wrap" Text="{DynamicResource Downloading}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
-                <ListBoxItem Margin="0,0,0,5">
+                <ListBoxItem Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="#FFFFDD00" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
+                        <Ellipse Stroke="Black" Fill="Red" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
                         <TextBlock x:Name="Waiting" TextWrapping="Wrap" Text="{DynamicResource Waiting}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem Margin="5,0,0,0">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="#FF651E1E" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
+                        <Ellipse Stroke="Black" Fill="Black" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Downloading, Mode=OneWay}"/>
                         <TextBlock x:Name="Stopped" TextWrapping="Wrap" Text="{DynamicResource Stopped}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>

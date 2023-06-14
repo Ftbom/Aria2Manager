@@ -45,4 +45,5 @@
     <system:String x:Key="Downloading">下载中</system:String>
     <system:String x:Key="Waiting">等待中</system:String>
     <system:String x:Key="Stopped">已完成/已停止</system:String>
+    <system:String x:Key="All">全部</system:String>
 </ResourceDictionary>
