@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -30,6 +31,7 @@ namespace Aria2Manager.ViewModels
         public string? DownloadSpeed { get; set; }
         public ICommand ExitCommand { get; private set; }
         public ICommand OpenAria2WebsiteCommand { get; private set; }
+        public ObservableCollection<DownloadItemModel> DownloadItems { get; set; }
 
         private bool server_connected;
 
@@ -47,6 +49,7 @@ namespace Aria2Manager.ViewModels
             OpenAria2WebsiteCommand = new RelayCommand(OpenAria2Website);
             //TODO:判断服务器可连接状态
             server_connected = true;
+            DownloadItems = new ObservableCollection<DownloadItemModel>();
         }
 
         private void Exit(object? parameter)

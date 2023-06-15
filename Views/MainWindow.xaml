@@ -119,10 +119,30 @@
                 <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-            <ListView Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView Grid.Column="2" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding DownloadItems}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn/>
+                        <GridViewColumn Header="{DynamicResource Name}" Width="120" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="{DynamicResource Size}" Width="120" DisplayMemberBinding="{Binding Size}"/>
+                        <GridViewColumn Header="{DynamicResource Progress}" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <ProgressBar Maximum="100" Value="{Binding Progress}" Width="110" Height="15"/>
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Progress}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="{DynamicResource ETA}" Width="120" DisplayMemberBinding="{Binding ETA}"/>
+                        <GridViewColumn Header="{DynamicResource Status}" Width="120" DisplayMemberBinding="{Binding Status}"/>
+                        <GridViewColumn Header="{DynamicResource DownloadSpeed}" Width="120" DisplayMemberBinding="{Binding DownloadSpeed}"/>
+                        <GridViewColumn Header="{DynamicResource UploadSpeed}" Width="120" DisplayMemberBinding="{Binding UploadSpeed}"/>
+                        <GridViewColumn Header="{DynamicResource Downloaded}" Width="120" DisplayMemberBinding="{Binding Downloaded}"/>
+                        <GridViewColumn Header="{DynamicResource Uploaded}" Width="120" DisplayMemberBinding="{Binding Uploaded}"/>
+                        <GridViewColumn Header="{DynamicResource Ratio}" Width="120" DisplayMemberBinding="{Binding Ratio}"/>
+                        <GridViewColumn Header="{DynamicResource Connections}" Width="120" DisplayMemberBinding="{Binding Connections}"/>
+                        <GridViewColumn Header="{DynamicResource Seeds}" Width="120" DisplayMemberBinding="{Binding Seeds}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
