@@ -60,4 +60,5 @@
     <system:String x:Key="Connections">连接数</system:String>
     <system:String x:Key="Seeds">做种数</system:String>
     <system:String x:Key="Properties">属性</system:String>
+    <system:String x:Key="Show">显示</system:String>
 </ResourceDictionary>

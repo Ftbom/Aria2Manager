@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Xml.Linq;
 using Aria2Manager.Models;
 using Aria2Manager.ViewModels;
 using Aria2Manager.Views;

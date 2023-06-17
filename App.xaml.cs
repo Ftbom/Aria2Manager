@@ -32,5 +32,20 @@ namespace Aria2Manager
             //导入对应的语言文件
             Resources.MergedDictionaries.Add(dict);
         }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown(); //退出程序
+        }
+
+        private void Show_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.Windows.Count > 1)
+            {
+                return;
+            }
+            MainWindow main_window = new MainWindow();
+            main_window.Show();
+        }
     }
 }

@@ -1,16 +1,32 @@
 ﻿<Application x:Class="Aria2Manager.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Aria2Manager"
-             StartupUri="Views/MainWindow.xaml">
+             StartupUri="Views/MainWindow.xaml"
+             ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
+            <FontFamily x:Key="FontAwesome">/Aria2Manager;component/Resources/Font-Awesome.otf#Font Awesome 6 Free Solid</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <!--默认语言文件-->
                 <!--添加后在界面设计器中才可显示字符-->
                 <ResourceDictionary Source="Languages/Strings.xaml"/>
+                <!--托盘图标-->
+                <ResourceDictionary
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:tb="http://www.hardcodet.net/taskbar">
+                    <tb:TaskbarIcon x:Key="NotifyIcon" IconSource="/Resources/app.ico"
+                                    ToolTipText="Aria2Manager" TrayLeftMouseDown="Show_Click">
+                        <tb:TaskbarIcon.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="Show" Header="{DynamicResource Show}" Height="24" Click="Show_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="Exit" Header="{DynamicResource Exit}" Height="24" Click="Exit_Click"/>
+                            </ContextMenu>
+                        </tb:TaskbarIcon.ContextMenu>
+                    </tb:TaskbarIcon>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="FontAwesome">/Aria2Manager;component/Resources/Font-Awesome.otf#Font Awesome 6 Free Solid</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

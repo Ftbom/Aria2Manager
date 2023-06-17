@@ -59,4 +59,5 @@
     <system:String x:Key="Connections">Connections</system:String>
     <system:String x:Key="Seeds">Seeds</system:String>
     <system:String x:Key="Properties">Properties</system:String>
+    <system:String x:Key="Show">Show</system:String>
 </ResourceDictionary>
