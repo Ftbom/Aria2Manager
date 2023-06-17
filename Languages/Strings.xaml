@@ -41,9 +41,12 @@
     <system:String x:Key="RemoveAll">RemoveAll</system:String>
     <system:String x:Key="UploadSpeed">Upload Speed</system:String>
     <system:String x:Key="DownloadSpeed">Download Speed</system:String>
-    <system:String x:Key="Downloading">Downloading</system:String>
+    <system:String x:Key="Active">Active</system:String>
     <system:String x:Key="Waiting">Waiting</system:String>
-    <system:String x:Key="Stopped">Finished/Stopped</system:String>
+    <system:String x:Key="Paused">Paused</system:String>
+    <system:String x:Key="Complete">Complete</system:String>
+    <system:String x:Key="Removed">Removed</system:String>
+    <system:String x:Key="Error">Error</system:String>
     <system:String x:Key="All">All</system:String>
     <system:String x:Key="Name">Name</system:String>
     <system:String x:Key="Size">Size</system:String>
@@ -55,4 +58,5 @@
     <system:String x:Key="Ratio">Ratio</system:String>
     <system:String x:Key="Connections">Connections</system:String>
     <system:String x:Key="Seeds">Seeds</system:String>
+    <system:String x:Key="Properties">Properties</system:String>
 </ResourceDictionary>

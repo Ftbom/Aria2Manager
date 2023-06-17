@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aria2.NET" Version="1.0.5" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
   <ItemGroup>

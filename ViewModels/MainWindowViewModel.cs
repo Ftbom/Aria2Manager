@@ -1,39 +1,96 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Aria2Manager.Models;
 using Aria2Manager.Utils;
 
 namespace Aria2Manager.ViewModels
 {
-    internal class MainWindowViewModel
+    internal class MainWindowViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public Aria2ServerModel Aria2Server { get; set; }
         public string Connected //服务器状态，颜色
         {
             get
             {
-                if (server_connected)
-                {
-                    return "Green";
-                }
-                else
-                {
-                    return "Red";
-                }
+                return _connected;
             }
-            private set { }
+            private set
+            {
+                _connected = value;
+                OnPropertyChanged();
+            }
         }
-        public string? UploadSpeed { get; set; }
-        public string? DownloadSpeed { get; set; }
+        public string UploadSpeed //上传速度
+        {
+            get
+            {
+                return _uploadspeed;
+            }
+            set
+            {
+                _uploadspeed = value;
+                OnPropertyChanged();
+            }
+        }
+        public string DownloadSpeed //下载速度
+        {
+            get
+            {
+                return _downloadspeed;
+            }
+            set
+            {
+                _downloadspeed = value;
+                OnPropertyChanged();
+            }
+        }
+        public DownloadItemModel? SelectedItem
+        {
+            get
+            {
+                return _selecteditem;
+            }
+            set
+            {
+                _selecteditem = value;
+                OnPropertyChanged();
+            }
+        }
+        public string? SelectedGid { get; set; }
         public ICommand ExitCommand { get; private set; }
         public ICommand OpenAria2WebsiteCommand { get; private set; }
-        public ObservableCollection<DownloadItemModel> DownloadItems { get; set; }
+        public ICommand ChosenStatusChangedCommand { get; private set; }
+        public ICommand RemoveItemCommand { get; private set; }
+        public ICommand PauseItemCommand { get; private set; }
+        public ICommand ResumeItemCommand { get; private set; }
+        public ICommand ManageAllItemCommand { get; private set; }
+        public List<DownloadItemModel> DownloadItems //下载项
+        {
+            get => _downloaditems;
+            set
+            {
+                _downloaditems = value;
+                OnPropertyChanged();
+            }
+        }
+        public string CurrentChosenStatus { get; set; }
 
-        private bool server_connected;
+        private string _connected;
+        private string _downloadspeed;
+        private string _uploadspeed;
+        private List<DownloadItemModel> _downloaditems;
+        private DownloadItemModel? _selecteditem;
 
         public MainWindowViewModel(Aria2ServerModel? aria2_server = null)
         {
@@ -47,9 +104,17 @@ namespace Aria2Manager.ViewModels
             }
             ExitCommand = new RelayCommand(Exit);
             OpenAria2WebsiteCommand = new RelayCommand(OpenAria2Website);
+            ChosenStatusChangedCommand = new RelayCommand(ChosenStatusChanged);
+            RemoveItemCommand = new RelayCommand(RemoveItem);
+            PauseItemCommand = new RelayCommand(PauseItem);
+            ResumeItemCommand = new RelayCommand(ResumeItem);
+            ManageAllItemCommand = new RelayCommand(ManageAllItem);
             //TODO:判断服务器可连接状态
-            server_connected = true;
-            DownloadItems = new ObservableCollection<DownloadItemModel>();
+            _connected = "Green";
+            _downloaditems = new List<DownloadItemModel>();
+            CurrentChosenStatus = "all";
+            _uploadspeed = "0KB/s";
+            _downloadspeed = "0KB/s";
             UpdataDownloadItems();
         }
 
@@ -80,20 +145,96 @@ namespace Aria2Manager.ViewModels
             }
         }
 
+        //更新筛选条件
+        private void ChosenStatusChanged(object? parameter)
+        {
+            TextBlock item = (TextBlock)parameter;
+            CurrentChosenStatus = item.Name.ToLower();
+        }
+
+        //操作所有项
+        private void ManageAllItem(object? parameter)
+        {
+            if (parameter == null)
+            {
+                return;
+            }
+            var client = new Aria2ClientModel(Aria2Server);
+            string cmd_num = (string)parameter;
+            if (cmd_num == "0")
+            {
+                client.Aria2Client.PauseAllAsync();
+            }
+            else if (cmd_num == "1")
+            {
+                client.Aria2Client.UnpauseAllAsync();
+            }
+        }
+
+        //删除项
+        private void RemoveItem(object? parameter)
+        {
+            if (parameter == null)
+            {
+                return;
+            }
+            DownloadItemModel item = (DownloadItemModel)parameter;
+            var client = new Aria2ClientModel(Aria2Server);
+            if ((item.Status == "complete") || (item.Status == "error") || (item.Status == "removed"))
+            {
+                client.Aria2Client.RemoveDownloadResultAsync(item.Gid);
+            }
+            else
+            {
+                client.Aria2Client.ForceRemoveAsync(item.Gid);
+            }
+        }
+
+        //暂停项
+        private void PauseItem(object? parameter)
+        {
+            if (parameter == null)
+            {
+                return;
+            }
+            DownloadItemModel item = (DownloadItemModel)parameter;
+            var client = new Aria2ClientModel(Aria2Server);
+            client.Aria2Client.PauseAsync(item.Gid);
+        }
+
+        //继续项
+        private void ResumeItem(object? parameter)
+        {
+            if (parameter == null)
+            {
+                return;
+            }
+            DownloadItemModel item = (DownloadItemModel)parameter;
+            var client = new Aria2ClientModel(Aria2Server);
+            client.Aria2Client.UnpauseAsync(item.Gid);
+        }
+
+        //更新下载项
         private async void UpdataDownloadItems()
         {
             while (true)
             {
+                List<DownloadItemModel> download_items = new List<DownloadItemModel>(); //新建列表
                 try
                 {
                     var client = new Aria2ClientModel(Aria2Server);
-                    var Items = await client.Aria2Client.TellAllAsync();
+                    var Items = await client.Aria2Client.TellAllAsync(); //获取所有项
                     long total_download_speed = 0;
                     long total_upload_speed = 0;
-                    DownloadItems.Clear();
                     foreach (var item in Items)
                     {
+                        if ((CurrentChosenStatus != "all") && (item.Status != CurrentChosenStatus))
+                        {
+                            //筛选
+                            continue;
+                        }
                         DownloadItemModel download_item = new DownloadItemModel();
+                        //更新信息
                         download_item.Gid = item.Gid;
                         if ((item.Bittorrent == null) || (item.Bittorrent.Info == null))
                         {
@@ -104,7 +245,14 @@ namespace Aria2Manager.ViewModels
                             download_item.Name = item.Bittorrent.Info.Name;
                         }
                         download_item.Size = BytesToString(item.TotalLength);
-                        download_item.Progress = (double)(item.CompletedLength * 10000 / item.TotalLength) / 100;
+                        if (item.TotalLength == 0)
+                        {
+                            download_item.Progress = 0;
+                        }
+                        else
+                        {
+                            download_item.Progress = (double)(item.CompletedLength * 10000 / item.TotalLength) / 100;
+                        }
                         download_item.Status = item.Status;
                         download_item.Downloaded = BytesToString(item.CompletedLength);
                         download_item.Uploaded = BytesToString(item.UploadLength);
@@ -130,12 +278,30 @@ namespace Aria2Manager.ViewModels
                         }
                         download_item.Connections = item.Connections;
                         download_item.Seeds = item.NumSeeders;
-                        DownloadItems.Add(download_item);
+                        download_items.Add(download_item);
                     }
-                    //UploadSpeed = BytesToString(total_upload_speed) + "/s";
-                    //DownloadSpeed = BytesToString(total_download_speed) + "/s";
+                    //下载项列表更新，根据GID找出最新的选中项
+                    if (SelectedGid != null)
+                    {
+                        try
+                        {
+                            SelectedItem = download_items.First(x => x.Gid == SelectedGid);
+                        }
+                        catch
+                        {
+                            SelectedItem = null;
+                        }
+                    }
+                    //更新下载项列表
+                    DownloadItems = download_items;
+                    //更新显示速度
+                    UploadSpeed = BytesToString(total_upload_speed) + "/s";
+                    DownloadSpeed = BytesToString(total_download_speed) + "/s";
                 }
-                catch { }
+                catch
+                {
+                    Connected = "Red"; //无法连接
+                }
                 await Task.Delay(500);
             }
         }
@@ -172,6 +338,14 @@ namespace Aria2Manager.ViewModels
             secCount -= m_num * MSize;
             result += secCount.ToString() + "s";
             return result;
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
         }
     }
 }

@@ -6,6 +6,50 @@
         mc:Ignorable="d"
         Title="{DynamicResource ManageServers}" Height="400" Width="260" WindowStartupLocation="CenterOwner">
     <TabControl>
+        <TabItem Header="{DynamicResource Settings}">
+            <Grid Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="12*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="CurrentServer" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource CurrentServer}" VerticalAlignment="Center" Height="20"/>
+                    <ComboBox x:Name="ServerList1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="24" ItemsSource="{Binding Servers}" DisplayMemberPath="ServerName" SelectedItem="{Binding CurrentServer}"/>
+                </Grid>
+
+                <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{DynamicResource SetProxy}" VerticalAlignment="Top" Height="20" Width="168"/>
+                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="111*"/>
+                        <ColumnDefinition Width="143*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyType}" VerticalAlignment="Center" Height="22" Width="91"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyAddress}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyPort}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="2"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyUser}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="3"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="{Binding ProxyAddress}" VerticalAlignment="Center" Width="109" Height="20"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="{Binding ProxyPort}" VerticalAlignment="Center" Width="109" Height="20"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="{Binding ProxyUser}" VerticalAlignment="Center" Width="109" Height="20"/>
+                    <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="109" SelectedValue="{Binding ProxyType}" ItemsSource="{Binding ProxyTypes}"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyPasswd}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="4"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="{Binding ProxyPasswd}" VerticalAlignment="Center" Width="109" Height="20"/>
+                </Grid>
+            </Grid>
+        </TabItem>
         <TabItem Header="{DynamicResource Edit}">
             <Grid Height="335" Margin="0,0,0,0">
                 <Grid.RowDefinitions>
@@ -54,50 +98,6 @@
                     <CheckBox x:Name="UseProxy" Grid.Column="1" Content="{DynamicResource UseProxy}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding EditServer.UseProxy}"/>
                 </Grid>
 
-            </Grid>
-        </TabItem>
-        <TabItem Header="{DynamicResource Settings}">
-            <Grid Margin="0,0,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="12*"/>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="5*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="CurrentServer" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource CurrentServer}" VerticalAlignment="Center" Height="20"/>
-                    <ComboBox x:Name="ServerList1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="24" ItemsSource="{Binding Servers}" DisplayMemberPath="ServerName" SelectedItem="{Binding CurrentServer}"/>
-                </Grid>
-
-                <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{DynamicResource SetProxy}" VerticalAlignment="Top" Height="20" Width="168"/>
-                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"/>
-                <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="111*"/>
-                        <ColumnDefinition Width="143*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyType}" VerticalAlignment="Center" Height="22" Width="91"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyAddress}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="1"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyPort}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="2"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyUser}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="3"/>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="{Binding ProxyAddress}" VerticalAlignment="Center" Width="109" Height="20"/>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="{Binding ProxyPort}" VerticalAlignment="Center" Width="109" Height="20"/>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="{Binding ProxyUser}" VerticalAlignment="Center" Width="109" Height="20"/>
-                    <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="109" SelectedValue="{Binding ProxyType}" ItemsSource="{Binding ProxyTypes}"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyPasswd}" VerticalAlignment="Center" Height="22" Width="91" Grid.Row="4"/>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="{Binding ProxyPasswd}" VerticalAlignment="Center" Width="109" Height="20"/>
-                </Grid>
             </Grid>
         </TabItem>
     </TabControl>

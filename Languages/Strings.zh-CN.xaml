@@ -42,9 +42,12 @@
     <system:String x:Key="RemoveAll">全部移除</system:String>
     <system:String x:Key="UploadSpeed">上传速度</system:String>
     <system:String x:Key="DownloadSpeed">下载速度</system:String>
-    <system:String x:Key="Downloading">下载中</system:String>
+    <system:String x:Key="Active">下载中</system:String>
     <system:String x:Key="Waiting">等待中</system:String>
-    <system:String x:Key="Stopped">已完成/已停止</system:String>
+    <system:String x:Key="Paused">已暂停</system:String>
+    <system:String x:Key="Complete">已完成</system:String>
+    <system:String x:Key="Removed">已取消</system:String>
+    <system:String x:Key="Error">下载出错</system:String>
     <system:String x:Key="All">全部</system:String>
     <system:String x:Key="Name">名称</system:String>
     <system:String x:Key="Size">大小</system:String>
@@ -56,4 +59,5 @@
     <system:String x:Key="Ratio">分享率</system:String>
     <system:String x:Key="Connections">连接数</system:String>
     <system:String x:Key="Seeds">做种数</system:String>
+    <system:String x:Key="Properties">属性</system:String>
 </ResourceDictionary>
