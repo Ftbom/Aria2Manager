@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,8 +28,11 @@ namespace Aria2Manager.ViewModels
             }
             private set
             {
-                _connected = value;
-                OnPropertyChanged();
+                if (_connected != value)
+                {
+                    _connected = value;
+                    OnPropertyChanged();
+                }
             }
         }
         public string UploadSpeed //上传速度
@@ -297,6 +301,7 @@ namespace Aria2Manager.ViewModels
                     //更新显示速度
                     UploadSpeed = BytesToString(total_upload_speed) + "/s";
                     DownloadSpeed = BytesToString(total_download_speed) + "/s";
+                    Connected = "Green";
                 }
                 catch
                 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
+using System.Windows.Media;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -226,8 +226,10 @@ namespace Aria2Manager.ViewModels
             Node.InnerText = String.Join(',', server_names.ToArray());
             doc.Save("Configurations\\Aria2Servers.xml");
             //保存成功提示
-            MessageBox.Show(Application.Current.FindResource("SavedSuccessfully").ToString(),
-                    "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.None);
+            Button button = (Button)parameter;
+            button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
+            button.Foreground = new SolidColorBrush(Colors.Green);
+            Button2Default(button); //恢复按钮样式
         }
 
         //保存服务器设置
@@ -269,8 +271,17 @@ namespace Aria2Manager.ViewModels
             }
             doc.Save("Configurations\\Aria2Servers.xml");
             //成功提示
-            MessageBox.Show(Application.Current.FindResource("SavedSuccessfully").ToString(),
-                    "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.None);
+            Button button = (Button)parameter;
+            button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
+            button.Foreground = new SolidColorBrush(Colors.Green);
+            Button2Default(button); //恢复按钮样式
+        }
+
+        async private void Button2Default(Button button)
+        {
+            await Task.Delay(1000);
+            button.Content = Application.Current.FindResource("Save").ToString();
+            button.Foreground = new SolidColorBrush(Colors.Black);
         }
 
         protected void OnPropertyChanged([CallerMemberName] string name = "")

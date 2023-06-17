@@ -24,7 +24,7 @@
                 </Grid>
 
                 <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{DynamicResource SetProxy}" VerticalAlignment="Top" Height="20" Width="168"/>
-                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"/>
+                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="111*"/>
@@ -87,7 +87,7 @@
                     <TextBox x:Name="SecretBox" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="{Binding EditServer.ServerSecret}" VerticalAlignment="Center" Width="120" Height="20"/>
                 </Grid>
                 <Grid Grid.Row="3">
-                    <Button x:Name="ConfrimButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="84" Height="22" Grid.Column="1" Command="{Binding SaveEditCommand}"/>
+                    <Button x:Name="ConfrimButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="84" Height="22" Grid.Column="1" Command="{Binding SaveEditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
