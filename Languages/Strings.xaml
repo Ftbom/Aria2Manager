@@ -38,6 +38,7 @@
     <system:String x:Key="Pause">Pause</system:String>
     <system:String x:Key="ResumeAll">ResumeAll</system:String>
     <system:String x:Key="PauseAll">PauseAll</system:String>
+    <system:String x:Key="PurgeAll">PurgeAll</system:String>
     <system:String x:Key="RemoveAll">RemoveAll</system:String>
     <system:String x:Key="UploadSpeed">Upload Speed</system:String>
     <system:String x:Key="DownloadSpeed">Download Speed</system:String>
@@ -60,4 +61,7 @@
     <system:String x:Key="Seeds">Seeds</system:String>
     <system:String x:Key="Properties">Properties</system:String>
     <system:String x:Key="Show">Show</system:String>
+    <system:String x:Key="ConnectionStatus">Connection Status</system:String>
+    <system:String x:Key="Delete">Delete</system:String>
+    <system:String x:Key="DeleteFail">Delete Fail</system:String>
 </ResourceDictionary>

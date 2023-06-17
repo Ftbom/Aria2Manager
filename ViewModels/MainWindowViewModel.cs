@@ -173,6 +173,10 @@ namespace Aria2Manager.ViewModels
             {
                 client.Aria2Client.UnpauseAllAsync();
             }
+            else if (cmd_num == "2")
+            {
+                client.Aria2Client.PurgeDownloadResultAsync();
+            }
         }
 
         //删除项

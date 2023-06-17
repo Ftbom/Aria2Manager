@@ -22,6 +22,7 @@ namespace Aria2Manager.ViewModels
 
         //用于绑定的指令
         public ICommand AddNewServerCommand { get; set; }
+        public ICommand DeleteServerCommand { get; set; }
         public ICommand SaveEditCommand { get; set; }
         public ICommand SaveSettingsCommand { get; set; }
 
@@ -54,6 +55,10 @@ namespace Aria2Manager.ViewModels
             }
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
                 //根据选中的服务器，更新index
                 for (int i = 0; i < Servers.Count; i++)
                 {
@@ -104,6 +109,7 @@ namespace Aria2Manager.ViewModels
             AddNewServerCommand = new RelayCommand(AddNewServer);
             SaveEditCommand = new RelayCommand(SaveServers);
             SaveSettingsCommand = new RelayCommand(SaveSettings);
+            DeleteServerCommand = new RelayCommand(DeleteServer);
             //从配置文件中加载服务器信息
             _servers = new ObservableCollection<Aria2ServerModel>();
             XmlDocument doc = new XmlDocument();
@@ -172,12 +178,29 @@ namespace Aria2Manager.ViewModels
             ProxyTypes.AddRange(new string[] { "http", "socks4", "socks5" }); //代理类型
         }
 
-        //添加新代理
+        //添加新服务
         private void AddNewServer(object? parameter)
         {
             Aria2ServerModel NewServer = new Aria2ServerModel();
             Servers.Add(NewServer);
             EditServer = NewServer;
+        }
+
+        //删除服务
+        private void DeleteServer(object? parameter)
+        {
+            if (_currentserver.ServerName == EditServer.ServerName)
+            {
+                Button button = (Button)parameter;
+                button.Content = Application.Current.FindResource("DeleteFail").ToString();
+                button.Foreground = new SolidColorBrush(Colors.Red);
+                Button2Default(button); //恢复按钮样式
+            }
+            else
+            {
+                Servers.Remove(EditServer);
+                EditServer = Servers[0];
+            }
         }
 
         //保存服务器编辑结果
@@ -245,6 +268,8 @@ namespace Aria2Manager.ViewModels
             //保存代理设置
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Aria2Servers.xml");
+            XmlNode Node = doc.SelectSingleNode("/Servers/Current");
+            Node.InnerText = CurrentServer.ServerName;
             var proxy = doc.SelectSingleNode("/Servers/Proxy");
             foreach (XmlNode node in proxy.ChildNodes)
             {

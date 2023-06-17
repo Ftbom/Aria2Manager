@@ -9,10 +9,11 @@
         <TabItem Header="{DynamicResource Settings}">
             <Grid Margin="0,0,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="12*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="120*"/>
+                    <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -22,10 +23,10 @@
                     <TextBlock x:Name="CurrentServer" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource CurrentServer}" VerticalAlignment="Center" Height="20"/>
                     <ComboBox x:Name="ServerList1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="24" ItemsSource="{Binding Servers}" DisplayMemberPath="ServerName" SelectedItem="{Binding CurrentServer}"/>
                 </Grid>
-
-                <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{DynamicResource SetProxy}" VerticalAlignment="Top" Height="20" Width="168"/>
-                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
-                <Grid Grid.Row="2">
+                <Separator Grid.Row="1"/>
+                <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{DynamicResource SetProxy}" VerticalAlignment="Top" Height="20" Width="168"/>
+                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="111*"/>
                         <ColumnDefinition Width="143*"/>
@@ -62,9 +63,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="94*"/>
                         <ColumnDefinition Width="31*"/>
+                        <ColumnDefinition Width="31*"/>
                     </Grid.ColumnDefinitions>
                     <ComboBox x:Name="ServerList" HorizontalAlignment="Center" VerticalAlignment="Center" Width="143" Height="24" ItemsSource="{Binding Servers}" DisplayMemberPath="ServerName" SelectedValue ="{Binding EditServer}"/>
                     <Button x:Name="NewServer" Grid.Column="1" Content="{DynamicResource New}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="42" Command="{Binding AddNewServerCommand}"/>
+                    <Button x:Name="DeleteServer" Grid.Column="2" Content="{DynamicResource Delete}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="42" Command="{Binding DeleteServerCommand}" CommandParameter="{Binding ElementName=ConfrimButton}"/>
                 </Grid>
                 <Grid Grid.Row="1" Margin="5,0,5,0">
                     <Grid.ColumnDefinitions>
