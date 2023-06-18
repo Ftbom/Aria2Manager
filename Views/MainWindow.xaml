@@ -8,7 +8,50 @@
         Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="25">
-            <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Settings}" Height="24">
+            <MenuItem Header="{DynamicResource Edit}">
+                <MenuItem x:Name="AddMenu" Header="{DynamicResource Add}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="PasueMenu" Header="{DynamicResource Pause}" Command="{Binding PauseItemCommand}" CommandParameter="{Binding SelectedItem}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="ResumeMenu" Header="{DynamicResource Resume}" Command="{Binding ResumeItemCommand}" CommandParameter="{Binding SelectedItem}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="RemoveMenu" Header="{DynamicResource Remove}" Command="{Binding RemoveItemCommand}" CommandParameter="{Binding SelectedItem}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="PropertiesMenu" Header="{DynamicResource Properties}">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem x:Name="ResumeAllMenu" Header="{DynamicResource ResumeAll}" Command="{Binding ManageAllItemCommand}" CommandParameter="1">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xF144;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="PasueAllMenu" Header="{DynamicResource PauseAll}" Command="{Binding ManageAllItemCommand}" CommandParameter="0">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xF28B;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="PurgeAllMenu" Header="{DynamicResource PurgeAll}" Command="{Binding ManageAllItemCommand}" CommandParameter="2">
+                    <MenuItem.Icon>
+                        <TextBlock Text="&#xf12d;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Tools}" Height="24">
                 <MenuItem x:Name="ManageAria2ServersMenu" Header="{DynamicResource Aria2Manager}" Click="ManageAria2ServersMenu_Click">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF828;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
@@ -76,6 +119,12 @@
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Pause}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
+                <Button x:Name="PropertiesButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" Foreground="Gray" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource Properties}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
                 <Separator/>
                 <Button x:Name="ResumeAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding ManageAllItemCommand}" CommandParameter="1">
                     <StackPanel Orientation="Horizontal">
@@ -123,24 +172,24 @@
             <ListView x:Name="DownloadItems" Grid.Column="2" ItemsSource="{Binding DownloadItems}" SelectedValue="{Binding SelectedGid}" SelectedValuePath="Gid" SelectedItem="{Binding SelectedItem}">
                 <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem x:Name="PasueMenu" Header="{DynamicResource Pause}" Command="{Binding PauseItemCommand}" CommandParameter="{Binding SelectedItem}">
+                        <MenuItem x:Name="PasueRightClickMenu" Header="{DynamicResource Pause}" Command="{Binding PauseItemCommand}" CommandParameter="{Binding SelectedItem}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem x:Name="ResumeMenu" Header="{DynamicResource Resume}" Command="{Binding ResumeItemCommand}" CommandParameter="{Binding SelectedItem}">
+                        <MenuItem x:Name="ResumeRightClickMenu" Header="{DynamicResource Resume}" Command="{Binding ResumeItemCommand}" CommandParameter="{Binding SelectedItem}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem x:Name="PropertiesMenu" Header="{DynamicResource Properties}">
-                            <MenuItem.Icon>
-                                <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem x:Name="RemoveMenu" Header="{DynamicResource Remove}" Command="{Binding RemoveItemCommand}" CommandParameter="{Binding SelectedItem}">
+                        <MenuItem x:Name="RemoveRightClickMenu" Header="{DynamicResource Remove}" Command="{Binding RemoveItemCommand}" CommandParameter="{Binding SelectedItem}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="PropertiesRightClickMenu" Header="{DynamicResource Properties}">
+                            <MenuItem.Icon>
+                                <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
      xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="Settings">Settings</system:String>
+    <system:String x:Key="Tools">Tools</system:String>
     <system:String x:Key="Aria2Manager">Manage Aria2 Servers</system:String>
     <system:String x:Key="Aria2Settings">Current Aria2 Settings</system:String>
     <system:String x:Key="ProgramSettings">Program Settings</system:String>
