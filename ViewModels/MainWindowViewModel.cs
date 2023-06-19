@@ -79,6 +79,7 @@ namespace Aria2Manager.ViewModels
         public ICommand PauseItemCommand { get; private set; }
         public ICommand ResumeItemCommand { get; private set; }
         public ICommand ManageAllItemCommand { get; private set; }
+        public ICommand OnCloseWindowCommand { get; private set; }
         public List<DownloadItemModel> DownloadItems //下载项
         {
             get => _downloaditems;
@@ -89,6 +90,7 @@ namespace Aria2Manager.ViewModels
             }
         }
         public string CurrentChosenStatus { get; set; }
+        public bool UpdateItems; //是否退出更新下载项
 
         private string _connected;
         private string _downloadspeed;
@@ -113,12 +115,14 @@ namespace Aria2Manager.ViewModels
             PauseItemCommand = new RelayCommand(PauseItem);
             ResumeItemCommand = new RelayCommand(ResumeItem);
             ManageAllItemCommand = new RelayCommand(ManageAllItem);
+            OnCloseWindowCommand = new RelayCommand(OnCloseWindow);
             //TODO:判断服务器可连接状态
             _connected = "Green";
             _downloaditems = new List<DownloadItemModel>();
             CurrentChosenStatus = "all";
             _uploadspeed = "0KB/s";
             _downloadspeed = "0KB/s";
+            UpdateItems = true;
             UpdataDownloadItems();
         }
 
@@ -147,6 +151,11 @@ namespace Aria2Manager.ViewModels
             {
                 MessageBox.Show(other.Message);
             }
+        }
+
+        private void OnCloseWindow(object? parameter)
+        {
+            UpdateItems = false;
         }
 
         //更新筛选条件
@@ -225,7 +234,7 @@ namespace Aria2Manager.ViewModels
         //更新下载项
         private async void UpdataDownloadItems()
         {
-            while (true)
+            while (UpdateItems)
             {
                 List<DownloadItemModel> download_items = new List<DownloadItemModel>(); //新建列表
                 try

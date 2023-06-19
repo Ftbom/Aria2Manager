@@ -31,8 +31,8 @@ namespace Aria2Manager
                 MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            MainWindowViewModel model = new MainWindowViewModel(Aria2Server);
-            DataContext = model;
+            MainWindowViewModel Model = new MainWindowViewModel(Aria2Server);
+            DataContext = Model;
         }
 
         private void ManageAria2ServersMenu_Click(object sender, RoutedEventArgs e)
@@ -40,7 +40,7 @@ namespace Aria2Manager
             //新建Aria2服务器管理窗口
             ManageServersWindow newWin = new ManageServersWindow(Aria2Server);
             newWin.Owner = this;
-            newWin.Show();
+            newWin.ShowDialog();
         }
 
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
@@ -64,6 +64,14 @@ namespace Aria2Manager
             var Aria2Version = await client.Aria2Client.GetVersionAsync();
             MessageBox.Show($"\n{Aria2VersionStr}{Aria2Version.Version}\n\n{Aria2FeaturesStr}\n{String.Join('\n', Aria2Version.EnabledFeatures)}",
                 "Version", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void AddNewItem(object sender, RoutedEventArgs e)
+        {
+            //新建添加下载窗口
+            AddNewItemWindow newWin = new AddNewItemWindow(Aria2Server);
+            newWin.Owner = this;
+            newWin.ShowDialog();
         }
     }
 }

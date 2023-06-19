@@ -66,4 +66,20 @@
     <system:String x:Key="ConnectionStatus">连接状态</system:String>
     <system:String x:Key="Delete">删除</system:String>
     <system:String x:Key="DeleteFail">删除失败</system:String>
+    <system:String x:Key="DownloadInfo">下载项信息</system:String>
+    <system:String x:Key="BasicOptions">基础选项</system:String>
+    <system:String x:Key="AdvancedOptions">高级选项</system:String>
+    <system:String x:Key="MetaLink">MetaLink</system:String>
+    <system:String x:Key="Torrent">Torrent</system:String>
+    <system:String x:Key="AddByUrl">通过Url添加：</system:String>
+    <system:String x:Key="Browse">浏览</system:String>
+    <system:String x:Key="Header">Header</system:String>
+    <system:String x:Key="FileName">文件名</system:String>
+    <system:String x:Key="DownloadPath">下载路径</system:String>
+    <system:String x:Key="HTTPUser">HTTP用户名</system:String>
+    <system:String x:Key="HTTPPasswd">HTTP密码</system:String>
+    <system:String x:Key="SeedRatio">做种分享率</system:String>
+    <system:String x:Key="SeedTime">做种时间</system:String>
+    <system:String x:Key="AddDownload">添加下载</system:String>
+    <system:String x:Key="HeaderToolTip">通过":"分隔键和值，通过";"分隔每项</system:String>
 </ResourceDictionary>

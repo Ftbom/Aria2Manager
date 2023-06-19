@@ -65,4 +65,20 @@
     <system:String x:Key="ConnectionStatus">Connection Status</system:String>
     <system:String x:Key="Delete">Delete</system:String>
     <system:String x:Key="DeleteFail">Delete Fail</system:String>
+    <system:String x:Key="DownloadInfo">Download Info</system:String>
+    <system:String x:Key="BasicOptions">Basic Options</system:String>
+    <system:String x:Key="AdvancedOptions">Advanced Options</system:String>
+    <system:String x:Key="MetaLink">MetaLink</system:String>
+    <system:String x:Key="Torrent">Torrent</system:String>
+    <system:String x:Key="AddByUrl">Add By Url:</system:String>
+    <system:String x:Key="Browse">Browse</system:String>
+    <system:String x:Key="Header">Header</system:String>
+    <system:String x:Key="FileName">File Name</system:String>
+    <system:String x:Key="DownloadPath">Download Path</system:String>
+    <system:String x:Key="HTTPUser">HTTP User</system:String>
+    <system:String x:Key="HTTPPasswd">HTTP Passwd</system:String>
+    <system:String x:Key="SeedRatio">Seed Ratio</system:String>
+    <system:String x:Key="SeedTime">Seed Time</system:String>
+    <system:String x:Key="AddDownload">Add Download</system:String>
+    <system:String x:Key="HeaderToolTip">Separate keys and values with ":" and separate each item with ";"</system:String>
 </ResourceDictionary>

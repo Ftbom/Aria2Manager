@@ -6,10 +6,16 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding OnCloseWindowCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="25">
             <MenuItem Header="{DynamicResource Edit}">
-                <MenuItem x:Name="AddMenu" Header="{DynamicResource Add}">
+                <MenuItem x:Name="AddMenu" Header="{DynamicResource Add}" Click="AddNewItem">
                     <MenuItem.Icon>
                         <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
@@ -95,7 +101,7 @@
         </Menu>
         <ToolBarTray DockPanel.Dock="Top" Height="37">
             <ToolBar>
-                <Button x:Name="AddButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                <Button x:Name="AddButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Click="AddNewItem">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" Foreground="LimeGreen" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Add}" HorizontalAlignment="Left" VerticalAlignment="Center"/>

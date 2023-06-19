@@ -1,0 +1,184 @@
+﻿<Window x:Name="AddDownloadWindow" x:Class="Aria2Manager.Views.AddNewItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{DynamicResource AddDownload}" Height="350" Width="600" WindowStartupLocation="CenterOwner">
+    <TabControl>
+        <TabItem Header="{DynamicResource DownloadInfo}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="{DynamicResource AddByUrl}" VerticalAlignment="Center" Height="18"/>
+                    <TextBox HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Url}" VerticalAlignment="Center" Width="574" Height="85" IsEnabled="{Binding IsUrl}"/>
+                </Grid>
+                <Separator Grid.Row="1"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="TorrentCheckBox" Content="{DynamicResource Torrent}" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.517,-0.415" Margin="10,0,0,0" Command="{Binding CheckTorrentCommand}" CommandParameter="{Binding ElementName=MetaLinkCheckBox}"/>
+                    <Button Grid.Column="2" Content="{DynamicResource Browse}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="79"  IsEnabled="{Binding IsTorrent}" Command="{Binding BrowseFileCommand}" CommandParameter="0"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding TorrentPath}" VerticalAlignment="Center" Width="376" Height="20" IsEnabled="{Binding IsTorrent}"/>
+                </Grid>
+                <Separator Grid.Row="3"/>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="MetaLinkCheckBox" Content="{DynamicResource MetaLink}" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding CheckMetaLinkCommand}" CommandParameter="{Binding ElementName=TorrentCheckBox}"/>
+                    <Button Grid.Column="2" Content="{DynamicResource Browse}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="79"  IsEnabled="{Binding IsMetaLink}"  Command="{Binding BrowseFileCommand}" CommandParameter="1"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding MetaLinkPath}" VerticalAlignment="Center" Width="376" Height="20"  IsEnabled="{Binding IsMetaLink}"/>
+                </Grid>
+                <Separator Grid.Row="5"/>
+                <Button Content="{DynamicResource Add}" HorizontalAlignment="Center" Margin="0,6,0,0" Grid.Row="6" VerticalAlignment="Top" Width="75" Command="{Binding AddDownloadCommand}" CommandParameter="{Binding ElementName=AddDownloadWindow}"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="{DynamicResource BasicOptions}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="8*"/>
+                </Grid.RowDefinitions>
+                <Button Content="{DynamicResource Add}" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Top" Width="75" Margin="0,14,0,0" Command="{Binding AddDownloadCommand}" CommandParameter="{Binding ElementName=AddDownloadWindow}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding FileName}" VerticalAlignment="Center" Width="455" IsEnabled="{Binding IsUrl}"/>
+                </Grid>
+                <Separator Grid.Row="1"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource DownloadPath}" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DownloadPath}" VerticalAlignment="Center" Width="358"/>
+                    <Button Content="{DynamicResource Browse}" HorizontalAlignment="Center" Grid.Column="2" VerticalAlignment="Center" Width="52"  Command="{Binding BrowseFileCommand}" CommandParameter="2"/>
+                </Grid>
+                <Separator Grid.Row="3"/>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource HTTPUser}" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource HTTPPasswd}" VerticalAlignment="Center" Grid.Column="2"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding HTTPUser}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsUrl}"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding HTTPPasswd}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsUrl}"/>
+                </Grid>
+                <Separator Grid.Row="5"/>
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource SeedRatio}" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource SeedTime}" VerticalAlignment="Center" Grid.Column="2"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding SeedRatio}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsTorrent}"/>
+                    <TextBox Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding SeedTime}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsTorrent}"/>
+                </Grid>
+                <Separator Grid.Row="7"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="{DynamicResource AdvancedOptions}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="6*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBlock TextWrapping="Wrap" Text="{DynamicResource Header}"/>
+                        <TextBlock Text="&#xF05A;" FontFamily="{StaticResource FontAwesome}" FontSize="14" HorizontalAlignment="Center" Margin="5,0,0,0" ToolTip="{DynamicResource HeaderToolTip}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding HeaderString}" VerticalAlignment="Center" Width="489" Height="114" IsEnabled="{Binding IsUrl}"/>
+                </Grid>
+                <Separator Grid.Row="1"></Separator>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyAddress}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyAddress}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsUrl}"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyPort}" VerticalAlignment="Center" Width="166"  IsEnabled="{Binding IsUrl}"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyPort}" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyUser}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsUrl}"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyUser}" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyPasswd}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsUrl}"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource ProxyPasswd}" VerticalAlignment="Center"/>
+                    </Grid>
+                </Grid>
+                <Separator Grid.Row="3"/>
+                <Button Content="{DynamicResource Add}" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="75" Command="{Binding AddDownloadCommand}" CommandParameter="{Binding ElementName=AddDownloadWindow}"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
