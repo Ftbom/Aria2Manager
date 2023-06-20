@@ -14,6 +14,16 @@ namespace Aria2Manager.Models
         public bool IsHttps { get; set; } //是否使用https
         public bool UseProxy { get; set; } //是否使用代理
 
+        //更新服务器信息
+        public void UpdateServerInfo()
+        {
+            if (ServerName == null)
+            {
+                return;
+            }
+            ReadFromFileByName(ServerName);
+        }
+
         //通过服务器名称从文件读取服务器配置
         private void ReadFromFileByName(string server_name)
         {

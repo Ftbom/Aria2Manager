@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
 using System;
-using static System.Windows.Forms.Design.AxImporter;
 
 namespace Aria2Manager.ViewModels
 {
@@ -195,7 +194,7 @@ namespace Aria2Manager.ViewModels
                 }
                 else
                 {
-                    if (FileName != null)
+                    if (!String.IsNullOrEmpty(FileName))
                     {
                         Options["out"] = FileName;
                     }
@@ -203,8 +202,11 @@ namespace Aria2Manager.ViewModels
                     Options["http-passwd"] = HTTPPasswd;
                     Options["all-proxy-passwd"] = ProxyPasswd;
                     Options["all-proxy-user"] = ProxyUser;
-                    Options["all-proxy"] = "http://" + ProxyAddress + ":" + ProxyPort;
-                    if (HeaderString != null)
+                    if ((!String.IsNullOrEmpty(ProxyAddress)) && (!String.IsNullOrEmpty(ProxyPort)))
+                    {
+                        Options["all-proxy"] = "http://" + ProxyAddress + ":" + ProxyPort;
+                    }
+                    if (!String.IsNullOrEmpty(HeaderString))
                     {
                         var HeaderList = new List<string>();
                         foreach(var header in HeaderString.Split(';'))

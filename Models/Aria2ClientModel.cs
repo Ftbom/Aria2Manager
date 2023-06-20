@@ -35,7 +35,7 @@ namespace Aria2Manager.Models
             if (server_info.UseProxy)
             {
                 var Proxy = Aria2ServerModel.GetProxies();
-                if (Proxy != null)
+                if (Proxy == null)
                 {
                     client = new HttpClient();
                 }

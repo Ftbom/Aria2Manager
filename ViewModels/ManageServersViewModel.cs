@@ -248,6 +248,7 @@ namespace Aria2Manager.ViewModels
             Node = doc.SelectSingleNode("/Servers/Avaliable");
             Node.InnerText = String.Join(',', server_names.ToArray());
             doc.Save("Configurations\\Aria2Servers.xml");
+            _currentserver.UpdateServerInfo(); //更新服务器信息
             //保存成功提示
             Button button = (Button)parameter;
             button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
