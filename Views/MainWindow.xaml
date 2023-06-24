@@ -1,4 +1,4 @@
-﻿<Window x:Name="window" x:Class="Aria2Manager.MainWindow"
+﻿<Window x:Name="mainwindow" x:Class="Aria2Manager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -35,7 +35,7 @@
                         <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="PropertiesMenu" Header="{DynamicResource Properties}">
+                <MenuItem x:Name="PropertiesMenu" Header="{DynamicResource Properties}" Command="{Binding ItemInfoCommand}" CommandParameter="{Binding ElementName=mainwindow}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
@@ -125,7 +125,7 @@
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Pause}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="PropertiesButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0">
+                <Button x:Name="PropertiesButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"  Command="{Binding ItemInfoCommand}" CommandParameter="{Binding ElementName=mainwindow}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" Foreground="Gray" FontSize="25" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Properties}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -175,8 +175,8 @@
                 <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-            <ListView x:Name="DownloadItems" Grid.Column="2" ItemsSource="{Binding DownloadItems}" SelectedValue="{Binding SelectedGid}" SelectedValuePath="Gid" SelectedItem="{Binding SelectedItem}">
-                <ListView.ContextMenu>
+            <ListView x:Name="DownloadItems" Grid.Column="2" ItemsSource="{Binding DownloadItems}" SelectedValue="{Binding SelectedGid}" SelectedValuePath="Gid" SelectedItem="{Binding SelectedItem}" Tag="{Binding ElementName=mainwindow}">
+                <ListView.ContextMenu >
                     <ContextMenu>
                         <MenuItem x:Name="PasueRightClickMenu" Header="{DynamicResource Pause}" Command="{Binding PauseItemCommand}" CommandParameter="{Binding SelectedItem}">
                             <MenuItem.Icon>
@@ -193,7 +193,8 @@
                                 <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem x:Name="PropertiesRightClickMenu" Header="{DynamicResource Properties}">
+                        <MenuItem x:Name="PropertiesRightClickMenu" Header="{DynamicResource Properties}" Command="{Binding ItemInfoCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}},
+                                Path=PlacementTarget.Tag}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>

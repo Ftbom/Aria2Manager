@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Aria2Manager.Models;
 using Aria2Manager.Utils;
+using Aria2Manager.Views;
 
 namespace Aria2Manager.ViewModels
 {
@@ -80,6 +79,7 @@ namespace Aria2Manager.ViewModels
         public ICommand ResumeItemCommand { get; private set; }
         public ICommand ManageAllItemCommand { get; private set; }
         public ICommand OnCloseWindowCommand { get; private set; }
+        public ICommand ItemInfoCommand { get; private set; }
         public List<DownloadItemModel> DownloadItems //下载项
         {
             get => _downloaditems;
@@ -116,6 +116,7 @@ namespace Aria2Manager.ViewModels
             ResumeItemCommand = new RelayCommand(ResumeItem);
             ManageAllItemCommand = new RelayCommand(ManageAllItem);
             OnCloseWindowCommand = new RelayCommand(OnCloseWindow);
+            ItemInfoCommand = new RelayCommand(ItemInfo);
             //TODO:判断服务器可连接状态
             _connected = "Green";
             _downloaditems = new List<DownloadItemModel>();
@@ -130,6 +131,14 @@ namespace Aria2Manager.ViewModels
         {
             //退出程序
             Application.Current.Shutdown();
+        }
+
+        private void ItemInfo(object? parameter)
+        {
+            //新建添加下载窗口
+            ItemInfoWindow newWin = new ItemInfoWindow(SelectedGid, Aria2Server);
+            newWin.Owner = (MainWindow)parameter;
+            newWin.ShowDialog();
         }
 
         //打开Aria2网站
@@ -261,7 +270,7 @@ namespace Aria2Manager.ViewModels
                         {
                             download_item.Name = item.Bittorrent.Info.Name;
                         }
-                        download_item.Size = BytesToString(item.TotalLength);
+                        download_item.Size = Tools.BytesToString(item.TotalLength);
                         if (item.TotalLength == 0)
                         {
                             download_item.Progress = 0;
@@ -271,10 +280,10 @@ namespace Aria2Manager.ViewModels
                             download_item.Progress = (double)(item.CompletedLength * 10000 / item.TotalLength) / 100;
                         }
                         download_item.Status = item.Status;
-                        download_item.Downloaded = BytesToString(item.CompletedLength);
-                        download_item.Uploaded = BytesToString(item.UploadLength);
-                        download_item.DownloadSpeed = BytesToString(item.DownloadSpeed) + "/s";
-                        download_item.UploadSpeed = BytesToString(item.UploadSpeed) + "/s";
+                        download_item.Downloaded = Tools.BytesToString(item.CompletedLength);
+                        download_item.Uploaded = Tools.BytesToString(item.UploadLength);
+                        download_item.DownloadSpeed = Tools.BytesToString(item.DownloadSpeed) + "/s";
+                        download_item.UploadSpeed = Tools.BytesToString(item.UploadSpeed) + "/s";
                         total_download_speed += item.DownloadSpeed;
                         total_upload_speed += item.UploadSpeed;
                         if (item.DownloadSpeed == 0)
@@ -283,7 +292,7 @@ namespace Aria2Manager.ViewModels
                         }
                         else
                         {
-                            download_item.ETA = SecondsToString((int)((double)(item.TotalLength - item.CompletedLength) / item.DownloadSpeed));
+                            download_item.ETA = Tools.SecondsToString((int)((double)(item.TotalLength - item.CompletedLength) / item.DownloadSpeed));
                         }
                         if (item.CompletedLength == 0)
                         {
@@ -312,8 +321,8 @@ namespace Aria2Manager.ViewModels
                     //更新下载项列表
                     DownloadItems = download_items;
                     //更新显示速度
-                    UploadSpeed = BytesToString(total_upload_speed) + "/s";
-                    DownloadSpeed = BytesToString(total_download_speed) + "/s";
+                    UploadSpeed = Tools.BytesToString(total_upload_speed) + "/s";
+                    DownloadSpeed = Tools.BytesToString(total_download_speed) + "/s";
                     Connected = "Green";
                 }
                 catch
@@ -322,40 +331,6 @@ namespace Aria2Manager.ViewModels
                 }
                 await Task.Delay(500);
             }
-        }
-
-        private string BytesToString(long byteCount)
-        {
-            long GBSize = 1024 * 1024 * 1024;
-            long MBSize = 1024 * 1024;
-            long KBSize = 1024;
-            if (byteCount >= GBSize)
-            {
-                return ((double)(byteCount * 100 / GBSize) / 100).ToString() + "GB";
-            }
-            else if (byteCount >= MBSize)
-            {
-                return ((double)(byteCount * 100 / MBSize) / 100).ToString() + "MB";
-            }
-            else
-            {
-                return ((double)(byteCount * 100 / KBSize) / 100).ToString() + "KB";
-            }
-        }
-
-        private string SecondsToString(long secCount)
-        {
-            string result = "";
-            long HSize = 60 * 60;
-            long MSize = 60;
-            int h_num = (int)(secCount / HSize);
-            result += h_num.ToString() + "h";
-            secCount -= h_num * HSize;
-            int m_num = (int)(secCount / MSize);
-            result += m_num.ToString() + "m";
-            secCount -= m_num * MSize;
-            result += secCount.ToString() + "s";
-            return result;
         }
 
         protected void OnPropertyChanged([CallerMemberName] string name = "")

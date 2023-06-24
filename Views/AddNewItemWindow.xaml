@@ -23,7 +23,7 @@
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
                     <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="{DynamicResource AddByUrl}" VerticalAlignment="Center" Height="18"/>
-                    <TextBox HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Url}" VerticalAlignment="Center" Width="574" Height="85" IsEnabled="{Binding IsUrl}"/>
+                    <TextBox HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Url}" VerticalAlignment="Center" Height="85" IsEnabled="{Binding IsUrl}" Width="574"/>
                 </Grid>
                 <Separator Grid.Row="1"/>
                 <Grid Grid.Row="2">

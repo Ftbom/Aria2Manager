@@ -81,4 +81,10 @@
     <system:String x:Key="SeedTime">Seed Time</system:String>
     <system:String x:Key="AddDownload">Add Download</system:String>
     <system:String x:Key="HeaderToolTip">Separate keys and values with ":" and separate each item with ";"</system:String>
+    <system:String x:Key="OverView">OverView</system:String>
+    <system:String x:Key="Files">Files</system:String>
+    <system:String x:Key="Speed">Speed</system:String>
+    <system:String x:Key="InfoHash">Info Hash</system:String>
+    <system:String x:Key="Seeders">Seeders</system:String>
+    <system:String x:Key="SeedAConnect">Seeders/Connections</system:String>
 </ResourceDictionary>

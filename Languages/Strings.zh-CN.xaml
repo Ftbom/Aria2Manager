@@ -82,4 +82,10 @@
     <system:String x:Key="SeedTime">做种时间</system:String>
     <system:String x:Key="AddDownload">添加下载</system:String>
     <system:String x:Key="HeaderToolTip">通过":"分隔键和值，通过";"分隔每项</system:String>
+    <system:String x:Key="OverView">总览</system:String>
+    <system:String x:Key="Files">文件</system:String>
+    <system:String x:Key="Speed">速度</system:String>
+    <system:String x:Key="InfoHash">Hash值</system:String>
+    <system:String x:Key="Seeders">做种数</system:String>
+    <system:String x:Key="SeedAConnect">做种/连接</system:String>
 </ResourceDictionary>
