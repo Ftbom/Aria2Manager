@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen">
+        Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen" Closed="mainwindow_Closed">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding OnCloseWindowCommand}"/>
@@ -68,7 +68,7 @@
                         <TextBlock Text="&#xF1DE;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="ProgramSettingsMenu" Header="{DynamicResource ProgramSettings}">
+                <MenuItem x:Name="ProgramSettingsMenu" Header="{DynamicResource ProgramSettings}" Click="ProgramSettingsMenu_Checked">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF013;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>

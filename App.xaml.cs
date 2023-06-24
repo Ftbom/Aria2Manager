@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Aria2Manager
 {
@@ -9,8 +11,9 @@ namespace Aria2Manager
     /// </summary>
     public partial class App : Application
     {
+        private bool CloseToExit;
+
         //需要在加载App.xaml后调用才可生效
-        //可放在MainWindow的初始化函数中调用
         public void SetLanguageDictionary()
         {
             //根据系统语言环境设置语言文件
@@ -44,8 +47,36 @@ namespace Aria2Manager
             {
                 return;
             }
-            MainWindow main_window = new MainWindow();
+            MainWindow main_window = new MainWindow(CloseToExit);
             main_window.Show();
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            bool StartMin = false;
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Configurations\\Settings.xml");
+            var settings = doc.SelectSingleNode($"/Settings");
+            foreach (XmlNode node in settings.ChildNodes)
+            {
+                switch (node.Name)
+                {
+                    case "Language":
+                        SetLanguageDictionary(node.InnerText);
+                        break;
+                    case "StartMin":
+                        StartMin = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "CloseToExit":
+                        CloseToExit = Convert.ToBoolean(node.InnerText);
+                        break;
+                }
+            }
+            if (!StartMin)
+            {
+                MainWindow main_window = new MainWindow(CloseToExit);
+                main_window.Show();
+            }
         }
     }
 }

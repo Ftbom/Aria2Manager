@@ -13,6 +13,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Languages\Strings.xaml" />
+    <Page Remove="Languages\Strings.zh-CN.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Languages\Strings.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Languages\Strings.zh-CN.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Aria2.NET" Version="1.0.5" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
@@ -28,6 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Configurations\Settings.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Configurations\Aria2Servers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

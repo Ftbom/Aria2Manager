@@ -13,12 +13,11 @@ namespace Aria2Manager
     public partial class MainWindow : Window
     {
         private Aria2ServerModel Aria2Server { get; set; }
-        public MainWindow()
+        private bool close_to_exit;
+
+        public MainWindow(bool CloseToExit = false)
         {
             InitializeComponent();
-            var app = (App)Application.Current;
-            app.SetLanguageDictionary(); //设置界面语言
-
             //从文件读取当前服务器信息
             try
             {
@@ -33,6 +32,7 @@ namespace Aria2Manager
             }
             MainWindowViewModel Model = new MainWindowViewModel(Aria2Server);
             DataContext = Model;
+            close_to_exit = CloseToExit;
         }
 
         private void ManageAria2ServersMenu_Click(object sender, RoutedEventArgs e)
@@ -72,6 +72,22 @@ namespace Aria2Manager
             AddNewItemWindow newWin = new AddNewItemWindow(Aria2Server);
             newWin.Owner = this;
             newWin.ShowDialog();
+        }
+
+        private void ProgramSettingsMenu_Checked(object sender, RoutedEventArgs e)
+        {
+            //新建程序设置窗口
+            SettingsWindow newWin = new SettingsWindow();
+            newWin.Owner = this;
+            newWin.ShowDialog();
+        }
+
+        private void mainwindow_Closed(object sender, EventArgs e)
+        {
+            if (close_to_exit)
+            {
+                Application.Current.Shutdown(); //退出程序
+            }
         }
     }
 }

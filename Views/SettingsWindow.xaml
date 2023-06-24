@@ -1,0 +1,32 @@
+﻿<Window x:Class="Aria2Manager.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{DynamicResource ProgramSettings}" Height="200" Width="450" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource SelectLanguage}" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="243" ItemsSource="{Binding Languages}" SelectedValue="{Binding SelectedLanguage}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Content="{DynamicResource CloseToExit}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding CloseToExit}"/>
+            <CheckBox Grid.Column="1" Content="{DynamicResource StartMin}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding StartMin}"/>
+        </Grid>
+        <Button Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="76" Command="{Binding SaveSettingsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource self}}"/>
+    </Grid>
+</Window>

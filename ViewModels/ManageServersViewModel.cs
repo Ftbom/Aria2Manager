@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Media;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -12,7 +11,6 @@ using System.Xml;
 using Aria2Manager.Models;
 using Aria2Manager.Utils;
 using System.Windows.Controls;
-using System.IO;
 
 namespace Aria2Manager.ViewModels
 {
