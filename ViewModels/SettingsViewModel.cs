@@ -22,6 +22,7 @@ namespace Aria2Manager.ViewModels
 
         public SettingsViewModel()
         {
+            //从文件读取设置项
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Settings.xml");
             var settings = doc.SelectSingleNode($"/Settings");
@@ -64,6 +65,7 @@ namespace Aria2Manager.ViewModels
 
         private void SaveSettings(object? parameter)
         {
+            //保存到文件
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Settings.xml");
             var Node = doc.SelectSingleNode("/Settings/Language");

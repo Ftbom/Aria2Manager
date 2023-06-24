@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 using Aria2NET;
 
 namespace Aria2Manager.Models
@@ -31,6 +26,7 @@ namespace Aria2Manager.Models
                 scheme = "http";
             }
             string jsonrpc_url = $"{scheme}://{server_info.ServerAddress}:{server_info.ServerPort}/jsonrpc";
+            //配置代理
             HttpClient client;
             if (server_info.UseProxy)
             {
@@ -69,7 +65,7 @@ namespace Aria2Manager.Models
             InitWithServerModel(server_info);
         }
 
-        public Aria2ClientModel()
+        public Aria2ClientModel() //默认设置
         {
             InitWithServerModel(new Aria2ServerModel());
         }

@@ -2,6 +2,7 @@
 {
     public class Tools
     {
+        //Byte转可读字符串
         static public string BytesToString(long byteCount)
         {
             long GBSize = 1024 * 1024 * 1024;
@@ -21,6 +22,7 @@
             }
         }
 
+        //秒转可读字符串
         static public string SecondsToString(long secCount)
         {
             string result = "";

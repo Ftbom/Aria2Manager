@@ -28,7 +28,7 @@ namespace Aria2Manager.Utils
             _canExecute = canExecute;
         }
 
-        //默认CanExecute
+        //默认的CanExecute
         private static bool DefaultCanExecute(object? parameter)
         {
             return true;
@@ -36,7 +36,6 @@ namespace Aria2Manager.Utils
 
 
         //接口实现
-
         public bool CanExecute(object? parameter)
         {
             return _canExecute(parameter);

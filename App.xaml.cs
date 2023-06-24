@@ -53,6 +53,7 @@ namespace Aria2Manager
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            //读取设置
             bool StartMin = false;
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Settings.xml");
@@ -72,7 +73,7 @@ namespace Aria2Manager
                         break;
                 }
             }
-            if (!StartMin)
+            if (!StartMin) //是否打开主窗口
             {
                 MainWindow main_window = new MainWindow(CloseToExit);
                 main_window.Show();

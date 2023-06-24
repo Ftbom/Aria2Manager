@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Windows.Controls;
 using System.Xml;
 
 namespace Aria2Manager.Models

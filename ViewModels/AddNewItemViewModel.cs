@@ -15,6 +15,7 @@ namespace Aria2Manager.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        //分类
         public bool IsUrl
         {
             get => _is_url;
@@ -42,6 +43,7 @@ namespace Aria2Manager.ViewModels
                 OnPropertyChanged();
             }
         }
+        //基本设置项
         public string? Url { get; set; }
         public string? TorrentPath { get; set; }
         public string? MetaLinkPath { get; set; }
@@ -86,6 +88,7 @@ namespace Aria2Manager.ViewModels
             GetOptions();
         }
 
+        //获取全局设置，用作默认值
         async private void GetOptions()
         {
             Aria2ClientModel client = new Aria2ClientModel(_aria2_server);
@@ -123,6 +126,7 @@ namespace Aria2Manager.ViewModels
             return;
         }
 
+        //从字典读取值，null或非空字符串
         private string? GetOptionValueByKey(IDictionary<string, string> options, string key)
         {
             try
@@ -139,6 +143,7 @@ namespace Aria2Manager.ViewModels
             }
         }
 
+        //切换Torrent模式
         private void CheckTorrent(object? parameter)
         {
             if (IsTorrent)
@@ -157,6 +162,7 @@ namespace Aria2Manager.ViewModels
             }
         }
 
+        //切换MetaLink模式
         private void CheckMetaLink(object? parameter)
         {
             if (IsMetaLink)
@@ -175,6 +181,7 @@ namespace Aria2Manager.ViewModels
             }
         }
 
+        //添加下载
         private void AddDownload(object? parameter)
         {
             var Client = new Aria2ClientModel(_aria2_server);
@@ -182,6 +189,7 @@ namespace Aria2Manager.ViewModels
             {
                 var Options = new Dictionary<String, object>();
                 Options["dir"] = DownloadPath;
+                //按种类分别设置
                 if (IsMetaLink)
                 {
                     Client.Aria2Client.AddMetalinkAsync(torrent: File.ReadAllBytes(MetaLinkPath), options: Options);
@@ -223,6 +231,7 @@ namespace Aria2Manager.ViewModels
             ((AddNewItemWindow)parameter).Close();
         }
 
+        //浏览文件或文件夹
         private void BrowseFiles(object? parameter)
         {
             if (parameter == null)

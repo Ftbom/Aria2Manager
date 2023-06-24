@@ -19,7 +19,7 @@ namespace Aria2Manager.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Aria2ServerModel Aria2Server { get; set; }
-        public string Connected //服务器状态，颜色
+        public string Connected //服务器连接状态，颜色。绿或红
         {
             get
             {

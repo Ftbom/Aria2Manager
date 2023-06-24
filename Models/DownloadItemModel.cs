@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Aria2Manager.Models
+﻿namespace Aria2Manager.Models
 {
     public class DownloadItemModel
     {

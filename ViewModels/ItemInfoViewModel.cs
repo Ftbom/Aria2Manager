@@ -19,6 +19,7 @@ namespace Aria2Manager.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ICommand SelectFileCommand { get; private set; }
+        //基本信息
         public string? Name { get; set; }
         public string? Size { get; set; }
         public string? Progress { get; set; }
@@ -29,6 +30,7 @@ namespace Aria2Manager.ViewModels
         public string? InfoHash { get; set; }
         public string? DownloadPath { get; set; }
         public bool CanSelectFile { get; set; }
+        //文件列表
         public List<ItemFileModel>? Files { get; set; }
 
         public ItemInfoViewModel(string? gid = null, Aria2ServerModel? server = null)
@@ -48,6 +50,7 @@ namespace Aria2Manager.ViewModels
             GetInfo(gid);
         }
 
+        //获取信息
         async private void GetInfo(string gid)
         {
             var client = new Aria2ClientModel(_server);
@@ -59,6 +62,7 @@ namespace Aria2Manager.ViewModels
             }
             else
             {
+                //种子文件
                 Name = Info.Bittorrent.Info.Name;
                 CanSelectFile = true;
             }
@@ -93,6 +97,7 @@ namespace Aria2Manager.ViewModels
                 InfoHash = Info.InfoHash;
             }
             DownloadPath = Info.Dir;
+            //仅有一个文件，不可设置文件
             if (Info.Files.Count == 1)
             {
                 CanSelectFile = false;
@@ -107,6 +112,7 @@ namespace Aria2Manager.ViewModels
             }
         }
 
+        //选中或取消选中文件，则更改设置
         private void SelectFile(object? parameter)
         {
             var client = new Aria2ClientModel(_server);
