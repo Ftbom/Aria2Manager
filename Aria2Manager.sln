@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Blend for Visual Studio Version 17
+# Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria2Manager", "Aria2Manager.csproj", "{1157A798-22E4-4E13-8ECD-F6144CDA4B63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aria2Manager", "Aria2Manager.csproj", "{1157A798-22E4-4E13-8ECD-F6144CDA4B63}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{AFC74BDD-A519-47D4-ACA8-FEECB6CC8C1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{1157A798-22E4-4E13-8ECD-F6144CDA4B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1157A798-22E4-4E13-8ECD-F6144CDA4B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1157A798-22E4-4E13-8ECD-F6144CDA4B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFC74BDD-A519-47D4-ACA8-FEECB6CC8C1F}.Debug|Any CPU.ActiveCfg = Debug
+		{AFC74BDD-A519-47D4-ACA8-FEECB6CC8C1F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

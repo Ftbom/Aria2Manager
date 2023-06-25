@@ -43,7 +43,7 @@ namespace Aria2Manager
 
         private void Show_Click(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.Windows.Count > 1)
+            if (Application.Current.Windows.Count > 0)
             {
                 return;
             }
