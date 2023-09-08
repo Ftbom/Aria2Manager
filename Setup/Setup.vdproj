@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_55C998A38F6A45008B3D39F7B547BC96"
+        "MsmKey" = "8:_34669A72408646F8BAD5FB5FBB689386"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6451F80FFA6849E3B9F0C370D6561F4A"
+        "MsmKey" = "8:_5D924AC116934BA6963655CC3DA67F26"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -50,6 +50,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -114,9 +122,9 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_55C998A38F6A45008B3D39F7B547BC96"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_34669A72408646F8BAD5FB5FBB689386"
             {
-            "SourcePath" = "8:..\\Resources\\app.ico"
+            "SourcePath" = "8:..\\Aria2Manager\\Resources\\app.ico"
             "TargetName" = "8:app.ico"
             "Tag" = "8:"
             "Folder" = "8:_44602D414E774D14B37981B4F08EAD62"
@@ -311,7 +319,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C7B706BAE5174D4481387891D76641F1"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AE574E3A6BCB4ED5872DB0446AAF4E90"
             {
             "Name" = "8:Aria2Manager"
             "Arguments" = "8:"
@@ -319,10 +327,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_6451F80FFA6849E3B9F0C370D6561F4A"
+            "Target" = "8:_5D924AC116934BA6963655CC3DA67F26"
             "Folder" = "8:_5902FA3486AA415489626ADE5EA88D7C"
             "WorkingFolder" = "8:_44602D414E774D14B37981B4F08EAD62"
-            "Icon" = "8:_55C998A38F6A45008B3D39F7B547BC96"
+            "Icon" = "8:_34669A72408646F8BAD5FB5FBB689386"
             "Feature" = "8:"
             }
         }
@@ -724,9 +732,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6451F80FFA6849E3B9F0C370D6561F4A"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5D924AC116934BA6963655CC3DA67F26"
             {
-            "SourcePath" = "8:..\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\Aria2Manager\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_44602D414E774D14B37981B4F08EAD62"
@@ -746,7 +754,7 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{1157A798-22E4-4E13-8ECD-F6144CDA4B63}"
+            "OutputProjectGuid" = "8:{62F6826A-6672-4861-B36B-A38DACDC5CFF}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

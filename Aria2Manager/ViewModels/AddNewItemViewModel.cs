@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
 using System;
+using System.Windows;
 
 namespace Aria2Manager.ViewModels
 {
@@ -67,6 +68,7 @@ namespace Aria2Manager.ViewModels
         private bool _is_url;
         private bool _is_torrent;
         private bool _is_metalink;
+        private bool is_connect; //是否已连接
 
         public AddNewItemViewModel(Aria2ServerModel? Server = null)
         {
@@ -92,7 +94,17 @@ namespace Aria2Manager.ViewModels
         async private void GetOptions()
         {
             Aria2ClientModel client = new Aria2ClientModel(_aria2_server);
-            var options = await client.Aria2Client.GetGlobalOptionAsync();
+            IDictionary<string, string> options;
+            try
+            {
+                options = await client.Aria2Client.GetGlobalOptionAsync();
+            }
+            catch
+            {
+                is_connect = false;
+                MessageBox.Show(Application.Current.FindResource("ConnectionError").ToString());
+                return;
+            }
             DownloadPath = GetOptionValueByKey(options, "dir");
             //TODO:UPdate UI
             SeedRatio = GetOptionValueByKey(options, "seed-ratio");
@@ -184,6 +196,11 @@ namespace Aria2Manager.ViewModels
         //添加下载
         private void AddDownload(object? parameter)
         {
+            if (!is_connect)
+            {
+                ((AddNewItemWindow)parameter).Close();
+                return;
+            }
             var Client = new Aria2ClientModel(_aria2_server);
             try
             {

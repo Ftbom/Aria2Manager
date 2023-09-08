@@ -90,4 +90,5 @@
     <system:String x:Key="SelectLanguage">Select Language</system:String>
     <system:String x:Key="StartMin">Start Minimized</system:String>
     <system:String x:Key="CloseToExit">Exit When Close MainWindow</system:String>
+    <system:String x:Key="ConnectionError">Server Connection Error</system:String>
 </ResourceDictionary>

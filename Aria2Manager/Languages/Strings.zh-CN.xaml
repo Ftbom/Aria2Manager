@@ -91,4 +91,5 @@
     <system:String x:Key="SelectLanguage">选择语言</system:String>
     <system:String x:Key="StartMin">启动时最小化</system:String>
     <system:String x:Key="CloseToExit">关闭主窗口时退出</system:String>
+    <system:String x:Key="ConnectionError">服务器连接错误</system:String>
 </ResourceDictionary>
