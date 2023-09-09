@@ -9,7 +9,7 @@ namespace Aria2Manager.Views
     /// </summary>
     public partial class ItemInfoWindow : Window
     {
-        public ItemInfoWindow(string? gid = null, Aria2ServerModel? server = null)
+        public ItemInfoWindow(string? gid = null, Aria2ServerInfoModel? server = null)
         {
             InitializeComponent();
             var model = new ItemInfoViewModel(gid, server);

@@ -64,20 +64,20 @@ namespace Aria2Manager.ViewModels
         public ICommand BrowseFileCommand { get; private set; }
         public ICommand AddDownloadCommand { get; private set; }
 
-        private Aria2ServerModel _aria2_server;
+        private Aria2ServerInfoModel _aria2_server;
         private bool _is_url;
         private bool _is_torrent;
         private bool _is_metalink;
         private bool is_connect; //是否已连接
 
-        public AddNewItemViewModel(Aria2ServerModel? Server = null)
+        public AddNewItemViewModel(Aria2ServerInfoModel? Server = null)
         {
             IsUrl = true;
             IsTorrent = false;
             IsMetaLink = false;
             if (Server == null)
             {
-                _aria2_server = new Aria2ServerModel();
+                _aria2_server = new Aria2ServerInfoModel();
             }
             else
             {

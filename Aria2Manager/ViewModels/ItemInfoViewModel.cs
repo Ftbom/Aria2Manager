@@ -14,7 +14,7 @@ namespace Aria2Manager.ViewModels
     public class ItemInfoViewModel : INotifyPropertyChanged
     {
         private string? GID;
-        private Aria2ServerModel? _server;
+        private Aria2ServerInfoModel? _server;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -33,7 +33,7 @@ namespace Aria2Manager.ViewModels
         //文件列表
         public List<ItemFileModel>? Files { get; set; }
 
-        public ItemInfoViewModel(string? gid = null, Aria2ServerModel? server = null)
+        public ItemInfoViewModel(string? gid = null, Aria2ServerInfoModel? server = null)
         {
             SelectFileCommand = new RelayCommand(SelectFile);
             if (String.IsNullOrEmpty(gid))

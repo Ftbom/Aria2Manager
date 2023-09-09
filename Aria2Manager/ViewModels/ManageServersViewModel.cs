@@ -25,9 +25,9 @@ namespace Aria2Manager.ViewModels
         public ICommand SaveSettingsCommand { get; set; }
 
 
-        private ObservableCollection<Aria2ServerModel> _servers; //服务器配置列表
-        private Aria2ServerModel _editserver; //正在编辑的服务器配置
-        private Aria2ServerModel _currentserver; //当前正使用的服务器
+        private ObservableCollection<Aria2ServerInfoModel> _servers; //服务器配置列表
+        private Aria2ServerInfoModel _editserver; //正在编辑的服务器配置
+        private Aria2ServerInfoModel _currentserver; //当前正使用的服务器
         private int _serverindex; //选中的服务器在列表中的位置
 
         //代理设置
@@ -37,12 +37,12 @@ namespace Aria2Manager.ViewModels
         public string? ProxyUser { get; set; }
         public string? ProxyPasswd { get; set; }
         public List<string> ProxyTypes { get; set; }
-        public Aria2ServerModel CurrentServer
+        public Aria2ServerInfoModel CurrentServer
         {
             get
             {
                 //根据_currentserver返回服务器列表中对应元素
-                foreach (Aria2ServerModel server in Servers)
+                foreach (Aria2ServerInfoModel server in Servers)
                 {
                     if (server.ServerName == _currentserver.ServerName)
                     {
@@ -68,7 +68,7 @@ namespace Aria2Manager.ViewModels
                 }
             }
         }
-        public Aria2ServerModel EditServer
+        public Aria2ServerInfoModel EditServer
         {
             get => _editserver;
             set
@@ -80,7 +80,7 @@ namespace Aria2Manager.ViewModels
                 }
             }
         }
-        public ObservableCollection<Aria2ServerModel> Servers
+        public ObservableCollection<Aria2ServerInfoModel> Servers
         {
             get => _servers;
             set
@@ -93,11 +93,11 @@ namespace Aria2Manager.ViewModels
             }
         }
 
-        public ManageServersViewModel(Aria2ServerModel? Server = null)
+        public ManageServersViewModel(Aria2ServerInfoModel? Server = null)
         {
             if (Server == null)
             {
-                _currentserver = new Aria2ServerModel(); //储存当前服务器信息
+                _currentserver = new Aria2ServerInfoModel(); //储存当前服务器信息
             }
             else
             {
@@ -109,7 +109,7 @@ namespace Aria2Manager.ViewModels
             SaveSettingsCommand = new RelayCommand(SaveSettings);
             DeleteServerCommand = new RelayCommand(DeleteServer);
             //从配置文件中加载服务器信息
-            _servers = new ObservableCollection<Aria2ServerModel>();
+            _servers = new ObservableCollection<Aria2ServerInfoModel>();
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Aria2Servers.xml");
             var current = doc.SelectSingleNode($"/Servers/Avaliable");
@@ -121,14 +121,14 @@ namespace Aria2Manager.ViewModels
                 }
                 foreach (string name in current.InnerText.Split(','))
                 {
-                    _servers.Add(new Aria2ServerModel(name));
+                    _servers.Add(new Aria2ServerInfoModel(name));
                 }
                 _editserver = _servers[0];
             }
             catch
             {
                 //配置文件无信息则使用默认值
-                _servers.Add(new Aria2ServerModel());
+                _servers.Add(new Aria2ServerInfoModel());
                 _editserver = _servers[0];
             }
             //从文件中读取代理信息
@@ -179,7 +179,7 @@ namespace Aria2Manager.ViewModels
         //添加新服务
         private void AddNewServer(object? parameter)
         {
-            Aria2ServerModel NewServer = new Aria2ServerModel();
+            Aria2ServerInfoModel NewServer = new Aria2ServerInfoModel();
             Servers.Add(NewServer);
             EditServer = NewServer;
         }
@@ -222,7 +222,7 @@ namespace Aria2Manager.ViewModels
             List<string> server_names = new List<string>();
             XmlNode ServerConfigsNode = doc.SelectSingleNode("/Servers/ServerConfigs");
             ServerConfigsNode.RemoveAll();
-            foreach (Aria2ServerModel server in Servers)
+            foreach (Aria2ServerInfoModel server in Servers)
             {
                 XmlNode ServerNode = doc.CreateElement(server.ServerName);
                 XmlNode TempNode = doc.CreateElement("Address");

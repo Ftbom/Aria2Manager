@@ -12,7 +12,7 @@ namespace Aria2Manager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Aria2ServerModel Aria2Server { get; set; }
+        private Aria2ServerInfoModel Aria2Server { get; set; }
         private bool close_to_exit;
 
         public MainWindow(bool CloseToExit = false)
@@ -21,11 +21,11 @@ namespace Aria2Manager
             //从文件读取当前服务器信息
             try
             {
-                Aria2Server = new Aria2ServerModel(true);
+                Aria2Server = new Aria2ServerInfoModel(true);
             }
             catch
             {
-                Aria2Server = new Aria2ServerModel();
+                Aria2Server = new Aria2ServerInfoModel();
                 //未发现配置，提示创建服务器信息
                 MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);

@@ -18,7 +18,7 @@ namespace Aria2Manager.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public Aria2ServerModel Aria2Server { get; set; }
+        public Aria2ServerInfoModel Aria2Server { get; set; }
         public string Connected //服务器连接状态，颜色。绿或红
         {
             get
@@ -98,11 +98,11 @@ namespace Aria2Manager.ViewModels
         private List<DownloadItemModel> _downloaditems;
         private DownloadItemModel? _selecteditem;
 
-        public MainWindowViewModel(Aria2ServerModel? aria2_server = null)
+        public MainWindowViewModel(Aria2ServerInfoModel? aria2_server = null)
         {
             if (aria2_server == null)
             {
-                Aria2Server = new Aria2ServerModel();
+                Aria2Server = new Aria2ServerInfoModel();
             }
             else
             {

@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace Aria2Manager.Models
 {
-    public class Aria2ServerModel
+    public class Aria2ServerInfoModel
     {
         public string? ServerName { get; set; } //服务器名
         public string? ServerAddress { get; set; } //服务器地址
@@ -64,7 +64,7 @@ namespace Aria2Manager.Models
         }
 
         //初始化
-        public Aria2ServerModel(bool read_file = false)
+        public Aria2ServerInfoModel(bool read_file = false)
         {
             if (!read_file)
             {
@@ -94,7 +94,7 @@ namespace Aria2Manager.Models
         }
 
         //通过参数初始化
-        public Aria2ServerModel(string server_name, string server_address, string server_port,
+        public Aria2ServerInfoModel(string server_name, string server_address, string server_port,
             string server_secret, bool is_https, bool use_proxy)
         {
             ServerName = server_name;
@@ -106,7 +106,7 @@ namespace Aria2Manager.Models
         }
 
         //通过服务器名初始化
-        public Aria2ServerModel(string server_name)
+        public Aria2ServerInfoModel(string server_name)
         {
             ReadFromFileByName(server_name);
         }

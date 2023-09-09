@@ -13,8 +13,8 @@ namespace Aria2Manager.Models
             private set { }
         }
 
-        //使用Aria2ServerModel初始化类
-        private void InitWithServerModel(Aria2ServerModel server_info)
+        //使用Aria2ServerInfoModel初始化类
+        private void InitWithServerModel(Aria2ServerInfoModel server_info)
         {
             string scheme;
             if (server_info.IsHttps)
@@ -30,7 +30,7 @@ namespace Aria2Manager.Models
             HttpClient client;
             if (server_info.UseProxy)
             {
-                var Proxy = Aria2ServerModel.GetProxies();
+                var Proxy = Aria2ServerInfoModel.GetProxies();
                 if (Proxy == null)
                 {
                     client = new HttpClient();
@@ -60,14 +60,14 @@ namespace Aria2Manager.Models
             aria2_client = new Aria2NetClient(aria2Url: jsonrpc_url, secret: Aria2Secret, httpClient: client);
         }
 
-        public Aria2ClientModel(Aria2ServerModel server_info)
+        public Aria2ClientModel(Aria2ServerInfoModel server_info)
         {
             InitWithServerModel(server_info);
         }
 
         public Aria2ClientModel() //默认设置
         {
-            InitWithServerModel(new Aria2ServerModel());
+            InitWithServerModel(new Aria2ServerInfoModel());
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Aria2Manager.Views
     /// </summary>
     public partial class ManageServersWindow : Window
     {
-        public ManageServersWindow(Aria2ServerModel? Aria2Server = null)
+        public ManageServersWindow(Aria2ServerInfoModel? Aria2Server = null)
         {
             InitializeComponent();
             ManageServersViewModel Model = new ManageServersViewModel(Aria2Server);

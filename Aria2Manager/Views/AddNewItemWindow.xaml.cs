@@ -10,7 +10,7 @@ namespace Aria2Manager.Views
     public partial class AddNewItemWindow : Window
     {
 
-        public AddNewItemWindow(Aria2ServerModel? Aria2Server = null)
+        public AddNewItemWindow(Aria2ServerInfoModel? Aria2Server = null)
         {
             InitializeComponent();
             AddNewItemViewModel Model = new AddNewItemViewModel(Aria2Server);
