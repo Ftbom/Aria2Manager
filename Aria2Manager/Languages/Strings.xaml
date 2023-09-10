@@ -91,4 +91,12 @@
     <system:String x:Key="StartMin">Start Minimized</system:String>
     <system:String x:Key="CloseToExit">Exit When Close MainWindow</system:String>
     <system:String x:Key="ConnectionError">Server Connection Error</system:String>
+    <system:String x:Key="Aria2Options">Aria2 Options</system:String>
+    <system:String x:Key="HTTPFTPSFTPOptions">HTTP/FTP/SFTP Options</system:String>
+    <system:String x:Key="HTTPOptions">HTTP Options</system:String>
+    <system:String x:Key="FTPSFTPOptions">FTP/SFTP Options</system:String>
+    <system:String x:Key="BitTorrentOptions">BitTorrent Options</system:String>
+    <system:String x:Key="MetalinkOptions">Metalink Options</system:String>
+    <system:String x:Key="RPCOptions">RPC Options</system:String>
+    <system:String x:Key="Loading">Loading</system:String>
 </ResourceDictionary>

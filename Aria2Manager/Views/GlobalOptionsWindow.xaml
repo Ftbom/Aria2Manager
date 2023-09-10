@@ -1,0 +1,265 @@
+﻿<Window x:Class="Aria2Manager.Views.GlobalOptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{DynamicResource Aria2Options}" Height="550" Width="600" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" IsEnabled="{Binding EnableTab}">
+            <TabItem Header="{DynamicResource BasicOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding BasicOptions}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="{DynamicResource HTTPFTPSFTPOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding HttpFtpSftpOptions}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="{DynamicResource HTTPOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding GlobalOptions[http]}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Value.value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding Value.is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="{DynamicResource FTPSFTPOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding GlobalOptions[ftp_sftp]}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Value.value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding Value.is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="{DynamicResource BitTorrentOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding GlobalOptions[bt]}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Value.value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding Value.is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="{DynamicResource MetalinkOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding GlobalOptions[metalink]}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Value.value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding Value.is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="{DynamicResource RPCOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding GlobalOptions[rpc]}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Value.value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding Value.is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="{DynamicResource AdvancedOptions}">
+                <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding GlobalOptions[advanced]}">
+                    <!--关闭选中-->
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ListViewItem Height="35">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource FileName}" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Value.value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding Value.is_enabled}"/>
+                                </Grid>
+                            </ListViewItem>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+        </TabControl>
+        <Button Content="{DynamicResource Save}" Grid.Row="1" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</Window>
