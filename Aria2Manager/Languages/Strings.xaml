@@ -99,4 +99,21 @@
     <system:String x:Key="MetalinkOptions">Metalink Options</system:String>
     <system:String x:Key="RPCOptions">RPC Options</system:String>
     <system:String x:Key="Loading">Loading</system:String>
+    <system:String x:Key="BasicOptionNames">
+        Download Path|Log File|Max Concurrent Downloads|Check Integrity|Resume Download
+    </system:String>
+    <system:String x:Key="HTTPFTPSFTPOptionNames">
+    </system:String>
+    <system:String x:Key="HTTPOptionNames">
+    </system:String>
+    <system:String x:Key="FTPSFTPOptionNames">
+    </system:String>
+    <system:String x:Key="BitTorrentOptionNames">
+    </system:String>
+    <system:String x:Key="MetalinkOptionNames">
+    </system:String>
+    <system:String x:Key="RPCOptionNames">
+    </system:String>
+    <system:String x:Key="AdvancedOptionNames">
+    </system:String>
 </ResourceDictionary>

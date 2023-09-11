@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Security.AccessControl;
 using System.Windows;
-using System.Xml.Linq;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Aria2Manager.Models;
+using Aria2Manager.Utils;
+using Aria2Manager.Views;
 
 namespace Aria2Manager.ViewModels
 {
-    public class GlobalOptionsViewModel : INotifyPropertyChanged
+    public class GlobalOptionsViewModel
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         private List<string> basic_options = new List<string> {
             "dir", "log", "max-concurrent-downloads", "check-integrity", "continue"
         };
@@ -72,17 +72,19 @@ namespace Aria2Manager.ViewModels
         };
         private Aria2ServerInfoModel aria2_server; //服务器信息
         private bool is_connect = true; //是否连接成功
-        private IDictionary<string, string>? global_options_value;
+        private IDictionary<string, string>? global_options_value; //获取到的设置
+        private List<string> LoadedOptionsName; //记录已加载的设置项，用于分批加载设置，减少加载时间
 
-        public ObservableCollection<OptionModel> BasicOptions { get; set; }
-        public ObservableCollection<OptionModel> HttpFtpSftpOptions { get; set; }
-        public ObservableCollection<OptionModel> HttpOptions { get; set; }
-        public ObservableCollection<OptionModel> FtpSftpOptions { get; set; }
-        public ObservableCollection<OptionModel> BTOptions { get; set; }
-        public ObservableCollection<OptionModel> MetalinkOptions { get; set; }
-        public ObservableCollection<OptionModel> RPCOptions { get; set; }
-        public ObservableCollection<OptionModel> AdvancedOptions { get; set; }
-        public bool EnableTab { get; set; }
+        public List<OptionModel> BasicOptions { get;set; } //基本设置
+        public List<OptionModel> HttpFtpSftpOptions { get; set; } //HTTP/FTP/SFTP设置
+        public List<OptionModel> HttpOptions { get; set; } //HTTP设置
+        public List<OptionModel> FtpSftpOptions { get; set; } //FTP/SFTP设置
+        public List<OptionModel> BTOptions { get; set; } //BT设置
+        public List<OptionModel> MetalinkOptions { get; set; } //Metalink设置
+        public List<OptionModel> RPCOptions { get; set; } //RPC设置
+        public List<OptionModel> AdvancedOptions { get; set; } //高级设置
+        public ICommand TabChangeCommand { get; private set; } //Tab切换事件
+        public ICommand SetOptionsCommand { get; private set; } //保存设置
 
         public GlobalOptionsViewModel(Aria2ServerInfoModel? Server = null)
         {
@@ -94,16 +96,100 @@ namespace Aria2Manager.ViewModels
             {
                 aria2_server = Server;
             }
-            BasicOptions = InitOptions(basic_options);
-            HttpFtpSftpOptions = InitOptions(http_ftp_sftp_options);
-            HttpOptions = InitOptions(http_options);
-            FtpSftpOptions = InitOptions(ftp_sftp_options);
-            BTOptions = InitOptions(bt_options);
-            MetalinkOptions = InitOptions(metalink_options);
-            RPCOptions = InitOptions(rpc_options);
-            AdvancedOptions = InitOptions(advanced_options);
-            EnableTab = false;
+            BasicOptions = InitOptions(basic_options, "BasicOptionNames");
+            HttpFtpSftpOptions = InitOptions(http_ftp_sftp_options, "HTTPFTPSFTPOptionNames");
+            HttpOptions = InitOptions(http_options, "HTTPOptionNames");
+            FtpSftpOptions = InitOptions(ftp_sftp_options, "FTPSFTPOptionNames");
+            BTOptions = InitOptions(bt_options, "BitTorrentOptionNames");
+            MetalinkOptions = InitOptions(metalink_options, "MetalinkOptionNames");
+            RPCOptions = InitOptions(rpc_options, "RPCOptionNames");
+            AdvancedOptions = InitOptions(advanced_options, "AdvancedOptionNames");
+            TabChangeCommand = new RelayCommand(ChangeOptions);
+            SetOptionsCommand = new RelayCommand(SetOptions);
+            LoadedOptionsName = new List<string>();
             GetOptions();
+        }
+
+        async private void SetOptions(object? parameter)
+        {
+            if (is_connect)
+            {
+                Dictionary<string, string> options = new Dictionary<string, string>();
+                //加载经界面修改后的设置
+                GetChangedOptions(options, BasicOptions, nameof(BasicOptions));
+                GetChangedOptions(options, HttpFtpSftpOptions, nameof(HttpFtpSftpOptions));
+                GetChangedOptions(options, FtpSftpOptions, nameof(FtpSftpOptions));
+                GetChangedOptions(options, BTOptions, nameof(BTOptions));
+                GetChangedOptions(options, MetalinkOptions, nameof(MetalinkOptions));
+                GetChangedOptions(options, RPCOptions, nameof(RPCOptions));
+                GetChangedOptions(options, AdvancedOptions, nameof(AdvancedOptions));
+                GetChangedOptions(options, HttpOptions, nameof(HttpOptions));
+                //应用更改
+                Aria2ClientModel client = new Aria2ClientModel(aria2_server);
+                try
+                {
+                    await client.Aria2Client.ChangeGlobalOptionAsync(options);
+                }
+                catch { }
+                if (parameter != null)
+                {
+                    ((GlobalOptionsWindow)parameter).Close();
+                }
+            }
+        }
+
+        private void GetChangedOptions(Dictionary<string, string> Options, List<OptionModel> OptionsList, string OptionsName)
+        {
+            if (!LoadedOptionsName.Contains(OptionsName)) //跳过未在界面加载的设置
+            {
+                return;
+            }
+            foreach (OptionModel option in OptionsList)
+            {
+                if (option.is_enabled) //是否只读
+                {
+                    if (option.value != null)
+                    {
+                        Options[option.id] = option.value;
+                    }
+                }
+            }
+        }
+
+        private void ChangeOptions(object? parameter)
+        {
+            if (parameter == null)
+            {
+                return;
+            }
+            //根据切换的Tab加载设置项
+            string tab_name = (string)parameter;
+            switch (tab_name)
+            {
+                case "HttpFtpSftpOptionsTab":
+                    LoadOptions(HttpFtpSftpOptions, nameof(HttpFtpSftpOptions));
+                    break;
+                case "HttpOptionsTab":
+                    LoadOptions(HttpOptions, nameof(HttpOptions));
+                    break;
+                case "FtpSftpOptionsTab":
+                    LoadOptions(FtpSftpOptions, nameof(FtpSftpOptions));
+                    break;
+                case "BitTorrentOptionsTab":
+                    LoadOptions(BTOptions, nameof(BTOptions));
+                    break;
+                case "MetalinkOptionsTab":
+                    LoadOptions(MetalinkOptions, nameof(MetalinkOptions));
+                    break;
+                case "RPCOptionsTab":
+                    LoadOptions(RPCOptions, nameof(RPCOptions));
+                    break;
+                case "AdvancedOptionsTab":
+                    LoadOptions(AdvancedOptions, nameof(AdvancedOptions));
+                    break;
+                default:
+                    break;
+            }
         }
 
         //获取全局设置
@@ -121,45 +207,65 @@ namespace Aria2Manager.ViewModels
                 MessageBox.Show(Application.Current.FindResource("ConnectionError").ToString());
             }
             //加载配置
-            LoadOptions(BasicOptions);
-            LoadOptions(HttpFtpSftpOptions);
-            LoadOptions(HttpOptions);
-            LoadOptions(FtpSftpOptions);
-            LoadOptions(BTOptions);
-            LoadOptions(MetalinkOptions);
-            LoadOptions(RPCOptions);
-            LoadOptions(AdvancedOptions);
-            EnableTab = true;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(null));
-            }
+            LoadOptions(BasicOptions, nameof(BasicOptions));
         }
 
-        public void LoadOptions(ObservableCollection<OptionModel> Options)
+        public void LoadOptions(List<OptionModel> Options, string OptionsName)
         {
             if (!is_connect)
             {
                 return;
             }
+            //设置已加载则跳过
+            if (LoadedOptionsName.Contains(OptionsName))
+            {
+                return;
+            }
+            LoadedOptionsName.Add(OptionsName);
             foreach (OptionModel option in Options)
             {
                 Options[Options.IndexOf(option)].value = GetOptionValueByKey(global_options_value, option.id);
             }
         }
 
-        private ObservableCollection<OptionModel> InitOptions(List<string> OptionsId)
+        private List<OptionModel> InitOptions(List<string> OptionsId, string OptionsSourceName)
         {
-            ObservableCollection<OptionModel> Options = new ObservableCollection<OptionModel>();
-            foreach (string _id in OptionsId)
+            List<OptionModel> Options = new List<OptionModel>();
+            string source_string;
+            try
             {
-                if (readonly_options.Contains(_id))
+                //获取资源文件中设置项的名称和描述
+                source_string = Application.Current.FindResource(OptionsSourceName).ToString();
+                if (source_string != null)
                 {
-                    Options.Add(new OptionModel { is_enabled = false, value = "" , id = _id});
+                    source_string = source_string.Replace("\n", "");
+                }
+            }
+            catch
+            {
+                return Options;
+            }
+            List<string> option_names = source_string.Split('|').ToList(); //分隔设置项
+            for (int i = 0; i < OptionsId.Count; i++)
+            {
+                string[] name_string = option_names[i].Split('>'); //分隔名称和描述
+                string _name = name_string[0];
+                string? _description;
+                if (name_string.Length == 2)
+                {
+                    _description = name_string[1]; //存在描述
                 }
                 else
                 {
-                    Options.Add(new OptionModel { is_enabled = true, value = "", id = _id });
+                    _description = null; //不存在描述
+                }
+                if (readonly_options.Contains(OptionsId[i]))
+                {
+                    Options.Add(new OptionModel { is_enabled = false, value = "" , id = OptionsId[i], name = _name, description = _description });
+                }
+                else
+                {
+                    Options.Add(new OptionModel { is_enabled = true, value = "", id = OptionsId[i], name = _name, description = _description });
                 }
             }
             return Options;
