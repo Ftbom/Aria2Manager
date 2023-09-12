@@ -22,7 +22,7 @@
             }
         }
 
-        //秒转可读字符串
+        //秒（时间）转可读字符串
         static public string SecondsToString(long secCount)
         {
             string result = "";

@@ -1,5 +1,6 @@
 ﻿namespace Aria2Manager.Models
 {
+    //下载项信息
     public class DownloadItemModel
     {
         public string Gid { get; set; }

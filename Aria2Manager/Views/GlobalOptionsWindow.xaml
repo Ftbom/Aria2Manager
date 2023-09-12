@@ -25,7 +25,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding name}" VerticalAlignment="Center" ToolTip="{Binding description}"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding value}" VerticalAlignment="Center" Width="350" IsEnabled="{Binding is_enabled}"/>

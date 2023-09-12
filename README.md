@@ -1,34 +1,33 @@
 # Aria2Manager
 
-Aria2远程管理工具
+[English](https://github.com/Ftbom/Aria2Manager/blob/main/README.md), [简体中文](https://github.com/Ftbom/Aria2Manager/blob/main/README-zh.md)
 
-## 功能
+Aria2 Remote Manager
 
-* 支持添加多个Aria2服务器
-* 添加、暂停、继续、删除下载项
-* 显示下载项详细信息，可选择要下载的文件
-* 支持添加种子文件，支持HTTP连接基本设置
+## Features
 
-## 截图
+* Add multiple Aria2 servers
+* Add, pause, resume, and delete downloads
+* View download item details, including the ability to select the files to download
+* Add URLs, torrent files, or Metalink files
+* Change Aria2 configuration options
+
+## Screenshots
 
 ![MainWindow](ScreenShots/MainWindow.png)
 
-![AddDownload1](ScreenShots/AddDownload1.png)
+![AddDownload](ScreenShots/AddDownload.png)
 
-![AddDownload2](ScreenShots/AddDownload2.png)
+![ItemInfo](ScreenShots/ItemInfo.png)
 
-![AddDownload3](ScreenShots/AddDownload3.png)
-
-![ItemInfo1](ScreenShots/ItemInfo1.png)
-
-![ItemInfo2](ScreenShots/ItemInfo2.png)
-
-![ManageServers1](ScreenShots/ManageServers1.png)
-
-![ManageServers2](ScreenShots/ManageServers2.png)
+![ManageServers](ScreenShots/ManageServers.png)
 
 ![Settings](ScreenShots/Settings.png)
 
-## TODO
+![Aria2Settings](ScreenShots/Aria2Settings.png)
 
-* Aria2设置
+## Thanks
+
+* [Aria2.Net](https://github.com/rogerfar/Aria2.NET) - Aria2 RPC communication library
+* [AM-Downloader](https://github.com/antikmozib/AM-Downloader) - Main UI design reference
+* [AriaNg](https://github.com/mayswind/AriaNg) - Aria2 feature implementation reference

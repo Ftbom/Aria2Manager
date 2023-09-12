@@ -4,6 +4,7 @@ using System.Xml;
 
 namespace Aria2Manager.Models
 {
+    //aria2服务器信息
     public class Aria2ServerInfoModel
     {
         public string? ServerName { get; set; } //服务器名
@@ -68,6 +69,7 @@ namespace Aria2Manager.Models
         {
             if (!read_file)
             {
+                //默认配置
                 ServerName = "New";
                 ServerAddress = "127.0.0.1";
                 ServerPort = "6800";
@@ -123,6 +125,10 @@ namespace Aria2Manager.Models
                 string ProxyType = "";
                 string ProxyUser = "";
                 string ProxyPasswd = "";
+                if (proxy == null)
+                {
+                    return null;
+                }
                 foreach (XmlNode node in proxy.ChildNodes)
                 {
                     switch (node.Name)

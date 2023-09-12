@@ -96,6 +96,7 @@ namespace Aria2Manager.ViewModels
             {
                 aria2_server = Server;
             }
+            //初始化配置项
             BasicOptions = InitOptions(basic_options, "BasicOptionNames");
             HttpFtpSftpOptions = InitOptions(http_ftp_sftp_options, "HTTPFTPSFTPOptionNames");
             HttpOptions = InitOptions(http_options, "HTTPOptionNames");
@@ -104,59 +105,32 @@ namespace Aria2Manager.ViewModels
             MetalinkOptions = InitOptions(metalink_options, "MetalinkOptionNames");
             RPCOptions = InitOptions(rpc_options, "RPCOptionNames");
             AdvancedOptions = InitOptions(advanced_options, "AdvancedOptionNames");
-            TabChangeCommand = new RelayCommand(ChangeOptions);
+            TabChangeCommand = new RelayCommand(ChangeLoadedOptions);
             SetOptionsCommand = new RelayCommand(SetOptions);
             LoadedOptionsName = new List<string>();
-            GetOptions();
+            GetOptions(); //获取配置项的值
         }
 
-        async private void SetOptions(object? parameter)
+        //获取全局设置
+        async private void GetOptions()
         {
-            if (is_connect)
+            Aria2ClientModel client = new Aria2ClientModel(aria2_server);
+            try
             {
-                Dictionary<string, string> options = new Dictionary<string, string>();
-                //加载经界面修改后的设置
-                GetChangedOptions(options, BasicOptions, nameof(BasicOptions));
-                GetChangedOptions(options, HttpFtpSftpOptions, nameof(HttpFtpSftpOptions));
-                GetChangedOptions(options, FtpSftpOptions, nameof(FtpSftpOptions));
-                GetChangedOptions(options, BTOptions, nameof(BTOptions));
-                GetChangedOptions(options, MetalinkOptions, nameof(MetalinkOptions));
-                GetChangedOptions(options, RPCOptions, nameof(RPCOptions));
-                GetChangedOptions(options, AdvancedOptions, nameof(AdvancedOptions));
-                GetChangedOptions(options, HttpOptions, nameof(HttpOptions));
-                //应用更改
-                Aria2ClientModel client = new Aria2ClientModel(aria2_server);
-                try
-                {
-                    await client.Aria2Client.ChangeGlobalOptionAsync(options);
-                }
-                catch { }
-                if (parameter != null)
-                {
-                    ((GlobalOptionsWindow)parameter).Close();
-                }
+                global_options_value = await client.Aria2Client.GetGlobalOptionAsync();
+                is_connect = true;
             }
+            catch
+            {
+                is_connect = false;
+                MessageBox.Show(Application.Current.FindResource("ConnectionError").ToString());
+            }
+            //加载配置
+            LoadOptions(BasicOptions, nameof(BasicOptions));
         }
 
-        private void GetChangedOptions(Dictionary<string, string> Options, List<OptionModel> OptionsList, string OptionsName)
-        {
-            if (!LoadedOptionsName.Contains(OptionsName)) //跳过未在界面加载的设置
-            {
-                return;
-            }
-            foreach (OptionModel option in OptionsList)
-            {
-                if (option.is_enabled) //是否只读
-                {
-                    if (option.value != null)
-                    {
-                        Options[option.id] = option.value;
-                    }
-                }
-            }
-        }
-
-        private void ChangeOptions(object? parameter)
+        //根据选中的Tab动态加载配置
+        private void ChangeLoadedOptions(object? parameter)
         {
             if (parameter == null)
             {
@@ -192,50 +166,33 @@ namespace Aria2Manager.ViewModels
             }
         }
 
-        //获取全局设置
-        async private void GetOptions()
-        {
-            Aria2ClientModel client = new Aria2ClientModel(aria2_server);
-            try
-            {
-                global_options_value = await client.Aria2Client.GetGlobalOptionAsync();
-                is_connect = true;
-            }
-            catch
-            {
-                is_connect = false;
-                MessageBox.Show(Application.Current.FindResource("ConnectionError").ToString());
-            }
-            //加载配置
-            LoadOptions(BasicOptions, nameof(BasicOptions));
-        }
-
-        public void LoadOptions(List<OptionModel> Options, string OptionsName)
+        //加载配置
+        public void LoadOptions(List<OptionModel> options, string options_name)
         {
             if (!is_connect)
             {
                 return;
             }
             //设置已加载则跳过
-            if (LoadedOptionsName.Contains(OptionsName))
+            if (LoadedOptionsName.Contains(options_name))
             {
                 return;
             }
-            LoadedOptionsName.Add(OptionsName);
-            foreach (OptionModel option in Options)
+            LoadedOptionsName.Add(options_name); //记录已加载的配置
+            foreach (OptionModel option in options)
             {
-                Options[Options.IndexOf(option)].value = GetOptionValueByKey(global_options_value, option.id);
+                options[options.IndexOf(option)].value = GetOptionValueByKey(global_options_value, option.id);
             }
         }
 
-        private List<OptionModel> InitOptions(List<string> OptionsId, string OptionsSourceName)
+        private List<OptionModel> InitOptions(List<string> options_id, string options_source_name)
         {
-            List<OptionModel> Options = new List<OptionModel>();
+            List<OptionModel> options = new List<OptionModel>();
             string source_string;
             try
             {
                 //获取资源文件中设置项的名称和描述
-                source_string = Application.Current.FindResource(OptionsSourceName).ToString();
+                source_string = Application.Current.FindResource(options_source_name).ToString();
                 if (source_string != null)
                 {
                     source_string = source_string.Replace("\n", "");
@@ -243,12 +200,12 @@ namespace Aria2Manager.ViewModels
             }
             catch
             {
-                return Options;
+                return options;
             }
             List<string> option_names = source_string.Split('|').ToList(); //分隔设置项
-            for (int i = 0; i < OptionsId.Count; i++)
+            for (int i = 0; i < options_id.Count; i++)
             {
-                string[] name_string = option_names[i].Split('>'); //分隔名称和描述
+                string[] name_string = option_names[i].Split('%'); //分隔名称和描述
                 string _name = name_string[0];
                 string? _description;
                 if (name_string.Length == 2)
@@ -259,16 +216,16 @@ namespace Aria2Manager.ViewModels
                 {
                     _description = null; //不存在描述
                 }
-                if (readonly_options.Contains(OptionsId[i]))
+                if (readonly_options.Contains(options_id[i]))
                 {
-                    Options.Add(new OptionModel { is_enabled = false, value = "" , id = OptionsId[i], name = _name, description = _description });
+                    options.Add(new OptionModel { is_enabled = false, value = "" , id = options_id[i], name = _name, description = _description });
                 }
                 else
                 {
-                    Options.Add(new OptionModel { is_enabled = true, value = "", id = OptionsId[i], name = _name, description = _description });
+                    options.Add(new OptionModel { is_enabled = true, value = "", id = options_id[i], name = _name, description = _description });
                 }
             }
-            return Options;
+            return options;
         }
 
         //从字典读取值
@@ -289,6 +246,54 @@ namespace Aria2Manager.ViewModels
             catch
             {
                 return "";
+            }
+        }
+
+        //设置配置项（保存设置）
+        async private void SetOptions(object? parameter)
+        {
+            if (is_connect)
+            {
+                Dictionary<string, string> options = new Dictionary<string, string>();
+                //加载经界面修改后的设置
+                GetChangedOptions(options, BasicOptions, nameof(BasicOptions));
+                GetChangedOptions(options, HttpFtpSftpOptions, nameof(HttpFtpSftpOptions));
+                GetChangedOptions(options, FtpSftpOptions, nameof(FtpSftpOptions));
+                GetChangedOptions(options, BTOptions, nameof(BTOptions));
+                GetChangedOptions(options, MetalinkOptions, nameof(MetalinkOptions));
+                GetChangedOptions(options, RPCOptions, nameof(RPCOptions));
+                GetChangedOptions(options, AdvancedOptions, nameof(AdvancedOptions));
+                GetChangedOptions(options, HttpOptions, nameof(HttpOptions));
+                //应用更改
+                Aria2ClientModel client = new Aria2ClientModel(aria2_server);
+                try
+                {
+                    await client.Aria2Client.ChangeGlobalOptionAsync(options);
+                }
+                catch { }
+                if (parameter != null)
+                {
+                    ((GlobalOptionsWindow)parameter).Close();
+                }
+            }
+        }
+
+        //获取界面更改的设置
+        private void GetChangedOptions(Dictionary<string, string> options, List<OptionModel> options_list, string options_name)
+        {
+            if (!LoadedOptionsName.Contains(options_name)) //跳过未在界面加载的设置
+            {
+                return;
+            }
+            foreach (OptionModel option in options_list)
+            {
+                if (option.is_enabled) //是否只读
+                {
+                    if (option.value != null)
+                    {
+                        options[option.id] = option.value;
+                    }
+                }
             }
         }
     }

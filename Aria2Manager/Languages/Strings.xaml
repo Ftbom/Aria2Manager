@@ -80,7 +80,7 @@
     <system:String x:Key="SeedRatio">Seed Ratio</system:String>
     <system:String x:Key="SeedTime">Seed Time</system:String>
     <system:String x:Key="AddDownload">Add Download</system:String>
-    <system:String x:Key="HeaderToolTip">Separate keys and values with ":" and separate each item with ";"</system:String>
+    <system:String x:Key="HeaderToolTip">Separate keys and values with ":" and separate each item with "|"</system:String>
     <system:String x:Key="OverView">OverView</system:String>
     <system:String x:Key="Files">Files</system:String>
     <system:String x:Key="Speed">Speed</system:String>
@@ -103,17 +103,53 @@
         Download Path|Log File|Max Concurrent Downloads|Check Integrity|Resume Download
     </system:String>
     <system:String x:Key="HTTPFTPSFTPOptionNames">
+        Proxy Server|Proxy User Name|Proxy Password|Connect Timeout|Dry Run|Lowest Speed Limit|
+        Max Connection Per Server|Max File Not Found Try Times|Max Try Times|Min Split Size|
+        .netrc Path|Disable netrc|No Proxy List%A comma separated list|Proxy Method|Remote File Timestamp|Reuse Uri|
+        Retry Wait|Server Stat Output|Server Stat Timeout|Split Count|Piece Selection Algorithm|
+        Timeout|URI Selection Algorithm
     </system:String>
     <system:String x:Key="HTTPOptionNames">
+        Check Certificate|Accept GZip|Auth Challenge|No Cache|HTTP Default User Name|HTTP Default Password|
+        HTTP Proxy Server|HTTP Proxy User Name|HTTP Proxy Password|HTTPS Proxy Server|HTTPS Proxy User Name|
+        HTTPS Proxy Password|Referer|Enable Persistent Connection|Enable HTTP Pipelining|
+        Custom Header%Put one item per line, each item containing "header name: header value"|
+        Cookies Path|Use HEAD Method|Custom User Agent
     </system:String>
     <system:String x:Key="FTPSFTPOptionNames">
+        FTP Default User Name|FTP Default Password|Passive Mode|FTP Proxy Server|FTP Proxy User Name|
+        FTP Proxy Password|Transfer Type|Reuse Connection|SSH Public Key Checksum
     </system:String>
     <system:String x:Key="BitTorrentOptionNames">
+        Detach Seed Only|Enable Hook After Hash Check|Enable Local Peer Discovery (LPD)|
+        BitTorrent Exclude Trackers%A comma separated list, use special value * which matches all URIs|
+        External IP|Force Encryption|Hash Check Before Seeding|
+        Load Saved Metadata File|Max Open Files|Max Peers|Download Metadata Only|Min Crypto Level|
+        Prioritize Piece|Remove Unselected File|Require Crypto|Preferred Download Speed|Save Metadata|
+        Not Verify Downloaded Fileds|Stop Timeout|BitTorrent Trackers%A comma separated list|BitTorrent Tracker Connect Timeout|
+        BitTorrent Tracker Connect Interval|BitTorrent Tracker Timeout|DHT (IPv4) File|DHT (IPv6) File|
+        DHT Listen Port|DHT Message Timeout|Enable DHT (IPv4)|Enable DHT (IPv6)|Enable Peer Exchange|
+        Follow Torrent|Listen Port|Global Max Upload Limit|Max Upload Limit|Peer ID Prefix|Peer Agent|
+        Min Share Ratio|Min Seed Time
     </system:String>
     <system:String x:Key="MetalinkOptionNames">
+        Follow Metalink|Base URI|Language|Preferred Server Location|Operation System|Version|
+        Preferred Protocol|Enable Unique Protocol
     </system:String>
     <system:String x:Key="RPCOptionNames">
+        Enable JSON-RPC/XML-RPC Server|Pause After Metadata Downloaded|Allow All Origin Request|
+        Listen on All Network Interfaces|Listen Port|Max Request Size|Save Upload Metadata|Enable SSL/TLS
     </system:String>
     <system:String x:Key="AdvancedOptionNames">
+        Allow Overwrite|Allow Piece Length Change|Always Resume Download|Asynchronous DNS|Auto File Renaming|
+        Auto Save Interval|Conditional Download|Configuration File|Console Log Level|Use UTF-8 to Handle Content-Disposition|
+        Enable Daemon|Deferred Load|Disable IPv6|Disk Cache|Download Result|DSCP|Soft Limit of Open File Descriptors|
+        Enable Color in Terminal|Enable MMap|Event Polling Method|File Allocation Method|Force Save|Save Not Found File|
+        Hash Check Only|Console Human Readable Output|Keep Unfinished Download Result|Max Download Result|Max MMap Limit|
+        Max Resume Failure Try Times|Min TLS Version|Log Level|Optimize Concurrent Downloads|Piece Length|Show Console Output|
+        Download Summary Output Interval|Global Max Download Limit|Max Download Limit|Disable Configuration File|
+        No File Allocation Limit|Enable Parameterized URI|Disable Console Output|Realtime Data Chunk Validation|
+        Remove Control File|Session Save File|Save Session Interval|Socket Receive Buffer Size|Auto Shutdown Time|
+        Truncate Console Output
     </system:String>
 </ResourceDictionary>
