@@ -63,7 +63,7 @@
                         <TextBlock Text="&#xF828;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem x:Name="Aria2SettingsMenu" Header="{DynamicResource Aria2Settings}">
+                <MenuItem x:Name="Aria2SettingsMenu" Header="{DynamicResource Aria2Settings}" Click="Aria2SettingsMenu_Click">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF1DE;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>

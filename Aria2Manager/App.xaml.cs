@@ -58,6 +58,10 @@ namespace Aria2Manager
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Settings.xml");
             var settings = doc.SelectSingleNode($"/Settings");
+            if (settings == null)
+            {
+                return;
+            }
             foreach (XmlNode node in settings.ChildNodes)
             {
                 switch (node.Name)

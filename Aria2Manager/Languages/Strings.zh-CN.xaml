@@ -81,7 +81,7 @@
     <system:String x:Key="SeedRatio">做种分享率</system:String>
     <system:String x:Key="SeedTime">做种时间</system:String>
     <system:String x:Key="AddDownload">添加下载</system:String>
-    <system:String x:Key="HeaderToolTip">通过":"分隔键和值，通过";"分隔每项</system:String>
+    <system:String x:Key="HeaderToolTip">通过":"分隔键和值，通过"|"分隔每项</system:String>
     <system:String x:Key="OverView">总览</system:String>
     <system:String x:Key="Files">文件</system:String>
     <system:String x:Key="Speed">速度</system:String>
@@ -92,4 +92,56 @@
     <system:String x:Key="StartMin">启动时最小化</system:String>
     <system:String x:Key="CloseToExit">关闭主窗口时退出</system:String>
     <system:String x:Key="ConnectionError">服务器连接错误</system:String>
+    <system:String x:Key="Aria2Options">Aria2设置</system:String>
+    <system:String x:Key="HTTPFTPSFTPOptions">HTTP/FTP/SFTP设置</system:String>
+    <system:String x:Key="HTTPOptions">HTTP设置</system:String>
+    <system:String x:Key="FTPSFTPOptions">FTP/SFTP设置</system:String>
+    <system:String x:Key="BitTorrentOptions">BitTorrent设置</system:String>
+    <system:String x:Key="MetalinkOptions">Metalink设置</system:String>
+    <system:String x:Key="RPCOptions">RPC设置</system:String>
+    <system:String x:Key="Loading">加载中</system:String>
+    <system:String x:Key="BasicOptionNames">
+        下载路径|日志文件|最大同时下载数|检查完整性|断点续传
+    </system:String>
+    <system:String x:Key="HTTPFTPSFTPOptionNames">
+        代理服务器|代理服务器用户名|代理服务器密码|连接超时时间|模拟运行|最小速度限制|
+        单服务器最大连接数|文件未找到重试次数|最大尝试次数|最小文件分片大小|.netrc 文件路径|
+        禁用 netrc|不使用代理服务器列表%多个使用逗号分隔|代理服务器请求方法|获取服务器文件时间|URI 复用|
+        重试等待时间|服务器状态保存文件|服务器状态超时|单任务连接数|分片选择算法|超时时间|URI 选择算法
+    </system:String>
+    <system:String x:Key="HTTPOptionNames">
+        检查证书|支持 GZip|认证质询|禁用缓存|HTTP 默认用户名|HTTP 默认密码|HTTP 代理服务器|
+        HTTP 代理服务器用户名|HTTP 代理服务器密码|HTTPS 代理服务器|HTTPS 代理服务器用户名|
+        HTTPS 代理服务器密码|请求来源|启用持久连接|启用 HTTP 管线化|自定义请求头%每行放置一项, 每项包含 "请求头名: 请求头值"|
+        Cookies 保存路径|启用 HEAD 方法|自定义 User Agent
+    </system:String>
+    <system:String x:Key="FTPSFTPOptionNames">
+        FTP 默认用户名|FTP 默认密码|被动模式|FTP 代理服务器|FTP 代理服务器用户名|FTP 代理服务器密码|
+        传输类型|连接复用|SSH 公钥校验和
+    </system:String>
+    <system:String x:Key="BitTorrentOptionNames">
+        分离仅做种任务|启用哈希检查完成事件|启用本地节点发现  (LPD)|BT 排除服务器地址%可以使用 * 匹配所有地址，多个使用逗号分隔|
+        外部 IP 地址|强制加密|做种前检查文件哈希|加载已保存的元数据文件|最多打开文件数|最大连接节点数|仅下载种子文件|
+        最低加密级别|优先下载|删除未选择的文件|需要加密|期望下载速度|保存种子文件|不检查已经下载的文件|
+        无速度时自动停止时间|BT 服务器地址%多个使用逗号分隔|BT 服务器连接超时时间|BT 服务器连接间隔时间|BT 服务器超时时间|
+        DHT (IPv4) 文件|DHT (IPv6) 文件|DHT 监听端口|DHT 消息超时时间|启用 DHT (IPv4)|启用 DHT (IPv6)|
+        启用节点交换|下载种子中的文件|监听端口|全局最大上传速度|最大上传速度|节点 ID 前缀|Peer Agent|
+        最小分享率|最小做种时间
+    </system:String>
+    <system:String x:Key="MetalinkOptionNames">
+        下载 Metalink 中的文件|基础 URI|语言|首选服务器位置|操作系统|版本号|首选使用协议|仅使用唯一协议
+    </system:String>
+    <system:String x:Key="RPCOptionNames">
+        启用 JSON-RPC/XML-RPC 服务器|种子文件下载完后暂停|接受所有远程请求|在所有网卡上监听|监听端口|
+        最大请求大小|保存上传的种子文件|启用 SSL/TLS
+    </system:String>
+    <system:String x:Key="AdvancedOptionNames">
+        允许覆盖|允许分片大小变化|始终断点续传|异步 DNS|文件自动重命名|自动保存间隔|条件下载|配置文件路径|
+        控制台日志级别|使用 UTF-8 处理 Content-Disposition|启用后台进程|延迟加载|禁用 IPv6|磁盘缓存|
+        下载结果|DSCP|最多打开的文件描述符|终端输出使用颜色|启用 MMap|事件轮询方法|文件分配方法|强制保存|
+        保存未找到的文件|仅哈希检查|控制台可读输出|保留未完成的任务|最多下载结果|MMap 最大限制|最大断点续传尝试次数|
+        最低 TLS 版本|日志级别|优化并发下载|文件分片大小|显示控制台输出|下载摘要输出间隔|全局最大下载速度|
+        最大下载速度|禁用配置文件|文件分配限制|启用参数化 URI 支持|禁用控制台输出|实时数据块验证|删除控制文件|
+        状态保存文件|保存状态间隔|Socket 接收缓冲区大小|自动关闭时间|缩短控制台输出内容
+    </system:String>
 </ResourceDictionary>

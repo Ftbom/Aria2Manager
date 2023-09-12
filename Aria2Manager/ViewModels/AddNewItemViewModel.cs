@@ -16,7 +16,7 @@ namespace Aria2Manager.ViewModels
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        //分类
+        //新下载项分类
         public bool IsUrl
         {
             get => _is_url;
@@ -59,6 +59,7 @@ namespace Aria2Manager.ViewModels
         public string? ProxyPort { get; set; }
         public string? ProxyUser { get; set; }
         public string? ProxyPasswd { get; set; }
+
         public ICommand CheckTorrentCommand { get; private set; }
         public ICommand CheckMetaLinkCommand { get; private set; }
         public ICommand BrowseFileCommand { get; private set; }
@@ -72,12 +73,13 @@ namespace Aria2Manager.ViewModels
 
         public AddNewItemViewModel(Aria2ServerInfoModel? Server = null)
         {
+            //新下载项默认类别为URL
             IsUrl = true;
             IsTorrent = false;
             IsMetaLink = false;
             if (Server == null)
             {
-                _aria2_server = new Aria2ServerInfoModel();
+                _aria2_server = new Aria2ServerInfoModel(); //使用默认服务器信息
             }
             else
             {
@@ -98,6 +100,7 @@ namespace Aria2Manager.ViewModels
             try
             {
                 options = await client.Aria2Client.GetGlobalOptionAsync();
+                is_connect = true;
             }
             catch
             {
@@ -106,13 +109,14 @@ namespace Aria2Manager.ViewModels
                 return;
             }
             DownloadPath = GetOptionValueByKey(options, "dir");
-            //TODO:UPdate UI
             SeedRatio = GetOptionValueByKey(options, "seed-ratio");
             SeedTime = GetOptionValueByKey(options, "seed-time");
             HTTPUser = GetOptionValueByKey(options, "http-user");
             HTTPPasswd = GetOptionValueByKey(options, "http-passwd");
             ProxyPasswd = GetOptionValueByKey(options, "all-proxy-passwd");
             ProxyUser = GetOptionValueByKey(options, "all-proxy-user");
+            //代理信息处理
+            //获取IP地址和端口
             string? ProxyString = GetOptionValueByKey(options, "all-proxy");
             try
             {
@@ -158,6 +162,11 @@ namespace Aria2Manager.ViewModels
         //切换Torrent模式
         private void CheckTorrent(object? parameter)
         {
+            if (parameter == null)
+            {
+                return;
+            }
+            //切换回URL模式
             if (IsTorrent)
             {
                 IsUrl = true;
@@ -166,6 +175,7 @@ namespace Aria2Manager.ViewModels
             }
             else
             {
+                //切换为BitTorrent模式
                 CheckBox box = (CheckBox)parameter;
                 box.IsChecked = false;
                 IsUrl = false;
@@ -177,6 +187,11 @@ namespace Aria2Manager.ViewModels
         //切换MetaLink模式
         private void CheckMetaLink(object? parameter)
         {
+            if (parameter == null)
+            {
+                return;
+            }
+            //切换回URL模式
             if (IsMetaLink)
             {
                 IsUrl = true;
@@ -185,6 +200,7 @@ namespace Aria2Manager.ViewModels
             }
             else
             {
+                //切换为Metalink模式
                 CheckBox box = (CheckBox)parameter;
                 box.IsChecked = false;
                 IsUrl = false;
@@ -196,7 +212,11 @@ namespace Aria2Manager.ViewModels
         //添加下载
         private void AddDownload(object? parameter)
         {
-            if (!is_connect)
+            if (parameter == null)
+            {
+                return;
+            }
+            if (!is_connect) //服务器连接出错，直接退出
             {
                 ((AddNewItemWindow)parameter).Close();
                 return;
@@ -204,48 +224,61 @@ namespace Aria2Manager.ViewModels
             var Client = new Aria2ClientModel(_aria2_server);
             try
             {
-                var Options = new Dictionary<String, object>();
-                Options["dir"] = DownloadPath;
+                var Options = new Dictionary<string, object>();
+                SetOptions(Options, "dir", DownloadPath);
                 //按种类分别设置
-                if (IsMetaLink)
+                if (IsMetaLink && (MetaLinkPath != null))
                 {
                     Client.Aria2Client.AddMetalinkAsync(torrent: File.ReadAllBytes(MetaLinkPath), options: Options);
                 }
-                else if (IsTorrent)
+                else if (IsTorrent && (TorrentPath != null))
                 {
-                    Options["seed-time"] = SeedTime;
-                    Options["seed-ratio"] = SeedRatio;
+                    SetOptions(Options, "seed-time", SeedTime);
+                    SetOptions(Options, "seed-ratio", SeedRatio);
                     Client.Aria2Client.AddTorrentAsync(torrent: File.ReadAllBytes(TorrentPath), options: Options);
                 }
                 else
                 {
                     if (!String.IsNullOrEmpty(FileName))
                     {
-                        Options["out"] = FileName;
+                        SetOptions(Options, "out", FileName);
                     }
-                    Options["http-user"] = HTTPUser;
-                    Options["http-passwd"] = HTTPPasswd;
-                    Options["all-proxy-passwd"] = ProxyPasswd;
-                    Options["all-proxy-user"] = ProxyUser;
+                    SetOptions(Options, "http-user", HTTPUser);
+                    SetOptions(Options, "http-passwd", HTTPPasswd);
+                    SetOptions(Options, "all-proxy-passwd", ProxyPasswd);
+                    SetOptions(Options, "all-proxy-user", ProxyUser);
                     if ((!String.IsNullOrEmpty(ProxyAddress)) && (!String.IsNullOrEmpty(ProxyPort)))
                     {
                         Options["all-proxy"] = "http://" + ProxyAddress + ":" + ProxyPort;
                     }
                     if (!String.IsNullOrEmpty(HeaderString))
                     {
+                        //header 设置
                         var HeaderList = new List<string>();
-                        foreach(var header in HeaderString.Split(';'))
+                        foreach(var header in HeaderString.Split('|'))
                         {
                             HeaderList.Add(header);
                         }
                         Options["header"] = HeaderList.ToArray();
                     }
-                    Client.Aria2Client.AddUriAsync(uriList: new string[] { Url }, options: Options);
+                    if (Url != null)
+                    {
+                        Client.Aria2Client.AddUriAsync(uriList: new string[] { Url }, options: Options);
+                    }
                 }
             }
             catch
             { }
             ((AddNewItemWindow)parameter).Close();
+        }
+
+        //设置配置项
+        private void SetOptions(Dictionary<string, object> options, string key, object? value)
+        {
+            if (value != null)
+            {
+                options[key] = value;
+            }
         }
 
         //浏览文件或文件夹
@@ -256,7 +289,7 @@ namespace Aria2Manager.ViewModels
                 return;
             }
             string cmd = (string)parameter;
-            if (cmd == "0")
+            if (cmd == "0") //Torrent文件
             {
                 Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
                 openFileDialog.Filter = "Torrent files (*.torrent)|*.torrent";
@@ -266,7 +299,7 @@ namespace Aria2Manager.ViewModels
                     OnPropertyChanged(nameof(TorrentPath));
                 }
             }
-            else if (cmd == "1")
+            else if (cmd == "1") //MetaLink文件
             {
                 Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
                 openFileDialog.Filter = "MetaLink files (*.metalink)|*.metalink";
@@ -278,6 +311,7 @@ namespace Aria2Manager.ViewModels
             }
             else
             {
+                //文件夹
                 System.Windows.Forms.FolderBrowserDialog openFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
                 if (openFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {

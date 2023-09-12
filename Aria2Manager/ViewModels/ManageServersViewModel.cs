@@ -189,10 +189,13 @@ namespace Aria2Manager.ViewModels
         {
             if (_currentserver.ServerName == EditServer.ServerName)
             {
-                Button button = (Button)parameter;
-                button.Content = Application.Current.FindResource("DeleteFail").ToString();
-                button.Foreground = new SolidColorBrush(Colors.Red);
-                Button2Default(button); //恢复按钮样式
+                if (parameter != null)
+                {
+                    Button button = (Button)parameter;
+                    button.Content = Application.Current.FindResource("DeleteFail").ToString();
+                    button.Foreground = new SolidColorBrush(Colors.Red);
+                    Button2Default(button); //恢复按钮样式
+                }
             }
             else
             {
@@ -215,43 +218,53 @@ namespace Aria2Manager.ViewModels
                 _currentserver.UseProxy = Servers[0].UseProxy;
             }
             //保存到文件
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Configurations\\Aria2Servers.xml");
-            XmlNode Node = doc.SelectSingleNode("/Servers/Current");
-            Node.InnerText = CurrentServer.ServerName;
-            List<string> server_names = new List<string>();
-            XmlNode ServerConfigsNode = doc.SelectSingleNode("/Servers/ServerConfigs");
-            ServerConfigsNode.RemoveAll();
-            foreach (Aria2ServerInfoModel server in Servers)
+            try
             {
-                XmlNode ServerNode = doc.CreateElement(server.ServerName);
-                XmlNode TempNode = doc.CreateElement("Address");
-                TempNode.InnerText = server.ServerAddress;
-                ServerNode.AppendChild(TempNode);
-                TempNode = doc.CreateElement("Port");
-                TempNode.InnerText = server.ServerPort;
-                ServerNode.AppendChild(TempNode);
-                TempNode = doc.CreateElement("Secret");
-                TempNode.InnerText = server.ServerSecret;
-                ServerNode.AppendChild(TempNode);
-                TempNode = doc.CreateElement("IsHttps");
-                TempNode.InnerText = server.IsHttps.ToString();
-                ServerNode.AppendChild(TempNode);
-                TempNode = doc.CreateElement("UseProxy");
-                TempNode.InnerText = server.UseProxy.ToString();
-                ServerNode.AppendChild(TempNode);
-                ServerConfigsNode.AppendChild(ServerNode);
-                server_names.Add(server.ServerName);
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Configurations\\Aria2Servers.xml");
+                XmlNode Node = doc.SelectSingleNode("/Servers/Current");
+                Node.InnerText = CurrentServer.ServerName;
+                List<string> server_names = new List<string>();
+                XmlNode ServerConfigsNode = doc.SelectSingleNode("/Servers/ServerConfigs");
+                ServerConfigsNode.RemoveAll();
+                foreach (Aria2ServerInfoModel server in Servers)
+                {
+                    XmlNode ServerNode = doc.CreateElement(server.ServerName);
+                    XmlNode TempNode = doc.CreateElement("Address");
+                    TempNode.InnerText = server.ServerAddress;
+                    ServerNode.AppendChild(TempNode);
+                    TempNode = doc.CreateElement("Port");
+                    TempNode.InnerText = server.ServerPort;
+                    ServerNode.AppendChild(TempNode);
+                    TempNode = doc.CreateElement("Secret");
+                    TempNode.InnerText = server.ServerSecret;
+                    ServerNode.AppendChild(TempNode);
+                    TempNode = doc.CreateElement("IsHttps");
+                    TempNode.InnerText = server.IsHttps.ToString();
+                    ServerNode.AppendChild(TempNode);
+                    TempNode = doc.CreateElement("UseProxy");
+                    TempNode.InnerText = server.UseProxy.ToString();
+                    ServerNode.AppendChild(TempNode);
+                    ServerConfigsNode.AppendChild(ServerNode);
+                    server_names.Add(server.ServerName);
+                }
+                Node = doc.SelectSingleNode("/Servers/Avaliable");
+                Node.InnerText = String.Join(',', server_names.ToArray());
+                doc.Save("Configurations\\Aria2Servers.xml");
             }
-            Node = doc.SelectSingleNode("/Servers/Avaliable");
-            Node.InnerText = String.Join(',', server_names.ToArray());
-            doc.Save("Configurations\\Aria2Servers.xml");
+            catch
+            {
+                return;
+            }
             _currentserver.UpdateServerInfo(); //更新服务器信息
             //保存成功提示
-            Button button = (Button)parameter;
-            button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
-            button.Foreground = new SolidColorBrush(Colors.Green);
-            Button2Default(button); //恢复按钮样式
+            if (parameter != null)
+            {
+                Button button = (Button)parameter;
+                button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
+                button.Foreground = new SolidColorBrush(Colors.Green);
+                Button2Default(button); //恢复按钮样式
+            }
         }
 
         //保存服务器设置
@@ -265,40 +278,50 @@ namespace Aria2Manager.ViewModels
             _currentserver.IsHttps = Servers[_serverindex].IsHttps;
             _currentserver.UseProxy = Servers[_serverindex].UseProxy;
             //保存代理设置
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Configurations\\Aria2Servers.xml");
-            XmlNode Node = doc.SelectSingleNode("/Servers/Current");
-            Node.InnerText = CurrentServer.ServerName;
-            var proxy = doc.SelectSingleNode("/Servers/Proxy");
-            foreach (XmlNode node in proxy.ChildNodes)
+            try
             {
-                switch (node.Name)
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Configurations\\Aria2Servers.xml");
+                XmlNode Node = doc.SelectSingleNode("/Servers/Current");
+                Node.InnerText = CurrentServer.ServerName;
+                var proxy = doc.SelectSingleNode("/Servers/Proxy");
+                foreach (XmlNode node in proxy.ChildNodes)
                 {
-                    case "Address":
-                        node.InnerText = ProxyAddress;
-                        break;
-                    case "Port":
-                        node.InnerText = ProxyPort;
-                        break;
-                    case "Type":
-                        node.InnerText = ProxyType;
-                        break;
-                    case "User":
-                        node.InnerText = ProxyUser;
-                        break;
-                    case "Passwd":
-                        node.InnerText = ProxyPasswd;
-                        break;
-                    default:
-                        break;
+                    switch (node.Name)
+                    {
+                        case "Address":
+                            node.InnerText = ProxyAddress;
+                            break;
+                        case "Port":
+                            node.InnerText = ProxyPort;
+                            break;
+                        case "Type":
+                            node.InnerText = ProxyType;
+                            break;
+                        case "User":
+                            node.InnerText = ProxyUser;
+                            break;
+                        case "Passwd":
+                            node.InnerText = ProxyPasswd;
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                doc.Save("Configurations\\Aria2Servers.xml");
             }
-            doc.Save("Configurations\\Aria2Servers.xml");
+            catch
+            {
+                return;
+            }
             //成功提示
-            Button button = (Button)parameter;
-            button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
-            button.Foreground = new SolidColorBrush(Colors.Green);
-            Button2Default(button); //恢复按钮样式
+            if (parameter != null)
+            {
+                Button button = (Button)parameter;
+                button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
+                button.Foreground = new SolidColorBrush(Colors.Green);
+                Button2Default(button); //恢复按钮样式
+            }
         }
 
         async private void Button2Default(Button button)

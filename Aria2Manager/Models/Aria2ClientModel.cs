@@ -3,7 +3,8 @@ using Aria2NET;
 
 namespace Aria2Manager.Models
 {
-    internal class Aria2ClientModel
+    //aria2 cient
+    public class Aria2ClientModel
     {
         private Aria2NetClient aria2_client;
 

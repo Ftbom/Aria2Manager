@@ -135,6 +135,10 @@ namespace Aria2Manager.ViewModels
 
         private void ItemInfo(object? parameter)
         {
+            if (parameter == null)
+            {
+                return;
+            }
             //新建添加下载窗口
             ItemInfoWindow newWin = new ItemInfoWindow(SelectedGid, Aria2Server);
             newWin.Owner = (MainWindow)parameter;
@@ -148,7 +152,7 @@ namespace Aria2Manager.ViewModels
             {
                 Process.Start(new ProcessStartInfo("https://aria2.github.io"){ UseShellExecute = true });
             }
-            catch (System.ComponentModel.Win32Exception noBrowser)
+            catch (Win32Exception noBrowser)
             {
                 //未发现浏览器
                 if (noBrowser.ErrorCode == -2147467259)
@@ -170,6 +174,10 @@ namespace Aria2Manager.ViewModels
         //更新筛选条件
         private void ChosenStatusChanged(object? parameter)
         {
+            if (parameter == null)
+            {
+                return;
+            }
             TextBlock item = (TextBlock)parameter;
             CurrentChosenStatus = item.Name.ToLower();
         }

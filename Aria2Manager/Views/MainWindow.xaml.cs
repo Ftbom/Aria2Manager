@@ -89,5 +89,12 @@ namespace Aria2Manager
                 Application.Current.Shutdown(); //退出程序
             }
         }
+
+        private void Aria2SettingsMenu_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalOptionsWindow newWin = new GlobalOptionsWindow(Aria2Server);
+            newWin.Owner = this;
+            newWin.ShowDialog();
+        }
     }
 }
