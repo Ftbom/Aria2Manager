@@ -1,6 +1,6 @@
 # Aria2Manager
 
-[English](https://github.com/Ftbom/Aria2Manager/blob/main/README.md), [简体中文](https://github.com/Ftbom/Aria2Manager/blob/main/README-zh.md)
+[English](https://github.com/Ftbom/Aria2Manager/blob/master/README.md), [简体中文](https://github.com/Ftbom/Aria2Manager/blob/master/README-zh.md)
 
 Aria2远程管理工具
 
