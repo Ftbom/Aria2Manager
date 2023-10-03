@@ -9,16 +9,38 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Threading.Tasks;
+using Aria2Manager.Models;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Aria2Manager.ViewModels
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         public ICommand SaveSettingsCommand { get; private set; }
         public List<string>? Languages { get; set; } //语言列表
         public bool? StartMin { get; set; } //启动时最小化
         public bool? CloseToExit { set; get; } //关闭主窗口时退出
         public string? SelectedLanguage { get; set; } //当前选中的语言
+        public bool UpdateTrackers //是否更新Trackers
+        {
+            get
+            {
+                return _update_trackers;
+            }
+            set
+            {
+                _update_trackers = value;
+                OnPropertyChanged(nameof(UpdateTrackers));
+            }
+        }
+        public string? SelectedSource { get; set; } //选中的Trackers来源
+        public int? UpdateInterval { get; set; } //Trackers更新间隔
+        public Dictionary<string, string>? TrackersSources { get; set; } //Trackers来源列表
+
+        private TrackersModel _trackers = new TrackersModel();
+        private bool _update_trackers;
 
         public SettingsViewModel()
         {
@@ -44,8 +66,26 @@ namespace Aria2Manager.ViewModels
                     case "CloseToExit":
                         CloseToExit = Convert.ToBoolean(node.InnerText);
                         break;
+                    case "UpdateTrackers":
+                        foreach (XmlNode node2 in node.ChildNodes)
+                        {
+                            switch (node2.Name)
+                            {
+                                case "Enable":
+                                    UpdateTrackers = Convert.ToBoolean(node2.InnerText);
+                                    break;
+                                case "UpdateInterval":
+                                    UpdateInterval = Convert.ToInt32(node2.InnerText);
+                                    break;
+                                case "TrackersSource":
+                                    SelectedSource = node2.InnerText;
+                                    break;
+                            }
+                        }
+                        break;
                 }
             }
+            TrackersSources = _trackers.TrackersSources;
             Languages = new List<string>();
             DirectoryInfo dir = new DirectoryInfo("Languages");
             FileInfo[] files = dir.GetFiles("*.xaml");
@@ -58,7 +98,7 @@ namespace Aria2Manager.ViewModels
                 var language_name = builder.ToString();
                 if (language_name == "")
                 {
-                    Languages.Add("Default(en)");
+                    Languages.Add("en-US");
                 }
                 else
                 {
@@ -80,6 +120,12 @@ namespace Aria2Manager.ViewModels
                 Node.InnerText = StartMin.ToString();
                 Node = doc.SelectSingleNode("/Settings/CloseToExit");
                 Node.InnerText = CloseToExit.ToString();
+                Node = doc.SelectSingleNode("/Settings/UpdateTrackers/Enable");
+                Node.InnerText = UpdateTrackers.ToString();
+                Node = doc.SelectSingleNode("/Settings/UpdateTrackers/UpdateInterval");
+                Node.InnerText = UpdateInterval.ToString();
+                Node = doc.SelectSingleNode("/Settings/UpdateTrackers/TrackersSource");
+                Node.InnerText = SelectedSource.ToString();
                 doc.Save("Configurations\\Settings.xml");
             }
             catch
@@ -101,6 +147,14 @@ namespace Aria2Manager.ViewModels
             await Task.Delay(1000);
             button.Content = Application.Current.FindResource("Save").ToString();
             button.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
         }
     }
 }

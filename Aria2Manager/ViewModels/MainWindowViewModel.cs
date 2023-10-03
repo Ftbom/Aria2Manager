@@ -117,7 +117,6 @@ namespace Aria2Manager.ViewModels
             ManageAllItemCommand = new RelayCommand(ManageAllItem);
             OnCloseWindowCommand = new RelayCommand(OnCloseWindow);
             ItemInfoCommand = new RelayCommand(ItemInfo);
-            //TODO:判断服务器可连接状态
             _connected = "Green";
             _downloaditems = new List<DownloadItemModel>();
             CurrentChosenStatus = "all";

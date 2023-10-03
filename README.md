@@ -11,18 +11,11 @@ Aria2 Remote Manager
 * View download item details, including the ability to select the files to download
 * Add URLs, torrent files, or Metalink files
 * Change Aria2 configuration options
+* Automatically update bt trackers when starting
 
 ## Screenshots
 
 ![MainWindow](ScreenShots/MainWindow.png)
-
-![AddDownload](ScreenShots/AddDownload.png)
-
-![ItemInfo](ScreenShots/ItemInfo.png)
-
-![ManageServers](ScreenShots/ManageServers.png)
-
-![Settings](ScreenShots/Settings.png)
 
 ![Aria2Settings](ScreenShots/Aria2Settings.png)
 
