@@ -17,7 +17,7 @@ namespace Aria2Manager
     {
         private bool CloseToExit;
         private bool KillAria2;
-        private Process process = new Process();
+        private int PID;
         private bool UpdateTrackers;
         private int UpdateInterval;
         private int LastUpdate;
@@ -50,7 +50,7 @@ namespace Aria2Manager
         {
             if (KillAria2)
             {
-                process.Kill();
+                Process.GetProcessById(PID).Kill();
             }
             Application.Current.Shutdown(); //退出程序
         }
@@ -121,6 +121,7 @@ namespace Aria2Manager
             //启动Aria2
             if (StartAria2)
             {
+                Process process = new Process();
                 process.StartInfo.FileName = "aria2c.exe";
                 process.StartInfo.Arguments = "--conf-path=aria2.conf";
                 process.StartInfo.WorkingDirectory = "Aria2";
@@ -131,6 +132,7 @@ namespace Aria2Manager
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
                 process.Start();
+                PID = process.Id;
             }
             //定时更新Trackers
             int NowMinute = (int)(DateTime.Now - new DateTime(2001, 1, 1)).TotalMinutes;
