@@ -11,6 +11,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -28,7 +29,15 @@
             <CheckBox Content="{DynamicResource CloseToExit}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding CloseToExit}"/>
             <CheckBox Grid.Column="1" Content="{DynamicResource StartMin}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding StartMin}"/>
         </Grid>
-        <Grid Grid.Row="2" Margin="5,0,5,0">
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Content="{DynamicResource StartAria2}" ToolTip="{DynamicResource StartAria2Tip}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="{Binding StartAria2}"/>
+            <CheckBox Content="{DynamicResource KillAria2}" ToolTip="{DynamicResource KillAria2Tip}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" IsChecked="{Binding KillAria2}"/>
+        </Grid>
+        <Grid Grid.Row="3" Margin="5,0,5,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="11*"/>
@@ -52,6 +61,6 @@
                 <TextBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Text="{Binding UpdateInterval}" IsEnabled="{Binding UpdateTrackers}"/>
             </Grid>
         </Grid>
-        <Button Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="76" Command="{Binding SaveSettingsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource self}}"/>
+        <Button Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="76" Command="{Binding SaveSettingsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource self}}"/>
     </Grid>
 </Window>

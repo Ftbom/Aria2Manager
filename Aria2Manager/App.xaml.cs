@@ -6,6 +6,7 @@ using System.Windows;
 using System.Xml;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Aria2Manager
 {
@@ -15,6 +16,8 @@ namespace Aria2Manager
     public partial class App : Application
     {
         private bool CloseToExit;
+        private bool KillAria2;
+        private int PID;
         private bool UpdateTrackers;
         private int UpdateInterval;
         private int LastUpdate;
@@ -45,6 +48,10 @@ namespace Aria2Manager
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
+            if (KillAria2)
+            {
+                Process.GetProcessById(PID).Kill();
+            }
             Application.Current.Shutdown(); //退出程序
         }
 
@@ -62,6 +69,7 @@ namespace Aria2Manager
         {
             //读取设置信息
             bool StartMin = false;
+            bool StartAria2 = false;
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Settings.xml");
             var settings = doc.SelectSingleNode($"/Settings");
@@ -81,6 +89,12 @@ namespace Aria2Manager
                         break;
                     case "CloseToExit":
                         CloseToExit = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "StartAria2":
+                        StartAria2 = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "KillAria2":
+                        KillAria2 = Convert.ToBoolean(node.InnerText);
                         break;
                     case "UpdateTrackers":
                         foreach (XmlNode node2 in node.ChildNodes)
@@ -103,6 +117,22 @@ namespace Aria2Manager
                         }
                         break;
                 }
+            }
+            //启动Aria2
+            if (StartAria2)
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = "aria2c.exe";
+                process.StartInfo.Arguments = "--conf-path=aria2.conf";
+                process.StartInfo.WorkingDirectory = "Aria2";
+                //不显示Console窗口
+                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.Start();
+                PID = process.Id;
             }
             //定时更新Trackers
             int NowMinute = (int)(DateTime.Now - new DateTime(2001, 1, 1)).TotalMinutes;

@@ -22,6 +22,8 @@ namespace Aria2Manager.ViewModels
         public List<string>? Languages { get; set; } //语言列表
         public bool? StartMin { get; set; } //启动时最小化
         public bool? CloseToExit { set; get; } //关闭主窗口时退出
+        public bool? StartAria2 { get; set; } //启动时启动Aria2
+        public bool? KillAria2 { get; set; } //关闭时停止Aria2
         public string? SelectedLanguage { get; set; } //当前选中的语言
         public bool UpdateTrackers //是否更新Trackers
         {
@@ -65,6 +67,12 @@ namespace Aria2Manager.ViewModels
                         break;
                     case "CloseToExit":
                         CloseToExit = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "StartAria2":
+                        StartAria2 = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "KillAria2":
+                        KillAria2 = Convert.ToBoolean(node.InnerText);
                         break;
                     case "UpdateTrackers":
                         foreach (XmlNode node2 in node.ChildNodes)
@@ -120,6 +128,10 @@ namespace Aria2Manager.ViewModels
                 Node.InnerText = StartMin.ToString();
                 Node = doc.SelectSingleNode("/Settings/CloseToExit");
                 Node.InnerText = CloseToExit.ToString();
+                Node = doc.SelectSingleNode("/Settings/StartAria2");
+                Node.InnerText = StartAria2.ToString();
+                Node = doc.SelectSingleNode("/Settings/KillAria2");
+                Node.InnerText = KillAria2.ToString();
                 Node = doc.SelectSingleNode("/Settings/UpdateTrackers/Enable");
                 Node.InnerText = UpdateTrackers.ToString();
                 Node = doc.SelectSingleNode("/Settings/UpdateTrackers/UpdateInterval");
