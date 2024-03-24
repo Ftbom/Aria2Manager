@@ -122,7 +122,7 @@ namespace Aria2Manager
             if (StartAria2)
             {
                 Process process = new Process();
-                process.StartInfo.FileName = "aria2c.exe";
+                process.StartInfo.FileName = "Aria2/aria2c.exe";
                 process.StartInfo.Arguments = "--conf-path=aria2.conf";
                 process.StartInfo.WorkingDirectory = "Aria2";
                 //不显示Console窗口

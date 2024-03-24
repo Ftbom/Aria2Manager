@@ -91,7 +91,7 @@
     <system:String x:Key="SelectLanguage">选择语言</system:String>
     <system:String x:Key="StartMin">启动时最小化</system:String>
     <system:String x:Key="CloseToExit">关闭主窗口时退出</system:String>
-    <system:String x:Key="UpdateTrackers">更新Trackers</system:String>
+    <system:String x:Key="UpdateTrackers">启动时更新Trackers</system:String>
     <system:String x:Key="TrackersSource">Trackers来源</system:String>
     <system:String x:Key="UpdateInterval">更新间隔(分)</system:String>
     <system:String x:Key="StartAria2">启动时启动Aria2</system:String>
