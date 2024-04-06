@@ -90,9 +90,9 @@
     <system:String x:Key="SelectLanguage">Select Language</system:String>
     <system:String x:Key="StartMin">Start Minimized</system:String>
     <system:String x:Key="CloseToExit">Exit When Close MainWindow</system:String>
-    <system:String x:Key="UpdateTrackers">Update Trackers On Start</system:String>
+    <system:String x:Key="UpdateTrackers">Update Trackers</system:String>
     <system:String x:Key="TrackersSource">Trackers Source</system:String>
-    <system:String x:Key="UpdateInterval">Update Interval(Min)</system:String>
+    <system:String x:Key="UpdateInterval">Update Interval(Day)</system:String>
     <system:String x:Key="StartAria2">Start Aria2 On Start</system:String>
     <system:String x:Key="StartAria2Tip">Aria2 program and config file are stored in the "Aria2" folder.</system:String>
     <system:String x:Key="KillAria2">Kill Aria2 On End</system:String>

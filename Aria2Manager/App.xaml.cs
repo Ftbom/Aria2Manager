@@ -105,7 +105,7 @@ namespace Aria2Manager
                                     UpdateTrackers = Convert.ToBoolean(node2.InnerText);
                                     break;
                                 case "UpdateInterval":
-                                    UpdateInterval = Convert.ToInt32(node2.InnerText);
+                                    UpdateInterval = Convert.ToInt32(node2.InnerText) * 24 * 60;
                                     break;
                                 case "TrackersSource":
                                     TrackersSource = node2.InnerText;
