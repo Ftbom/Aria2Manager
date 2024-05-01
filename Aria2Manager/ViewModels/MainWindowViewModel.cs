@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -8,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml;
 using Aria2Manager.Models;
 using Aria2Manager.Utils;
 using Aria2Manager.Views;
@@ -91,7 +94,30 @@ namespace Aria2Manager.ViewModels
         }
         public string CurrentChosenStatus { get; set; }
         public bool UpdateItems; //是否退出更新下载项
+        public ObservableCollection<string> ServerNames
+        {
+            get => _servernames;
+            set
+            {
+                if (value != _servernames)
+                {
+                    _servernames = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string CurrentServerName
+        {
+            get => _currentservername;
+            set
+            {
+                _currentservername = value;
+                OnPropertyChanged();
+            }
+        }
 
+        private string _currentservername;
+        private ObservableCollection<string> _servernames;
         private string _connected;
         private string _downloadspeed;
         private string _uploadspeed;
@@ -107,6 +133,23 @@ namespace Aria2Manager.ViewModels
             else
             {
                 Aria2Server = aria2_server;
+            }
+            //读取可用服务器名称
+            _currentservername = Aria2Server.ServerName;
+            ServerNames = new ObservableCollection<string>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Configurations\\Aria2Servers.xml");
+            var current = doc.SelectSingleNode($"/Servers/Avaliable");
+            if (current == null)
+            {
+                ServerNames.Add(Aria2Server.ServerName);
+            }
+            else
+            {
+                foreach (string name in current.InnerText.Split(','))
+                {
+                    ServerNames.Add(name);
+                }
             }
             ExitCommand = new RelayCommand(Exit);
             OpenAria2WebsiteCommand = new RelayCommand(OpenAria2Website);
@@ -255,6 +298,21 @@ namespace Aria2Manager.ViewModels
                 List<DownloadItemModel> download_items = new List<DownloadItemModel>(); //新建列表
                 try
                 {
+                    if (Aria2Server.ServerName != _currentservername)
+                    {
+                        Aria2ServerInfoModel _temp_server = new Aria2ServerInfoModel(_currentservername);
+                        Aria2Server.ServerName = _temp_server.ServerName;
+                        Aria2Server.ServerAddress = _temp_server.ServerAddress;
+                        Aria2Server.ServerPort = _temp_server.ServerPort;
+                        Aria2Server.ServerSecret = _temp_server.ServerSecret;
+                        Aria2Server.IsHttps = _temp_server.IsHttps;
+                        Aria2Server.UseProxy = _temp_server.UseProxy;
+                        XmlDocument doc = new XmlDocument();
+                        doc.Load("Configurations\\Aria2Servers.xml");
+                        XmlNode Node = doc.SelectSingleNode("/Servers/Current");
+                        Node.InnerText = _currentservername;
+                        doc.Save("Configurations\\Aria2Servers.xml");
+                    }
                     var client = new Aria2ClientModel(Aria2Server);
                     var Items = await client.Aria2Client.TellAllAsync(); //获取所有项
                     long total_download_speed = 0;

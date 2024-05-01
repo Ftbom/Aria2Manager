@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
+using System.Xml;
 using Aria2Manager.Models;
 using Aria2Manager.ViewModels;
 using Aria2Manager.Views;
@@ -15,6 +16,7 @@ namespace Aria2Manager
     {
         private Aria2ServerInfoModel Aria2Server { get; set; }
         private bool close_to_exit;
+        private MainWindowViewModel model;
 
         public MainWindow(bool CloseToExit = false)
         {
@@ -31,8 +33,8 @@ namespace Aria2Manager
                 MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            MainWindowViewModel Model = new MainWindowViewModel(Aria2Server);
-            DataContext = Model;
+            model = new MainWindowViewModel(Aria2Server);
+            DataContext = model;
             close_to_exit = CloseToExit;
         }
 
@@ -42,6 +44,15 @@ namespace Aria2Manager
             ManageServersWindow newWin = new ManageServersWindow(Aria2Server);
             newWin.Owner = this;
             newWin.ShowDialog();
+            model.ServerNames = new ObservableCollection<string>();
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Configurations\\Aria2Servers.xml");
+            var current = doc.SelectSingleNode($"/Servers/Avaliable");
+            foreach (string name in current.InnerText.Split(','))
+            {
+                model.ServerNames.Add(name);
+            }
+            model.CurrentServerName = doc.SelectSingleNode("/Servers/Current").InnerText;
         }
 
         private void AboutMenu_Click(object sender, RoutedEventArgs e)

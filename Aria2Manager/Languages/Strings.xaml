@@ -62,7 +62,6 @@
     <system:String x:Key="Seeds">Seeds</system:String>
     <system:String x:Key="Properties">Properties</system:String>
     <system:String x:Key="Show">Show</system:String>
-    <system:String x:Key="ConnectionStatus">Connection Status</system:String>
     <system:String x:Key="Delete">Delete</system:String>
     <system:String x:Key="DeleteFail">Delete Fail</system:String>
     <system:String x:Key="DownloadInfo">Download Info</system:String>

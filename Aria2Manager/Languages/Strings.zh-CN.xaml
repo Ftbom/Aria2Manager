@@ -63,7 +63,6 @@
     <system:String x:Key="Seeds">做种数</system:String>
     <system:String x:Key="Properties">属性</system:String>
     <system:String x:Key="Show">显示</system:String>
-    <system:String x:Key="ConnectionStatus">连接状态</system:String>
     <system:String x:Key="Delete">删除</system:String>
     <system:String x:Key="DeleteFail">删除失败</system:String>
     <system:String x:Key="DownloadInfo">下载项信息</system:String>

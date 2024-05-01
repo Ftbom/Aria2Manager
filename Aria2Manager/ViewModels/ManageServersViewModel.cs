@@ -210,12 +210,12 @@ namespace Aria2Manager.ViewModels
             //若当前仅有一个服务器配置，将其作为当前配置
             if (Servers.Count == 1)
             {
-                _currentserver.ServerName = Servers[0].ServerName;
-                _currentserver.ServerAddress = Servers[0].ServerAddress;
-                _currentserver.ServerPort = Servers[0].ServerPort;
-                _currentserver.ServerSecret = Servers[0].ServerSecret;
-                _currentserver.IsHttps = Servers[0].IsHttps;
-                _currentserver.UseProxy = Servers[0].UseProxy;
+                CurrentServer.ServerName = Servers[0].ServerName;
+                CurrentServer.ServerAddress = Servers[0].ServerAddress;
+                CurrentServer.ServerPort = Servers[0].ServerPort;
+                CurrentServer.ServerSecret = Servers[0].ServerSecret;
+                CurrentServer.IsHttps = Servers[0].IsHttps;
+                CurrentServer.UseProxy = Servers[0].UseProxy;
             }
             //保存到文件
             try
@@ -270,20 +270,13 @@ namespace Aria2Manager.ViewModels
         //保存服务器设置
         private void SaveSettings(object? parameter)
         {
-            //更新当前服务器信息
-            _currentserver.ServerName = Servers[_serverindex].ServerName;
-            _currentserver.ServerAddress = Servers[_serverindex].ServerAddress;
-            _currentserver.ServerPort = Servers[_serverindex].ServerPort;
-            _currentserver.ServerSecret = Servers[_serverindex].ServerSecret;
-            _currentserver.IsHttps = Servers[_serverindex].IsHttps;
-            _currentserver.UseProxy = Servers[_serverindex].UseProxy;
             //保存代理设置
             try
             {
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Configurations\\Aria2Servers.xml");
                 XmlNode Node = doc.SelectSingleNode("/Servers/Current");
-                Node.InnerText = CurrentServer.ServerName;
+                Node.InnerText = Servers[_serverindex].ServerName;
                 var proxy = doc.SelectSingleNode("/Servers/Proxy");
                 foreach (XmlNode node in proxy.ChildNodes)
                 {
