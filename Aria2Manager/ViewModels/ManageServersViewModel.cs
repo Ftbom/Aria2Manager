@@ -262,7 +262,7 @@ namespace Aria2Manager.ViewModels
             {
                 Button button = (Button)parameter;
                 button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
-                button.Foreground = new SolidColorBrush(Colors.Green);
+                button.Foreground = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.Accent"];
                 Button2Default(button); //恢复按钮样式
             }
         }
@@ -312,7 +312,7 @@ namespace Aria2Manager.ViewModels
             {
                 Button button = (Button)parameter;
                 button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
-                button.Foreground = new SolidColorBrush(Colors.Green);
+                button.Foreground = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.Accent"];
                 Button2Default(button); //恢复按钮样式
             }
         }

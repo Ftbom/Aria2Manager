@@ -10,6 +10,10 @@
                 <!--默认语言文件-->
                 <!--添加后在界面设计器中才可显示字符-->
                 <ResourceDictionary Source="Languages/Strings.xaml"/>
+                <!--主题-->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Green.xaml" />
                 <!--托盘图标-->
                 <ResourceDictionary
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -19,9 +23,9 @@
                                     ToolTipText="Aria2Manager" TrayLeftMouseDown="Show_Click">
                         <tb:TaskbarIcon.ContextMenu>
                             <ContextMenu>
-                                <MenuItem x:Name="Show" Header="{DynamicResource Show}" Height="24" Click="Show_Click"/>
+                                <MenuItem x:Name="Show" Header="{DynamicResource Show}" Click="Show_Click"/>
                                 <Separator/>
-                                <MenuItem x:Name="Exit" Header="{DynamicResource Exit}" Height="24" Click="Exit_Click"/>
+                                <MenuItem x:Name="Exit" Header="{DynamicResource Exit}" Click="Exit_Click"/>
                             </ContextMenu>
                         </tb:TaskbarIcon.ContextMenu>
                     </tb:TaskbarIcon>

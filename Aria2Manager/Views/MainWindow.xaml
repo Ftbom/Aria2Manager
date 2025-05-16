@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="Aria2Manager" Height="450" Width="800" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen" Closed="mainwindow_Closed">
+        Title="Aria2Manager" Height="480" Width="900" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen" Closed="mainwindow_Closed">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding OnCloseWindowCommand}"/>
@@ -13,7 +13,7 @@
     </i:Interaction.Triggers>
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Height="25">
+        <Menu DockPanel.Dock="Top" Height="30">
             <MenuItem Header="{DynamicResource Edit}">
                 <MenuItem x:Name="AddMenu" Header="{DynamicResource Add}" Click="AddNewItem">
                     <MenuItem.Icon>
@@ -57,7 +57,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Tools}" Height="24">
+            <MenuItem x:Name="SettingsMenus" Header="{DynamicResource Tools}">
                 <MenuItem x:Name="ManageAria2ServersMenu" Header="{DynamicResource Aria2Manager}" Click="ManageAria2ServersMenu_Click">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF828;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
@@ -74,7 +74,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem x:Name="ExitMenu" Header="{DynamicResource Exit}" Height="24" Command="{Binding ExitCommand}" >
+                <MenuItem x:Name="ExitMenu" Header="{DynamicResource Exit}" Command="{Binding ExitCommand}" >
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF00D;" FontFamily="{StaticResource FontAwesome}" FontSize="20" />
                     </MenuItem.Icon>
@@ -103,50 +103,50 @@
             <ToolBar>
                 <Button x:Name="AddButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Click="AddNewItem">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" Foreground="LimeGreen" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Add}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="RemoveButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding RemoveItemCommand}" CommandParameter="{Binding SelectedItem}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" Foreground="Red" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Remove}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="ResumeButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding ResumeItemCommand}" CommandParameter="{Binding SelectedItem}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Resume}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="PauseButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding PauseItemCommand}" CommandParameter="{Binding SelectedItem}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Pause}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="PropertiesButton" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"  Command="{Binding ItemInfoCommand}" CommandParameter="{Binding ElementName=mainwindow}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" Foreground="Gray" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource Properties}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Separator/>
                 <Button x:Name="ResumeAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding ManageAllItemCommand}" CommandParameter="1">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xF144;" FontFamily="{StaticResource FontAwesome}" Foreground="Green" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF144;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource ResumeAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="PauseAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding ManageAllItemCommand}" CommandParameter="0">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xF28B;" FontFamily="{StaticResource FontAwesome}" Foreground="Blue" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xF28B;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource PauseAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="PurgeAll" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding ManageAllItemCommand}" CommandParameter="2">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xf12d;" FontFamily="{StaticResource FontAwesome}" Foreground="Orange" FontSize="25" Margin="0,0,2,0" />
+                        <TextBlock Text="&#xf12d;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
                         <TextBlock TextWrapping="Wrap" Text="{DynamicResource PurgeAll}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
@@ -156,7 +156,7 @@
             <StatusBarItem x:Name="ServerInfo" Height="37" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
                     <ComboBox ItemsSource="{Binding ServerNames}" SelectedItem="{Binding CurrentServerName}" Margin="2,0,2,0"/>
-                    <Ellipse Stroke="Black" Fill="{Binding Connected}" Width="16" Height="16" Margin="3,0,0,0"/>
+                    <Ellipse Fill="{Binding Connected}" Width="16" Height="16" Margin="3,0,0,0"/>
                 </StackPanel>
             </StatusBarItem>
             <StatusBarItem x:Name="Speed" Height="37" VerticalAlignment="Center" HorizontalAlignment="Right">
@@ -235,43 +235,43 @@
                 </i:Interaction.Triggers>
                 <ListBoxItem Margin="5,5,0,5">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="Orange" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Active, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Active, Mode=OneWay}"/>
+                        <TextBlock Text="&#xF111;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="All" TextWrapping="Wrap" Text="{DynamicResource All}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="LawnGreen" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Active, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Active, Mode=OneWay}"/>
+                        <TextBlock Text="&#xF358;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="Active" TextWrapping="Wrap" Text="{DynamicResource Active}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="Yellow" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Active, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Active, Mode=OneWay}"/>
+                        <TextBlock Text="&#xF017;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="Waiting" TextWrapping="Wrap" Text="{DynamicResource Waiting}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="Black" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Active, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Active, Mode=OneWay}"/>
+                        <TextBlock Text="&#xF28D;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="Paused" TextWrapping="Wrap" Text="{DynamicResource Paused}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="Green" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Active, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Active, Mode=OneWay}"/>
+                        <TextBlock Text="&#xF058;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="Complete" TextWrapping="Wrap" Text="{DynamicResource Complete}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Margin="5,0,0,3">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="Gray" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Active, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Active, Mode=OneWay}"/>
+                        <TextBlock Text="&#xF192;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="Removed" TextWrapping="Wrap" Text="{DynamicResource Removed}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
-                        <Ellipse Stroke="Black" Fill="Red" Margin="0,0,4,0" Width="{Binding ActualHeight, ElementName=Active, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=Active, Mode=OneWay}"/>
+                        <TextBlock Text="&#xF057;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="Error" TextWrapping="Wrap" Text="{DynamicResource Error}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>
                     </StackPanel>
                 </ListBoxItem>

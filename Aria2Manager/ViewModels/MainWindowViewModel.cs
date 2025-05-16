@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Xml;
 using Aria2Manager.Models;
 using Aria2Manager.Utils;
@@ -22,7 +23,7 @@ namespace Aria2Manager.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Aria2ServerInfoModel Aria2Server { get; set; }
-        public string Connected //服务器连接状态，颜色。绿或红
+        public SolidColorBrush Connected //服务器连接状态，颜色。绿或红
         {
             get
             {
@@ -118,13 +119,14 @@ namespace Aria2Manager.ViewModels
 
         private string _currentservername;
         private ObservableCollection<string> _servernames;
-        private string _connected;
+        private SolidColorBrush _connected;
         private string _downloadspeed;
         private string _uploadspeed;
         private List<DownloadItemModel> _downloaditems;
         private DownloadItemModel? _selecteditem;
+        private int _aria2_pid = 0;
 
-        public MainWindowViewModel(Aria2ServerInfoModel? aria2_server = null)
+        public MainWindowViewModel(Aria2ServerInfoModel? aria2_server = null, int aria2_pid = 0)
         {
             if (aria2_server == null)
             {
@@ -160,17 +162,27 @@ namespace Aria2Manager.ViewModels
             ManageAllItemCommand = new RelayCommand(ManageAllItem);
             OnCloseWindowCommand = new RelayCommand(OnCloseWindow);
             ItemInfoCommand = new RelayCommand(ItemInfo);
-            _connected = "Green";
+            _connected = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.Accent"];
             _downloaditems = new List<DownloadItemModel>();
             CurrentChosenStatus = "all";
             _uploadspeed = "0KB/s";
             _downloadspeed = "0KB/s";
             UpdateItems = true;
             UpdataDownloadItems();
+            _aria2_pid = aria2_pid;
         }
 
         private void Exit(object? parameter)
         {
+            if (_aria2_pid != 0)
+            {
+                try
+                {
+                    Process.GetProcessById(_aria2_pid).Kill();
+                }
+                catch
+                {}
+            }
             //退出程序
             Application.Current.Shutdown();
         }
@@ -388,11 +400,11 @@ namespace Aria2Manager.ViewModels
                     //更新显示速度
                     UploadSpeed = Tools.BytesToString(total_upload_speed) + "/s";
                     DownloadSpeed = Tools.BytesToString(total_download_speed) + "/s";
-                    Connected = "Green";
+                    Connected = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.Accent"];
                 }
                 catch
                 {
-                    Connected = "Red"; //无法连接
+                    Connected = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.Border.NonActive"]; //无法连接
                 }
                 await Task.Delay(500);
             }

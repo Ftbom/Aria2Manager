@@ -57,7 +57,7 @@ namespace Aria2Manager
             {
                 return;
             }
-            MainWindow main_window = new MainWindow(CloseToExit);
+            MainWindow main_window = new MainWindow(CloseToExit, PID);
             main_window.Show();
         }
 
@@ -79,6 +79,9 @@ namespace Aria2Manager
                 {
                     case "Language":
                         SetLanguageDictionary(node.InnerText);
+                        break;
+                    case "Theme":
+                        Resources.MergedDictionaries[3].Source = new Uri($"pack://application:,,,/MahApps.Metro;component/Styles/Themes/{node.InnerText}.Green.xaml", UriKind.Absolute);
                         break;
                     case "StartMin":
                         StartMin = Convert.ToBoolean(node.InnerText);
@@ -117,19 +120,27 @@ namespace Aria2Manager
             //启动Aria2
             if (StartAria2)
             {
-                string baseDir = AppDomain.CurrentDomain.BaseDirectory; // 或者其它确定的根目录
-                string exePath = Path.Combine(baseDir, "Aria2", "aria2c.exe");
-                string workDir = Path.Combine(baseDir, "Aria2");
-                Process process = new Process();
-                process.StartInfo.FileName = exePath;
-                process.StartInfo.Arguments = "--conf-path=aria2.conf";
-                process.StartInfo.WorkingDirectory = workDir;
-                //不显示Console窗口
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                process.StartInfo.UseShellExecute = true;
-                process.StartInfo.CreateNoWindow = true;
-                process.Start();
-                PID = process.Id;
+                Process[] aria2Processes = Process.GetProcessesByName("aria2c");
+                if (aria2Processes.Length > 0)
+                {
+                    PID = aria2Processes[0].Id;
+                }
+                else
+                {
+                    string baseDir = AppDomain.CurrentDomain.BaseDirectory; // 或者其它确定的根目录
+                    string exePath = Path.Combine(baseDir, "Aria2", "aria2c.exe");
+                    string workDir = Path.Combine(baseDir, "Aria2");
+                    Process process = new Process();
+                    process.StartInfo.FileName = exePath;
+                    process.StartInfo.Arguments = "--conf-path=aria2.conf";
+                    process.StartInfo.WorkingDirectory = workDir;
+                    //不显示Console窗口
+                    process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    process.StartInfo.UseShellExecute = true;
+                    process.StartInfo.CreateNoWindow = true;
+                    process.Start();
+                    PID = process.Id;
+                }
             }
             //定时更新Trackers
             int NowMinute = (int)(DateTime.Now - new DateTime(2001, 1, 1)).TotalMinutes;
@@ -182,7 +193,7 @@ namespace Aria2Manager
             }
             if (!StartMin) //是否打开主窗口
             {
-                MainWindow main_window = new MainWindow(CloseToExit);
+                MainWindow main_window = new MainWindow(CloseToExit, PID);
                 main_window.Show();
             }
         }

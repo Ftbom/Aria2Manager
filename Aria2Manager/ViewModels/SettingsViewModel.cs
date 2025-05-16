@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Aria2Manager.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Resources;
 
 namespace Aria2Manager.ViewModels
 {
@@ -20,11 +21,13 @@ namespace Aria2Manager.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
         public ICommand SaveSettingsCommand { get; private set; }
         public List<string>? Languages { get; set; } //语言列表
+        public List<string>? Themes { get; private set; } //主题列表
         public bool? StartMin { get; set; } //启动时最小化
         public bool? CloseToExit { set; get; } //关闭主窗口时退出
         public bool? StartAria2 { get; set; } //启动时启动Aria2
         public bool? KillAria2 { get; set; } //关闭时停止Aria2
         public string? SelectedLanguage { get; set; } //当前选中的语言
+        public string? SelectedTheme { get; set; } //当前选中的主题
         public bool UpdateTrackers //是否更新Trackers
         {
             get
@@ -55,12 +58,16 @@ namespace Aria2Manager.ViewModels
             {
                 return;
             }
+            Themes = new List<string> { "Light", "Dark" };
             foreach (XmlNode node in settings.ChildNodes)
             {
                 switch(node.Name)
                 {
                     case "Language":
                         SelectedLanguage = node.InnerText;
+                        break;
+                    case "Theme":
+                        SelectedTheme = node.InnerText;
                         break;
                     case "StartMin":
                         StartMin = Convert.ToBoolean(node.InnerText);
@@ -124,6 +131,17 @@ namespace Aria2Manager.ViewModels
                 doc.Load("Configurations\\Settings.xml");
                 var Node = doc.SelectSingleNode("/Settings/Language");
                 Node.InnerText = SelectedLanguage;
+                if (SelectedLanguage == "en-US")
+                {
+                    Application.Current.Resources.MergedDictionaries[0].Source = new Uri($"..\\Languages\\Strings.xaml", UriKind.Relative);
+                }
+                else
+                {
+                    Application.Current.Resources.MergedDictionaries[0].Source = new Uri($"..\\Languages\\Strings.{SelectedLanguage}.xaml", UriKind.Relative);
+                }
+                Node = doc.SelectSingleNode("/Settings/Theme");
+                Node.InnerText = SelectedTheme;
+                Application.Current.Resources.MergedDictionaries[3].Source = new Uri($"pack://application:,,,/MahApps.Metro;component/Styles/Themes/{SelectedTheme}.Green.xaml", UriKind.Absolute); 
                 Node = doc.SelectSingleNode("/Settings/StartMin");
                 Node.InnerText = StartMin.ToString();
                 Node = doc.SelectSingleNode("/Settings/CloseToExit");
@@ -149,7 +167,7 @@ namespace Aria2Manager.ViewModels
             {
                 Button button = (Button)parameter;
                 button.Content = Application.Current.FindResource("SavedSuccessfully").ToString();
-                button.Foreground = new SolidColorBrush(Colors.Green);
+                button.Foreground = (SolidColorBrush)Application.Current.Resources["MahApps.Brushes.Accent"];
                 Button2Default(button); //恢复按钮样式
             }
         }

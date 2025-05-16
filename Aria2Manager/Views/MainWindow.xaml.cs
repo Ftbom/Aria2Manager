@@ -18,7 +18,7 @@ namespace Aria2Manager
         private bool close_to_exit;
         private MainWindowViewModel model;
 
-        public MainWindow(bool CloseToExit = false)
+        public MainWindow(bool CloseToExit = false, int Aria2PID = 0)
         {
             InitializeComponent();
             //从文件读取当前服务器信息
@@ -33,7 +33,7 @@ namespace Aria2Manager
                 MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            model = new MainWindowViewModel(Aria2Server);
+            model = new MainWindowViewModel(Aria2Server, Aria2PID);
             DataContext = model;
             close_to_exit = CloseToExit;
         }

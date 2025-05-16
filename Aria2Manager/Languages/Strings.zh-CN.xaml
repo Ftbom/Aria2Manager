@@ -88,6 +88,7 @@
     <system:String x:Key="Seeders">做种数</system:String>
     <system:String x:Key="SeedAConnect">做种/连接</system:String>
     <system:String x:Key="SelectLanguage">选择语言</system:String>
+    <system:String x:Key="SelectTheme">选择主题</system:String>
     <system:String x:Key="StartMin">启动时最小化</system:String>
     <system:String x:Key="CloseToExit">关闭主窗口时退出</system:String>
     <system:String x:Key="UpdateTrackers">更新Trackers</system:String>

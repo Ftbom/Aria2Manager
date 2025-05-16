@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="{DynamicResource ManageServers}" Height="400" Width="260" WindowStartupLocation="CenterOwner">
+        Title="{DynamicResource ManageServers}" Height="430" Width="260" WindowStartupLocation="CenterOwner">
     <TabControl>
         <TabItem Header="{DynamicResource Settings}">
             <Grid Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="133*"/>
+                    <ColumnDefinition Width="121*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20*"/>
                     <RowDefinition Height="3*"/>
@@ -15,7 +19,7 @@
                     <RowDefinition Height="120*"/>
                     <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
-                <Grid>
+                <Grid Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5*"/>
@@ -23,10 +27,10 @@
                     <TextBlock x:Name="CurrentServer" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource CurrentServer}" VerticalAlignment="Center" Height="20"/>
                     <ComboBox x:Name="ServerList1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="24" ItemsSource="{Binding Servers}" DisplayMemberPath="ServerName" SelectedItem="{Binding CurrentServer}"/>
                 </Grid>
-                <Separator Grid.Row="1"/>
-                <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="10,8,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{DynamicResource SetProxy}" VerticalAlignment="Top" Height="20" Width="168"/>
-                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
-                <Grid Grid.Row="3">
+                <Separator Grid.Row="1" Grid.ColumnSpan="2" Margin="0,2,0,2"/>
+                <TextBlock x:Name="Text" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{DynamicResource SetProxy}" VerticalAlignment="Center" Height="20" Width="168" Grid.ColumnSpan="2"/>
+                <Button x:Name="SaveButton" Content="{DynamicResource Save}" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Height="25" Width="102" Command="{Binding SaveSettingsCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2" Margin="76,0,0,0"/>
+                <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0,37,0,37" Grid.RowSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="111*"/>
                         <ColumnDefinition Width="143*"/>

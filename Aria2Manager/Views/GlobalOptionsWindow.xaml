@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        Title="{DynamicResource Aria2Options}" Height="550" Width="600" WindowStartupLocation="CenterOwner">
+        Title="{DynamicResource Aria2Options}" Height="580" Width="600" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <!--ListViewItem关闭选中样式-->
         <Style TargetType="{x:Type ListViewItem}">
@@ -33,7 +33,7 @@
             </ListViewItem>
         </DataTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="0,5,0,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="1*"/>
@@ -44,6 +44,21 @@
                     <i:InvokeCommandAction Command="{Binding TabChangeCommand}"  CommandParameter="{Binding ElementName=OptionsTabs, Path=SelectedItem.Name}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+            <TabControl.Resources>
+                <!-- 保留MahApps原有样式，只修改字体相关属性 -->
+                <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" 
+                                   FontSize="16"
+                                   FontWeight="Normal"
+                                   Margin="6,2"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
             <TabItem x:Name="BasicOptionsTab" Header="{DynamicResource BasicOptions}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding BasicOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
@@ -79,6 +94,6 @@
         </TabControl>
         <Button x:Name="ConfirmButton" Content="{DynamicResource Save}" Grid.Row="1" Width="150"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding SetOptionsCommand}"
-                CommandParameter="{Binding ElementName=Aria2OptionsWindow}"/>
+                CommandParameter="{Binding ElementName=Aria2OptionsWindow}" Margin="0,0,0,0"/>
     </Grid>
 </Window>
