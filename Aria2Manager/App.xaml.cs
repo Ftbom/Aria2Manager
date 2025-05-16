@@ -1,4 +1,4 @@
-﻿using Aria2Manager.Models;
+using Aria2Manager.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -32,18 +32,14 @@ namespace Aria2Manager
 
         public void SetLanguageDictionary(String Language)
         {
-            Resources.MergedDictionaries.Clear(); //清空语言资源文件
-            ResourceDictionary dict = new ResourceDictionary();
             try
             {
-                dict.Source = new Uri($"..\\Languages\\Strings.{Language}.xaml", UriKind.Relative);
+                Resources.MergedDictionaries[0].Source = new Uri($"..\\Languages\\Strings.{Language}.xaml", UriKind.Relative);
             }
             catch
             {
-                dict.Source = new Uri($"..\\Languages\\Strings.xaml", UriKind.Relative);
+                Resources.MergedDictionaries[0].Source = new Uri($"..\\Languages\\Strings.xaml", UriKind.Relative);
             }
-            //导入对应的语言文件
-            Resources.MergedDictionaries.Add(dict);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -121,15 +117,16 @@ namespace Aria2Manager
             //启动Aria2
             if (StartAria2)
             {
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory; // 或者其它确定的根目录
+                string exePath = Path.Combine(baseDir, "Aria2", "aria2c.exe");
+                string workDir = Path.Combine(baseDir, "Aria2");
                 Process process = new Process();
-                process.StartInfo.FileName = "Aria2/aria2c.exe";
+                process.StartInfo.FileName = exePath;
                 process.StartInfo.Arguments = "--conf-path=aria2.conf";
-                process.StartInfo.WorkingDirectory = "Aria2";
+                process.StartInfo.WorkingDirectory = workDir;
                 //不显示Console窗口
                 process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
-                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.UseShellExecute = true;
                 process.StartInfo.CreateNoWindow = true;
                 process.Start();
                 PID = process.Id;
