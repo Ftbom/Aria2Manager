@@ -19,8 +19,11 @@ Aria2远程管理工具
 
 ![Aria2Settings](ScreenShots/Aria2Settings.png)
 
+![ProgramSettings](ScreenShots/ProgramSettings.png)
+
 ## 致谢
 
 * [Aria2.Net](https://github.com/rogerfar/Aria2.NET) - Aria2 RPC 通信库
+* [MahApps/MahApps.Metro](https://github.com/MahApps/MahApps.Metro) - WPF主题
 * [AM-Downloader](https://github.com/antikmozib/AM-Downloader) - 主界面设计参考
 * [AriaNg](https://github.com/mayswind/AriaNg) - Aria2功能实现参考

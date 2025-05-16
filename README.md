@@ -19,8 +19,11 @@ Aria2 Remote Manager
 
 ![Aria2Settings](ScreenShots/Aria2Settings.png)
 
+![ProgramSettings](ScreenShots/ProgramSettings.png)
+
 ## Thanks
 
 * [Aria2.Net](https://github.com/rogerfar/Aria2.NET) - Aria2 RPC communication library
+* [MahApps/MahApps.Metro](https://github.com/MahApps/MahApps.Metro) - WPF theme
 * [AM-Downloader](https://github.com/antikmozib/AM-Downloader) - Main UI design reference
 * [AriaNg](https://github.com/mayswind/AriaNg) - Aria2 feature implementation reference
