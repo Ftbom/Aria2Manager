@@ -321,7 +321,7 @@ namespace Aria2Manager.ViewModels
         {
             await Task.Delay(1000);
             button.Content = Application.Current.FindResource("Save").ToString();
-            button.Foreground = new SolidColorBrush(Colors.Black);
+            button.Foreground = (Brush)Application.Current.Resources["MahApps.Brushes.ThemeForeground"];
         }
 
         protected void OnPropertyChanged([CallerMemberName] string name = "")

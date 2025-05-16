@@ -42,7 +42,7 @@
     <system:String x:Key="PurgeAll">PurgeAll</system:String>
     <system:String x:Key="RemoveAll">RemoveAll</system:String>
     <system:String x:Key="UploadSpeed">Upload Speed</system:String>
-    <system:String x:Key="DownloadSpeed">Download Speed</system:String>
+    <system:String x:Key="DownloadSpeed">,Download Speed</system:String>
     <system:String x:Key="Active">Active</system:String>
     <system:String x:Key="Waiting">Waiting</system:String>
     <system:String x:Key="Paused">Paused</system:String>

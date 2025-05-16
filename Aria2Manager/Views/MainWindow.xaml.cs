@@ -63,7 +63,7 @@ namespace Aria2Manager
             var copyright = "Copyright © Ftbom";
             var email = "lz490070@gmail.com";
             MessageBox.Show(
-                name + "\nVersion " + version + "\n\n" + copyright + "\n" + email,
+                name + "\n" + copyright + "\n" + email,
                 "About", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

@@ -6,6 +6,21 @@
         mc:Ignorable="d"
         Title="{DynamicResource AddDownload}" Height="350" Width="600" WindowStartupLocation="CenterOwner">
     <TabControl>
+        <TabControl.Resources>
+            <!-- 保留MahApps原有样式，只修改字体相关属性 -->
+            <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" 
+                       FontSize="16"
+                       FontWeight="Normal"
+                       Margin="6,2"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TabControl.Resources>
         <TabItem Header="{DynamicResource DownloadInfo}">
             <Grid>
                 <Grid.RowDefinitions>

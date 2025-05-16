@@ -161,10 +161,10 @@
             </StatusBarItem>
             <StatusBarItem x:Name="Speed" Height="37" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock TextWrapping="Wrap" Text="{DynamicResource UploadSpeed}" Margin="0,0,2,0"/>
-                    <TextBlock x:Name="UploadSPeed" TextWrapping="Wrap" Text="{Binding UploadSpeed}" Margin="0,0,2,0"/>
-                    <TextBlock TextWrapping="Wrap" Text="{DynamicResource DownloadSpeed}" Margin="0,0,2,0"/>
-                    <TextBlock x:Name="DownloadSpeed" TextWrapping="Wrap" Text="{Binding DownloadSpeed}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Text="{DynamicResource UploadSpeed}" Margin="0,0,2,0"/>
+                    <TextBlock x:Name="UploadSPeed" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" TextWrapping="Wrap" Text="{Binding UploadSpeed}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Text="{DynamicResource DownloadSpeed}" Margin="0,0,2,0"/>
+                    <TextBlock x:Name="DownloadSpeed" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" TextWrapping="Wrap" Text="{Binding DownloadSpeed}" Margin="0,0,2,0"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
@@ -233,7 +233,7 @@
                         <i:InvokeCommandAction Command="{Binding ChosenStatusChangedCommand}"  CommandParameter="{Binding ElementName=StatusList, Path=SelectedItem.Content.Children[1]}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ListBoxItem Margin="5,5,0,5">
+                <ListBoxItem Margin="5,5,0,5" IsSelected="True">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF111;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
                         <TextBlock x:Name="All" TextWrapping="Wrap" Text="{DynamicResource All}" VerticalAlignment="Center" Width="NaN" Height="NaN"/>

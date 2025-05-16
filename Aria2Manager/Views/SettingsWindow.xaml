@@ -20,9 +20,9 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource SelectLanguage}" VerticalAlignment="Center"/>
+            <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource SelectLanguage}" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" ItemsSource="{Binding Languages}" SelectedValue="{Binding SelectedLanguage}"/>
-            <TextBlock Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource SelectTheme}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{DynamicResource SelectTheme}" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" ItemsSource="{Binding Themes}" SelectedValue="{Binding SelectedTheme}"/>
         </Grid>
         <Grid Grid.Row="1">
@@ -53,7 +53,7 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{DynamicResource TrackersSource}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{DynamicResource TrackersSource}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" ItemsSource="{Binding TrackersSources}" DisplayMemberPath="Key" SelectedValuePath="Key" SelectedValue="{Binding SelectedSource}" IsEnabled="{Binding UpdateTrackers}"/>
             </Grid>
             <Grid Grid.Column="2">
@@ -61,7 +61,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{DynamicResource UpdateInterval}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{DynamicResource UpdateInterval}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Text="{Binding UpdateInterval}" IsEnabled="{Binding UpdateTrackers}"/>
             </Grid>
         </Grid>
