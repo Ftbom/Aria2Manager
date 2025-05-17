@@ -7,6 +7,9 @@ using System.Xml;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Aria2Manager
 {
@@ -17,7 +20,8 @@ namespace Aria2Manager
     {
         private bool CloseToExit;
         private bool KillAria2;
-        private int PID;
+        private int PID = 0;
+        private Aria2ClientModel? Aria2Client;
         private bool UpdateTrackers;
         private int UpdateInterval;
         private int LastUpdate;
@@ -61,6 +65,65 @@ namespace Aria2Manager
             main_window.Show();
         }
 
+        private async Task<string> GetlatestAria2Version()
+        {
+            string releasesUrl = "https://api.github.com/repos/aria2/aria2/releases";
+            using (HttpClient client = new HttpClient())
+            {
+                // GitHub API 要求 User-Agent，否则可能返回 403
+                client.DefaultRequestHeaders.Add("User-Agent", "C# HttpClient");
+                HttpResponseMessage response = await client.GetAsync(releasesUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    using (JsonDocument doc = JsonDocument.Parse(jsonContent))
+                    {
+                        JsonElement releases = doc.RootElement;
+                        if (releases.GetArrayLength() > 0)
+                        {
+                            return releases[0].GetProperty("tag_name").GetString().Replace("release-", "")??"";
+                        }
+                        else
+                        {
+                            return "";
+                        }
+                    }
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        private async void CheckAira2Update()
+        {
+            if (Aria2Client == null)
+            {
+                Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
+                if (!aria2_server.IsLocal)
+                {
+                    return;
+                }
+                Aria2Client = new Aria2ClientModel(aria2_server);
+            }
+            var Aria2Version = await Aria2Client.Aria2Client.GetVersionAsync();
+            var Version = Aria2Version.Version;
+            string LatestVersion = await GetlatestAria2Version();
+            if (LatestVersion == "")
+            {
+                return;
+            }
+            if (Version != LatestVersion)
+            {
+                if (Application.Current.Windows.Count > 0)
+                {
+                    Application.Current.Windows[0].Close();
+                }
+                new MainWindow(CloseToExit, PID, true).Show(); //提示更新
+            }
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //读取设置信息
@@ -94,6 +157,12 @@ namespace Aria2Manager
                         break;
                     case "KillAria2":
                         KillAria2 = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "CheckAria2Update":
+                        if (Convert.ToBoolean(node.InnerText))
+                        {
+                            CheckAira2Update();
+                        }
                         break;
                     case "UpdateTrackers":
                         foreach (XmlNode node2 in node.ChildNodes)
@@ -172,11 +241,14 @@ namespace Aria2Manager
             {
                 try
                 {
-                    Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
+                    if (Aria2Client == null)
+                    {
+                        Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
+                        Aria2Client = new Aria2ClientModel(aria2_server);
+                    }
                     try
                     {
-                        Aria2ClientModel client = new Aria2ClientModel(aria2_server);
-                        client.Aria2Client.ChangeGlobalOptionAsync(
+                        Aria2Client.Aria2Client.ChangeGlobalOptionAsync(
                             new Dictionary<string, string>
                             {
                                 { "bt-tracker", string.Join(",", trackers.ToArray())}

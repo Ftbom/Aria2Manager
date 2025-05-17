@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using Aria2Manager.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Resources;
 
 namespace Aria2Manager.ViewModels
 {
@@ -26,6 +25,7 @@ namespace Aria2Manager.ViewModels
         public bool? CloseToExit { set; get; } //关闭主窗口时退出
         public bool? StartAria2 { get; set; } //启动时启动Aria2
         public bool? KillAria2 { get; set; } //关闭时停止Aria2
+        public bool? CheckAria2Update { get; set; } //检查Aria2更新
         public string? SelectedLanguage { get; set; } //当前选中的语言
         public string? SelectedTheme { get; set; } //当前选中的主题
         public bool UpdateTrackers //是否更新Trackers
@@ -105,6 +105,9 @@ namespace Aria2Manager.ViewModels
                     case "KillAria2":
                         KillAria2 = Convert.ToBoolean(node.InnerText);
                         break;
+                    case "CheckAria2Update":
+                        CheckAria2Update = Convert.ToBoolean(node.InnerText);
+                        break;
                     case "UpdateTrackers":
                         foreach (XmlNode node2 in node.ChildNodes)
                         {
@@ -174,6 +177,8 @@ namespace Aria2Manager.ViewModels
                 Node.InnerText = StartAria2.ToString();
                 Node = doc.SelectSingleNode("/Settings/KillAria2");
                 Node.InnerText = KillAria2.ToString();
+                Node = doc.SelectSingleNode("/Settings/CheckAria2Update");
+                Node.InnerText = CheckAria2Update.ToString();
                 Node = doc.SelectSingleNode("/Settings/UpdateTrackers/Enable");
                 Node.InnerText = UpdateTrackers.ToString();
                 Node = doc.SelectSingleNode("/Settings/UpdateTrackers/UpdateInterval");

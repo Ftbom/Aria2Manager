@@ -20,9 +20,16 @@ namespace Aria2Manager
         private bool close_to_exit;
         private MainWindowViewModel model;
 
-        public MainWindow(bool CloseToExit = false, int Aria2PID = 0)
+        public MainWindow(bool CloseToExit = false, int Aria2PID = 0, bool Aria2NeedUpdate = false)
         {
             InitializeComponent();
+            if (Aria2NeedUpdate)
+            {
+                this.ShowMessageAsync(
+                        (string)Application.Current.Resources["UpdateInfo"],
+                        (string)Application.Current.Resources["Aria2HasUpdate"]
+                );
+            }
             //从文件读取当前服务器信息
             try
             {

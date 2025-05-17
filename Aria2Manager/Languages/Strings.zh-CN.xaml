@@ -99,6 +99,7 @@
     <system:String x:Key="StartAria2Tip">Aria2程序和配置文件储存在"Aria2"文件夹.</system:String>
     <system:String x:Key="KillAria2">结束时关闭Aria2</system:String>
     <system:String x:Key="KillAria2Tip">关闭程序启动的aria2.</system:String>
+    <system:String x:Key="CheckAria2Update">检查Aria2更新</system:String>
     <system:String x:Key="ConnectionError">服务器连接错误</system:String>
     <system:String x:Key="Aria2Options">Aria2设置</system:String>
     <system:String x:Key="HTTPFTPSFTPOptions">HTTP/FTP/SFTP设置</system:String>
@@ -154,4 +155,6 @@
     </system:String>
     <system:String x:Key="DeleteLocalFile">删除文件</system:String>
     <system:String x:Key="ConfirmDeleteOrNot">是否删除本地文件？</system:String>
+    <system:String x:Key="UpdateInfo">更新提示</system:String>
+    <system:String x:Key="Aria2HasUpdate">Aria2有更新，请前往官网下载</system:String>
 </ResourceDictionary>

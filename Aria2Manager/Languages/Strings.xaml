@@ -98,6 +98,7 @@
     <system:String x:Key="StartAria2Tip">Aria2 program and config file are stored in the "Aria2" folder.</system:String>
     <system:String x:Key="KillAria2">Kill Aria2 On End</system:String>
     <system:String x:Key="KillAria2Tip">Kill the aria2 process started on start.</system:String>
+    <system:String x:Key="CheckAria2Update">Check Aria2 Update</system:String>
     <system:String x:Key="ConnectionError">Server Connection Error</system:String>
     <system:String x:Key="Aria2Options">Aria2 Options</system:String>
     <system:String x:Key="HTTPFTPSFTPOptions">HTTP/FTP/SFTP Options</system:String>
@@ -160,6 +161,6 @@
         Remove Control File|Session Save File|Save Session Interval|Socket Receive Buffer Size|Auto Shutdown Time|
         Truncate Console Output
     </system:String>
-    <system:String x:Key="DeleteLocalFile">Delete File</system:String>
-    <system:String x:Key="ConfirmDeleteOrNot">Do you want to delete the local file?</system:String>
+    <system:String x:Key="UpdateInfo">Update Info</system:String>
+    <system:String x:Key="Aria2HasUpdate">Aria2 has an update. Please visit the official website to download it.</system:String>
 </ResourceDictionary>
