@@ -1,17 +1,21 @@
-﻿<Window x:Name="mainwindow" x:Class="Aria2Manager.MainWindow"
+﻿<mah:MetroWindow x:Name="mainwindow" x:Class="Aria2Manager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        TitleBarHeight="25"
+        TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+        WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
+        ShowIconOnTitleBar="False"
         Title="Aria2Manager" Height="480" Width="900" Icon="/Resources/app.ico" WindowStartupLocation="CenterScreen" Closed="mainwindow_Closed">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding OnCloseWindowCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="30">
             <MenuItem Header="{DynamicResource Edit}">
@@ -152,7 +156,7 @@
                 </Button>
             </ToolBar>
         </ToolBarTray>
-        <StatusBar DockPanel.Dock="Bottom">
+        <StatusBar DockPanel.Dock="Bottom" Background="{DynamicResource MahApps.Brushes.Gray10}">
             <StatusBarItem x:Name="ServerInfo" Height="37" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
                     <ComboBox ItemsSource="{Binding ServerNames}" SelectedItem="{Binding CurrentServerName}" Margin="2,0,2,0"/>
@@ -278,4 +282,4 @@
             </ListBox>
         </Grid>
     </DockPanel>
-</Window>
+</mah:MetroWindow>

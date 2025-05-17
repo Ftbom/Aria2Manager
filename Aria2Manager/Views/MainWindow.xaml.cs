@@ -6,13 +6,14 @@ using System.Xml;
 using Aria2Manager.Models;
 using Aria2Manager.ViewModels;
 using Aria2Manager.Views;
+using MahApps.Metro.Controls;
 
 namespace Aria2Manager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private Aria2ServerInfoModel Aria2Server { get; set; }
         private bool close_to_exit;

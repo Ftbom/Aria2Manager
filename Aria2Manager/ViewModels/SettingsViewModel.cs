@@ -58,7 +58,31 @@ namespace Aria2Manager.ViewModels
             {
                 return;
             }
-            Themes = new List<string> { "Light", "Dark" };
+            Themes = new List<string> {
+                "Light.Green", "Dark.Green",
+                "Light.Blue", "Dark.Blue",
+                "Light.Red", "Dark.Red",
+                "Light.Purple", "Dark.Purple",
+                "Light.Orange", "Dark.Orange",
+                "Light.Lime", "Dark.Lime",
+                "Light.Emerald", "Dark.Emerald",
+                "Light.Teal", "Dark.Teal",
+                "Light.Cyan", "Dark.Cyan",
+                "Light.Cobalt", "Dark.Cobalt",
+                "Light.Indigo", "Dark.Indigo",
+                "Light.Violet", "Dark.Violet",
+                "Light.Pink", "Dark.Pink",
+                "Light.Magenta", "Dark.Magenta",
+                "Light.Crimson", "Dark.Crimson",
+                "Light.Amber", "Dark.Amber",
+                "Light.Yellow", "Dark.Yellow",
+                "Light.Brown", "Dark.Brown",
+                "Light.Olive", "Dark.Olive",
+                "Light.Steel", "Dark.Steel",
+                "Light.Mauve", "Dark.Mauve",
+                "Light.Taupe", "Dark.Taupe",
+                "Light.Sienna", "Dark.Sienna"
+            };
             foreach (XmlNode node in settings.ChildNodes)
             {
                 switch(node.Name)
@@ -141,7 +165,7 @@ namespace Aria2Manager.ViewModels
                 }
                 Node = doc.SelectSingleNode("/Settings/Theme");
                 Node.InnerText = SelectedTheme;
-                Application.Current.Resources.MergedDictionaries[3].Source = new Uri($"pack://application:,,,/MahApps.Metro;component/Styles/Themes/{SelectedTheme}.Green.xaml", UriKind.Absolute); 
+                Application.Current.Resources.MergedDictionaries[3].Source = new Uri($"pack://application:,,,/MahApps.Metro;component/Styles/Themes/{SelectedTheme}.xaml", UriKind.Absolute); 
                 Node = doc.SelectSingleNode("/Settings/StartMin");
                 Node.InnerText = StartMin.ToString();
                 Node = doc.SelectSingleNode("/Settings/CloseToExit");

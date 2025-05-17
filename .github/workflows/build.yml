@@ -1,0 +1,41 @@
+name: Build and Release WPF
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build_and_release:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore Aria2Manager.sln
+
+    - name: Publish project
+      run: dotnet publish Aria2Manager.sln --configuration Release --output ./publish --no-restore
+
+    - name: Extract tag name
+      run: echo "TAG_NAME=$($env:GITHUB_REF -replace 'refs/tags/', '')" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+    - name: Debug GITHUB_REF
+      run: echo "GITHUB_REF=$GITHUB_REF"
+
+    - name: Zip published files with tag name
+      run: powershell Compress-Archive -Path ./publish/* -DestinationPath ./Aria2Manager-${{ env.TAG_NAME }}.zip
+
+    - name: Create GitHub Release and upload artifact
+      uses: softprops/action-gh-release@v1
+      with:
+        files: Aria2Manager-${{ env.TAG_NAME }}.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

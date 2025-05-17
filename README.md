@@ -15,11 +15,28 @@ Aria2 Remote Manager
 
 ## Screenshots
 
-![MainWindow](ScreenShots/MainWindow.png)
-
-![Aria2Settings](ScreenShots/Aria2Settings.png)
-
-![ProgramSettings](ScreenShots/ProgramSettings.png)
+<div style="display: flex; align-items: stretch; gap: 1px;">
+  <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+    <div style="text-align: center;">
+      MainWindow<br><br>
+      <img src="ScreenShots/MainWindow.png" alt="MainWindow" style="width:100%;  object-fit: contain;">
+    </div>
+    <div style="text-align: center;">
+      MainWindowDark<br><br>
+      <img src="ScreenShots/MainWindowDark.png" alt="MainWindowDark" style="width:100%; object-fit: contain;">
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+    <div style="text-align: center;">
+      Aria2Settings
+      <img src="ScreenShots/Aria2Settings.png" alt="Aria2Settings" style="width:100%; object-fit: contain;">
+    </div>
+    <div style="text-align: center;">
+      ProgramSettings
+      <img src="ScreenShots/ProgramSettings.png" alt="ProgramSettings" style="width:100%; object-fit: contain;">
+    </div>
+  </div>
+</div>
 
 ## Thanks
 

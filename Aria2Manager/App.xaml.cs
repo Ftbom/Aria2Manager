@@ -81,7 +81,7 @@ namespace Aria2Manager
                         SetLanguageDictionary(node.InnerText);
                         break;
                     case "Theme":
-                        Resources.MergedDictionaries[3].Source = new Uri($"pack://application:,,,/MahApps.Metro;component/Styles/Themes/{node.InnerText}.Green.xaml", UriKind.Absolute);
+                        Resources.MergedDictionaries[3].Source = new Uri($"pack://application:,,,/MahApps.Metro;component/Styles/Themes/{node.InnerText}.xaml", UriKind.Absolute);
                         break;
                     case "StartMin":
                         StartMin = Convert.ToBoolean(node.InnerText);
