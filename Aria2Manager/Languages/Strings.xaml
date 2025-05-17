@@ -20,7 +20,8 @@
     <system:String x:Key="ServerSecret">Server Secret</system:String>
     <system:String x:Key="ShowSecret">Show Secret</system:String>
     <system:String x:Key="UseHttps">HTTPS</system:String>
-    <system:String x:Key="UseProxy">Use Proxy</system:String>
+    <system:String x:Key="UseProxy">Connect Using Proxy</system:String>
+    <system:String x:Key="IsLocalServer">Is Local Server</system:String>
     <system:String x:Key="Save">Save</system:String>
     <system:String x:Key="Edit">Edit</system:String>
     <system:String x:Key="CurrentServer">Current Server:</system:String>
@@ -159,4 +160,6 @@
         Remove Control File|Session Save File|Save Session Interval|Socket Receive Buffer Size|Auto Shutdown Time|
         Truncate Console Output
     </system:String>
+    <system:String x:Key="DeleteLocalFile">Delete File</system:String>
+    <system:String x:Key="ConfirmDeleteOrNot">Do you want to delete the local file?</system:String>
 </ResourceDictionary>

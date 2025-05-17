@@ -216,6 +216,7 @@ namespace Aria2Manager.ViewModels
                 CurrentServer.ServerSecret = Servers[0].ServerSecret;
                 CurrentServer.IsHttps = Servers[0].IsHttps;
                 CurrentServer.UseProxy = Servers[0].UseProxy;
+                CurrentServer.IsLocal = Servers[0].IsLocal;
             }
             //保存到文件
             try
@@ -244,6 +245,9 @@ namespace Aria2Manager.ViewModels
                     ServerNode.AppendChild(TempNode);
                     TempNode = doc.CreateElement("UseProxy");
                     TempNode.InnerText = server.UseProxy.ToString();
+                    ServerNode.AppendChild(TempNode);
+                    TempNode = doc.CreateElement("IsLocal");
+                    TempNode.InnerText = server.IsLocal.ToString();
                     ServerNode.AppendChild(TempNode);
                     ServerConfigsNode.AppendChild(ServerNode);
                     server_names.Add(server.ServerName);

@@ -11,6 +11,7 @@ namespace Aria2Manager.Models
         public string? ServerAddress { get; set; } //服务器地址
         public string? ServerPort { get; set; } //端口
         public string? ServerSecret { get; set; } //密钥
+        public bool IsLocal { get; set; } //是否本地服务器
         public bool IsHttps { get; set; } //是否使用https
         public bool UseProxy { get; set; } //是否使用代理
 
@@ -54,6 +55,9 @@ namespace Aria2Manager.Models
                     case "UseProxy":
                         UseProxy = Convert.ToBoolean(node.InnerText);
                         break;
+                    case "IsLocal":
+                        IsLocal = Convert.ToBoolean(node.InnerText);
+                        break;
                     default:
                         break;
                 }
@@ -76,6 +80,7 @@ namespace Aria2Manager.Models
                 ServerSecret = "";
                 IsHttps = false;
                 UseProxy = false;
+                IsLocal = true;
             }
             else
             {
@@ -97,7 +102,7 @@ namespace Aria2Manager.Models
 
         //通过参数初始化
         public Aria2ServerInfoModel(string server_name, string server_address, string server_port,
-            string server_secret, bool is_https, bool use_proxy)
+            string server_secret, bool is_https, bool use_proxy, bool is_local)
         {
             ServerName = server_name;
             ServerAddress = server_address;
@@ -105,6 +110,7 @@ namespace Aria2Manager.Models
             ServerSecret = server_secret;
             IsHttps = is_https;
             UseProxy = use_proxy;
+            IsLocal = is_local;
         }
 
         //通过服务器名初始化

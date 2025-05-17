@@ -7,6 +7,7 @@ using Aria2Manager.Models;
 using Aria2Manager.ViewModels;
 using Aria2Manager.Views;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Aria2Manager
 {
@@ -34,7 +35,7 @@ namespace Aria2Manager
                 MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
                     "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            model = new MainWindowViewModel(Aria2Server, Aria2PID);
+            model = new MainWindowViewModel(Aria2Server, Aria2PID, DialogCoordinator.Instance);
             DataContext = model;
             close_to_exit = CloseToExit;
         }

@@ -6,6 +6,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        dialogs:DialogParticipation.Register="{Binding}"
         TitleBarHeight="25"
         TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
         WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"

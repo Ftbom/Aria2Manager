@@ -20,7 +20,8 @@
     <system:String x:Key="ServerSecret">服务器Secret</system:String>
     <system:String x:Key="ShowSecret">显示</system:String>
     <system:String x:Key="UseHttps">HTTPS</system:String>
-    <system:String x:Key="UseProxy">使用代理</system:String>
+    <system:String x:Key="UseProxy">使用代理连接</system:String>
+    <system:String x:Key="IsLocalServer">是否为本地服务器</system:String>
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="Edit">编辑</system:String>
     <system:String x:Key="CurrentServer">当前服务器：</system:String>
@@ -151,4 +152,6 @@
         最大下载速度|禁用配置文件|文件分配限制|启用参数化 URI 支持|禁用控制台输出|实时数据块验证|删除控制文件|
         状态保存文件|保存状态间隔|Socket 接收缓冲区大小|自动关闭时间|缩短控制台输出内容
     </system:String>
+    <system:String x:Key="DeleteLocalFile">删除文件</system:String>
+    <system:String x:Key="ConfirmDeleteOrNot">是否删除本地文件？</system:String>
 </ResourceDictionary>

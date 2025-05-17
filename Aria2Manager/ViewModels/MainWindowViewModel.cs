@@ -15,12 +15,14 @@ using System.Xml;
 using Aria2Manager.Models;
 using Aria2Manager.Utils;
 using Aria2Manager.Views;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Aria2Manager.ViewModels
 {
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        private readonly IDialogCoordinator? _dialogCoordinator;
 
         public Aria2ServerInfoModel Aria2Server { get; set; }
         public SolidColorBrush Connected //服务器连接状态，颜色。绿或红
@@ -126,7 +128,7 @@ namespace Aria2Manager.ViewModels
         private DownloadItemModel? _selecteditem;
         private int _aria2_pid = 0;
 
-        public MainWindowViewModel(Aria2ServerInfoModel? aria2_server = null, int aria2_pid = 0)
+        public MainWindowViewModel(Aria2ServerInfoModel? aria2_server = null, int aria2_pid = 0, IDialogCoordinator? dialogCoordinator = null)
         {
             if (aria2_server == null)
             {
@@ -153,6 +155,7 @@ namespace Aria2Manager.ViewModels
                     ServerNames.Add(name);
                 }
             }
+            _dialogCoordinator = dialogCoordinator;
             ExitCommand = new RelayCommand(Exit);
             OpenAria2WebsiteCommand = new RelayCommand(OpenAria2Website);
             ChosenStatusChangedCommand = new RelayCommand(ChosenStatusChanged);
@@ -259,6 +262,62 @@ namespace Aria2Manager.ViewModels
             }
         }
 
+        async private void DeleteDownloads(List<string>? Files)
+        {
+            if (_dialogCoordinator == null)
+            {
+                return;
+            }
+            var result = await _dialogCoordinator.ShowMessageAsync(
+                                this,
+                                (string)Application.Current.Resources["DeleteLocalFile"],
+                                (string)Application.Current.Resources["ConfirmDeleteOrNot"],
+                                MessageDialogStyle.AffirmativeAndNegative);
+            if (result == MessageDialogResult.Affirmative)
+            {
+                //删除文件
+                if (Files != null)
+                {
+                    foreach (var file_path in Files)
+                    {
+                        if (file_path.StartsWith("|"))
+                        {
+                            DeleteLocalFile(file_path, true); //删除文件夹
+                        }
+                        else
+                        {
+                            DeleteLocalFile(file_path);
+                        }
+                    }
+                }
+            }
+        }
+        //删除本地文件
+        private void DeleteLocalFile(string file_path, bool try_dir = false)
+        {
+            if (try_dir)
+            {
+                file_path = file_path.Remove(0, 1); //去掉|符号
+            }
+            if (!Path.IsPathRooted(file_path))
+            {
+                file_path = Path.Combine("Aria2", file_path); //aria2c.exe相对路径
+                file_path = Path.GetFullPath(file_path); //获取绝对路径
+            }
+            if (try_dir)
+            {
+                if (Directory.Exists(file_path))
+                {
+                    Directory.Delete(file_path, true);
+                    return;
+                }
+            }
+            if (File.Exists(file_path))
+            {
+                File.Delete(file_path);
+            }
+        }
+
         //删除项
         private void RemoveItem(object? parameter)
         {
@@ -275,6 +334,15 @@ namespace Aria2Manager.ViewModels
             else
             {
                 client.Aria2Client.ForceRemoveAsync(item.Gid);
+            }
+            if (Aria2Server.IsLocal)
+            {
+                if (item.Status == "active") //active则不删除文件
+                {
+                    return;
+                }
+                DeleteDownloads(item.Files); //删除文件
+
             }
         }
 
@@ -346,6 +414,19 @@ namespace Aria2Manager.ViewModels
                         else
                         {
                             download_item.Name = item.Bittorrent.Info.Name;
+                        }
+                        if (item.Bittorrent == null)
+                        {
+                            download_item.Files = new List<string> { item.Files[0].Path, item.Files[0].Path + ".aria2" }; //包括.aria2文件
+                        }
+                        else if (item.Bittorrent.Info != null)
+                        {
+                            download_item.Files = new List<string> { "|" + Path.Combine(item.Dir, download_item.Name),
+                                    Path.Combine(item.Dir, download_item.Name + ".aria2") }; //种子文件包括文件夹和.aria2文件
+                        }
+                        else
+                        {
+                            download_item.Files = new List<string> { Path.Combine(item.Dir, $"{item.InfoHash}.torrent") }; //.torrent文件
                         }
                         download_item.Size = Tools.BytesToString(item.TotalLength);
                         if (item.TotalLength == 0)

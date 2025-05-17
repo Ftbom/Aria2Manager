@@ -44,6 +44,11 @@ namespace Aria2Manager.ViewModels
                 OnPropertyChanged();
             }
         }
+        public bool IsLocal
+        {
+            get => _aria2_server.IsLocal;
+            set { }
+        }
         //基本设置项
         public string? Url { get; set; }
         public string? TorrentPath { get; set; }

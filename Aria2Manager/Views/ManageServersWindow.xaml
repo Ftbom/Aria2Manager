@@ -66,6 +66,7 @@
                     <RowDefinition Height="14*"/>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -97,18 +98,20 @@
                     <TextBox x:Name="PortTextBox" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding EditServer.ServerPort}" VerticalAlignment="Center" Width="120" Height="20" Grid.Row="2"/>
                     <TextBox x:Name="SecretBox" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="{Binding EditServer.ServerSecret}" VerticalAlignment="Center" Width="120" Height="20"/>
                 </Grid>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
                     <Button x:Name="ConfrimButton" Content="{DynamicResource Save}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="84" Height="22" Grid.Column="1" Command="{Binding SaveEditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <CheckBox x:Name="UseHttps" Content="{DynamicResource UseHttps}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="57" IsChecked="{Binding EditServer.IsHttps}"/>
                     <CheckBox x:Name="UseProxy" Grid.Column="1" Content="{DynamicResource UseProxy}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding EditServer.UseProxy}"/>
                 </Grid>
-
+                <Grid Grid.Row="3">
+                    <CheckBox x:Name="IsLocalServer" Content="{DynamicResource IsLocalServer}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding EditServer.IsLocal}"/>
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>
