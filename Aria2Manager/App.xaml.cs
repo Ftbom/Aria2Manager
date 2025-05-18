@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace Aria2Manager
 {
@@ -19,13 +20,9 @@ namespace Aria2Manager
     public partial class App : Application
     {
         private bool CloseToExit;
-        private bool KillAria2;
         private int PID = 0;
         private Aria2ClientModel? Aria2Client;
-        private bool UpdateTrackers;
-        private int UpdateInterval;
-        private int LastUpdate;
-        private string? TrackersSource;
+        private TaskbarIcon? TaskBar;
 
         //需要在加载App.xaml后调用才可生效
         public void SetLanguageDictionary()
@@ -48,7 +45,7 @@ namespace Aria2Manager
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            if (KillAria2)
+            if (PID != 0)
             {
                 Process.GetProcessById(PID).Kill();
             }
@@ -65,6 +62,7 @@ namespace Aria2Manager
             main_window.Show();
         }
 
+        //获取Aria2最新版本号
         private async Task<string> GetlatestAria2Version()
         {
             string releasesUrl = "https://api.github.com/repos/aria2/aria2/releases";
@@ -96,16 +94,22 @@ namespace Aria2Manager
             }
         }
 
+        //检查Aria2更新
         private async void CheckAira2Update()
         {
             if (Aria2Client == null)
             {
-                Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
-                if (!aria2_server.IsLocal)
+                try
                 {
+                    Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
+                    Aria2Client = new Aria2ClientModel(aria2_server);
+                }
+                catch
+                {
+                    TaskBar?.ShowBalloonTip((string)Resources["NoServer"],
+                        (string)Resources["NoServersAvaliable"], BalloonIcon.Error);
                     return;
                 }
-                Aria2Client = new Aria2ClientModel(aria2_server);
             }
             var Aria2Version = await Aria2Client.Aria2Client.GetVersionAsync();
             var Version = Aria2Version.Version;
@@ -116,19 +120,90 @@ namespace Aria2Manager
             }
             if (Version != LatestVersion)
             {
-                if (Application.Current.Windows.Count > 0)
+                //提示更新
+                TaskBar?.ShowBalloonTip((string)Resources["UpdateInfo"],
+                        (string)Resources["Aria2HasUpdate"], BalloonIcon.Info);
+            }
+        }
+
+        private async void CheckTrackersUpdate(int LastUpdate, int UpdateInterval, string TrackersSource)
+        {
+            if (TrackersSource == "")
+            {
+                return;
+            }
+            //当前时间
+            int NowMinute = (int)(DateTime.Now - new DateTime(2001, 1, 1)).TotalMinutes;
+            List<string>? trackers = null;
+            bool NeedUpdate = false;
+            if ((NowMinute - LastUpdate) >= UpdateInterval)
+            {
+                NeedUpdate = true;
+            }
+            else
+            {
+                if (!File.Exists("trackers.txt"))
                 {
-                    Application.Current.Windows[0].Close();
+                    NeedUpdate = true;
                 }
-                new MainWindow(CloseToExit, PID, true).Show(); //提示更新
+            }
+            if (NeedUpdate)
+            {
+                //获取Trackers
+                TrackersModel trackers_model = new TrackersModel();
+                trackers = await trackers_model.GetTrackers(TrackersSource);
+                XmlDocument _doc = new XmlDocument();
+                _doc.Load("Configurations\\Settings.xml");
+                var Node = _doc.SelectSingleNode("/Settings/UpdateTrackers/LastUpdate");
+                if (Node != null)
+                {
+                    Node.InnerText = NowMinute.ToString();
+                }
+                _doc.Save("Configurations\\Settings.xml");
+                File.WriteAllLines("trackers.txt", trackers);
+            }
+            trackers = File.ReadAllLines("trackers.txt").ToList();
+            //每次启动设置Trackers
+            if (trackers != null)
+            {
+                try
+                {
+                    if (Aria2Client == null)
+                    {
+                        Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
+                        Aria2Client = new Aria2ClientModel(aria2_server);
+                    }
+                    try
+                    {
+                        await Aria2Client.Aria2Client.ChangeGlobalOptionAsync(
+                            new Dictionary<string, string>
+                            {
+                                { "bt-tracker", string.Join(",", trackers.ToArray())}
+                            }
+                        );
+                    }
+                    catch { }
+                }
+                catch
+                {
+                    TaskBar?.ShowBalloonTip((string)Resources["NoServer"],
+                        (string)Resources["NoServersAvaliable"], BalloonIcon.Error);
+                }
             }
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            TaskBar = (TaskbarIcon)FindResource("AMNotifyIcon");
             //读取设置信息
             bool StartMin = false;
             bool StartAria2 = false;
+            bool KillAria2 = false;
+            bool CheckUpdate = false;
+            bool UpdateTrackers = false;
+            int UpdateInterval = 0;
+            int LastUpdate = 0;
+            string TrackersSource = "";
             XmlDocument doc = new XmlDocument();
             doc.Load("Configurations\\Settings.xml");
             var settings = doc.SelectSingleNode($"/Settings");
@@ -159,10 +234,7 @@ namespace Aria2Manager
                         KillAria2 = Convert.ToBoolean(node.InnerText);
                         break;
                     case "CheckAria2Update":
-                        if (Convert.ToBoolean(node.InnerText))
-                        {
-                            CheckAira2Update();
-                        }
+                        CheckUpdate = Convert.ToBoolean(node.InnerText);
                         break;
                     case "UpdateTrackers":
                         foreach (XmlNode node2 in node.ChildNodes)
@@ -192,7 +264,10 @@ namespace Aria2Manager
                 Process[] aria2Processes = Process.GetProcessesByName("aria2c");
                 if (aria2Processes.Length > 0)
                 {
-                    PID = aria2Processes[0].Id;
+                    if (KillAria2)
+                    {
+                        PID = aria2Processes[0].Id;
+                    }
                 }
                 else
                 {
@@ -208,60 +283,21 @@ namespace Aria2Manager
                     process.StartInfo.UseShellExecute = true;
                     process.StartInfo.CreateNoWindow = true;
                     process.Start();
-                    PID = process.Id;
+                    if (KillAria2)
+                    {
+                        PID = process.Id;
+                    }
                 }
+            }
+            //检查Aria2更新
+            if (CheckUpdate)
+            {
+                CheckAira2Update();
             }
             //定时更新Trackers
-            int NowMinute = (int)(DateTime.Now - new DateTime(2001, 1, 1)).TotalMinutes;
-            List<string>? trackers = null;
-            if (UpdateTrackers && ((NowMinute - LastUpdate) >= UpdateInterval))
+            if (UpdateTrackers)
             {
-                //获取Trackers
-                TrackersModel trackers_model = new TrackersModel();
-                trackers = trackers_model.GetTrackers(TrackersSource);
-                XmlDocument _doc = new XmlDocument();
-                _doc.Load("Configurations\\Settings.xml");
-                var Node = _doc.SelectSingleNode("/Settings/UpdateTrackers/LastUpdate");
-                if (Node != null)
-                {
-                    Node.InnerText = NowMinute.ToString();
-                }
-                _doc.Save("Configurations\\Settings.xml");
-                File.WriteAllLines("trackers.txt", trackers);
-            }
-            else
-            {
-                if (File.Exists("trackers.txt"))
-                {
-                    trackers = File.ReadAllLines("trackers.txt").ToList();
-                }
-            }
-            //每次启动设置Trackers
-            if (trackers != null)
-            {
-                try
-                {
-                    if (Aria2Client == null)
-                    {
-                        Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
-                        Aria2Client = new Aria2ClientModel(aria2_server);
-                    }
-                    try
-                    {
-                        Aria2Client.Aria2Client.ChangeGlobalOptionAsync(
-                            new Dictionary<string, string>
-                            {
-                                { "bt-tracker", string.Join(",", trackers.ToArray())}
-                            }
-                        );
-                    }
-                    catch { }
-                }
-                catch
-                {
-                    MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(),
-                        "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                CheckTrackersUpdate(LastUpdate, UpdateInterval, TrackersSource);
             }
             if (!StartMin) //是否打开主窗口
             {

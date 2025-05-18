@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Aria2Manager.Models
 {
@@ -19,7 +20,7 @@ namespace Aria2Manager.Models
         }
 
         //获取Trackers
-        public List<string> GetTrackers(string? source)
+        public async Task<List<string>> GetTrackers(string? source)
         {
             List<string> result = new List<string>();
             if (source == null)
@@ -29,7 +30,7 @@ namespace Aria2Manager.Models
             if (TrackersSources.ContainsKey(source))
             {
                 HttpClient client = new HttpClient();
-                string responce = client.GetStringAsync(TrackersSources[source]).Result;
+                string responce = await client.GetStringAsync(TrackersSources[source]);
                 result = responce.Split('\n').ToList();
             }
             result.RemoveAll(s => string.IsNullOrWhiteSpace(s)); //去除空字符串

@@ -31,6 +31,7 @@
     <system:String x:Key="ProxyPort">代理端口</system:String>
     <system:String x:Key="ProxyUser">用户名</system:String>
     <system:String x:Key="ProxyPasswd">密码</system:String>
+    <system:String x:Key="NoServer">无服务器</system:String>
     <system:String x:Key="NoServersAvaliable">未找到服务器配置，请先在设置中创建服务器</system:String>
     <system:String x:Key="SavedSuccessfully">保存成功</system:String>
     <system:String x:Key="Aria2Version">Aria2版本：</system:String>

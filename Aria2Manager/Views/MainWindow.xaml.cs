@@ -20,16 +20,9 @@ namespace Aria2Manager
         private bool close_to_exit;
         private MainWindowViewModel model;
 
-        public MainWindow(bool CloseToExit = false, int Aria2PID = 0, bool Aria2NeedUpdate = false)
+        public MainWindow(bool CloseToExit = false, int Aria2PID = 0)
         {
             InitializeComponent();
-            if (Aria2NeedUpdate)
-            {
-                this.ShowMessageAsync(
-                        (string)Application.Current.Resources["UpdateInfo"],
-                        (string)Application.Current.Resources["Aria2HasUpdate"]
-                );
-            }
             //从文件读取当前服务器信息
             try
             {
@@ -39,8 +32,9 @@ namespace Aria2Manager
             {
                 Aria2Server = new Aria2ServerInfoModel();
                 //未发现配置，提示创建服务器信息
-                MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(), 
-                    "NoServersAvaliable", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Application.Current.FindResource("NoServersAvaliable").ToString(),
+                    Application.Current.FindResource("NoServer").ToString(),
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             model = new MainWindowViewModel(Aria2Server, Aria2PID, DialogCoordinator.Instance);
             DataContext = model;
@@ -67,24 +61,26 @@ namespace Aria2Manager
         private void AboutMenu_Click(object sender, RoutedEventArgs e)
         {
             //显示关于窗口
-            var name = Assembly.GetExecutingAssembly().GetName().Name;
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            var copyright = "Copyright © Ftbom";
-            var email = "lz490070@gmail.com";
-            MessageBox.Show(
-                name + "\n" + copyright + "\n" + email,
-                "About", MessageBoxButton.OK, MessageBoxImage.Information);
+            var infoWindow = new ProgramInfoWindow();
+            infoWindow.Owner = this;
+            infoWindow.ShowDialog();
         }
 
         //异步
         private async void Aria2Info_Click(object sender, RoutedEventArgs e)
         {
-            string? Aria2VersionStr = Application.Current.FindResource("Aria2Version").ToString();
-            string? Aria2FeaturesStr = Application.Current.FindResource("Aria2Features").ToString();
+            string? aria2VersionStr = Application.Current.FindResource("Aria2Version").ToString();
+            string? aria2FeaturesStr = Application.Current.FindResource("Aria2Features").ToString();
             var client = new Aria2ClientModel(Aria2Server);
-            var Aria2Version = await client.Aria2Client.GetVersionAsync();
-            MessageBox.Show($"\n{Aria2VersionStr}{Aria2Version.Version}\n\n{Aria2FeaturesStr}\n{String.Join('\n', Aria2Version.EnabledFeatures)}",
-                "Version", MessageBoxButton.OK, MessageBoxImage.Information);
+            var aria2Version = await client.Aria2Client.GetVersionAsync();
+            var infoWin = new Aria2InfoWindow(
+                aria2Version.Version,
+                aria2Version.EnabledFeatures,
+                aria2VersionStr??"",
+                aria2FeaturesStr??""
+            );
+            infoWin.Owner = this;
+            infoWin.ShowDialog();
         }
 
         private void AddNewItem(object sender, RoutedEventArgs e)

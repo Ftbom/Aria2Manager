@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Resources\app.ico" />
+    <None Remove="Resources\Font-Awesome-Brands.otf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Font-Awesome-Brands.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Font-Awesome.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

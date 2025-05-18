@@ -1,0 +1,27 @@
+﻿<mah:MetroWindow x:Class="Aria2Manager.Views.ProgramInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Aria2Manager.Views"
+        mc:Ignorable="d"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        TitleBarHeight="25"
+        TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+        WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
+        Title="{DynamicResource About}" Height="200" Width="250" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid Margin="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="AppIcon_Click" Margin="0,0,0,5">
+                    <Image Source="/Resources/app.ico" Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding AppName}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="{Binding Copyright}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0">
+                    <TextBlock MouseLeftButtonDown="Github_Click" Text="&#xF09B;" FontFamily="{StaticResource FontAwesomeBrands}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</mah:MetroWindow>

@@ -31,6 +31,7 @@
     <system:String x:Key="ProxyPort">Proxy Port</system:String>
     <system:String x:Key="ProxyUser">Proxy User</system:String>
     <system:String x:Key="ProxyPasswd">Proxy Passwd</system:String>
+    <system:String x:Key="NoServer">No Server</system:String>
     <system:String x:Key="NoServersAvaliable">No server configurations found. Please create a server in the settings first</system:String>
     <system:String x:Key="SavedSuccessfully">Saved Successfully</system:String>
     <system:String x:Key="Aria2Version">Aria2 Version:</system:String>
