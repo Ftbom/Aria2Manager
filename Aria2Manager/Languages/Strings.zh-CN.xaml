@@ -158,4 +158,5 @@
     <system:String x:Key="ConfirmDeleteOrNot">是否删除本地文件？</system:String>
     <system:String x:Key="UpdateInfo">更新提示</system:String>
     <system:String x:Key="Aria2HasUpdate">Aria2有更新，请前往官网下载</system:String>
+    <system:String x:Key="TrayInfo">下载速度：{0}\n上传速度：{1}\n下载中：{2}\n等待中：{3}\n已停止：{4}</system:String>
 </ResourceDictionary>

@@ -164,4 +164,5 @@
     </system:String>
     <system:String x:Key="UpdateInfo">Update Info</system:String>
     <system:String x:Key="Aria2HasUpdate">Aria2 has an update. Please visit the official website to download it.</system:String>
+    <system:String x:Key="TrayInfo">DownloadSpeed:{0}\nUploadSpeed:{1}\nActive:{2}\nWaiting:{3}\nStopped:{4}</system:String>
 </ResourceDictionary>

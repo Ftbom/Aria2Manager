@@ -1,4 +1,5 @@
 using Aria2Manager.Models;
+using Aria2Manager.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -11,6 +12,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Hardcodet.Wpf.TaskbarNotification;
+using System.Windows.Controls;
+using MahApps.Metro.Controls;
 
 namespace Aria2Manager
 {
@@ -43,6 +46,25 @@ namespace Aria2Manager
             }
         }
 
+        private async void Tray_ToolTipOpen(object sender, RoutedEventArgs e)
+        {
+            if (sender is TaskbarIcon icon && icon.TrayToolTip is DependencyObject tooltip)
+            {
+                var textBlock = TaskBar?.TrayToolTip.FindChild<TextBlock>("ToolTipTextBlock");
+                if ((textBlock != null) && (Aria2Client != null))
+                {
+                    var Aria2State = await Aria2Client.Aria2Client.GetGlobalStatAsync();
+                    textBlock.Text = "Aria2Manager\n" + Resources["TrayInfo"].ToString()?
+                        .Replace("\\n", "\n")
+                        .Replace("{0}", Tools.BytesToString((long)Aria2State.DownloadSpeed) + "/s")
+                        .Replace("{1}", Tools.BytesToString((long)Aria2State.UploadSpeed) + "/s")
+                        .Replace("{2}", Aria2State.NumActive.ToString())
+                        .Replace("{3}", Aria2State.NumWaiting.ToString())
+                        .Replace("{4}", Aria2State.NumStopped.ToString());
+                }
+            }
+        }
+
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
             if (PID != 0)
@@ -70,24 +92,31 @@ namespace Aria2Manager
             {
                 // GitHub API 要求 User-Agent，否则可能返回 403
                 client.DefaultRequestHeaders.Add("User-Agent", "C# HttpClient");
-                HttpResponseMessage response = await client.GetAsync(releasesUrl);
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    string jsonContent = await response.Content.ReadAsStringAsync();
-                    using (JsonDocument doc = JsonDocument.Parse(jsonContent))
+                    HttpResponseMessage response = await client.GetAsync(releasesUrl);
+                    if (response.IsSuccessStatusCode)
                     {
-                        JsonElement releases = doc.RootElement;
-                        if (releases.GetArrayLength() > 0)
+                        string jsonContent = await response.Content.ReadAsStringAsync();
+                        using (JsonDocument doc = JsonDocument.Parse(jsonContent))
                         {
-                            return releases[0].GetProperty("tag_name").GetString().Replace("release-", "")??"";
-                        }
-                        else
-                        {
-                            return "";
+                            JsonElement releases = doc.RootElement;
+                            if (releases.GetArrayLength() > 0)
+                            {
+                                return releases[0].GetProperty("tag_name").GetString().Replace("release-", "") ?? "";
+                            }
+                            else
+                            {
+                                return "";
+                            }
                         }
                     }
+                    else
+                    {
+                        return "";
+                    }
                 }
-                else
+                catch
                 {
                     return "";
                 }
@@ -149,18 +178,23 @@ namespace Aria2Manager
             }
             if (NeedUpdate)
             {
-                //获取Trackers
-                TrackersModel trackers_model = new TrackersModel();
-                trackers = await trackers_model.GetTrackers(TrackersSource);
-                XmlDocument _doc = new XmlDocument();
-                _doc.Load("Configurations\\Settings.xml");
-                var Node = _doc.SelectSingleNode("/Settings/UpdateTrackers/LastUpdate");
-                if (Node != null)
+                try
                 {
-                    Node.InnerText = NowMinute.ToString();
+                    //获取Trackers
+                    TrackersModel trackers_model = new TrackersModel();
+                    trackers = await trackers_model.GetTrackers(TrackersSource);
+                    XmlDocument _doc = new XmlDocument();
+                    _doc.Load("Configurations\\Settings.xml");
+                    var Node = _doc.SelectSingleNode("/Settings/UpdateTrackers/LastUpdate");
+                    if (Node != null)
+                    {
+                        Node.InnerText = NowMinute.ToString();
+                    }
+                    _doc.Save("Configurations\\Settings.xml");
+                    File.WriteAllLines("trackers.txt", trackers);
                 }
-                _doc.Save("Configurations\\Settings.xml");
-                File.WriteAllLines("trackers.txt", trackers);
+                catch
+                { }
             }
             trackers = File.ReadAllLines("trackers.txt").ToList();
             //每次启动设置Trackers
