@@ -18,14 +18,17 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
+    - name: Extract tag name
+      run: echo "TAG_NAME=$($env:GITHUB_REF -replace 'refs/tags/', '')" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
     - name: Restore dependencies
       run: dotnet restore Aria2Manager.sln
 
-    - name: Publish project
-      run: dotnet publish Aria2Manager.sln --configuration Release --output ./publish --no-restore
-
-    - name: Extract tag name
-      run: echo "TAG_NAME=$($env:GITHUB_REF -replace 'refs/tags/', '')" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    - name: Publish project with version
+      run: |
+        $version = "${{ env.TAG_NAME }}".TrimStart("v")
+        dotnet publish Aria2Manager.sln --configuration Release --output ./publish --no-restore /p:Version=$version
+      shell: pwsh
 
     - name: Zip published files with tag name
       run: powershell Compress-Archive -Path ./publish/* -DestinationPath ./Aria2Manager-${{ env.TAG_NAME }}.zip

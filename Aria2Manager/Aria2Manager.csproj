@@ -32,6 +32,7 @@
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Websocket.Client" Version="5.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,16 +57,9 @@
     <None Update="Aria2\aria2c.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Configurations\Settings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Configurations\Aria2Servers.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Aria2\" />
   </ItemGroup>
-
 </Project>

@@ -45,7 +45,7 @@
     <system:String x:Key="RemoveAll">全部移除</system:String>
     <system:String x:Key="PurgeAll">全部清除</system:String>
     <system:String x:Key="UploadSpeed">上传速度</system:String>
-    <system:String x:Key="DownloadSpeed">，下载速度</system:String>
+    <system:String x:Key="DownloadSpeed">下载速度</system:String>
     <system:String x:Key="Active">下载中</system:String>
     <system:String x:Key="Waiting">等待中</system:String>
     <system:String x:Key="Paused">已暂停</system:String>
@@ -157,6 +157,19 @@
     <system:String x:Key="DeleteLocalFile">删除文件</system:String>
     <system:String x:Key="ConfirmDeleteOrNot">是否删除本地文件？</system:String>
     <system:String x:Key="UpdateInfo">更新提示</system:String>
+    <system:String x:Key="NoUpdate">无更新</system:String>
+    <system:String x:Key="ProgramHasUpdate">程序有更新，请前往Github下载</system:String>
     <system:String x:Key="Aria2HasUpdate">Aria2有更新，请前往官网下载</system:String>
     <system:String x:Key="TrayInfo">下载速度：{0}\n上传速度：{1}\n下载中：{2}\n等待中：{3}\n已停止：{4}</system:String>
+    <system:String x:Key="DownloadStart">开始下载</system:String>
+    <system:String x:Key="DownloadPause">暂停下载</system:String>
+    <system:String x:Key="DownloadStop">停止下载</system:String>
+    <system:String x:Key="DownloadComplete">下载完成</system:String>
+    <system:String x:Key="DownloadError">下载出错</system:String>
+    <system:String x:Key="BtDownloadComplete">BT下载完成</system:String>
+    <system:String x:Key="EnableAria2Notification">启用Aria2通知</system:String>
+    <system:String x:Key="CheckUpdate">检查更新</system:String>
+    <system:String x:Key="Aria2FileNotFound">未找到Aria2文件，无法启用"启动时启动Aria2"</system:String>
+    <system:String x:Key="NoAria2File">无Aria2文件</system:String>
+    <system:String x:Key="StartAria2Fail">启动Aria2失败，请检查"Aria2"文件夹内是否有aria2c.exe</system:String>
 </ResourceDictionary>

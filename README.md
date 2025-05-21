@@ -15,8 +15,8 @@ Aria2 Remote Manager
 - [x] Check for Aria2 updates on startup
 - [x] Delete files downloaded by local Aria2 servers
 - [x] Show basic information of Aria2 servers in system tray
-- [ ] Notify when Aria2 server finishes or fails a download
-- [ ] Support WebSocket connection for Aria2 servers
+- [x] Notify when Aria2 server finishes or fails a download
+- [x] Check for program updates
 
 
 ## Screenshots

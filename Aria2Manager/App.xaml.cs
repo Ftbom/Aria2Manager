@@ -8,12 +8,12 @@ using System.Xml;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
+using Websocket.Client;
+using Newtonsoft.Json.Linq;
 
 namespace Aria2Manager
 {
@@ -71,12 +71,12 @@ namespace Aria2Manager
             {
                 Process.GetProcessById(PID).Kill();
             }
-            Application.Current.Shutdown(); //退出程序
+            Current.Shutdown(); //退出程序
         }
 
         private void Show_Click(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.Windows.Count > 0)
+            if (Current.Windows.Count > 0)
             {
                 return;
             }
@@ -84,42 +84,97 @@ namespace Aria2Manager
             main_window.Show();
         }
 
-        //获取Aria2最新版本号
-        private async Task<string> GetlatestAria2Version()
+        private void ListenAria2Event()
         {
-            string releasesUrl = "https://api.github.com/repos/aria2/aria2/releases";
-            using (HttpClient client = new HttpClient())
+            Aria2ServerInfoModel? aria2_server;
+            try
             {
-                // GitHub API 要求 User-Agent，否则可能返回 403
-                client.DefaultRequestHeaders.Add("User-Agent", "C# HttpClient");
-                try
+                aria2_server = new Aria2ServerInfoModel(true);
+                if (Aria2Client == null)
                 {
-                    HttpResponseMessage response = await client.GetAsync(releasesUrl);
-                    if (response.IsSuccessStatusCode)
+                    Aria2Client = new Aria2ClientModel(aria2_server);
+                }
+            }
+            catch
+            {
+                TaskBar?.ShowBalloonTip((string)Resources["NoServer"],
+                    (string)Resources["NoServersAvaliable"], BalloonIcon.Error);
+                return;
+            }
+            var aria2_url = new Uri(aria2_server.IsHttps ? "wss" : "ws" + "://" +
+                aria2_server.ServerAddress + ":" + aria2_server.ServerPort + "/jsonrpc");
+            var wsClient = new WebsocketClient(aria2_url);
+            wsClient.MessageReceived
+                .Subscribe(msg =>
+                {
+                    BalloonIcon infoLevel = BalloonIcon.Info;
+                    string msgKey = "";
+                    string? gid;
+                    if (msg.Text == null)
                     {
-                        string jsonContent = await response.Content.ReadAsStringAsync();
-                        using (JsonDocument doc = JsonDocument.Parse(jsonContent))
+                        return;
+                    }
+                    var json = JObject.Parse(msg.Text);
+                    var method = json["method"]?.ToString();
+                    gid = json["params"]?[0]?["gid"]?.ToString();
+                    if (gid == null)
+                    {
+                        return;
+                    }
+                    Task.Run(async () =>
+                    {
+                        string name = "";
+                        var item = await Aria2Client.Aria2Client.TellStatusAsync(gid);
+                        if ((item.Bittorrent == null) || (item.Bittorrent.Info == null))
                         {
-                            JsonElement releases = doc.RootElement;
-                            if (releases.GetArrayLength() > 0)
-                            {
-                                return releases[0].GetProperty("tag_name").GetString().Replace("release-", "") ?? "";
-                            }
-                            else
-                            {
-                                return "";
-                            }
+                            name = Path.GetFileName(item.Files[0].Path);
                         }
-                    }
-                    else
-                    {
-                        return "";
-                    }
+                        else
+                        {
+                            name = item.Bittorrent.Info.Name;
+                        }
+                        switch (method)
+                        {
+                            case "aria2.onDownloadStart":
+                                infoLevel = BalloonIcon.Info;
+                                msgKey = "DownloadStart";
+                                name = gid;
+                                break;
+                            case "aria2.onDownloadPause":
+                                infoLevel = BalloonIcon.None;
+                                msgKey = "DownloadPause";
+                                break;
+                            case "aria2.onDownloadStop":
+                                infoLevel = BalloonIcon.None;
+                                msgKey = "DownloadStop";
+                                break;
+                            case "aria2.onDownloadComplete":
+                                infoLevel = BalloonIcon.Info;
+                                msgKey = "DownloadComplete";
+                                break;
+                            case "aria2.onDownloadError":
+                                infoLevel = BalloonIcon.Error;
+                                msgKey = "DownloadError";
+                                break;
+                            case "aria2.onBtDownloadComplete":
+                                infoLevel = BalloonIcon.Info;
+                                msgKey = "BtDownloadComplete";
+                                break;
+                        }
+                        TaskBar?.ShowBalloonTip((string)Resources[msgKey],
+                            name, infoLevel);
+                    });
                 }
-                catch
-                {
-                    return "";
-                }
+            );
+            _ = wsClient.Start();
+        }
+
+        private async void InfoProgramUpdate()
+        {
+            if (await Tools.CheckProgramUpdate())
+            {
+                TaskBar?.ShowBalloonTip((string)Resources["UpdateInfo"],
+                        (string)Resources["ProgramHasUpdate"], BalloonIcon.Info);
             }
         }
 
@@ -142,7 +197,8 @@ namespace Aria2Manager
             }
             var Aria2Version = await Aria2Client.Aria2Client.GetVersionAsync();
             var Version = Aria2Version.Version;
-            string LatestVersion = await GetlatestAria2Version();
+            string LatestVersion = await Tools.GetlatestReleaseTag("https://api.github.com/repos/aria2/aria2/releases"); //获取Aria2最新版本号
+            LatestVersion = LatestVersion.Replace("release-", "");
             if (LatestVersion == "")
             {
                 return;
@@ -228,6 +284,7 @@ namespace Aria2Manager
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            new ConfigFile().Init();
             TaskBar = (TaskbarIcon)FindResource("AMNotifyIcon");
             //读取设置信息
             bool StartMin = false;
@@ -235,6 +292,7 @@ namespace Aria2Manager
             bool KillAria2 = false;
             bool CheckUpdate = false;
             bool UpdateTrackers = false;
+            bool EnableAria2Notification = false;
             int UpdateInterval = 0;
             int LastUpdate = 0;
             string TrackersSource = "";
@@ -269,6 +327,15 @@ namespace Aria2Manager
                         break;
                     case "CheckAria2Update":
                         CheckUpdate = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "CheckUpdate":
+                        if (Convert.ToBoolean(node.InnerText))
+                        {
+                            InfoProgramUpdate();
+                        }
+                        break;
+                    case "EnableAria2Notification":
+                        EnableAria2Notification = Convert.ToBoolean(node.InnerText);
                         break;
                     case "UpdateTrackers":
                         foreach (XmlNode node2 in node.ChildNodes)
@@ -316,12 +383,31 @@ namespace Aria2Manager
                     process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     process.StartInfo.UseShellExecute = true;
                     process.StartInfo.CreateNoWindow = true;
-                    process.Start();
+                    try
+                    {
+                        process.Start();
+                    }
+                    catch
+                    {
+                        MessageBox.Show(Current.FindResource("StartAria2Fail").ToString(),
+                            Current.FindResource("NoAria2File").ToString());
+                        Current.Shutdown(); //退出程序
+                        return;
+                    }
                     if (KillAria2)
                     {
                         PID = process.Id;
                     }
                 }
+            }
+            else
+            {
+                KillAria2 = false;
+            }
+            //启用Aria2通知
+            if (EnableAria2Notification)
+            {
+                Task.Run(() => ListenAria2Event());
             }
             //检查Aria2更新
             if (CheckUpdate)

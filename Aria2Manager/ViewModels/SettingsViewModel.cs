@@ -26,6 +26,8 @@ namespace Aria2Manager.ViewModels
         public bool? StartAria2 { get; set; } //启动时启动Aria2
         public bool? KillAria2 { get; set; } //关闭时停止Aria2
         public bool? CheckAria2Update { get; set; } //检查Aria2更新
+        public bool? CheckUpdate { get; set; } //检查更新
+        public bool? EnableAria2Notification { get; set; } //启用Aria2通知
         public string? SelectedLanguage { get; set; } //当前选中的语言
         public string? SelectedTheme { get; set; } //当前选中的主题
         public bool UpdateTrackers //是否更新Trackers
@@ -108,6 +110,12 @@ namespace Aria2Manager.ViewModels
                     case "CheckAria2Update":
                         CheckAria2Update = Convert.ToBoolean(node.InnerText);
                         break;
+                    case "CheckUpdate":
+                        CheckUpdate = Convert.ToBoolean(node.InnerText);
+                        break;
+                    case "EnableAria2Notification":
+                        EnableAria2Notification = Convert.ToBoolean(node.InnerText);
+                        break;
                     case "UpdateTrackers":
                         foreach (XmlNode node2 in node.ChildNodes)
                         {
@@ -151,6 +159,17 @@ namespace Aria2Manager.ViewModels
 
         private void SaveSettings(object? parameter)
         {
+            if (StartAria2 == true)
+            {
+                //检查Aria2是否存在
+                if (!File.Exists("Aria2/aria2c.exe"))
+                {
+                    StartAria2 = false;
+                    KillAria2 = false;
+                    MessageBox.Show(Application.Current.FindResource("Aria2FileNotFound").ToString());
+                    return;
+                }
+            }
             //保存到文件
             try
             {
@@ -179,6 +198,10 @@ namespace Aria2Manager.ViewModels
                 Node.InnerText = KillAria2.ToString();
                 Node = doc.SelectSingleNode("/Settings/CheckAria2Update");
                 Node.InnerText = CheckAria2Update.ToString();
+                Node = doc.SelectSingleNode("/Settings/CheckUpdate");
+                Node.InnerText = CheckUpdate.ToString();
+                Node = doc.SelectSingleNode("/Settings/EnableAria2Notification");
+                Node.InnerText = EnableAria2Notification.ToString();
                 Node = doc.SelectSingleNode("/Settings/UpdateTrackers/Enable");
                 Node.InnerText = UpdateTrackers.ToString();
                 Node = doc.SelectSingleNode("/Settings/UpdateTrackers/UpdateInterval");

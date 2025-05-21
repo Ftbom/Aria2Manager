@@ -1,20 +1,10 @@
-﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
+﻿using Aria2Manager.Utils;
+using MahApps.Metro.Controls;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Aria2Manager.Views
 {
@@ -29,7 +19,8 @@ namespace Aria2Manager.Views
             DataContext = new
             {
                 AppName = Assembly.GetExecutingAssembly().GetName().Name,
-                Copyright = "Copyright © Ftbom",
+                Version = "V" + Assembly.GetExecutingAssembly().GetName().Version?.ToString()[..^2],
+                Copyright = "Copyright © Ftbom"
             };
         }
 
@@ -61,6 +52,18 @@ namespace Aria2Manager.Views
         private void Github_Click(object sender, MouseButtonEventArgs e)
         {
             GoWebsite("https://github.com/Ftbom");
+        }
+
+        private async void InfoCheckUpdate(object sender, RoutedEventArgs e)
+        {
+            if (await Tools.CheckProgramUpdate())
+            {
+                MessageBox.Show(Application.Current.FindResource("ProgramHasUpdate").ToString());
+            }
+            else
+            {
+                MessageBox.Show(Application.Current.FindResource("NoUpdate").ToString());
+            }
         }
     }
 }

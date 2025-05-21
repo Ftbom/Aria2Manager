@@ -9,7 +9,7 @@
         TitleBarHeight="25"
         TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
         WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
-        Title="{DynamicResource About}" Height="200" Width="250" WindowStartupLocation="CenterOwner">
+        Title="{DynamicResource About}" Height="250" Width="250" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid Margin="20">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -17,10 +17,12 @@
                     <Image Source="/Resources/app.ico" Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <TextBlock Text="{Binding AppName}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
                 </StackPanel>
+                <TextBlock Text="{Binding Version}" FontWeight="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5"/>
                 <TextBlock Text="{Binding Copyright}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0">
                     <TextBlock MouseLeftButtonDown="Github_Click" Text="&#xF09B;" FontFamily="{StaticResource FontAwesomeBrands}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </StackPanel>
+                <Button Content="{DynamicResource CheckUpdate}" Click="InfoCheckUpdate" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,5"/>
             </StackPanel>
         </Grid>
     </Grid>

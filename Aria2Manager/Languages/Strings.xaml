@@ -44,7 +44,7 @@
     <system:String x:Key="PurgeAll">PurgeAll</system:String>
     <system:String x:Key="RemoveAll">RemoveAll</system:String>
     <system:String x:Key="UploadSpeed">Upload Speed</system:String>
-    <system:String x:Key="DownloadSpeed">,Download Speed</system:String>
+    <system:String x:Key="DownloadSpeed">Download Speed</system:String>
     <system:String x:Key="Active">Active</system:String>
     <system:String x:Key="Waiting">Waiting</system:String>
     <system:String x:Key="Paused">Paused</system:String>
@@ -163,6 +163,19 @@
         Truncate Console Output
     </system:String>
     <system:String x:Key="UpdateInfo">Update Info</system:String>
-    <system:String x:Key="Aria2HasUpdate">Aria2 has an update. Please visit the official website to download it.</system:String>
+    <system:String x:Key="NoUpdate">No Update</system:String>
+    <system:String x:Key="ProgramHasUpdate">Program has an update. Please visit the github page to download it</system:String>
+    <system:String x:Key="Aria2HasUpdate">Aria2 has an update. Please visit the official website to download it</system:String>
     <system:String x:Key="TrayInfo">DownloadSpeed:{0}\nUploadSpeed:{1}\nActive:{2}\nWaiting:{3}\nStopped:{4}</system:String>
+    <system:String x:Key="DownloadStart">Download Start</system:String>
+    <system:String x:Key="DownloadPause">Download Pause</system:String>
+    <system:String x:Key="DownloadStop">Download Stop</system:String>
+    <system:String x:Key="DownloadComplete">Download Complete</system:String>
+    <system:String x:Key="DownloadError">Download Error</system:String>
+    <system:String x:Key="BtDownloadComplete">BT Download Complete</system:String>
+    <system:String x:Key="EnableAria2Notification">Enable Aria2 Notification</system:String>
+    <system:String x:Key="CheckUpdate">Check Update</system:String>
+    <system:String x:Key="Aria2FileNotFound">Aria2 file not found, can't enable "StartAria2"</system:String>
+    <system:String x:Key="NoAria2File">No Aria2 File</system:String>
+    <system:String x:Key="StartAria2Fail">Failed to start Aria2, please check if aria2c.exe exists in the "Aria2" folder</system:String>
 </ResourceDictionary>
