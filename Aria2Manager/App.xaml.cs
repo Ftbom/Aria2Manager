@@ -34,15 +34,15 @@ namespace Aria2Manager
             SetLanguageDictionary(Thread.CurrentThread.CurrentCulture.ToString());
         }
 
-        public void SetLanguageDictionary(String Language)
+        public void SetLanguageDictionary(string language)
         {
             try
             {
-                Resources.MergedDictionaries[0].Source = new Uri($"..\\Languages\\Strings.{Language}.xaml", UriKind.Relative);
+                Resources.MergedDictionaries[0].Source = new Uri($"..\\Languages\\Strings.{language}.xaml", UriKind.Relative);
             }
             catch
             {
-                Resources.MergedDictionaries[0].Source = new Uri($"..\\Languages\\Strings.xaml", UriKind.Relative);
+                Resources.MergedDictionaries[0].Source = new Uri("..\\Languages\\Strings.xaml", UriKind.Relative);
             }
         }
 
@@ -69,19 +69,24 @@ namespace Aria2Manager
         {
             if (PID != 0)
             {
-                Process.GetProcessById(PID).Kill();
+                try
+                {
+                    Process.GetProcessById(PID).Kill();
+                }
+                catch
+                {
+                    // Process might already be terminated
+                }
             }
             Current.Shutdown(); //退出程序
         }
 
         private void Show_Click(object sender, RoutedEventArgs e)
         {
-            if (Current.Windows.Count > 0)
-            {
-                return;
-            }
-            MainWindow main_window = new MainWindow(CloseToExit, PID);
-            main_window.Show();
+            if (Current.Windows.Count > 0) return;
+            
+            var mainWindow = new MainWindow(CloseToExit, PID);
+            mainWindow.Show();
         }
 
         private void ListenAria2Event()
@@ -185,8 +190,8 @@ namespace Aria2Manager
             {
                 try
                 {
-                    Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
-                    Aria2Client = new Aria2ClientModel(aria2_server);
+                    var aria2Server = new Aria2ServerInfoModel(true);
+                    Aria2Client = new Aria2ClientModel(aria2Server);
                 }
                 catch
                 {
@@ -195,15 +200,12 @@ namespace Aria2Manager
                     return;
                 }
             }
-            var Aria2Version = await Aria2Client.Aria2Client.GetVersionAsync();
-            var Version = Aria2Version.Version;
-            string LatestVersion = await Tools.GetlatestReleaseTag("https://api.github.com/repos/aria2/aria2/releases"); //获取Aria2最新版本号
-            LatestVersion = LatestVersion.Replace("release-", "");
-            if (LatestVersion == "")
-            {
-                return;
-            }
-            if (Version != LatestVersion)
+            
+            var aria2Version = await Aria2Client.Aria2Client.GetVersionAsync();
+            string latestVersion = await Tools.GetLatestReleaseTag("https://api.github.com/repos/aria2/aria2/releases");
+            latestVersion = latestVersion.Replace("release-", "");
+            
+            if (!string.IsNullOrEmpty(latestVersion) && aria2Version.Version != latestVersion)
             {
                 //提示更新
                 TaskBar?.ShowBalloonTip((string)Resources["UpdateInfo"],
@@ -211,74 +213,66 @@ namespace Aria2Manager
             }
         }
 
-        private async void CheckTrackersUpdate(int LastUpdate, int UpdateInterval, string TrackersSource)
+        private async void CheckTrackersUpdate(int lastUpdate, int updateInterval, string trackersSource)
         {
-            if (TrackersSource == "")
-            {
-                return;
-            }
+            if (string.IsNullOrEmpty(trackersSource)) return;
+
             //当前时间
-            int NowMinute = (int)(DateTime.Now - new DateTime(2001, 1, 1)).TotalMinutes;
+            int nowMinute = (int)(DateTime.Now - new DateTime(2001, 1, 1)).TotalMinutes;
             List<string>? trackers = null;
-            bool NeedUpdate = false;
-            if ((NowMinute - LastUpdate) >= UpdateInterval)
-            {
-                NeedUpdate = true;
-            }
-            else
-            {
-                if (!File.Exists("trackers.txt"))
-                {
-                    NeedUpdate = true;
-                }
-            }
-            if (NeedUpdate)
+            bool needUpdate = (nowMinute - lastUpdate) >= updateInterval || !File.Exists("trackers.txt");
+
+            if (needUpdate)
             {
                 try
                 {
                     //获取Trackers
-                    TrackersModel trackers_model = new TrackersModel();
-                    trackers = await trackers_model.GetTrackers(TrackersSource);
-                    XmlDocument _doc = new XmlDocument();
-                    _doc.Load("Configurations\\Settings.xml");
-                    var Node = _doc.SelectSingleNode("/Settings/UpdateTrackers/LastUpdate");
-                    if (Node != null)
+                    var trackersModel = new TrackersModel();
+                    trackers = await trackersModel.GetTrackers(trackersSource);
+                    
+                    var doc = new XmlDocument();
+                    doc.Load("Configurations\\Settings.xml");
+                    var node = doc.SelectSingleNode("/Settings/UpdateTrackers/LastUpdate");
+                    if (node != null)
                     {
-                        Node.InnerText = NowMinute.ToString();
+                        node.InnerText = nowMinute.ToString();
                     }
-                    _doc.Save("Configurations\\Settings.xml");
+                    doc.Save("Configurations\\Settings.xml");
                     File.WriteAllLines("trackers.txt", trackers);
                 }
                 catch
-                { }
+                {
+                    // Error occurred during update
+                }
             }
+            
             trackers = File.ReadAllLines("trackers.txt").ToList();
+            
             //每次启动设置Trackers
-            if (trackers != null)
+            if (trackers == null) return;
+
+            try
             {
+                Aria2Client ??= new Aria2ClientModel(new Aria2ServerInfoModel(true));
+                
                 try
                 {
-                    if (Aria2Client == null)
-                    {
-                        Aria2ServerInfoModel aria2_server = new Aria2ServerInfoModel(true);
-                        Aria2Client = new Aria2ClientModel(aria2_server);
-                    }
-                    try
-                    {
-                        await Aria2Client.Aria2Client.ChangeGlobalOptionAsync(
-                            new Dictionary<string, string>
-                            {
-                                { "bt-tracker", string.Join(",", trackers.ToArray())}
-                            }
-                        );
-                    }
-                    catch { }
+                    await Aria2Client.Aria2Client.ChangeGlobalOptionAsync(
+                        new Dictionary<string, string>
+                        {
+                            { "bt-tracker", string.Join(",", trackers) }
+                        }
+                    );
                 }
                 catch
                 {
-                    TaskBar?.ShowBalloonTip((string)Resources["NoServer"],
-                        (string)Resources["NoServersAvaliable"], BalloonIcon.Error);
+                    // Error setting tracker
                 }
+            }
+            catch
+            {
+                TaskBar?.ShowBalloonTip((string)Resources["NoServer"],
+                    (string)Resources["NoServersAvaliable"], BalloonIcon.Error);
             }
         }
 

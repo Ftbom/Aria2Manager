@@ -27,10 +27,7 @@ namespace Aria2Manager.ViewModels
         public Aria2ServerInfoModel Aria2Server { get; set; }
         public SolidColorBrush Connected //服务器连接状态，颜色。绿或红
         {
-            get
-            {
-                return _connected;
-            }
+            get => _connected;
             private set
             {
                 if (_connected != value)
@@ -42,10 +39,7 @@ namespace Aria2Manager.ViewModels
         }
         public string UploadSpeed //上传速度
         {
-            get
-            {
-                return _uploadspeed;
-            }
+            get => _uploadspeed;
             set
             {
                 _uploadspeed = value;
@@ -54,10 +48,7 @@ namespace Aria2Manager.ViewModels
         }
         public string DownloadSpeed //下载速度
         {
-            get
-            {
-                return _downloadspeed;
-            }
+            get => _downloadspeed;
             set
             {
                 _downloadspeed = value;
@@ -66,10 +57,7 @@ namespace Aria2Manager.ViewModels
         }
         public DownloadItemModel? SelectedItem
         {
-            get
-            {
-                return _selecteditem;
-            }
+            get => _selecteditem;
             set
             {
                 _selecteditem = value;
@@ -130,20 +118,15 @@ namespace Aria2Manager.ViewModels
 
         public MainWindowViewModel(Aria2ServerInfoModel? aria2_server = null, int aria2_pid = 0, IDialogCoordinator? dialogCoordinator = null)
         {
-            if (aria2_server == null)
-            {
-                Aria2Server = new Aria2ServerInfoModel();
-            }
-            else
-            {
-                Aria2Server = aria2_server;
-            }
+            Aria2Server = aria2_server ?? new Aria2ServerInfoModel();
+            
             //读取可用服务器名称
             _currentservername = Aria2Server.ServerName;
             ServerNames = new ObservableCollection<string>();
-            XmlDocument doc = new XmlDocument();
+            var doc = new XmlDocument();
             doc.Load("Configurations\\Aria2Servers.xml");
-            var current = doc.SelectSingleNode($"/Servers/Avaliable");
+            var current = doc.SelectSingleNode("/Servers/Avaliable");
+            
             if (current == null)
             {
                 ServerNames.Add(Aria2Server.ServerName);
@@ -155,6 +138,7 @@ namespace Aria2Manager.ViewModels
                     ServerNames.Add(name);
                 }
             }
+            
             _dialogCoordinator = dialogCoordinator;
             ExitCommand = new RelayCommand(Exit);
             OpenAria2WebsiteCommand = new RelayCommand(OpenAria2Website);
@@ -184,7 +168,9 @@ namespace Aria2Manager.ViewModels
                     Process.GetProcessById(_aria2_pid).Kill();
                 }
                 catch
-                {}
+                {
+                    // Process might already be terminated
+                }
             }
             //退出程序
             Application.Current.Shutdown();
@@ -192,32 +178,29 @@ namespace Aria2Manager.ViewModels
 
         private void ItemInfo(object? parameter)
         {
-            if (parameter == null)
-            {
-                return;
-            }
+            if (parameter is not MainWindow mainWindow) return;
+
             //新建添加下载窗口
-            ItemInfoWindow newWin = new ItemInfoWindow(SelectedGid, Aria2Server);
-            newWin.Owner = (MainWindow)parameter;
+            var newWin = new ItemInfoWindow(SelectedGid, Aria2Server)
+            {
+                Owner = mainWindow
+            };
             newWin.ShowDialog();
         }
 
         //打开Aria2网站
-        private void OpenAria2Website(object? parameter)
+        private static void OpenAria2Website(object? parameter)
         {
             try
             {
-                Process.Start(new ProcessStartInfo("https://aria2.github.io"){ UseShellExecute = true });
+                Process.Start(new ProcessStartInfo("https://aria2.github.io") { UseShellExecute = true });
             }
-            catch (Win32Exception noBrowser)
+            catch (Win32Exception noBrowser) when (noBrowser.ErrorCode == -2147467259)
             {
                 //未发现浏览器
-                if (noBrowser.ErrorCode == -2147467259)
-                {
-                    MessageBox.Show(noBrowser.Message);
-                }
+                MessageBox.Show(noBrowser.Message);
             }
-            catch (System.Exception other)
+            catch (Exception other)
             {
                 MessageBox.Show(other.Message);
             }
@@ -231,34 +214,29 @@ namespace Aria2Manager.ViewModels
         //更新筛选条件
         private void ChosenStatusChanged(object? parameter)
         {
-            if (parameter == null)
+            if (parameter is TextBlock item)
             {
-                return;
+                CurrentChosenStatus = item.Name.ToLower();
             }
-            TextBlock item = (TextBlock)parameter;
-            CurrentChosenStatus = item.Name.ToLower();
         }
 
         //操作所有项
         private void ManageAllItem(object? parameter)
         {
-            if (parameter == null)
-            {
-                return;
-            }
+            if (parameter is not string cmdNum) return;
+
             var client = new Aria2ClientModel(Aria2Server);
-            string cmd_num = (string)parameter;
-            if (cmd_num == "0")
+            switch (cmdNum)
             {
-                client.Aria2Client.PauseAllAsync();
-            }
-            else if (cmd_num == "1")
-            {
-                client.Aria2Client.UnpauseAllAsync();
-            }
-            else if (cmd_num == "2")
-            {
-                client.Aria2Client.PurgeDownloadResultAsync();
+                case "0":
+                    client.Aria2Client.PauseAllAsync();
+                    break;
+                case "1":
+                    client.Aria2Client.UnpauseAllAsync();
+                    break;
+                case "2":
+                    client.Aria2Client.PurgeDownloadResultAsync();
+                    break;
             }
         }
 
@@ -293,41 +271,38 @@ namespace Aria2Manager.ViewModels
             }
         }
         //删除本地文件
-        private void DeleteLocalFile(string file_path, bool try_dir = false)
+        private static void DeleteLocalFile(string filePath, bool tryDir = false)
         {
-            if (try_dir)
+            if (tryDir)
             {
-                file_path = file_path.Remove(0, 1); //去掉|符号
+                filePath = filePath[1..]; //去掉|符号
             }
-            if (!Path.IsPathRooted(file_path))
+            
+            if (!Path.IsPathRooted(filePath))
             {
-                file_path = Path.Combine("Aria2", file_path); //aria2c.exe相对路径
-                file_path = Path.GetFullPath(file_path); //获取绝对路径
+                filePath = Path.Combine("Aria2", filePath); //aria2c.exe相对路径
+                filePath = Path.GetFullPath(filePath); //获取绝对路径
             }
-            if (try_dir)
+            
+            if (tryDir && Directory.Exists(filePath))
             {
-                if (Directory.Exists(file_path))
-                {
-                    Directory.Delete(file_path, true);
-                    return;
-                }
+                Directory.Delete(filePath, true);
+                return;
             }
-            if (File.Exists(file_path))
+            
+            if (File.Exists(filePath))
             {
-                File.Delete(file_path);
+                File.Delete(filePath);
             }
         }
 
         //删除项
         private void RemoveItem(object? parameter)
         {
-            if (parameter == null)
-            {
-                return;
-            }
-            DownloadItemModel item = (DownloadItemModel)parameter;
+            if (parameter is not DownloadItemModel item) return;
+
             var client = new Aria2ClientModel(Aria2Server);
-            if ((item.Status == "complete") || (item.Status == "error") || (item.Status == "removed"))
+            if (item.Status is "complete" or "error" or "removed")
             {
                 client.Aria2Client.RemoveDownloadResultAsync(item.Gid);
             }
@@ -335,39 +310,31 @@ namespace Aria2Manager.ViewModels
             {
                 client.Aria2Client.ForceRemoveAsync(item.Gid);
             }
-            if (Aria2Server.IsLocal)
+            
+            if (Aria2Server.IsLocal && item.Status != "active")
             {
-                if (item.Status == "active") //active则不删除文件
-                {
-                    return;
-                }
                 DeleteDownloads(item.Files); //删除文件
-
             }
         }
 
         //暂停项
         private void PauseItem(object? parameter)
         {
-            if (parameter == null)
+            if (parameter is DownloadItemModel item)
             {
-                return;
+                var client = new Aria2ClientModel(Aria2Server);
+                client.Aria2Client.PauseAsync(item.Gid);
             }
-            DownloadItemModel item = (DownloadItemModel)parameter;
-            var client = new Aria2ClientModel(Aria2Server);
-            client.Aria2Client.PauseAsync(item.Gid);
         }
 
         //继续项
         private void ResumeItem(object? parameter)
         {
-            if (parameter == null)
+            if (parameter is DownloadItemModel item)
             {
-                return;
+                var client = new Aria2ClientModel(Aria2Server);
+                client.Aria2Client.UnpauseAsync(item.Gid);
             }
-            DownloadItemModel item = (DownloadItemModel)parameter;
-            var client = new Aria2ClientModel(Aria2Server);
-            client.Aria2Client.UnpauseAsync(item.Gid);
         }
 
         //更新下载项
@@ -404,78 +371,30 @@ namespace Aria2Manager.ViewModels
                             //筛选
                             continue;
                         }
-                        DownloadItemModel download_item = new DownloadItemModel();
-                        //更新信息
-                        download_item.Gid = item.Gid;
-                        if ((item.Bittorrent == null) || (item.Bittorrent.Info == null))
+                        var downloadItem = new DownloadItemModel
                         {
-                            download_item.Name = Path.GetFileName(item.Files[0].Path);
-                        }
-                        else
-                        {
-                            download_item.Name = item.Bittorrent.Info.Name;
-                        }
-                        if (item.Bittorrent == null)
-                        {
-                            download_item.Files = new List<string> { item.Files[0].Path, item.Files[0].Path + ".aria2" }; //包括.aria2文件
-                        }
-                        else if (item.Bittorrent.Info != null)
-                        {
-                            download_item.Files = new List<string> { "|" + Path.Combine(item.Dir, download_item.Name),
-                                    Path.Combine(item.Dir, download_item.Name + ".aria2") }; //种子文件包括文件夹和.aria2文件
-                        }
-                        else
-                        {
-                            download_item.Files = new List<string> { Path.Combine(item.Dir, $"{item.InfoHash}.torrent") }; //.torrent文件
-                        }
-                        download_item.Size = Tools.BytesToString(item.TotalLength);
-                        if (item.TotalLength == 0)
-                        {
-                            download_item.Progress = 0;
-                        }
-                        else
-                        {
-                            download_item.Progress = (double)(item.CompletedLength * 10000 / item.TotalLength) / 100;
-                        }
-                        download_item.Status = item.Status;
-                        download_item.Downloaded = Tools.BytesToString(item.CompletedLength);
-                        download_item.Uploaded = Tools.BytesToString(item.UploadLength);
-                        download_item.DownloadSpeed = Tools.BytesToString(item.DownloadSpeed) + "/s";
-                        download_item.UploadSpeed = Tools.BytesToString(item.UploadSpeed) + "/s";
+                            Gid = item.Gid,
+                            Name = item.Bittorrent?.Info?.Name ?? Path.GetFileName(item.Files[0].Path),
+                            Files = GetItemFiles(item, item.Bittorrent?.Info?.Name ?? ""),
+                            Size = Tools.BytesToString(item.TotalLength),
+                            Progress = item.TotalLength == 0 ? 0 : (double)(item.CompletedLength * 10000 / item.TotalLength) / 100,
+                            Status = item.Status,
+                            Downloaded = Tools.BytesToString(item.CompletedLength),
+                            Uploaded = Tools.BytesToString(item.UploadLength),
+                            DownloadSpeed = $"{Tools.BytesToString(item.DownloadSpeed)}/s",
+                            UploadSpeed = $"{Tools.BytesToString(item.UploadSpeed)}/s",
+                            ETA = item.DownloadSpeed == 0 ? "--" : Tools.SecondsToString((int)((item.TotalLength - item.CompletedLength) / item.DownloadSpeed)),
+                            Ratio = item.CompletedLength == 0 ? null : (double)(item.UploadLength * 100 / item.CompletedLength) / 100,
+                            Connections = item.Connections,
+                            Seeds = item.NumSeeders
+                        };
+                        
                         total_download_speed += item.DownloadSpeed;
                         total_upload_speed += item.UploadSpeed;
-                        if (item.DownloadSpeed == 0)
-                        {
-                            download_item.ETA = "--";
-                        }
-                        else
-                        {
-                            download_item.ETA = Tools.SecondsToString((int)((double)(item.TotalLength - item.CompletedLength) / item.DownloadSpeed));
-                        }
-                        if (item.CompletedLength == 0)
-                        {
-                            download_item.Ratio = null;
-                        }
-                        else
-                        {
-                            download_item.Ratio = (double)(item.UploadLength * 100 / item.CompletedLength) / 100;
-                        }
-                        download_item.Connections = item.Connections;
-                        download_item.Seeds = item.NumSeeders;
-                        download_items.Add(download_item);
+                        download_items.Add(downloadItem);
                     }
                     //下载项列表更新，根据GID找出最新的选中项
-                    if (SelectedGid != null)
-                    {
-                        try
-                        {
-                            SelectedItem = download_items.First(x => x.Gid == SelectedGid);
-                        }
-                        catch
-                        {
-                            SelectedItem = null;
-                        }
-                    }
+                    SelectedItem = SelectedGid != null ? download_items.FirstOrDefault(x => x.Gid == SelectedGid) : null;
                     //更新下载项列表
                     DownloadItems = download_items;
                     //更新显示速度
@@ -493,10 +412,26 @@ namespace Aria2Manager.ViewModels
 
         protected void OnPropertyChanged([CallerMemberName] string name = "")
         {
-            if (PropertyChanged != null)
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private static List<string> GetItemFiles(dynamic item, string name)
+        {
+            if (item.Bittorrent == null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
+                return new List<string> { item.Files[0].Path, item.Files[0].Path + ".aria2" }; //包括.aria2文件
             }
+            
+            if (item.Bittorrent.Info != null)
+            {
+                return new List<string> 
+                { 
+                    "|" + Path.Combine(item.Dir, name),
+                    Path.Combine(item.Dir, name + ".aria2") 
+                }; //种子文件包括文件夹和.aria2文件
+            }
+            
+            return new List<string> { Path.Combine(item.Dir, $"{item.InfoHash}.torrent") }; //.torrent文件
         }
     }
 }

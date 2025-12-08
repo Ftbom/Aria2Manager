@@ -7,6 +7,8 @@ namespace Aria2Manager.Models
     //aria2服务器信息
     public class Aria2ServerInfoModel
     {
+        private const string CONFIG_PATH = "Configurations\\Aria2Servers.xml";
+
         public string? ServerName { get; set; } //服务器名
         public string? ServerAddress { get; set; } //服务器地址
         public string? ServerPort { get; set; } //端口
@@ -18,24 +20,21 @@ namespace Aria2Manager.Models
         //更新服务器信息
         public void UpdateServerInfo()
         {
-            if (ServerName == null)
+            if (ServerName != null)
             {
-                return;
+                ReadFromFileByName(ServerName);
             }
-            ReadFromFileByName(ServerName);
         }
 
         //通过服务器名称从文件读取服务器配置
-        private void ReadFromFileByName(string server_name)
+        private void ReadFromFileByName(string serverName)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Configurations\\Aria2Servers.xml");
-            var server = doc.SelectSingleNode($"/Servers/ServerConfigs/{server_name}");
-            if (server == null)
-            {
-                throw new Exception($"Config of [{server_name}] don't find");
-            }
-            ServerName = server_name;
+            var doc = new XmlDocument();
+            doc.Load(CONFIG_PATH);
+            var server = doc.SelectSingleNode($"/Servers/ServerConfigs/{serverName}") 
+                ?? throw new Exception($"Config of [{serverName}] don't find");
+
+            ServerName = serverName;
             foreach (XmlNode node in server.ChildNodes)
             {
                 switch (node.Name)
@@ -58,20 +57,19 @@ namespace Aria2Manager.Models
                     case "IsLocal":
                         IsLocal = Convert.ToBoolean(node.InnerText);
                         break;
-                    default:
-                        break;
                 }
             }
-            if ((ServerAddress == null) || (ServerPort == null))
+            
+            if (string.IsNullOrEmpty(ServerAddress) || string.IsNullOrEmpty(ServerPort))
             {
-                throw new Exception($"Fail to read config of [{server_name}]");
+                throw new Exception($"Fail to read config of [{serverName}]");
             }
         }
 
         //初始化
-        public Aria2ServerInfoModel(bool read_file = false)
+        public Aria2ServerInfoModel(bool readFile = false)
         {
-            if (!read_file)
+            if (!readFile)
             {
                 //默认配置
                 ServerName = "New";
@@ -85,14 +83,12 @@ namespace Aria2Manager.Models
             else
             {
                 //从配置文件读取当前服务器
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Configurations\\Aria2Servers.xml");
-                var current = doc.SelectSingleNode($"/Servers/Current");
-                if (current == null)
-                {
-                    throw new Exception("Fail to read config file");
-                }
-                if (current.InnerText == "")
+                var doc = new XmlDocument();
+                doc.Load(CONFIG_PATH);
+                var current = doc.SelectSingleNode("/Servers/Current") 
+                    ?? throw new Exception("Fail to read config file");
+                
+                if (string.IsNullOrEmpty(current.InnerText))
                 {
                     throw new Exception("No Avaliable Server");
                 }
@@ -101,73 +97,71 @@ namespace Aria2Manager.Models
         }
 
         //通过参数初始化
-        public Aria2ServerInfoModel(string server_name, string server_address, string server_port,
-            string server_secret, bool is_https, bool use_proxy, bool is_local)
+        public Aria2ServerInfoModel(string serverName, string serverAddress, string serverPort,
+            string serverSecret, bool isHttps, bool useProxy, bool isLocal)
         {
-            ServerName = server_name;
-            ServerAddress = server_address;
-            ServerPort = server_port;
-            ServerSecret = server_secret;
-            IsHttps = is_https;
-            UseProxy = use_proxy;
-            IsLocal = is_local;
+            ServerName = serverName;
+            ServerAddress = serverAddress;
+            ServerPort = serverPort;
+            ServerSecret = serverSecret;
+            IsHttps = isHttps;
+            UseProxy = useProxy;
+            IsLocal = isLocal;
         }
 
         //通过服务器名初始化
-        public Aria2ServerInfoModel(string server_name)
+        public Aria2ServerInfoModel(string serverName)
         {
-            ReadFromFileByName(server_name);
+            ReadFromFileByName(serverName);
         }
 
-        static public WebProxy? GetProxies()
+        public static WebProxy? GetProxies()
         {
             try
             {
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Configurations\\Aria2Servers.xml");
+                var doc = new XmlDocument();
+                doc.Load(CONFIG_PATH);
                 var proxy = doc.SelectSingleNode("/Servers/Proxy");
-                string ProxyAddress = "";
-                string ProxyPort = "";
-                string ProxyType = "";
-                string ProxyUser = "";
-                string ProxyPasswd = "";
                 if (proxy == null)
                 {
                     return null;
                 }
+
+                string proxyAddress = "";
+                string proxyPort = "";
+                string proxyType = "";
+                string proxyUser = "";
+                string proxyPasswd = "";
+
                 foreach (XmlNode node in proxy.ChildNodes)
                 {
                     switch (node.Name)
                     {
                         case "Address":
-                            ProxyAddress = node.InnerText;
+                            proxyAddress = node.InnerText;
                             break;
                         case "Port":
-                            ProxyPort = node.InnerText;
+                            proxyPort = node.InnerText;
                             break;
                         case "Type":
-                            ProxyType = node.InnerText;
+                            proxyType = node.InnerText;
                             break;
                         case "User":
-                            ProxyUser = node.InnerText;
+                            proxyUser = node.InnerText;
                             break;
                         case "Passwd":
-                            ProxyPasswd = node.InnerText;
-                            break;
-                        default:
+                            proxyPasswd = node.InnerText;
                             break;
                     }
                 }
-                var ProxySetting = new WebProxy
+
+                return new WebProxy
                 {
-                    Address = new Uri($"{ProxyType}://{ProxyAddress}:{ProxyPort}"),
+                    Address = new Uri($"{proxyType}://{proxyAddress}:{proxyPort}"),
                     BypassProxyOnLocal = false,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(
-                        userName: ProxyUser,
-                        password: ProxyPasswd)
+                    Credentials = new NetworkCredential(userName: proxyUser, password: proxyPasswd)
                 };
-                return ProxySetting;
             }
             catch
             {

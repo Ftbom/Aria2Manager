@@ -148,32 +148,19 @@ namespace Aria2Manager.ViewModels
         }
 
         //从字典读取值，null或非空字符串
-        private string? GetOptionValueByKey(IDictionary<string, string> options, string key)
+        private static string? GetOptionValueByKey(IDictionary<string, string> options, string key)
         {
-            try
-            {
-                if (options[key] == "")
-                {
-                    return null;
-                }
-                return options[key];
-            }
-            catch
-            {
-                return null;
-            }
+            return options.TryGetValue(key, out var value) && !string.IsNullOrEmpty(value) ? value : null;
         }
 
         //切换Torrent模式
         private void CheckTorrent(object? parameter)
         {
-            if (parameter == null)
-            {
-                return;
-            }
-            //切换回URL模式
+            if (parameter is not CheckBox box) return;
+
             if (IsTorrent)
             {
+                //切换回URL模式
                 IsUrl = true;
                 IsMetaLink = false;
                 IsTorrent = false;
@@ -181,7 +168,6 @@ namespace Aria2Manager.ViewModels
             else
             {
                 //切换为BitTorrent模式
-                CheckBox box = (CheckBox)parameter;
                 box.IsChecked = false;
                 IsUrl = false;
                 IsMetaLink = false;
@@ -192,13 +178,11 @@ namespace Aria2Manager.ViewModels
         //切换MetaLink模式
         private void CheckMetaLink(object? parameter)
         {
-            if (parameter == null)
-            {
-                return;
-            }
-            //切换回URL模式
+            if (parameter is not CheckBox box) return;
+
             if (IsMetaLink)
             {
+                //切换回URL模式
                 IsUrl = true;
                 IsMetaLink = false;
                 IsTorrent = false;
@@ -206,7 +190,6 @@ namespace Aria2Manager.ViewModels
             else
             {
                 //切换为Metalink模式
-                CheckBox box = (CheckBox)parameter;
                 box.IsChecked = false;
                 IsUrl = false;
                 IsMetaLink = true;
@@ -217,68 +200,65 @@ namespace Aria2Manager.ViewModels
         //添加下载
         private void AddDownload(object? parameter)
         {
-            if (parameter == null)
-            {
-                return;
-            }
+            if (parameter is not AddNewItemWindow window) return;
+
             if (!is_connect) //服务器连接出错，直接退出
             {
-                ((AddNewItemWindow)parameter).Close();
+                window.Close();
                 return;
             }
-            var Client = new Aria2ClientModel(_aria2_server);
+
+            var client = new Aria2ClientModel(_aria2_server);
             try
             {
-                var Options = new Dictionary<string, object>();
-                SetOptions(Options, "dir", DownloadPath);
+                var options = new Dictionary<string, object>();
+                SetOptions(options, "dir", DownloadPath);
+
                 //按种类分别设置
-                if (IsMetaLink && (MetaLinkPath != null))
+                if (IsMetaLink && MetaLinkPath != null)
                 {
-                    Client.Aria2Client.AddMetalinkAsync(torrent: File.ReadAllBytes(MetaLinkPath), options: Options);
+                    client.Aria2Client.AddMetalinkAsync(torrent: File.ReadAllBytes(MetaLinkPath), options: options);
                 }
-                else if (IsTorrent && (TorrentPath != null))
+                else if (IsTorrent && TorrentPath != null)
                 {
-                    SetOptions(Options, "seed-time", SeedTime);
-                    SetOptions(Options, "seed-ratio", SeedRatio);
-                    Client.Aria2Client.AddTorrentAsync(torrent: File.ReadAllBytes(TorrentPath), options: Options);
+                    SetOptions(options, "seed-time", SeedTime);
+                    SetOptions(options, "seed-ratio", SeedRatio);
+                    client.Aria2Client.AddTorrentAsync(torrent: File.ReadAllBytes(TorrentPath), options: options);
                 }
-                else
+                else if (Url != null)
                 {
-                    if (!String.IsNullOrEmpty(FileName))
+                    if (!string.IsNullOrEmpty(FileName))
                     {
-                        SetOptions(Options, "out", FileName);
+                        SetOptions(options, "out", FileName);
                     }
-                    SetOptions(Options, "http-user", HTTPUser);
-                    SetOptions(Options, "http-passwd", HTTPPasswd);
-                    SetOptions(Options, "all-proxy-passwd", ProxyPasswd);
-                    SetOptions(Options, "all-proxy-user", ProxyUser);
-                    if ((!String.IsNullOrEmpty(ProxyAddress)) && (!String.IsNullOrEmpty(ProxyPort)))
+                    SetOptions(options, "http-user", HTTPUser);
+                    SetOptions(options, "http-passwd", HTTPPasswd);
+                    SetOptions(options, "all-proxy-passwd", ProxyPasswd);
+                    SetOptions(options, "all-proxy-user", ProxyUser);
+                    
+                    if (!string.IsNullOrEmpty(ProxyAddress) && !string.IsNullOrEmpty(ProxyPort))
                     {
-                        Options["all-proxy"] = "http://" + ProxyAddress + ":" + ProxyPort;
+                        options["all-proxy"] = $"http://{ProxyAddress}:{ProxyPort}";
                     }
-                    if (!String.IsNullOrEmpty(HeaderString))
+                    
+                    if (!string.IsNullOrEmpty(HeaderString))
                     {
                         //header 设置
-                        var HeaderList = new List<string>();
-                        foreach(var header in HeaderString.Split('|'))
-                        {
-                            HeaderList.Add(header);
-                        }
-                        Options["header"] = HeaderList.ToArray();
+                        var headerList = HeaderString.Split('|').ToList();
+                        options["header"] = headerList.ToArray();
                     }
-                    if (Url != null)
-                    {
-                        Client.Aria2Client.AddUriAsync(uriList: new string[] { Url }, options: Options);
-                    }
+                    
+                    client.Aria2Client.AddUriAsync(uriList: new[] { Url }, options: options);
                 }
             }
             catch
-            { }
-            ((AddNewItemWindow)parameter).Close();
+            {
+            }
+            window.Close();
         }
 
         //设置配置项
-        private void SetOptions(Dictionary<string, object> options, string key, object? value)
+        private static void SetOptions(Dictionary<string, object> options, string key, object? value)
         {
             if (value != null)
             {
@@ -289,41 +269,47 @@ namespace Aria2Manager.ViewModels
         //浏览文件或文件夹
         private void BrowseFiles(object? parameter)
         {
-            if (parameter == null)
+            if (parameter is not string cmd) return;
+
+            switch (cmd)
             {
-                return;
+                case "0": // Torrent文件
+                    {
+                        var openFileDialog = new Microsoft.Win32.OpenFileDialog
+                        {
+                            Filter = "Torrent files (*.torrent)|*.torrent"
+                        };
+                        if (openFileDialog.ShowDialog() == true)
+                        {
+                            TorrentPath = openFileDialog.FileName;
+                            OnPropertyChanged(nameof(TorrentPath));
+                        }
+                        break;
+                    }
+                case "1": // MetaLink文件
+                    {
+                        var openFileDialog = new Microsoft.Win32.OpenFileDialog
+                        {
+                            Filter = "MetaLink files (*.metalink)|*.metalink"
+                        };
+                        if (openFileDialog.ShowDialog() == true)
+                        {
+                            MetaLinkPath = openFileDialog.FileName;
+                            OnPropertyChanged(nameof(MetaLinkPath));
+                        }
+                        break;
+                    }
+                default: // 文件夹
+                    {
+                        var openFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+                        if (openFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            DownloadPath = openFolderDialog.SelectedPath;
+                            OnPropertyChanged(nameof(DownloadPath));
+                        }
+                        break;
+                    }
             }
-            string cmd = (string)parameter;
-            if (cmd == "0") //Torrent文件
-            {
-                Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-                openFileDialog.Filter = "Torrent files (*.torrent)|*.torrent";
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    TorrentPath = openFileDialog.FileName;
-                    OnPropertyChanged(nameof(TorrentPath));
-                }
-            }
-            else if (cmd == "1") //MetaLink文件
-            {
-                Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-                openFileDialog.Filter = "MetaLink files (*.metalink)|*.metalink";
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    MetaLinkPath = openFileDialog.FileName;
-                    OnPropertyChanged(nameof(MetaLinkPath));
-                }
-            }
-            else
-            {
-                //文件夹
-                System.Windows.Forms.FolderBrowserDialog openFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
-                if (openFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    DownloadPath = openFolderDialog.SelectedPath;
-                    OnPropertyChanged(nameof(DownloadPath));
-                }
-            }   
         }
 
         protected void OnPropertyChanged([CallerMemberName] string name = "")

@@ -93,91 +93,71 @@ namespace Aria2Manager.Utils
 
     public class Tools
     {
+        private const long GB_SIZE = 1024L * 1024 * 1024;
+        private const long MB_SIZE = 1024L * 1024;
+        private const long KB_SIZE = 1024L;
+        private const int HOURS_IN_SECONDS = 3600;
+        private const int MINUTES_IN_SECONDS = 60;
+
         //Byte转可读字符串
-        static public string BytesToString(long byteCount)
+        public static string BytesToString(long byteCount)
         {
-            long GBSize = 1024 * 1024 * 1024;
-            long MBSize = 1024 * 1024;
-            long KBSize = 1024;
-            if (byteCount >= GBSize)
+            if (byteCount >= GB_SIZE)
             {
-                return ((double)(byteCount * 100 / GBSize) / 100).ToString() + "GB";
+                return $"{(double)byteCount / GB_SIZE:F2}GB";
             }
-            else if (byteCount >= MBSize)
+            if (byteCount >= MB_SIZE)
             {
-                return ((double)(byteCount * 100 / MBSize) / 100).ToString() + "MB";
+                return $"{(double)byteCount / MB_SIZE:F2}MB";
             }
-            else
-            {
-                return ((double)(byteCount * 100 / KBSize) / 100).ToString() + "KB";
-            }
+            return $"{(double)byteCount / KB_SIZE:F2}KB";
         }
 
         //秒（时间）转可读字符串
-        static public string SecondsToString(long secCount)
+        public static string SecondsToString(long secCount)
         {
-            string result = "";
-            long HSize = 60 * 60;
-            long MSize = 60;
-            int h_num = (int)(secCount / HSize);
-            result += h_num.ToString() + "h";
-            secCount -= h_num * HSize;
-            int m_num = (int)(secCount / MSize);
-            result += m_num.ToString() + "m";
-            secCount -= m_num * MSize;
-            result += secCount.ToString() + "s";
-            return result;
+            int hours = (int)(secCount / HOURS_IN_SECONDS);
+            secCount -= hours * HOURS_IN_SECONDS;
+            int minutes = (int)(secCount / MINUTES_IN_SECONDS);
+            int seconds = (int)(secCount - minutes * MINUTES_IN_SECONDS);
+            return $"{hours}h{minutes}m{seconds}s";
         }
 
-        static public async Task<bool> CheckProgramUpdate()
+        public static async Task<bool> CheckProgramUpdate()
         {
-            string LatestVersion = await GetlatestReleaseTag("https://api.github.com/repos/Ftbom/Aria2Manager/releases"); //获取Aria2最新版本号
-            if (LatestVersion == "")
+            string latestVersion = await GetLatestReleaseTag("https://api.github.com/repos/Ftbom/Aria2Manager/releases");
+            if (string.IsNullOrEmpty(latestVersion))
             {
                 return false;
             }
-            string? LocalVersion = "v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString()[..^2];
-            if ((LocalVersion != null) && (LatestVersion != LocalVersion))
-            {
-                return true;
-            }
-            return false;
+            
+            string? localVersion = "v" + Assembly.GetExecutingAssembly().GetName().Version?.ToString()[..^2];
+            return localVersion != null && latestVersion != localVersion;
         }
 
-        static public async Task<string> GetlatestReleaseTag(string releasesUrl)
+        public static async Task<string> GetLatestReleaseTag(string releasesUrl)
         {
-            using (HttpClient client = new HttpClient())
+            using var client = new HttpClient();
+            // GitHub API 要求 User-Agent，否则可能返回 403
+            client.DefaultRequestHeaders.Add("User-Agent", "C# HttpClient");
+            try
             {
-                // GitHub API 要求 User-Agent，否则可能返回 403
-                client.DefaultRequestHeaders.Add("User-Agent", "C# HttpClient");
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(releasesUrl);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonContent = await response.Content.ReadAsStringAsync();
-                        using (JsonDocument doc = JsonDocument.Parse(jsonContent))
-                        {
-                            JsonElement releases = doc.RootElement;
-                            if (releases.GetArrayLength() > 0)
-                            {
-                                return releases[0].GetProperty("tag_name").GetString()??"";
-                            }
-                            else
-                            {
-                                return "";
-                            }
-                        }
-                    }
-                    else
-                    {
-                        return "";
-                    }
-                }
-                catch
+                HttpResponseMessage response = await client.GetAsync(releasesUrl);
+                if (!response.IsSuccessStatusCode)
                 {
                     return "";
                 }
+
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                using var doc = JsonDocument.Parse(jsonContent);
+                JsonElement releases = doc.RootElement;
+                return releases.GetArrayLength() > 0
+                    ? releases[0].GetProperty("tag_name").GetString() ?? ""
+                    : "";
+            }
+            catch
+            {
+                return "";
             }
         }
     }
