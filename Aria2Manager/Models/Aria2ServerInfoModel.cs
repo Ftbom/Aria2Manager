@@ -60,7 +60,7 @@ namespace Aria2Manager.Models
                 }
             }
             
-            if (string.IsNullOrEmpty(ServerAddress) || string.IsNullOrEmpty(ServerPort))
+            if (ServerAddress == null || ServerPort == null)
             {
                 throw new Exception($"Fail to read config of [{serverName}]");
             }

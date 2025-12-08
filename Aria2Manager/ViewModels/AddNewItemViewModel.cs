@@ -14,6 +14,8 @@ namespace Aria2Manager.ViewModels
 {
     public class AddNewItemViewModel : INotifyPropertyChanged
     {
+        private const char HEADER_DELIMITER = '|';
+        
         public event PropertyChangedEventHandler? PropertyChanged;
 
         //新下载项分类
@@ -244,8 +246,8 @@ namespace Aria2Manager.ViewModels
                     if (!string.IsNullOrEmpty(HeaderString))
                     {
                         //header 设置
-                        var headerList = HeaderString.Split('|').ToList();
-                        options["header"] = headerList.ToArray();
+                        var headerList = HeaderString.Split(HEADER_DELIMITER);
+                        options["header"] = headerList;
                     }
                     
                     client.Aria2Client.AddUriAsync(uriList: new[] { Url }, options: options);

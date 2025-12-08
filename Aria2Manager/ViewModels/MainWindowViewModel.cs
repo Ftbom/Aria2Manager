@@ -21,6 +21,8 @@ namespace Aria2Manager.ViewModels
 {
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
+        private const char DIRECTORY_MARKER = '|';
+        
         public event PropertyChangedEventHandler? PropertyChanged;
         private readonly IDialogCoordinator? _dialogCoordinator;
 
@@ -258,7 +260,7 @@ namespace Aria2Manager.ViewModels
                 {
                     foreach (var file_path in Files)
                     {
-                        if (file_path.StartsWith("|"))
+                        if (file_path.StartsWith(DIRECTORY_MARKER))
                         {
                             DeleteLocalFile(file_path, true); //删除文件夹
                         }
@@ -275,7 +277,7 @@ namespace Aria2Manager.ViewModels
         {
             if (tryDir)
             {
-                filePath = filePath[1..]; //去掉|符号
+                filePath = filePath.Substring(1); //去掉|符号
             }
             
             if (!Path.IsPathRooted(filePath))
@@ -426,7 +428,7 @@ namespace Aria2Manager.ViewModels
             {
                 return new List<string> 
                 { 
-                    "|" + Path.Combine(item.Dir, name),
+                    DIRECTORY_MARKER + Path.Combine(item.Dir, name),
                     Path.Combine(item.Dir, name + ".aria2") 
                 }; //种子文件包括文件夹和.aria2文件
             }
