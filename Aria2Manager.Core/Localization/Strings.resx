@@ -1,0 +1,954 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>Resume</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Resume_All" xml:space="preserve">
+    <value>Resume All</value>
+  </data>
+  <data name="Pause_All" xml:space="preserve">
+    <value>Pause All</value>
+  </data>
+  <data name="Purge_All" xml:space="preserve">
+    <value>Purge All</value>
+  </data>
+  <data name="Download_Info" xml:space="preserve">
+    <value>Download Info</value>
+  </data>
+  <data name="Download_Link" xml:space="preserve">
+    <value>Download Link</value>
+  </data>
+  <data name="Download_Link_tip" xml:space="preserve">
+    <value>Multiple links supported, one address per line</value>
+  </data>
+  <data name="MetaLink" xml:space="preserve">
+    <value>MetaLink</value>
+  </data>
+  <data name="Torrent" xml:space="preserve">
+    <value>Torrent</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Basic_Options" xml:space="preserve">
+    <value>Basic Settings</value>
+  </data>
+  <data name="File_Name" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="Download_Path" xml:space="preserve">
+    <value>Download Path</value>
+  </data>
+  <data name="HTTP_User" xml:space="preserve">
+    <value>HTTP Username</value>
+  </data>
+  <data name="HTTP_Passwd" xml:space="preserve">
+    <value>HTTP Password</value>
+  </data>
+  <data name="Seed_Ratio" xml:space="preserve">
+    <value>Seed Ratio</value>
+  </data>
+  <data name="Seed_Time" xml:space="preserve">
+    <value>Seed Time</value>
+  </data>
+  <data name="Advanced_Options" xml:space="preserve">
+    <value>Advanced Settings</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Header</value>
+  </data>
+  <data name="Header_Tip" xml:space="preserve">
+    <value>Use ":" to separate key and value, one entry per line</value>
+  </data>
+  <data name="Http_Proxy_Address" xml:space="preserve">
+    <value>HTTP Proxy Address</value>
+  </data>
+  <data name="Http_Proxy_Port" xml:space="preserve">
+    <value>HTTP Proxy Port</value>
+  </data>
+  <data name="Proxy_User" xml:space="preserve">
+    <value>Proxy Username</value>
+  </data>
+  <data name="Proxy_Passwd" xml:space="preserve">
+    <value>Proxy Password</value>
+  </data>
+  <data name="Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="Aria2_Servers" xml:space="preserve">
+    <value>Aria2 Servers</value>
+  </data>
+  <data name="Aria2_Options" xml:space="preserve">
+    <value>Aria2 Settings</value>
+  </data>
+  <data name="Program_Settings" xml:space="preserve">
+    <value>Program Settings</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Server_Options" xml:space="preserve">
+    <value>Server Configuration</value>
+  </data>
+  <data name="Server_Name" xml:space="preserve">
+    <value>Server Name</value>
+  </data>
+  <data name="Server_Address" xml:space="preserve">
+    <value>Server Address</value>
+  </data>
+  <data name="Server_Port" xml:space="preserve">
+    <value>Server Port</value>
+  </data>
+  <data name="Server_Secret" xml:space="preserve">
+    <value>Server Secret</value>
+  </data>
+  <data name="Use_Https" xml:space="preserve">
+    <value>HTTPS</value>
+  </data>
+  <data name="Use_Proxy" xml:space="preserve">
+    <value>Proxy Connection</value>
+  </data>
+  <data name="Local_Server" xml:space="preserve">
+    <value>Local Server</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Proxy_Settings" xml:space="preserve">
+    <value>Network Proxy</value>
+  </data>
+  <data name="Proxy_Type" xml:space="preserve">
+    <value>Proxy Type</value>
+  </data>
+  <data name="Proxy_Address" xml:space="preserve">
+    <value>Proxy Address</value>
+  </data>
+  <data name="Proxy_Port" xml:space="preserve">
+    <value>Proxy Port</value>
+  </data>
+  <data name="Aria2Option_dir" xml:space="preserve">
+    <value>Download Path</value>
+  </data>
+  <data name="Aria2Option_log" xml:space="preserve">
+    <value>Log File</value>
+  </data>
+  <data name="Aria2Option_max-concurrent-downloads" xml:space="preserve">
+    <value>Max Concurrent Downloads</value>
+  </data>
+  <data name="Aria2Option_check-integrity" xml:space="preserve">
+    <value>Check Integrity</value>
+  </data>
+  <data name="Aria2Option_continue" xml:space="preserve">
+    <value>Continue Download</value>
+  </data>
+  <data name="Aria2Option_allow-overwrite" xml:space="preserve">
+    <value>Allow Overwrite</value>
+  </data>
+  <data name="Aria2Option_allow-piece-length-change" xml:space="preserve">
+    <value>Allow Piece Length Change</value>
+  </data>
+  <data name="Aria2Option_always-resume" xml:space="preserve">
+    <value>Always Resume</value>
+  </data>
+  <data name="Aria2Option_async-dns" xml:space="preserve">
+    <value>Async DNS</value>
+  </data>
+  <data name="Aria2Option_auto-file-renaming" xml:space="preserve">
+    <value>Auto File Renaming</value>
+  </data>
+  <data name="Aria2Option_auto-save-interval" xml:space="preserve">
+    <value>Auto Save Interval</value>
+  </data>
+  <data name="Aria2Option_conditional-get" xml:space="preserve">
+    <value>Conditional GET</value>
+  </data>
+  <data name="Aria2Option_conf-path" xml:space="preserve">
+    <value>Config File Path</value>
+  </data>
+  <data name="Aria2Option_console-log-level" xml:space="preserve">
+    <value>Console Log Level</value>
+  </data>
+  <data name="Aria2Option_content-disposition-default-utf8" xml:space="preserve">
+    <value>Use UTF-8 for Content-Disposition</value>
+  </data>
+  <data name="Aria2Option_daemon" xml:space="preserve">
+    <value>Enable Daemon</value>
+  </data>
+  <data name="Aria2Option_deferred-input" xml:space="preserve">
+    <value>Deferred Input</value>
+  </data>
+  <data name="Aria2Option_disable-ipv6" xml:space="preserve">
+    <value>Disable IPv6</value>
+  </data>
+  <data name="Aria2Option_disk-cache" xml:space="preserve">
+    <value>Disk Cache</value>
+  </data>
+  <data name="Aria2Option_download-result" xml:space="preserve">
+    <value>Download Result</value>
+  </data>
+  <data name="Aria2Option_dscp" xml:space="preserve">
+    <value>DSCP</value>
+  </data>
+  <data name="Aria2Option_rlimit-nofile" xml:space="preserve">
+    <value>Max Open File Descriptors</value>
+  </data>
+  <data name="Aria2Option_enable-color" xml:space="preserve">
+    <value>Enable Console Color Output</value>
+  </data>
+  <data name="Aria2Option_enable-mmap" xml:space="preserve">
+    <value>Enable MMap</value>
+  </data>
+  <data name="Aria2Option_event-poll" xml:space="preserve">
+    <value>Event Poll Method</value>
+  </data>
+  <data name="Aria2Option_file-allocation" xml:space="preserve">
+    <value>File Allocation Method</value>
+  </data>
+  <data name="Aria2Option_force-save" xml:space="preserve">
+    <value>Force Save</value>
+  </data>
+  <data name="Aria2Option_save-not-found" xml:space="preserve">
+    <value>Save Not Found Files</value>
+  </data>
+  <data name="Aria2Option_hash-check-only" xml:space="preserve">
+    <value>Hash Check Only</value>
+  </data>
+  <data name="Aria2Option_human-readable" xml:space="preserve">
+    <value>Human Readable Output</value>
+  </data>
+  <data name="Aria2Option_keep-unfinished-download-result" xml:space="preserve">
+    <value>Keep Unfinished Download Results</value>
+  </data>
+  <data name="Aria2Option_max-download-result" xml:space="preserve">
+    <value>Max Download Results</value>
+  </data>
+  <data name="Aria2Option_max-mmap-limit" xml:space="preserve">
+    <value>Max MMap Limit</value>
+  </data>
+  <data name="Aria2Option_max-resume-failure-tries" xml:space="preserve">
+    <value>Max Resume Failure Tries</value>
+  </data>
+  <data name="Aria2Option_min-tls-version" xml:space="preserve">
+    <value>Min TLS Version</value>
+  </data>
+  <data name="Aria2Option_log-level" xml:space="preserve">
+    <value>Log Level</value>
+  </data>
+  <data name="Aria2Option_optimize-concurrent-downloads" xml:space="preserve">
+    <value>Optimize Concurrent Downloads</value>
+  </data>
+  <data name="Aria2Option_piece-length" xml:space="preserve">
+    <value>Piece Length</value>
+  </data>
+  <data name="Aria2Option_show-console-readout" xml:space="preserve">
+    <value>Show Console Readout</value>
+  </data>
+  <data name="Aria2Option_summary-interval" xml:space="preserve">
+    <value>Download Summary Interval</value>
+  </data>
+  <data name="Aria2Option_max-overall-download-limit" xml:space="preserve">
+    <value>Max Overall Download Limit</value>
+  </data>
+  <data name="Aria2Option_max-download-limit" xml:space="preserve">
+    <value>Max Download Limit</value>
+  </data>
+  <data name="Aria2Option_no-conf" xml:space="preserve">
+    <value>Disable Config File</value>
+  </data>
+  <data name="Aria2Option_no-file-allocation-limit" xml:space="preserve">
+    <value>No File Allocation Limit</value>
+  </data>
+  <data name="Aria2Option_parameterized-uri" xml:space="preserve">
+    <value>Enable Parameterized URI Support</value>
+  </data>
+  <data name="Aria2Option_quiet" xml:space="preserve">
+    <value>Disable Console Output</value>
+  </data>
+  <data name="Aria2Option_realtime-chunk-checksum" xml:space="preserve">
+    <value>Real-time Chunk Checksum</value>
+  </data>
+  <data name="Aria2Option_remove-control-file" xml:space="preserve">
+    <value>Remove Control File</value>
+  </data>
+  <data name="Aria2Option_save-session" xml:space="preserve">
+    <value>Save Session File</value>
+  </data>
+  <data name="Aria2Option_save-session-interval" xml:space="preserve">
+    <value>Save Session Interval</value>
+  </data>
+  <data name="Aria2Option_socket-recv-buffer-size" xml:space="preserve">
+    <value>Socket Receive Buffer Size</value>
+  </data>
+  <data name="Aria2Option_stop" xml:space="preserve">
+    <value>Auto Stop Time</value>
+  </data>
+  <data name="Aria2Option_truncate-console-readout" xml:space="preserve">
+    <value>Truncate Console Readout</value>
+  </data>
+  <data name="HTTPFTPSFTP_Options" xml:space="preserve">
+    <value>HTTP/FTP/SFTP Settings</value>
+  </data>
+  <data name="Aria2Option_all-proxy" xml:space="preserve">
+    <value>Proxy Server</value>
+  </data>
+  <data name="Aria2Option_all-proxy-user" xml:space="preserve">
+    <value>Proxy Server Username</value>
+  </data>
+  <data name="Aria2Option_all-proxy-passwd" xml:space="preserve">
+    <value>Proxy Server Password</value>
+  </data>
+  <data name="Aria2Option_connect-timeout" xml:space="preserve">
+    <value>Connect Timeout</value>
+  </data>
+  <data name="Aria2Option_dry-run" xml:space="preserve">
+    <value>Dry Run</value>
+  </data>
+  <data name="Aria2Option_lowest-speed-limit" xml:space="preserve">
+    <value>Lowest Speed Limit</value>
+  </data>
+  <data name="Aria2Option_max-connection-per-server" xml:space="preserve">
+    <value>Max Connections Per Server</value>
+  </data>
+  <data name="Aria2Option_max-file-not-found" xml:space="preserve">
+    <value>Max File Not Found Tries</value>
+  </data>
+  <data name="Aria2Option_max-tries" xml:space="preserve">
+    <value>Max Tries</value>
+  </data>
+  <data name="Aria2Option_min-split-size" xml:space="preserve">
+    <value>Min Split Size</value>
+  </data>
+  <data name="Aria2Option_netrc-path" xml:space="preserve">
+    <value>.netrc File Path</value>
+  </data>
+  <data name="Aria2Option_no-netrc" xml:space="preserve">
+    <value>Disable netrc</value>
+  </data>
+  <data name="Aria2Option_no-proxy" xml:space="preserve">
+    <value>No Proxy Server List (Comma separated)</value>
+  </data>
+  <data name="Aria2Option_proxy-method" xml:space="preserve">
+    <value>Proxy Server Request Method</value>
+  </data>
+  <data name="Aria2Option_remote-time" xml:space="preserve">
+    <value>Get Remote File Time</value>
+  </data>
+  <data name="Aria2Option_reuse-uri" xml:space="preserve">
+    <value>Reuse URI</value>
+  </data>
+  <data name="Aria2Option_retry-wait" xml:space="preserve">
+    <value>Retry Wait Time</value>
+  </data>
+  <data name="Aria2Option_server-stat-of" xml:space="preserve">
+    <value>Server Stat File</value>
+  </data>
+  <data name="Aria2Option_server-stat-timeout" xml:space="preserve">
+    <value>Server Stat Timeout</value>
+  </data>
+  <data name="Aria2Option_split" xml:space="preserve">
+    <value>Connections Per Task</value>
+  </data>
+  <data name="Aria2Option_stream-piece-selector" xml:space="preserve">
+    <value>Stream Piece Selector Algorithm</value>
+  </data>
+  <data name="Aria2Option_timeout" xml:space="preserve">
+    <value>Timeout</value>
+  </data>
+  <data name="Aria2Option_uri-selector" xml:space="preserve">
+    <value>URI Selector Algorithm</value>
+  </data>
+  <data name="HTTP_Options" xml:space="preserve">
+    <value>HTTP Settings</value>
+  </data>
+  <data name="Aria2Option_check-certificate" xml:space="preserve">
+    <value>Check Certificate</value>
+  </data>
+  <data name="Aria2Option_http-accept-gzip" xml:space="preserve">
+    <value>Accept GZip</value>
+  </data>
+  <data name="Aria2Option_http-auth-challenge" xml:space="preserve">
+    <value>Auth Challenge</value>
+  </data>
+  <data name="Aria2Option_http-no-cache" xml:space="preserve">
+    <value>Disable Cache</value>
+  </data>
+  <data name="Aria2Option_http-user" xml:space="preserve">
+    <value>HTTP Default Username</value>
+  </data>
+  <data name="Aria2Option_http-passwd" xml:space="preserve">
+    <value>HTTP Default Password</value>
+  </data>
+  <data name="Aria2Option_http-proxy" xml:space="preserve">
+    <value>HTTP Proxy Server</value>
+  </data>
+  <data name="Aria2Option_http-proxy-user" xml:space="preserve">
+    <value>HTTP Proxy Server Username</value>
+  </data>
+  <data name="Aria2Option_http-proxy-passwd" xml:space="preserve">
+    <value>HTTP Proxy Server Password</value>
+  </data>
+  <data name="Aria2Option_https-proxy" xml:space="preserve">
+    <value>HTTPS Proxy Server</value>
+  </data>
+  <data name="Aria2Option_https-proxy-user" xml:space="preserve">
+    <value>HTTPS Proxy Server Username</value>
+  </data>
+  <data name="Aria2Option_https-proxy-passwd" xml:space="preserve">
+    <value>HTTPS Proxy Server Password</value>
+  </data>
+  <data name="Aria2Option_referer" xml:space="preserve">
+    <value>Referer</value>
+  </data>
+  <data name="Aria2Option_enable-http-keep-alive" xml:space="preserve">
+    <value>Enable HTTP Keep-Alive</value>
+  </data>
+  <data name="Aria2Option_enable-http-pipelining" xml:space="preserve">
+    <value>Enable HTTP Pipelining</value>
+  </data>
+  <data name="Aria2Option_header" xml:space="preserve">
+    <value>Custom Headers</value>
+  </data>
+  <data name="Aria2Option_header-tip" xml:space="preserve">
+    <value>One entry per line, formatted as "Header-Name: Header-Value"</value>
+  </data>
+  <data name="Aria2Option_save-cookies" xml:space="preserve">
+    <value>Save Cookies Path</value>
+  </data>
+  <data name="Aria2Option_use-head" xml:space="preserve">
+    <value>Use HEAD Method</value>
+  </data>
+  <data name="Aria2Option_user-agent" xml:space="preserve">
+    <value>Custom User Agent</value>
+  </data>
+  <data name="FTPSFTP_Options" xml:space="preserve">
+    <value>FTP/SFTP Settings</value>
+  </data>
+  <data name="Aria2Option_ftp-user" xml:space="preserve">
+    <value>FTP Default Username</value>
+  </data>
+  <data name="Aria2Option_ftp-passwd" xml:space="preserve">
+    <value>FTP Default Password</value>
+  </data>
+  <data name="Aria2Option_ftp-pasv" xml:space="preserve">
+    <value>Passive Mode</value>
+  </data>
+  <data name="Aria2Option_ftp-proxy" xml:space="preserve">
+    <value>FTP Proxy Server</value>
+  </data>
+  <data name="Aria2Option_ftp-proxy-user" xml:space="preserve">
+    <value>FTP Proxy Server Username</value>
+  </data>
+  <data name="Aria2Option_ftp-proxy-passwd" xml:space="preserve">
+    <value>FTP Proxy Server Password</value>
+  </data>
+  <data name="Aria2Option_ftp-type" xml:space="preserve">
+    <value>Transfer Type</value>
+  </data>
+  <data name="Aria2Option_ftp-reuse-connection" xml:space="preserve">
+    <value>Reuse Connection</value>
+  </data>
+  <data name="Aria2Option_ssh-host-key-md" xml:space="preserve">
+    <value>SSH Host Key Checksum</value>
+  </data>
+  <data name="BitTorrent_Options" xml:space="preserve">
+    <value>BitTorrent Settings</value>
+  </data>
+  <data name="Aria2Option_bt-detach-seed-only" xml:space="preserve">
+    <value>Detach Seed Only Tasks</value>
+  </data>
+  <data name="Aria2Option_bt-enable-hook-after-hash-check" xml:space="preserve">
+    <value>Enable Hook After Hash Check</value>
+  </data>
+  <data name="Aria2Option_bt-enable-lpd" xml:space="preserve">
+    <value>Enable Local Peer Discovery (LPD)</value>
+  </data>
+  <data name="Aria2Option_bt-exclude-tracker" xml:space="preserve">
+    <value>Exclude BT Tracker Addresses</value>
+  </data>
+  <data name="Aria2Option_bt-exclude-tracker-tip" xml:space="preserve">
+    <value>Use * to match all addresses, comma separated</value>
+  </data>
+  <data name="Aria2Option_bt-external-ip" xml:space="preserve">
+    <value>External IP Address</value>
+  </data>
+  <data name="Aria2Option_bt-force-encryption" xml:space="preserve">
+    <value>Force Encryption</value>
+  </data>
+  <data name="Aria2Option_bt-hash-check-seed" xml:space="preserve">
+    <value>Hash Check Before Seeding</value>
+  </data>
+  <data name="Aria2Option_bt-load-saved-metadata" xml:space="preserve">
+    <value>Load Saved Metadata</value>
+  </data>
+  <data name="Aria2Option_bt-max-open-files" xml:space="preserve">
+    <value>Max Open Files</value>
+  </data>
+  <data name="Aria2Option_bt-max-peers" xml:space="preserve">
+    <value>Max Peers</value>
+  </data>
+  <data name="Aria2Option_bt-metadata-only" xml:space="preserve">
+    <value>Download Metadata Only</value>
+  </data>
+  <data name="Aria2Option_bt-min-crypto-level" xml:space="preserve">
+    <value>Min Crypto Level</value>
+  </data>
+  <data name="Aria2Option_bt-prioritize-piece" xml:space="preserve">
+    <value>Prioritize Piece</value>
+  </data>
+  <data name="Aria2Option_bt-remove-unselected-file" xml:space="preserve">
+    <value>Remove Unselected Files</value>
+  </data>
+  <data name="Aria2Option_bt-require-crypto" xml:space="preserve">
+    <value>Require Crypto</value>
+  </data>
+  <data name="Aria2Option_bt-request-peer-speed-limit" xml:space="preserve">
+    <value>Request Peer Speed Limit</value>
+  </data>
+  <data name="Aria2Option_bt-save-metadata" xml:space="preserve">
+    <value>Save Metadata</value>
+  </data>
+  <data name="Aria2Option_bt-seed-unverified" xml:space="preserve">
+    <value>Seed Unverified</value>
+  </data>
+  <data name="Aria2Option_bt-stop-timeout" xml:space="preserve">
+    <value>Auto Stop Timeout When No Speed</value>
+  </data>
+  <data name="Aria2Option_bt-tracker" xml:space="preserve">
+    <value>BT Tracker Addresses (Comma separated)</value>
+  </data>
+  <data name="Aria2Option_bt-tracker-connect-timeout" xml:space="preserve">
+    <value>BT Tracker Connect Timeout</value>
+  </data>
+  <data name="Aria2Option_bt-tracker-interval" xml:space="preserve">
+    <value>BT Tracker Connection Interval</value>
+  </data>
+  <data name="Aria2Option_bt-tracker-timeout" xml:space="preserve">
+    <value>BT Tracker Timeout</value>
+  </data>
+  <data name="Aria2Option_dht-file-path" xml:space="preserve">
+    <value>DHT (IPv4) File Path</value>
+  </data>
+  <data name="Aria2Option_dht-file-path6" xml:space="preserve">
+    <value>DHT (IPv6) File Path</value>
+  </data>
+  <data name="Aria2Option_dht-listen-port" xml:space="preserve">
+    <value>DHT Listen Port</value>
+  </data>
+  <data name="Aria2Option_dht-message-timeout" xml:space="preserve">
+    <value>DHT Message Timeout</value>
+  </data>
+  <data name="Aria2Option_enable-dht" xml:space="preserve">
+    <value>Enable DHT (IPv4)</value>
+  </data>
+  <data name="Aria2Option_enable-dht6" xml:space="preserve">
+    <value>Enable DHT (IPv6)</value>
+  </data>
+  <data name="Aria2Option_enable-peer-exchange" xml:space="preserve">
+    <value>Enable Peer Exchange</value>
+  </data>
+  <data name="Aria2Option_follow-torrent" xml:space="preserve">
+    <value>Follow Torrent Files</value>
+  </data>
+  <data name="Aria2Option_listen-port" xml:space="preserve">
+    <value>Listen Port</value>
+  </data>
+  <data name="Aria2Option_max-overall-upload-limit" xml:space="preserve">
+    <value>Max Overall Upload Limit</value>
+  </data>
+  <data name="Aria2Option_max-upload-limit" xml:space="preserve">
+    <value>Max Upload Limit</value>
+  </data>
+  <data name="Aria2Option_peer-id-prefix" xml:space="preserve">
+    <value>Peer ID Prefix</value>
+  </data>
+  <data name="Aria2Option_peer-agent" xml:space="preserve">
+    <value>Peer Agent</value>
+  </data>
+  <data name="Aria2Option_seed-ratio" xml:space="preserve">
+    <value>Min Seed Ratio</value>
+  </data>
+  <data name="Aria2Option_seed-time" xml:space="preserve">
+    <value>Min Seed Time</value>
+  </data>
+  <data name="Metalink_Options" xml:space="preserve">
+    <value>Metalink Settings</value>
+  </data>
+  <data name="Aria2Option_follow-metalink" xml:space="preserve">
+    <value>Follow Metalink Files</value>
+  </data>
+  <data name="Aria2Option_metalink-base-uri" xml:space="preserve">
+    <value>Base URI</value>
+  </data>
+  <data name="Aria2Option_metalink-language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Aria2Option_metalink-location" xml:space="preserve">
+    <value>Preferred Server Location</value>
+  </data>
+  <data name="Aria2Option_metalink-os" xml:space="preserve">
+    <value>Operating System</value>
+  </data>
+  <data name="Aria2Option_metalink-version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Aria2Option_metalink-preferred-protocol" xml:space="preserve">
+    <value>Preferred Protocol</value>
+  </data>
+  <data name="Aria2Option_metalink-enable-unique-protocol" xml:space="preserve">
+    <value>Enable Unique Protocol</value>
+  </data>
+  <data name="RPC_Options" xml:space="preserve">
+    <value>RPC Settings</value>
+  </data>
+  <data name="Aria2Option_enable-rpc" xml:space="preserve">
+    <value>Enable JSON-RPC/XML-RPC Server</value>
+  </data>
+  <data name="Aria2Option_pause-metadata" xml:space="preserve">
+    <value>Pause After Metadata Download</value>
+  </data>
+  <data name="Aria2Option_rpc-allow-origin-all" xml:space="preserve">
+    <value>Accept All Remote Requests</value>
+  </data>
+  <data name="Aria2Option_rpc-listen-all" xml:space="preserve">
+    <value>Listen on All Interfaces</value>
+  </data>
+  <data name="Aria2Option_rpc-listen-port" xml:space="preserve">
+    <value>Listen Port</value>
+  </data>
+  <data name="Aria2Option_rpc-max-request-size" xml:space="preserve">
+    <value>Max Request Size</value>
+  </data>
+  <data name="Aria2Option_rpc-save-upload-metadata" xml:space="preserve">
+    <value>Save Uploaded Metadata</value>
+  </data>
+  <data name="Aria2Option_rpc-secure" xml:space="preserve">
+    <value>Enable SSL/TLS</value>
+  </data>
+  <data name="Program_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Program_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Start_Minimize" xml:space="preserve">
+    <value>Minimize to Tray on Startup</value>
+  </data>
+  <data name="Close_To_Exit" xml:space="preserve">
+    <value>Exit When Main Window is Closed</value>
+  </data>
+  <data name="Update_BT_Trackers" xml:space="preserve">
+    <value>Update Trackers on Startup</value>
+  </data>
+  <data name="Trackers_Source" xml:space="preserve">
+    <value>Trackers Source</value>
+  </data>
+  <data name="Trackers_Update_Interval" xml:space="preserve">
+    <value>Update Interval (Days)</value>
+  </data>
+  <data name="Start_Aria2" xml:space="preserve">
+    <value>Start Aria2 with Program</value>
+  </data>
+  <data name="Start_Aria2_Tip" xml:space="preserve">
+    <value>Use default Aria2 executable and config file</value>
+  </data>
+  <data name="Kill_Aria2" xml:space="preserve">
+    <value>Close Aria2 on Exit</value>
+  </data>
+  <data name="Kill_Aria2_Tip" xml:space="preserve">
+    <value>Close Aria2 when exiting the program (only affects Aria2 started by this program)</value>
+  </data>
+  <data name="Check_Aria2_Update" xml:space="preserve">
+    <value>Check for Aria2 Updates</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Aria2_Website" xml:space="preserve">
+    <value>Aria2 Website</value>
+  </data>
+  <data name="Aria2_Status" xml:space="preserve">
+    <value>Aria2 Status</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Aria2_Version" xml:space="preserve">
+    <value>Aria2 Version</value>
+  </data>
+  <data name="Aria2_Features" xml:space="preserve">
+    <value>Enabled Features</value>
+  </data>
+  <data name="Check_Update" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
+  <data name="Status_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Status_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Status_Waiting" xml:space="preserve">
+    <value>Waiting</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="Status_Complete" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Status_Removed" xml:space="preserve">
+    <value>Removed</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="ETA" xml:space="preserve">
+    <value>ETA</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Uploaded</value>
+  </data>
+  <data name="Downloaded" xml:space="preserve">
+    <value>Downloaded</value>
+  </data>
+  <data name="Upload_Speed" xml:space="preserve">
+    <value>Upload Speed</value>
+  </data>
+  <data name="Download_Speed" xml:space="preserve">
+    <value>Download Speed</value>
+  </data>
+  <data name="Ratio" xml:space="preserve">
+    <value>Ratio</value>
+  </data>
+  <data name="Connections" xml:space="preserve">
+    <value>Connections</value>
+  </data>
+  <data name="Seeds" xml:space="preserve">
+    <value>Seeds</value>
+  </data>
+  <data name="OverView" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Files_List" xml:space="preserve">
+    <value>File List</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="Info_Hash" xml:space="preserve">
+    <value>Info Hash</value>
+  </data>
+  <data name="Seeds_And_Connections" xml:space="preserve">
+    <value>Seeds/Connections</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="New_Task_Fail" xml:space="preserve">
+    <value>Failed to add new Aria2 task</value>
+  </data>
+  <data name="Load_Options_Fail" xml:space="preserve">
+    <value>Failed to load Aria2 options</value>
+  </data>
+  <data name="Change_Options_Fail" xml:space="preserve">
+    <value>Failed to change Aria2 options</value>
+  </data>
+  <data name="Load_Task_Status_Fail" xml:space="preserve">
+    <value>Failed to load task stutus</value>
+  </data>
+  <data name="Change_Task_File_Fail" xml:space="preserve">
+    <value>Failed to change task files</value>
+  </data>
+  <data name="Check_Program_Update_Failed" xml:space="preserve">
+    <value>Failed to check program update</value>
+  </data>
+  <data name="Program_Update_Available" xml:space="preserve">
+    <value>Program update available</value>
+  </data>
+  <data name="Program_Up_To_Date" xml:space="preserve">
+    <value>Program up to date</value>
+  </data>
+  <data name="Theme_Language_ReStart" xml:space="preserve">
+    <value>Need restart to change theme and language</value>
+  </data>
+  <data name="Language_ReStart" xml:space="preserve">
+    <value>Need restart to change language</value>
+  </data>
+  <data name="Duplicate_Server_Name" xml:space="preserve">
+    <value>Duplicate server name</value>
+  </data>
+  <data name="No_Browser_Found" xml:space="preserve">
+    <value>No browser found</value>
+  </data>
+  <data name="Aria2_Update_Available" xml:space="preserve">
+    <value>Aria2 update available</value>
+  </data>
+  <data name="Update_Trackers_Failed" xml:space="preserve">
+    <value>Failed to update trackers</value>
+  </data>
+  <data name="Remove_Local_Files" xml:space="preserve">
+    <value>Remove local files?</value>
+  </data>
+  <data name="Remove_Task_Failed" xml:space="preserve">
+    <value>Failed to remove task</value>
+  </data>
+  <data name="Unpause_Task_Failed" xml:space="preserve">
+    <value>Failed to unpause task</value>
+  </data>
+  <data name="Pause_Task_Failed" xml:space="preserve">
+    <value>Failed to pause task</value>
+  </data>
+  <data name="Purge_Task_Failed" xml:space="preserve">
+    <value>Failed to purge tasks</value>
+  </data>
+</root>

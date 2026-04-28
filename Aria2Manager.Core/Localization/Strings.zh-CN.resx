@@ -1,0 +1,954 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>新建</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>暂停</value>
+  </data>
+  <data name="Resume" xml:space="preserve">
+    <value>继续</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="Resume_All" xml:space="preserve">
+    <value>全部继续</value>
+  </data>
+  <data name="Pause_All" xml:space="preserve">
+    <value>全部暂停</value>
+  </data>
+  <data name="Purge_All" xml:space="preserve">
+    <value>全部清除</value>
+  </data>
+  <data name="Download_Info" xml:space="preserve">
+    <value>下载项信息</value>
+  </data>
+  <data name="Download_Link" xml:space="preserve">
+    <value>下载链接</value>
+  </data>
+  <data name="Download_Link_tip" xml:space="preserve">
+    <value>支持多个链接，每个地址占一行</value>
+  </data>
+  <data name="MetaLink" xml:space="preserve">
+    <value>MetaLink</value>
+  </data>
+  <data name="Torrent" xml:space="preserve">
+    <value>Torrent</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="Basic_Options" xml:space="preserve">
+    <value>基础设置</value>
+  </data>
+  <data name="File_Name" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="Download_Path" xml:space="preserve">
+    <value>下载路径</value>
+  </data>
+  <data name="HTTP_User" xml:space="preserve">
+    <value>HTTP用户名</value>
+  </data>
+  <data name="HTTP_Passwd" xml:space="preserve">
+    <value>HTTP密码</value>
+  </data>
+  <data name="Seed_Ratio" xml:space="preserve">
+    <value>做种分享率</value>
+  </data>
+  <data name="Seed_Time" xml:space="preserve">
+    <value>做种时间</value>
+  </data>
+  <data name="Advanced_Options" xml:space="preserve">
+    <value>高级设置</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>请求头</value>
+  </data>
+  <data name="Header_Tip" xml:space="preserve">
+    <value>使用":"分隔键和值，每项占一行</value>
+  </data>
+  <data name="Http_Proxy_Address" xml:space="preserve">
+    <value>HTTP代理地址</value>
+  </data>
+  <data name="Http_Proxy_Port" xml:space="preserve">
+    <value>HTTP代理端口</value>
+  </data>
+  <data name="Proxy_User" xml:space="preserve">
+    <value>代理用户名</value>
+  </data>
+  <data name="Proxy_Passwd" xml:space="preserve">
+    <value>代理密码</value>
+  </data>
+  <data name="Tools" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Aria2_Servers" xml:space="preserve">
+    <value>Aria2服务器</value>
+  </data>
+  <data name="Aria2_Options" xml:space="preserve">
+    <value>Aria2设置</value>
+  </data>
+  <data name="Program_Settings" xml:space="preserve">
+    <value>程序设置</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Server_Options" xml:space="preserve">
+    <value>服务器配置</value>
+  </data>
+  <data name="Server_Name" xml:space="preserve">
+    <value>服务器名称</value>
+  </data>
+  <data name="Server_Address" xml:space="preserve">
+    <value>服务器地址</value>
+  </data>
+  <data name="Server_Port" xml:space="preserve">
+    <value>服务器端口</value>
+  </data>
+  <data name="Server_Secret" xml:space="preserve">
+    <value>服务器密钥</value>
+  </data>
+  <data name="Use_Https" xml:space="preserve">
+    <value>HTTPS</value>
+  </data>
+  <data name="Use_Proxy" xml:space="preserve">
+    <value>代理连接</value>
+  </data>
+  <data name="Local_Server" xml:space="preserve">
+    <value>本地服务器</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Proxy_Settings" xml:space="preserve">
+    <value>网络代理</value>
+  </data>
+  <data name="Proxy_Type" xml:space="preserve">
+    <value>代理类型</value>
+  </data>
+  <data name="Proxy_Address" xml:space="preserve">
+    <value>代理地址</value>
+  </data>
+  <data name="Proxy_Port" xml:space="preserve">
+    <value>代理端口</value>
+  </data>
+  <data name="Aria2Option_dir" xml:space="preserve">
+    <value>下载路径</value>
+  </data>
+  <data name="Aria2Option_log" xml:space="preserve">
+    <value>日志文件</value>
+  </data>
+  <data name="Aria2Option_max-concurrent-downloads" xml:space="preserve">
+    <value>最大同时下载数</value>
+  </data>
+  <data name="Aria2Option_check-integrity" xml:space="preserve">
+    <value>检查完整性</value>
+  </data>
+  <data name="Aria2Option_continue" xml:space="preserve">
+    <value>断点续传</value>
+  </data>
+  <data name="Aria2Option_allow-overwrite" xml:space="preserve">
+    <value>允许覆盖</value>
+  </data>
+  <data name="Aria2Option_allow-piece-length-change" xml:space="preserve">
+    <value>允许分片大小变化</value>
+  </data>
+  <data name="Aria2Option_always-resume" xml:space="preserve">
+    <value>始终断点续传</value>
+  </data>
+  <data name="Aria2Option_async-dns" xml:space="preserve">
+    <value>异步 DNS</value>
+  </data>
+  <data name="Aria2Option_auto-file-renaming" xml:space="preserve">
+    <value>文件自动重命名</value>
+  </data>
+  <data name="Aria2Option_auto-save-interval" xml:space="preserve">
+    <value>自动保存间隔</value>
+  </data>
+  <data name="Aria2Option_conditional-get" xml:space="preserve">
+    <value>条件下载</value>
+  </data>
+  <data name="Aria2Option_conf-path" xml:space="preserve">
+    <value>配置文件路径</value>
+  </data>
+  <data name="Aria2Option_console-log-level" xml:space="preserve">
+    <value>控制台日志级别</value>
+  </data>
+  <data name="Aria2Option_content-disposition-default-utf8" xml:space="preserve">
+    <value>使用 UTF-8 处理 Content-Disposition</value>
+  </data>
+  <data name="Aria2Option_daemon" xml:space="preserve">
+    <value>启用后台进程</value>
+  </data>
+  <data name="Aria2Option_deferred-input" xml:space="preserve">
+    <value>延迟加载</value>
+  </data>
+  <data name="Aria2Option_disable-ipv6" xml:space="preserve">
+    <value>禁用 IPv6</value>
+  </data>
+  <data name="Aria2Option_disk-cache" xml:space="preserve">
+    <value>磁盘缓存</value>
+  </data>
+  <data name="Aria2Option_download-result" xml:space="preserve">
+    <value>下载结果</value>
+  </data>
+  <data name="Aria2Option_dscp" xml:space="preserve">
+    <value>DSCP</value>
+  </data>
+  <data name="Aria2Option_rlimit-nofile" xml:space="preserve">
+    <value>最多打开的文件描述符</value>
+  </data>
+  <data name="Aria2Option_enable-color" xml:space="preserve">
+    <value>终端输出使用颜色</value>
+  </data>
+  <data name="Aria2Option_enable-mmap" xml:space="preserve">
+    <value>启用 MMap</value>
+  </data>
+  <data name="Aria2Option_event-poll" xml:space="preserve">
+    <value>事件轮询方法</value>
+  </data>
+  <data name="Aria2Option_file-allocation" xml:space="preserve">
+    <value>文件分配方法</value>
+  </data>
+  <data name="Aria2Option_force-save" xml:space="preserve">
+    <value>强制保存</value>
+  </data>
+  <data name="Aria2Option_save-not-found" xml:space="preserve">
+    <value>保存未找到的文件</value>
+  </data>
+  <data name="Aria2Option_hash-check-only" xml:space="preserve">
+    <value>仅哈希检查</value>
+  </data>
+  <data name="Aria2Option_human-readable" xml:space="preserve">
+    <value>控制台可读输出</value>
+  </data>
+  <data name="Aria2Option_keep-unfinished-download-result" xml:space="preserve">
+    <value>保留未完成的任务</value>
+  </data>
+  <data name="Aria2Option_max-download-result" xml:space="preserve">
+    <value>最多下载结果</value>
+  </data>
+  <data name="Aria2Option_max-mmap-limit" xml:space="preserve">
+    <value>MMap 最大限制</value>
+  </data>
+  <data name="Aria2Option_max-resume-failure-tries" xml:space="preserve">
+    <value>最大断点续传尝试次数</value>
+  </data>
+  <data name="Aria2Option_min-tls-version" xml:space="preserve">
+    <value>最低 TLS 版本</value>
+  </data>
+  <data name="Aria2Option_log-level" xml:space="preserve">
+    <value>日志级别</value>
+  </data>
+  <data name="Aria2Option_optimize-concurrent-downloads" xml:space="preserve">
+    <value>优化并发下载</value>
+  </data>
+  <data name="Aria2Option_piece-length" xml:space="preserve">
+    <value>文件分片大小</value>
+  </data>
+  <data name="Aria2Option_show-console-readout" xml:space="preserve">
+    <value>显示控制台输出</value>
+  </data>
+  <data name="Aria2Option_summary-interval" xml:space="preserve">
+    <value>下载摘要输出间隔</value>
+  </data>
+  <data name="Aria2Option_max-overall-download-limit" xml:space="preserve">
+    <value>全局最大下载速度</value>
+  </data>
+  <data name="Aria2Option_max-download-limit" xml:space="preserve">
+    <value>最大下载速度</value>
+  </data>
+  <data name="Aria2Option_no-conf" xml:space="preserve">
+    <value>禁用配置文件</value>
+  </data>
+  <data name="Aria2Option_no-file-allocation-limit" xml:space="preserve">
+    <value>文件分配限制</value>
+  </data>
+  <data name="Aria2Option_parameterized-uri" xml:space="preserve">
+    <value>启用参数化 URI 支持</value>
+  </data>
+  <data name="Aria2Option_quiet" xml:space="preserve">
+    <value>禁用控制台输出</value>
+  </data>
+  <data name="Aria2Option_realtime-chunk-checksum" xml:space="preserve">
+    <value>实时数据块验证</value>
+  </data>
+  <data name="Aria2Option_remove-control-file" xml:space="preserve">
+    <value>删除控制文件</value>
+  </data>
+  <data name="Aria2Option_save-session" xml:space="preserve">
+    <value>状态保存文件</value>
+  </data>
+  <data name="Aria2Option_save-session-interval" xml:space="preserve">
+    <value>保存状态间隔</value>
+  </data>
+  <data name="Aria2Option_socket-recv-buffer-size" xml:space="preserve">
+    <value>Socket 接收缓冲区大小</value>
+  </data>
+  <data name="Aria2Option_stop" xml:space="preserve">
+    <value>自动关闭时间</value>
+  </data>
+  <data name="Aria2Option_truncate-console-readout" xml:space="preserve">
+    <value>缩短控制台输出内容</value>
+  </data>
+  <data name="HTTPFTPSFTP_Options" xml:space="preserve">
+    <value>HTTP/FTP/SFTP设置</value>
+  </data>
+  <data name="Aria2Option_all-proxy" xml:space="preserve">
+    <value>代理服务器</value>
+  </data>
+  <data name="Aria2Option_all-proxy-user" xml:space="preserve">
+    <value>代理服务器用户名</value>
+  </data>
+  <data name="Aria2Option_all-proxy-passwd" xml:space="preserve">
+    <value>代理服务器密码</value>
+  </data>
+  <data name="Aria2Option_connect-timeout" xml:space="preserve">
+    <value>连接超时时间</value>
+  </data>
+  <data name="Aria2Option_dry-run" xml:space="preserve">
+    <value>模拟运行</value>
+  </data>
+  <data name="Aria2Option_lowest-speed-limit" xml:space="preserve">
+    <value>最小速度限制</value>
+  </data>
+  <data name="Aria2Option_max-connection-per-server" xml:space="preserve">
+    <value>单服务器最大连接数</value>
+  </data>
+  <data name="Aria2Option_max-file-not-found" xml:space="preserve">
+    <value>文件未找到重试次数</value>
+  </data>
+  <data name="Aria2Option_max-tries" xml:space="preserve">
+    <value>最大尝试次数</value>
+  </data>
+  <data name="Aria2Option_min-split-size" xml:space="preserve">
+    <value>最小文件分片大小</value>
+  </data>
+  <data name="Aria2Option_netrc-path" xml:space="preserve">
+    <value>.netrc 文件路径</value>
+  </data>
+  <data name="Aria2Option_no-netrc" xml:space="preserve">
+    <value>禁用 netrc</value>
+  </data>
+  <data name="Aria2Option_no-proxy" xml:space="preserve">
+    <value>不使用代理服务器列表%多个使用逗号分隔</value>
+  </data>
+  <data name="Aria2Option_proxy-method" xml:space="preserve">
+    <value>代理服务器请求方法</value>
+  </data>
+  <data name="Aria2Option_remote-time" xml:space="preserve">
+    <value>获取服务器文件时间</value>
+  </data>
+  <data name="Aria2Option_reuse-uri" xml:space="preserve">
+    <value>URI 复用</value>
+  </data>
+  <data name="Aria2Option_retry-wait" xml:space="preserve">
+    <value>重试等待时间</value>
+  </data>
+  <data name="Aria2Option_server-stat-of" xml:space="preserve">
+    <value>服务器状态保存文件</value>
+  </data>
+  <data name="Aria2Option_server-stat-timeout" xml:space="preserve">
+    <value>服务器状态超时</value>
+  </data>
+  <data name="Aria2Option_split" xml:space="preserve">
+    <value>单任务连接数</value>
+  </data>
+  <data name="Aria2Option_stream-piece-selector" xml:space="preserve">
+    <value>分片选择算法</value>
+  </data>
+  <data name="Aria2Option_timeout" xml:space="preserve">
+    <value>超时时间</value>
+  </data>
+  <data name="Aria2Option_uri-selector" xml:space="preserve">
+    <value>URI 选择算法</value>
+  </data>
+  <data name="HTTP_Options" xml:space="preserve">
+    <value>HTTP设置</value>
+  </data>
+  <data name="Aria2Option_check-certificate" xml:space="preserve">
+    <value>检查证书</value>
+  </data>
+  <data name="Aria2Option_http-accept-gzip" xml:space="preserve">
+    <value>支持 GZip</value>
+  </data>
+  <data name="Aria2Option_http-auth-challenge" xml:space="preserve">
+    <value>认证质询</value>
+  </data>
+  <data name="Aria2Option_http-no-cache" xml:space="preserve">
+    <value>禁用缓存</value>
+  </data>
+  <data name="Aria2Option_http-user" xml:space="preserve">
+    <value>HTTP 默认用户名</value>
+  </data>
+  <data name="Aria2Option_http-passwd" xml:space="preserve">
+    <value>HTTP 默认密码</value>
+  </data>
+  <data name="Aria2Option_http-proxy" xml:space="preserve">
+    <value>HTTP 代理服务器</value>
+  </data>
+  <data name="Aria2Option_http-proxy-user" xml:space="preserve">
+    <value>HTTP 代理服务器用户名</value>
+  </data>
+  <data name="Aria2Option_http-proxy-passwd" xml:space="preserve">
+    <value>HTTP 代理服务器密码</value>
+  </data>
+  <data name="Aria2Option_https-proxy" xml:space="preserve">
+    <value>HTTPS 代理服务器</value>
+  </data>
+  <data name="Aria2Option_https-proxy-user" xml:space="preserve">
+    <value>HTTPS 代理服务器用户名</value>
+  </data>
+  <data name="Aria2Option_https-proxy-passwd" xml:space="preserve">
+    <value>HTTPS 代理服务器密码</value>
+  </data>
+  <data name="Aria2Option_referer" xml:space="preserve">
+    <value>请求来源</value>
+  </data>
+  <data name="Aria2Option_enable-http-keep-alive" xml:space="preserve">
+    <value>启用持久连接</value>
+  </data>
+  <data name="Aria2Option_enable-http-pipelining" xml:space="preserve">
+    <value>启用 HTTP 管线化</value>
+  </data>
+  <data name="Aria2Option_header" xml:space="preserve">
+    <value>自定义请求头</value>
+  </data>
+  <data name="Aria2Option_header-tip" xml:space="preserve">
+    <value>每行放置一项, 每项包含 "请求头名: 请求头值"</value>
+  </data>
+  <data name="Aria2Option_save-cookies" xml:space="preserve">
+    <value>Cookies 保存路径</value>
+  </data>
+  <data name="Aria2Option_use-head" xml:space="preserve">
+    <value>启用 HEAD 方法</value>
+  </data>
+  <data name="Aria2Option_user-agent" xml:space="preserve">
+    <value>自定义 User Agent</value>
+  </data>
+  <data name="FTPSFTP_Options" xml:space="preserve">
+    <value>FTP/SFTP设置</value>
+  </data>
+  <data name="Aria2Option_ftp-user" xml:space="preserve">
+    <value>FTP 默认用户名</value>
+  </data>
+  <data name="Aria2Option_ftp-passwd" xml:space="preserve">
+    <value>FTP 默认密码</value>
+  </data>
+  <data name="Aria2Option_ftp-pasv" xml:space="preserve">
+    <value>被动模式</value>
+  </data>
+  <data name="Aria2Option_ftp-proxy" xml:space="preserve">
+    <value>FTP 代理服务器</value>
+  </data>
+  <data name="Aria2Option_ftp-proxy-user" xml:space="preserve">
+    <value>FTP 代理服务器用户名</value>
+  </data>
+  <data name="Aria2Option_ftp-proxy-passwd" xml:space="preserve">
+    <value>FTP 代理服务器密码</value>
+  </data>
+  <data name="Aria2Option_ftp-type" xml:space="preserve">
+    <value>传输类型</value>
+  </data>
+  <data name="Aria2Option_ftp-reuse-connection" xml:space="preserve">
+    <value>连接复用</value>
+  </data>
+  <data name="Aria2Option_ssh-host-key-md" xml:space="preserve">
+    <value>SSH 公钥校验和</value>
+  </data>
+  <data name="BitTorrent_Options" xml:space="preserve">
+    <value>BitTorrent设置</value>
+  </data>
+  <data name="Aria2Option_bt-detach-seed-only" xml:space="preserve">
+    <value>分离仅做种任务</value>
+  </data>
+  <data name="Aria2Option_bt-enable-hook-after-hash-check" xml:space="preserve">
+    <value>启用哈希检查完成事件</value>
+  </data>
+  <data name="Aria2Option_bt-enable-lpd" xml:space="preserve">
+    <value>启用本地节点发现  (LPD)</value>
+  </data>
+  <data name="Aria2Option_bt-exclude-tracker" xml:space="preserve">
+    <value>BT 排除服务器地址</value>
+  </data>
+  <data name="Aria2Option_bt-exclude-tracker-tip" xml:space="preserve">
+    <value>可以使用 * 匹配所有地址，多个使用逗号分隔</value>
+  </data>
+  <data name="Aria2Option_bt-external-ip" xml:space="preserve">
+    <value>外部 IP 地址</value>
+  </data>
+  <data name="Aria2Option_bt-force-encryption" xml:space="preserve">
+    <value>强制加密</value>
+  </data>
+  <data name="Aria2Option_bt-hash-check-seed" xml:space="preserve">
+    <value>做种前检查文件哈希</value>
+  </data>
+  <data name="Aria2Option_bt-load-saved-metadata" xml:space="preserve">
+    <value>加载已保存的元数据文件</value>
+  </data>
+  <data name="Aria2Option_bt-max-open-files" xml:space="preserve">
+    <value>最多打开文件数</value>
+  </data>
+  <data name="Aria2Option_bt-max-peers" xml:space="preserve">
+    <value>最大连接节点数</value>
+  </data>
+  <data name="Aria2Option_bt-metadata-only" xml:space="preserve">
+    <value>仅下载种子文件</value>
+  </data>
+  <data name="Aria2Option_bt-min-crypto-level" xml:space="preserve">
+    <value>最低加密级别</value>
+  </data>
+  <data name="Aria2Option_bt-prioritize-piece" xml:space="preserve">
+    <value>优先下载</value>
+  </data>
+  <data name="Aria2Option_bt-remove-unselected-file" xml:space="preserve">
+    <value>删除未选择的文件</value>
+  </data>
+  <data name="Aria2Option_bt-require-crypto" xml:space="preserve">
+    <value>需要加密</value>
+  </data>
+  <data name="Aria2Option_bt-request-peer-speed-limit" xml:space="preserve">
+    <value>期望下载速度</value>
+  </data>
+  <data name="Aria2Option_bt-save-metadata" xml:space="preserve">
+    <value>保存种子文件</value>
+  </data>
+  <data name="Aria2Option_bt-seed-unverified" xml:space="preserve">
+    <value>不检查已经下载的文件</value>
+  </data>
+  <data name="Aria2Option_bt-stop-timeout" xml:space="preserve">
+    <value>无速度时自动停止时间</value>
+  </data>
+  <data name="Aria2Option_bt-tracker" xml:space="preserve">
+    <value>BT 服务器地址%多个使用逗号分隔</value>
+  </data>
+  <data name="Aria2Option_bt-tracker-connect-timeout" xml:space="preserve">
+    <value>BT 服务器连接超时时间</value>
+  </data>
+  <data name="Aria2Option_bt-tracker-interval" xml:space="preserve">
+    <value>BT 服务器连接间隔时间</value>
+  </data>
+  <data name="Aria2Option_bt-tracker-timeout" xml:space="preserve">
+    <value>BT 服务器超时时间</value>
+  </data>
+  <data name="Aria2Option_dht-file-path" xml:space="preserve">
+    <value>DHT (IPv4) 文件</value>
+  </data>
+  <data name="Aria2Option_dht-file-path6" xml:space="preserve">
+    <value>DHT (IPv6) 文件</value>
+  </data>
+  <data name="Aria2Option_dht-listen-port" xml:space="preserve">
+    <value>DHT 监听端口</value>
+  </data>
+  <data name="Aria2Option_dht-message-timeout" xml:space="preserve">
+    <value>DHT 消息超时时间</value>
+  </data>
+  <data name="Aria2Option_enable-dht" xml:space="preserve">
+    <value>启用 DHT (IPv4)</value>
+  </data>
+  <data name="Aria2Option_enable-dht6" xml:space="preserve">
+    <value>启用 DHT (IPv6)</value>
+  </data>
+  <data name="Aria2Option_enable-peer-exchange" xml:space="preserve">
+    <value>启用节点交换</value>
+  </data>
+  <data name="Aria2Option_follow-torrent" xml:space="preserve">
+    <value>下载种子中的文件</value>
+  </data>
+  <data name="Aria2Option_listen-port" xml:space="preserve">
+    <value>监听端口</value>
+  </data>
+  <data name="Aria2Option_max-overall-upload-limit" xml:space="preserve">
+    <value>全局最大上传速度</value>
+  </data>
+  <data name="Aria2Option_max-upload-limit" xml:space="preserve">
+    <value>最大上传速度</value>
+  </data>
+  <data name="Aria2Option_peer-id-prefix" xml:space="preserve">
+    <value>节点 ID 前缀</value>
+  </data>
+  <data name="Aria2Option_peer-agent" xml:space="preserve">
+    <value>Peer Agent</value>
+  </data>
+  <data name="Aria2Option_seed-ratio" xml:space="preserve">
+    <value>最小分享率</value>
+  </data>
+  <data name="Aria2Option_seed-time" xml:space="preserve">
+    <value>最小做种时间</value>
+  </data>
+  <data name="Metalink_Options" xml:space="preserve">
+    <value>Metalink设置</value>
+  </data>
+  <data name="Aria2Option_follow-metalink" xml:space="preserve">
+    <value>下载 Metalink 中的文件</value>
+  </data>
+  <data name="Aria2Option_metalink-base-uri" xml:space="preserve">
+    <value>基础 URI</value>
+  </data>
+  <data name="Aria2Option_metalink-language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Aria2Option_metalink-location" xml:space="preserve">
+    <value>首选服务器位置</value>
+  </data>
+  <data name="Aria2Option_metalink-os" xml:space="preserve">
+    <value>操作系统</value>
+  </data>
+  <data name="Aria2Option_metalink-version" xml:space="preserve">
+    <value>版本号</value>
+  </data>
+  <data name="Aria2Option_metalink-preferred-protocol" xml:space="preserve">
+    <value>首选使用协议</value>
+  </data>
+  <data name="Aria2Option_metalink-enable-unique-protocol" xml:space="preserve">
+    <value>仅使用唯一协议</value>
+  </data>
+  <data name="RPC_Options" xml:space="preserve">
+    <value>RPC设置</value>
+  </data>
+  <data name="Aria2Option_enable-rpc" xml:space="preserve">
+    <value>启用 JSON-RPC/XML-RPC 服务器</value>
+  </data>
+  <data name="Aria2Option_pause-metadata" xml:space="preserve">
+    <value>种子文件下载完后暂停</value>
+  </data>
+  <data name="Aria2Option_rpc-allow-origin-all" xml:space="preserve">
+    <value>接受所有远程请求</value>
+  </data>
+  <data name="Aria2Option_rpc-listen-all" xml:space="preserve">
+    <value>在所有网卡上监听</value>
+  </data>
+  <data name="Aria2Option_rpc-listen-port" xml:space="preserve">
+    <value>监听端口</value>
+  </data>
+  <data name="Aria2Option_rpc-max-request-size" xml:space="preserve">
+    <value>最大请求大小</value>
+  </data>
+  <data name="Aria2Option_rpc-save-upload-metadata" xml:space="preserve">
+    <value>保存上传的种子文件</value>
+  </data>
+  <data name="Aria2Option_rpc-secure" xml:space="preserve">
+    <value>启用 SSL/TLS</value>
+  </data>
+  <data name="Program_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Program_Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Start_Minimize" xml:space="preserve">
+    <value>启动后最小化到托盘</value>
+  </data>
+  <data name="Close_To_Exit" xml:space="preserve">
+    <value>关闭主窗口时退出</value>
+  </data>
+  <data name="Update_BT_Trackers" xml:space="preserve">
+    <value>启动时更新Trackers</value>
+  </data>
+  <data name="Trackers_Source" xml:space="preserve">
+    <value>Trackers来源</value>
+  </data>
+  <data name="Trackers_Update_Interval" xml:space="preserve">
+    <value>更新间隔(天)</value>
+  </data>
+  <data name="Start_Aria2" xml:space="preserve">
+    <value>随程序启动Aria2</value>
+  </data>
+  <data name="Start_Aria2_Tip" xml:space="preserve">
+    <value>使用默认的Aria2程序和配置文件</value>
+  </data>
+  <data name="Kill_Aria2" xml:space="preserve">
+    <value>退出时关闭Aria2</value>
+  </data>
+  <data name="Kill_Aria2_Tip" xml:space="preserve">
+    <value>退出程序时关闭Aria2，仅对通过程序启动的Aria2有效</value>
+  </data>
+  <data name="Check_Aria2_Update" xml:space="preserve">
+    <value>检查Aria2更新</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="Aria2_Website" xml:space="preserve">
+    <value>Aria2官网</value>
+  </data>
+  <data name="Aria2_Status" xml:space="preserve">
+    <value>Aria2状态</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Aria2_Version" xml:space="preserve">
+    <value>Aria2版本</value>
+  </data>
+  <data name="Aria2_Features" xml:space="preserve">
+    <value>已启用的功能</value>
+  </data>
+  <data name="Check_Update" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="Status_All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Status_Active" xml:space="preserve">
+    <value>活动中</value>
+  </data>
+  <data name="Status_Waiting" xml:space="preserve">
+    <value>等待中</value>
+  </data>
+  <data name="Status_Paused" xml:space="preserve">
+    <value>已暂停</value>
+  </data>
+  <data name="Status_Complete" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Status_Removed" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="Status_Error" xml:space="preserve">
+    <value>下载出错</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>进度</value>
+  </data>
+  <data name="ETA" xml:space="preserve">
+    <value>剩余时间</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>上传量</value>
+  </data>
+  <data name="Downloaded" xml:space="preserve">
+    <value>下载量</value>
+  </data>
+  <data name="Upload_Speed" xml:space="preserve">
+    <value>上传速度</value>
+  </data>
+  <data name="Download_Speed" xml:space="preserve">
+    <value>下载速度</value>
+  </data>
+  <data name="Ratio" xml:space="preserve">
+    <value>分享率</value>
+  </data>
+  <data name="Connections" xml:space="preserve">
+    <value>连接数</value>
+  </data>
+  <data name="Seeds" xml:space="preserve">
+    <value>做种数</value>
+  </data>
+  <data name="OverView" xml:space="preserve">
+    <value>总览</value>
+  </data>
+  <data name="Files_List" xml:space="preserve">
+    <value>文件列表</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>速度</value>
+  </data>
+  <data name="Info_Hash" xml:space="preserve">
+    <value>Hash值</value>
+  </data>
+  <data name="Seeds_And_Connections" xml:space="preserve">
+    <value>做种/连接</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="New_Task_Fail" xml:space="preserve">
+    <value>新建Aria2任务失败</value>
+  </data>
+  <data name="Load_Options_Fail" xml:space="preserve">
+    <value>加载Aria2配置失败</value>
+  </data>
+  <data name="Change_Options_Fail" xml:space="preserve">
+    <value>更改Aria2配置失败</value>
+  </data>
+  <data name="Load_Task_Status_Fail" xml:space="preserve">
+    <value>加载任务信息失败</value>
+  </data>
+  <data name="Change_Task_File_Fail" xml:space="preserve">
+    <value>更改任务文件失败</value>
+  </data>
+  <data name="Check_Program_Update_Failed" xml:space="preserve">
+    <value>检查程序更新失败</value>
+  </data>
+  <data name="Program_Update_Available" xml:space="preserve">
+    <value>程序有更新</value>
+  </data>
+  <data name="Program_Up_To_Date" xml:space="preserve">
+    <value>程序无更新</value>
+  </data>
+  <data name="Theme_Language_ReStart" xml:space="preserve">
+    <value>需要重启以更改主题和语言</value>
+  </data>
+  <data name="Language_ReStart" xml:space="preserve">
+    <value>需要重启以更改语言</value>
+  </data>
+  <data name="Duplicate_Server_Name" xml:space="preserve">
+    <value>存在重名服务器</value>
+  </data>
+  <data name="No_Browser_Found" xml:space="preserve">
+    <value>未找到浏览器</value>
+  </data>
+  <data name="Aria2_Update_Available" xml:space="preserve">
+    <value>Aria2有更新</value>
+  </data>
+  <data name="Update_Trackers_Failed" xml:space="preserve">
+    <value>更新Trackers失败</value>
+  </data>
+  <data name="Remove_Local_Files" xml:space="preserve">
+    <value>删除本地文件？</value>
+  </data>
+  <data name="Remove_Task_Failed" xml:space="preserve">
+    <value>删除任务失败</value>
+  </data>
+  <data name="Unpause_Task_Failed" xml:space="preserve">
+    <value>继续任务失败</value>
+  </data>
+  <data name="Pause_Task_Failed" xml:space="preserve">
+    <value>暂停任务失败</value>
+  </data>
+  <data name="Purge_Task_Failed" xml:space="preserve">
+    <value>清理任务失败</value>
+  </data>
+</root>
