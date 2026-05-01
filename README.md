@@ -7,14 +7,6 @@
 
 A lightweight desktop manager for Aria2 servers
 
-## 🚀 Runtime & Requirements
-
-This application is built on .NET. If the runtime is not installed, please follow the prompt shown on first launch, or install it manually via the command line:
-
-```powershell
-winget install 'Microsoft.DotNet.DesktopRuntime.10'
-```
-
 ## ✨ Key Features
 
 * [x] **Multi-server Management**: Add and manage multiple Aria2 servers

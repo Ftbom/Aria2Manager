@@ -7,14 +7,6 @@
 
 轻量级 Aria2 服务器桌面管理工具
 
-## 🚀 运行与环境
-
-本程序基于 .NET 开发，如未安装运行环境，请根据首次运行时的弹窗提示进行安装，或直接通过命令行执行以下命令安装：
-
-```powershell
-winget install 'Microsoft.DotNet.DesktopRuntime.10'
-```
-
 ## ✨ 核心功能
 
 - [x] **多服务器管理**：支持添加和管理多个 Aria2 服务器
