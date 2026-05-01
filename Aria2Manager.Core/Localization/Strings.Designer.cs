@@ -2068,6 +2068,24 @@ namespace Aria2Manager.Core.Localization {
         }
         
         /// <summary>
+        ///   查找类似 No 的本地化字符串。
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OK 的本地化字符串。
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Open File Location 的本地化字符串。
         /// </summary>
         public static string Open_File_Location {
@@ -2667,6 +2685,15 @@ namespace Aria2Manager.Core.Localization {
         public static string Use_Proxy {
             get {
                 return ResourceManager.GetString("Use_Proxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Yes 的本地化字符串。
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

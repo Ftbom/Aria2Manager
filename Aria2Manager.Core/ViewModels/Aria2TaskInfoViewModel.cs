@@ -4,17 +4,16 @@ using Aria2Manager.Core.Services;
 using Aria2Manager.Core.Services.Interfaces;
 using Aria2NET;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
 namespace Aria2Manager.Core.ViewModels
 {
     //下载项的文件
-    public class FileViewModel
+    public class FileViewModel : ObservableObject
     {
         private DownloadStatusFile _model;
-        private readonly Action _onSelectionChanged; //回调委托
-        public FileViewModel(DownloadStatusFile model, Action onSelectionChanged)
+        private readonly Func<bool> _onSelectionChanged; //状态改变时的回调函数
+        public FileViewModel(DownloadStatusFile model, Func<bool> onSelectionChanged)
         {
             _model = model;
             _onSelectionChanged = onSelectionChanged;
@@ -26,16 +25,21 @@ namespace Aria2Manager.Core.ViewModels
             set
             {
                 _model.Selected = value;
-                _onSelectionChanged?.Invoke();
+                if (!_onSelectionChanged())
+                {
+                    _model.Selected = !value;
+                    OnPropertyChanged(nameof(Selected));
+                }
             }
         }
         public string Name => Path.GetFileName(_model.Path); //名称
     }
-    public class TaskInfoViewModel : ObservableObject
+    public partial class TaskInfoViewModel : ObservableObject
     {
         private TaskViewModel? _task = null;
         public ObservableCollection<FileViewModel> Files { get; set; } = new ObservableCollection<FileViewModel>();
-        public bool FileCheckable => Files.Count > 1;
+        [ObservableProperty]
+        private bool _fileListCheckable = true;
         public string Name => _task?.Name ?? "--";
         public string Size => _task?.Size ?? "--";
         public string Status => _task?.Status ?? "--";
@@ -66,7 +70,7 @@ namespace Aria2Manager.Core.ViewModels
                 }
             }
         }
-        public void Update(DownloadStatusResult result, Action onFileSelectionChanged)
+        public void Update(DownloadStatusResult result, Func<bool> onFileSelectionChanged)
         {
             _task = new TaskViewModel(result);
             DownloadPath = result.Dir;
@@ -75,9 +79,9 @@ namespace Aria2Manager.Core.ViewModels
             {
                 Files.Add(new FileViewModel(file, onFileSelectionChanged));
             }
+            FileListCheckable = Files.Count > 1; //如果文件数大于1，则允许选择
             OnPropertyChanged(string.Empty); //通知所有属性更新
         }
-        public void RefreshFileCheckable() => OnPropertyChanged(nameof(FileCheckable));
     }
     public partial class Aria2TaskInfoViewModel
     {
@@ -96,30 +100,35 @@ namespace Aria2Manager.Core.ViewModels
             try
             {
                 var task = await Server.GetTaskStatus(_gid);
-                TaskInfo.Update(task, async () => await OnSelectTaskFiles());
+                TaskInfo.Update(task, OnSelectTaskFiles);
             }
             catch
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Task_Status_Failed"), "Error", MsgBoxLevel.Error);
             }
         }
-        private async Task OnSelectTaskFiles()
+        private bool OnSelectTaskFiles()
         {
-            TaskInfo.RefreshFileCheckable();
+            List<string> fileIndexs = new List<string>();
+            foreach (var file in TaskInfo.Files)
+            {
+                if (file.Selected)
+                {
+                    fileIndexs.Add(file.Index.ToString());
+                }
+            }
+            if (fileIndexs.Count == 0)
+            {
+                return false;
+            }
+            ChangeFileSelection(fileIndexs);
+            return true;
+        }
+        private async void ChangeFileSelection(List<string> fileIndexs)
+        {
+            TaskInfo.FileListCheckable = false; //更改文件选择时暂时禁止更改，避免重复触发
             try
             {
-                List<string> fileIndexs = new List<string>();
-                foreach (var file in TaskInfo.Files)
-                {
-                    if (file.Selected)
-                    {
-                        fileIndexs.Add(file.Index.ToString());
-                    }
-                }
-                if (fileIndexs.Count == 0)
-                {
-                    return;
-                }
                 await Server.ChangeAria2Options(new Dictionary<string, string>()
                 {
                     ["select-file"] = String.Join(',', fileIndexs.ToArray())
@@ -129,6 +138,7 @@ namespace Aria2Manager.Core.ViewModels
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Task_File_Fail"), "Error", MsgBoxLevel.Error);
             }
+            TaskInfo.FileListCheckable = TaskInfo.Files.Count > 1; //根据文件数决定是否允许更改
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Aria2NET;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.Json;
 
 namespace Aria2Manager.Core.Helpers
 {

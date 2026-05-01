@@ -30,7 +30,7 @@ namespace Aria2Manager.Core
         {
             _settingsConfigService = new ConfigurationService<AppSettings>("Settings.xml",
                 () => new AppSettings());
-            _serversConfigService = new ConfigurationService<ServerSettings>("Servers.xml",
+            _serversConfigService = new ConfigurationService<ServerSettings>("Aria2Servers.xml",
                 () =>
                 {
                     return new ServerSettings

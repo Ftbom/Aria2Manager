@@ -987,4 +987,13 @@
   <data name="Aria2Option_no-proxy_Tip" xml:space="preserve">
     <value>多个使用逗号分隔</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>确定</value>
+  </data>
 </root>

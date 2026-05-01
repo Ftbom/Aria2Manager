@@ -1,6 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 
-namespace Aria2Manager.Views
+namespace Aria2Manager.WPF.Views
 {
     /// <summary>
     /// Aria2OptionsWindow.xaml 的交互逻辑

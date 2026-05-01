@@ -31,6 +31,8 @@ namespace Aria2Manager.Core.ViewModels
             {
                 ThemeNeedRestart = await _uiService.ChangeThemeAsync(Settings.Theme);
             }
+            GlobalContext.Instance.AppSettings = Settings.DeepClone();
+            GlobalContext.Instance.SaveSettings();
             if (LanguageChanged)
             {
                 if (ThemeNeedRestart)
@@ -46,8 +48,10 @@ namespace Aria2Manager.Core.ViewModels
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Theme_ReStart"), "Info", MsgBoxLevel.Information);
             }
-            GlobalContext.Instance.AppSettings = Settings.DeepClone();
-            GlobalContext.Instance.SaveSettings();
+            else
+            {
+                await Task.Delay(500); //点击按钮后等待一段时间再启用，防止用户连续点击
+            }
         }
     }
 }

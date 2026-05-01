@@ -1,4 +1,4 @@
-﻿<mah:MetroWindow x:Class="Aria2Manager.Views.SettingsWindow"
+﻿<mah:MetroWindow x:Class="Aria2Manager.WPF.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,16 +12,12 @@
         Title="{x:Static loc:Strings.Program_Settings}" Height="250" Width="600" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -35,8 +31,7 @@
             <TextBlock Grid.Column="2" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Program_Theme}" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="180" ItemsSource="{Binding ThemeList}" SelectedValue="{Binding Settings.Theme}"/>
         </Grid>
-        <Separator Grid.Row="1"/>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="4*"/>
@@ -46,8 +41,7 @@
             <CheckBox Grid.Column="1" Content="{x:Static loc:Strings.Start_Minimize}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.StartMin}"/>
             <CheckBox Grid.Column="2" Content="{x:Static loc:Strings.Check_Update}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.CheckUpdate}"/>
         </Grid>
-        <Separator Grid.Row="3"/>
-        <Grid Grid.Row="4">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -55,7 +49,7 @@
             <CheckBox Content="{x:Static loc:Strings.Start_Aria2}" ToolTip="{x:Static loc:Strings.Start_Aria2_Tip}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="{Binding Settings.StartAria2}"/>
             <CheckBox Content="{x:Static loc:Strings.Kill_Aria2}" ToolTip="{x:Static loc:Strings.Kill_Aria2_Tip}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" IsChecked="{Binding Settings.KillAria2}"/>
         </Grid>
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -63,8 +57,7 @@
             <CheckBox Content="{x:Static loc:Strings.Check_Aria2_Update}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="{Binding Settings.CheckAria2Update}"/>
             <CheckBox Content="{x:Static loc:Strings.Enable_Aria2_Notification}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" IsChecked="{Binding Settings.EnableAria2Notification}"/>
         </Grid>
-        <Separator Grid.Row="6"/>
-        <Grid Grid.Row="7">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="8*"/>
                 <ColumnDefinition Width="10*"/>
@@ -89,7 +82,6 @@
                 <TextBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="50" Text="{Binding Settings.Trackers.UpdateInterval}" IsEnabled="{Binding Settings.Trackers.EnableUpdate}"/>
             </Grid>
         </Grid>
-        <Separator Grid.Row="8"/>
-        <Button Content="{x:Static loc:Strings.Save}" HorizontalAlignment="Center" Grid.Row="9" VerticalAlignment="Center" MinWidth="76" Command="{Binding SaveSettingsCommand}"/>
+        <Button Content="{x:Static loc:Strings.Save}" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" MinWidth="76" Command="{Binding SaveSettingsCommand}"/>
     </Grid>
 </mah:MetroWindow>

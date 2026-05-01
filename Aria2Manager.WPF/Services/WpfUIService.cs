@@ -1,7 +1,7 @@
 ﻿using Aria2Manager.Core.Enums;
 using Aria2Manager.Core.Models;
 using Aria2Manager.Core.Services;
-using Aria2Manager.Views;
+using Aria2Manager.WPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using ControlzEx.Theming;
 using Hardcodet.Wpf.TaskbarNotification;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Aria2Manager.Core.Helpers;
 
 namespace Aria2Manager.WPF.Services
 {
@@ -84,8 +87,34 @@ namespace Aria2Manager.WPF.Services
         {
             Application.Current.Shutdown();
         }
-        public override Task<bool?> ShowMessageBoxAsync(string message, string title, MsgBoxLevel icon = MsgBoxLevel.Information)
+        public override async Task<bool?> ShowMessageBoxAsync(string message, string title, MsgBoxLevel icon = MsgBoxLevel.Information)
         {
+            //尝试获取当前处于活动状态的metrowindow窗口
+            var activeWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive);
+            var metroWindow = (activeWindow ?? Application.Current.MainWindow) as MetroWindow;
+            if (metroWindow != null)
+            {
+                var style = icon == MsgBoxLevel.Question
+                    ? MessageDialogStyle.AffirmativeAndNegative
+                    : MessageDialogStyle.Affirmative;
+                var settings = new MetroDialogSettings
+                {
+                    AffirmativeButtonText = icon == MsgBoxLevel.Question ? LanguageHelper.GetString("Yes") : LanguageHelper.GetString("OK"),
+                    NegativeButtonText = LanguageHelper.GetString("No"),
+                    AnimateShow = true,
+                    AnimateHide = true
+                };
+                if (icon == MsgBoxLevel.Error)
+                {
+                    settings.ColorScheme = MetroDialogColorScheme.Inverted; //错误消息使用反转色方案以突出显示
+                }
+                var result = await metroWindow.ShowMessageAsync(title, message, style, settings);
+                if (icon == MsgBoxLevel.Question)
+                {
+                    return result == MessageDialogResult.Affirmative;
+                }
+                return true;
+            }
             MessageBoxImage wpfIcon = icon switch
             {
                 MsgBoxLevel.Information => MessageBoxImage.Information,
@@ -94,13 +123,14 @@ namespace Aria2Manager.WPF.Services
                 MsgBoxLevel.Question => MessageBoxImage.Question,
                 _ => MessageBoxImage.None
             };
+            //使用系统默认的MessageBox，进行兜底
             MessageBoxButton wpfButton = icon == MsgBoxLevel.Question ? MessageBoxButton.YesNo : MessageBoxButton.OK;
-            var result = MessageBox.Show(message, title, wpfButton, wpfIcon);
+            var nativeResult = MessageBox.Show(message, title, wpfButton, wpfIcon);
             if (icon == MsgBoxLevel.Question)
             {
-                return Task.FromResult<bool?>(result == MessageBoxResult.Yes);
+                return nativeResult == MessageBoxResult.Yes;
             }
-            return Task.FromResult<bool?>(true);
+            return true;
         }
         public override Task<string?> OpenFileDialogAsync(IEnumerable<FileDialogFilter>? filters = null)
         {

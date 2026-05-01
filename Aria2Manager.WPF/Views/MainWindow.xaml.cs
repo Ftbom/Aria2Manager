@@ -2,7 +2,7 @@
 using MahApps.Metro.Controls;
 using System.Windows;
 
-namespace Aria2Manager
+namespace Aria2Manager.WPF.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -28,6 +28,16 @@ namespace Aria2Manager
                 else
                 {
                     vm.StopRefreshLoop(); //窗口隐藏到托盘，停止刷新
+                }
+            }
+        }
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (this.DataContext is MainViewModel viewModel)
+            {
+                if (viewModel.CloseCommand.CanExecute(null))
+                {
+                    viewModel.CloseCommand.Execute(null);
                 }
             }
         }

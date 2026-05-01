@@ -987,4 +987,13 @@
   <data name="Aria2Option_no-proxy_Tip" xml:space="preserve">
     <value>Comma separated</value>
   </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

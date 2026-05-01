@@ -1,10 +1,9 @@
-﻿<mah:MetroWindow x:Class="Aria2Manager.Views.Aria2TaskInfoWindow"
+﻿<mah:MetroWindow x:Class="Aria2Manager.WPF.Views.Aria2TaskInfoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         TitleBarHeight="25"
@@ -60,7 +59,7 @@
             </Grid>
         </TabItem>
         <TabItem Header="{x:Static loc:Strings.Files_List}">
-            <ListBox ItemsSource="{Binding TaskInfo.Files}" IsEnabled="{Binding TaskInfo.FileCheckable, Mode=OneWay}">
+            <ListBox ItemsSource="{Binding TaskInfo.Files}" IsEnabled="{Binding TaskInfo.FileListCheckable, Mode=OneWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding Selected, UpdateSourceTrigger=PropertyChanged}">

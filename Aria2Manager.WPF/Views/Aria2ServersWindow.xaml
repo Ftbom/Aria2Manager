@@ -1,4 +1,4 @@
-﻿<mah:MetroWindow x:Class="Aria2Manager.Views.Aria2ServersWindow"
+﻿<mah:MetroWindow x:Class="Aria2Manager.WPF.Views.Aria2ServersWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

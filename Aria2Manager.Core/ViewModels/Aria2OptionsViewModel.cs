@@ -189,6 +189,7 @@ namespace Aria2Manager.Core.ViewModels
                 ReadOptions(options, RPCOptions);
                 ReadOptions(options, AdvancedOptions);
                 await Server.ChangeAria2Options(options);
+                await Task.Delay(500); //点击按钮后等待一段时间再启用，防止用户连续点击
             }
             catch
             {

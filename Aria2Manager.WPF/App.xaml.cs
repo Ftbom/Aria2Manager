@@ -64,9 +64,9 @@ namespace Aria2Manager.WPF
                 }
             }
         }
-        private void Exit_Click(object sender, RoutedEventArgs e)
+        private async void Exit_Click(object sender, RoutedEventArgs e)
         {
-            _uiService.Exit();
+            await _uiService.Exit();
         }
         private void Show_Click(object sender, RoutedEventArgs e)
         {
