@@ -4,29 +4,29 @@ namespace Aria2Manager.Core.Helpers
 {
     public static class LogHelper
     {
-        public static void Error(string message, Exception ex, bool throwException = true)
+        public static void Error(string message, Exception? ex = null, bool throwException = true)
         {
-            Log.Error($"{message}: {ex.Message}");
-            if (throwException)
+            Log.Error(ex, message);
+            if (throwException && ex != null)
             {
                 throw new Exception(message, ex);
             }
         }
-        public static void Warning(string message, Exception ex, bool throwException = false)
+        public static void Warning(string message, Exception? ex = null, bool throwException = false)
         {
-            Log.Warning($"{message}: {ex.Message}");
-            if (throwException)
+            Log.Warning(ex, message);
+            if (throwException && ex != null)
             {
                 throw new Exception(message, ex);
             }
         }
-        public static void Information(string message, Exception ex)
+        public static void Information(string message)
         {
-            Log.Information($"{message}: {ex.Message}");
+            Log.Information(message);
         }
-        public static void Debug(string message, Exception ex)
+        public static void Debug(string message, Exception? ex = null)
         {
-            Log.Debug($"{message}: {ex.Message}");
+            Log.Warning(ex, message);
         }
     }
 }

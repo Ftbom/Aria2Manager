@@ -1,0 +1,38 @@
+﻿<mah:MetroWindow x:Class="Aria2Manager.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+        xmlns:local="clr-namespace:Aria2Manager.Views"
+        mc:Ignorable="d"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        TitleBarHeight="25"
+        TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+        WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
+        Title="{x:Static loc:Strings.About}" Height="250" Width="250" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid Margin="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
+                    <Image Source="/Resources/app.ico" Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding AppName, Mode=OneWay}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center">
+                        <TextBlock.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding OpenWebsiteCommand}" CommandParameter="{Binding AppWebsite}"/>
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </StackPanel>
+                <TextBlock Text="{Binding AppVersion, Mode=OneWay}" FontWeight="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5"/>
+                <TextBlock Text="{Binding AuthorName, Mode=OneWay, StringFormat='Copyright © {0}'}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0">
+                    <TextBlock Text="&#xF09B;" FontFamily="{StaticResource FontAwesomeBrands}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock.InputBindings>
+                            <MouseBinding MouseAction="LeftClick" Command="{Binding OpenWebsiteCommand}" CommandParameter="{Binding AuthorGithub}"/>
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </StackPanel>
+                <Button Content="{x:Static loc:Strings.Check_Update}" Command="{Binding CheckProgramUpdateCommand}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,5"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</mah:MetroWindow>

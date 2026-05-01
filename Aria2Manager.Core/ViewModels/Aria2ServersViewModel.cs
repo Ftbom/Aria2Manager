@@ -14,15 +14,25 @@ namespace Aria2Manager.Core.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(CurrentEditServer))]
         private int _currentEditServerIndex = 0; //当前编辑的服务器的索引号
-        public Aria2Server CurrentEditServer => AvailableServers[CurrentEditServerIndex];
+        public Aria2Server? CurrentEditServer
+        {
+            get
+            {
+                //删除服务器时数组越界，进行保护
+                if (CurrentEditServerIndex >= 0 && CurrentEditServerIndex < AvailableServers.Count)
+                {
+                    return AvailableServers[CurrentEditServerIndex];
+                }
+                return null;
+            }
+        }
         public ObservableCollection<Aria2Server> AvailableServers { get; set; }
-        public ProxyConfig Proxy { get; set; } = GlobalContext.Instance.ServerSettings.Proxy.Clone();
-        public List<string> ProxyTypes { get; set; }
+        public ProxyConfig Proxy { get; set; } = GlobalContext.Instance.ServerSettings.Proxy.DeepClone();
+        public List<ProxyType> ProxyTypes { get; set; } = Enum.GetValues<ProxyType>().ToList();
         public Aria2ServersViewModel(IUIService uiService)
         {
             _uiService = uiService;
-            ProxyTypes = Enum.GetNames<ProxyType>().ToList();
-            AvailableServers = new ObservableCollection<Aria2Server>(GlobalContext.Instance.ServerSettings.ServerConfigs.Select(s => s.Clone()));
+            AvailableServers = new ObservableCollection<Aria2Server>(GlobalContext.Instance.ServerSettings.ServerConfigs.Select(s => s.DeepClone()));
         }
         private static string GetRandomString(int length = 4)
         {
@@ -49,7 +59,10 @@ namespace Aria2Manager.Core.ViewModels
             {
                 AddNewServer();
             }
-            CurrentEditServerIndex = 0; //删除后默认编辑第一个服务器
+            else
+            {
+                CurrentEditServerIndex = 0;
+            }
         }
         [RelayCommand]
         private async Task SaveServers()
@@ -67,7 +80,7 @@ namespace Aria2Manager.Core.ViewModels
                 {
                     needResetCurrent = false;
                 }
-                GlobalContext.Instance.ServerSettings.ServerConfigs.Add(server.Clone());
+                GlobalContext.Instance.ServerSettings.ServerConfigs.Add(server.DeepClone());
             }
             if (needResetCurrent)
             {
@@ -78,7 +91,7 @@ namespace Aria2Manager.Core.ViewModels
         [RelayCommand]
         private void SaveProxy()
         {
-            GlobalContext.Instance.ServerSettings.Proxy = Proxy.Clone();
+            GlobalContext.Instance.ServerSettings.Proxy = Proxy.DeepClone();
             GlobalContext.Instance.SaveServers();
         }
     }

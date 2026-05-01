@@ -9,9 +9,10 @@ using System.Collections.ObjectModel;
 namespace Aria2Manager.Core.ViewModels
 {
     //Aria2配置项信息
-    public class OptionViewModel : ObservableObject
+    public partial class OptionViewModel : ObservableObject
     {
         private string _id;
+        [ObservableProperty]
         private string _value;
         public OptionViewModel(string id, bool readOnly = false)
         {
@@ -24,11 +25,9 @@ namespace Aria2Manager.Core.ViewModels
         public void Update(string id, string value)
         {
             if (id != _id) { return; }
-            _value = value;
-            OnPropertyChanged(nameof(Value));
+            Value = value;
         }
         public string Id => _id; //配置项id
-        public string Value => _value; //配置项值
         public bool ReadOnly { get; private set; } //配置项是否只读
         public string Name { get; private set; } //配置项名称
         public string? Description { get; private set; } //配置项描述
@@ -161,13 +160,17 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Fail"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"), "Error", MsgBoxLevel.Error);
             }
         }
         private async void ReadOptions(Dictionary<string, string> options, ObservableCollection<OptionViewModel> optionVMs)
         {
             foreach (var option in optionVMs)
             {
+                if (String.IsNullOrWhiteSpace(option.Value))
+                {
+                    continue;
+                }
                 options.Add(option.Id, option.Value);
             }
         }
@@ -189,7 +192,7 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Options_Fail"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Options_Failed"), "Error", MsgBoxLevel.Error);
             }
         }
     }

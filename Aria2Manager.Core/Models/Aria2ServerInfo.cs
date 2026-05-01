@@ -27,6 +27,10 @@ namespace Aria2Manager.Core.Models
         public Aria2ServerInfo() { }
         public Aria2ServerInfo(Aria2Server config)
         {
+            SyncFrom(config);
+        }
+        public void SyncFrom(Aria2Server config)
+        {
             ServerName = config.Name;
             ServerAddress = config.Address;
             ServerPort = config.Port;
@@ -34,22 +38,6 @@ namespace Aria2Manager.Core.Models
             IsLocal = config.IsLocalServer;
             IsHttps = config.IsHttps;
             UseProxy = config.UseProxy;
-        }
-        public void SyncFrom(Aria2ServerInfo info)
-        {
-            ServerName = info.ServerName;
-            ServerAddress = info.ServerAddress;
-            ServerPort = info.ServerPort;
-            ServerSecret = info.ServerSecret;
-            IsLocal = info.IsLocal;
-            IsHttps = info.IsHttps;
-            UseProxy = info.UseProxy;
-            IsConnected = info.IsConnected;
-            DownloadSpeed = info.DownloadSpeed;
-            UploadSpeed = info.UploadSpeed;
-            NumActive = info.NumActive;
-            NumWaiting = info.NumWaiting;
-            NumStopped = info.NumStopped;
         }
     }
 }

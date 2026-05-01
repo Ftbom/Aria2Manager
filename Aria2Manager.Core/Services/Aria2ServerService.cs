@@ -12,22 +12,22 @@ namespace Aria2Manager.Core.Services
         private static readonly ConcurrentDictionary<string, HttpClient> _clientCache = new(); //缓存HttpClient，避免耗尽系统端口
         private Aria2NetClient _aria2Client = null!;
         public Aria2ServerInfo ServerInfo { get; set; } = new Aria2ServerInfo(); //Aria2服务器信息
-        public Aria2ServerService(Aria2ServerInfo server)
+        public Aria2ServerService(Aria2Server server)
         {
-            UpdateAria2Server(server);
+            Update(server);
         }
         //更新Aria2客户端实例或代理配置
-        public void UpdateAria2Server(Aria2ServerInfo server)
+        public void Update(Aria2Server server)
         {
             ServerInfo.SyncFrom(server);
             string scheme = server.IsHttps ? "https" : "http";
-            string jsonrpcUrl = $"{scheme}://{server.ServerAddress}:{server.ServerPort}/jsonrpc";
-            string? Aria2Secret = (server.ServerSecret.Length == 0) ? null : server.ServerSecret;
+            string jsonrpcUrl = $"{scheme}://{server.Address}:{server.Port}/jsonrpc";
+            string? Aria2Secret = (server.Secret.Length == 0) ? null : server.Secret;
             _aria2Client = new Aria2NetClient(aria2Url: jsonrpcUrl, secret: Aria2Secret, httpClient: GetHttpClient(server.UseProxy));
         }
         private HttpClient GetHttpClient(bool useProxy)
         {
-            ProxyConfig proxyConfig = GlobalContext.Instance.ServerSettings.Proxy.Clone();
+            ProxyConfig proxyConfig = GlobalContext.Instance.ServerSettings.Proxy.DeepClone();
             string proxyString = $"{proxyConfig.Type.ToString().ToLower()}://{proxyConfig.Address}:{proxyConfig.Port.ToString()}";
             return _clientCache.GetOrAdd(useProxy ? proxyString : "no_proxy", _ =>
             {
@@ -59,23 +59,25 @@ namespace Aria2Manager.Core.Services
         {
             try
             {
-                ServerInfo.IsConnected = true;
+                IList<DownloadStatusResult> results;
                 if (status == Aria2TaskStatus.all)
                 {
-                    return await _aria2Client.TellAllAsync(GlobalContext.Instance.GlobalCancelToken);
+                    results = await _aria2Client.TellAllAsync(GlobalContext.Instance.GlobalCancelToken);
                 }
                 else if (status == Aria2TaskStatus.active)
                 {
-                    return await _aria2Client.TellActiveAsync(GlobalContext.Instance.GlobalCancelToken);
+                    results = await _aria2Client.TellActiveAsync(GlobalContext.Instance.GlobalCancelToken);
                 }
                 else if (status == Aria2TaskStatus.waiting)
                 {
-                    return await _aria2Client.TellWaitingAsync(0, int.MaxValue, GlobalContext.Instance.GlobalCancelToken);
+                    results = await _aria2Client.TellWaitingAsync(0, int.MaxValue, GlobalContext.Instance.GlobalCancelToken);
                 }
                 else
                 {
-                    return await _aria2Client.TellStoppedAsync(0, int.MaxValue, GlobalContext.Instance.GlobalCancelToken);
+                    results = await _aria2Client.TellStoppedAsync(0, int.MaxValue, GlobalContext.Instance.GlobalCancelToken);
                 }
+                ServerInfo.IsConnected = true;
+                return results;
             }
             catch (Exception ex)
             {
@@ -148,16 +150,21 @@ namespace Aria2Manager.Core.Services
                 return String.Empty;
             }
         }
-        public async Task<string> AddUrlTask(List<string> urls, IDictionary<string, object> options)
+        public async Task<List<string>> AddUrlsTask(List<string> urls, IDictionary<string, object> options)
         {
             try
             {
-                return await _aria2Client.AddUriAsync(urls, options: options, cancellationToken: GlobalContext.Instance.GlobalCancelToken);
+                List<string> gidList = new List<string>();
+                foreach (string url in urls)
+                {
+                    gidList.Add(await _aria2Client.AddUriAsync([url], options: options, cancellationToken: GlobalContext.Instance.GlobalCancelToken));
+                }
+                return gidList;
             }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to add URL task", ex);
-                return String.Empty;
+                return new List<string>();
             }
         }
         public async Task<DownloadStatusResult> GetTaskStatus(string gid)

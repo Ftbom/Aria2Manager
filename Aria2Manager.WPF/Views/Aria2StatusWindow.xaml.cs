@@ -3,11 +3,11 @@
 namespace Aria2Manager.Views
 {
     /// <summary>
-    /// SettingsWindow.xaml 的交互逻辑
+    /// Aria2StatusWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingsWindow : MetroWindow
+    public partial class Aria2StatusWindow : MetroWindow
     {
-        public SettingsWindow()
+        public Aria2StatusWindow()
         {
             InitializeComponent();
         }

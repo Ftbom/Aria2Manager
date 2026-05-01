@@ -16,11 +16,12 @@ namespace Aria2Manager.Core.Services
         private WebsocketClient? _aria2WebsocketClient = null;
         private IDisposable? _eventSubscription = null;
         private Func<string, Task<DownloadStatusResult>> _statusFunc;
-        public Aria2NotificationService(Aria2ServerInfo server, IUIService uiService, Func<string, Task<DownloadStatusResult>> statusFunc)
+        private readonly HashSet<string> _notifiedStartGids = new HashSet<string>(); //缓存gid，避免重复通知下载开始事件
+        private readonly object _gidLock = new object(); //锁对象，保护gid缓存的线程安全
+        public Aria2NotificationService(IUIService uiService, Func<string, Task<DownloadStatusResult>> statusFunc)
         {
             _uiService = uiService;
             _statusFunc = statusFunc;
-            ChangeWebsocketClient(server);
         }
         private WebProxy? GetProxy(ProxyConfig proxyConfig, bool useProxy)
         {
@@ -48,29 +49,50 @@ namespace Aria2Manager.Core.Services
             }
             return proxy;
         }
-        public async void ChangeWebsocketClient(Aria2ServerInfo server)
+        //停止监听
+        public async Task StopListeningAsync()
         {
+            if (_eventSubscription != null)
+            {
+                _eventSubscription.Dispose();
+                _eventSubscription = null;
+            }
             if (_aria2WebsocketClient != null)
             {
-                await _aria2WebsocketClient!.Stop(WebSocketCloseStatus.NormalClosure, "Switching Aria2 Server");
-                _aria2WebsocketClient?.Dispose();
-                _eventSubscription?.Dispose();
+                try
+                {
+                    await _aria2WebsocketClient.Stop(WebSocketCloseStatus.NormalClosure, "Client stopped listening");
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Warning("Error occurred while stopping websocket client", ex);
+                }
+                finally
+                {
+                    _aria2WebsocketClient.Dispose();
+                    _aria2WebsocketClient = null;
+                }
             }
+        }
+        //启动或切换监听
+        public async Task StartListeningAsync(Aria2Server server)
+        {
+            await StopListeningAsync();
             string wsScheme = server.IsHttps ? "wss" : "ws";
-            var wsUri = new Uri($"{wsScheme}://{server.ServerAddress}:{server.ServerPort}/jsonrpc");
+            var wsUri = new Uri($"{wsScheme}://{server.Address}:{server.Port}/jsonrpc");
             var factory = new Func<ClientWebSocket>(() =>
             {
                 var client = new ClientWebSocket();
                 if (server.UseProxy)
                 {
-                    client.Options.Proxy = GetProxy(GlobalContext.Instance.ServerSettings.Proxy.Clone(), server.UseProxy);
+                    client.Options.Proxy = GetProxy(GlobalContext.Instance.ServerSettings.Proxy.DeepClone(), server.UseProxy);
                 }
                 return client;
             });
             _aria2WebsocketClient = new WebsocketClient(wsUri, factory);
             // 重新启动并重新订阅事件
             _eventSubscription = _aria2WebsocketClient!.MessageReceived.Subscribe(HandleAria2Message);
-            await _aria2WebsocketClient!.Start();
+            await _aria2WebsocketClient.Start();
         }
         private async void HandleAria2Message(ResponseMessage msg)
         {
@@ -93,7 +115,6 @@ namespace Aria2Manager.Core.Services
         {
             try
             {
-                await Task.Delay(500); //等待一段时间
                 DownloadStatusResult status = await _statusFunc(gid);
                 if ((status.Bittorrent == null) || (status.Bittorrent.Info == null))
                 {
@@ -112,7 +133,41 @@ namespace Aria2Manager.Core.Services
         }
         private async Task ProcessAria2NotificationAsync(string method, string gid)
         {
-            string taskName = await GetTaskName(gid);
+            if (method == "aria2.onDownloadStart")
+            {
+                lock (_gidLock)
+                {
+                    if (!_notifiedStartGids.Add(gid))
+                    {
+                        //跳过gid通知
+                        return;
+                    }
+                }
+            }
+            else if (method == "aria2.onDownloadStop" ||
+                     method == "aria2.onDownloadComplete" ||
+                     method == "aria2.onDownloadError" ||
+                     method == "aria2.onDownloadPause")
+            {
+                lock (_gidLock)
+                {
+                    _notifiedStartGids.Remove(gid);
+                }
+            }
+            string taskName = string.Empty;
+            for (int i = 0; i < 15; i++)
+            {
+                await Task.Delay(200);
+                taskName = await GetTaskName(gid);
+                if (!string.IsNullOrWhiteSpace(taskName))
+                {
+                    break;
+                }
+            }
+            if (string.IsNullOrWhiteSpace(taskName))
+            {
+                taskName = gid;
+            }
             var result = method switch
             {
                 "aria2.onDownloadStart" => new { Key = "Download_Start", Level = MsgBoxLevel.Information },
@@ -125,7 +180,7 @@ namespace Aria2Manager.Core.Services
             };
             if (result != null)
             {
-                _uiService.ShowTrayNotification(taskName,LanguageHelper.GetString(result.Key),result.Level);
+                _uiService.ShowTrayNotification(taskName, LanguageHelper.GetString(result.Key), result.Level);
             }
         }
     }

@@ -153,7 +153,7 @@
   <data name="Download_Link" xml:space="preserve">
     <value>下载链接</value>
   </data>
-  <data name="Download_Link_tip" xml:space="preserve">
+  <data name="Download_Link_Tip" xml:space="preserve">
     <value>支持多个链接，每个地址占一行</value>
   </data>
   <data name="MetaLink" xml:space="preserve">
@@ -197,12 +197,6 @@
   </data>
   <data name="Header_Tip" xml:space="preserve">
     <value>使用":"分隔键和值，每项占一行</value>
-  </data>
-  <data name="Http_Proxy_Address" xml:space="preserve">
-    <value>HTTP代理地址</value>
-  </data>
-  <data name="Http_Proxy_Port" xml:space="preserve">
-    <value>HTTP代理端口</value>
   </data>
   <data name="Proxy_User" xml:space="preserve">
     <value>代理用户名</value>
@@ -463,7 +457,7 @@
     <value>禁用 netrc</value>
   </data>
   <data name="Aria2Option_no-proxy" xml:space="preserve">
-    <value>不使用代理服务器列表%多个使用逗号分隔</value>
+    <value>不使用代理服务器列表</value>
   </data>
   <data name="Aria2Option_proxy-method" xml:space="preserve">
     <value>代理服务器请求方法</value>
@@ -546,7 +540,7 @@
   <data name="Aria2Option_header" xml:space="preserve">
     <value>自定义请求头</value>
   </data>
-  <data name="Aria2Option_header-tip" xml:space="preserve">
+  <data name="Aria2Option_header_Tip" xml:space="preserve">
     <value>每行放置一项, 每项包含 "请求头名: 请求头值"</value>
   </data>
   <data name="Aria2Option_save-cookies" xml:space="preserve">
@@ -603,7 +597,7 @@
   <data name="Aria2Option_bt-exclude-tracker" xml:space="preserve">
     <value>BT 排除服务器地址</value>
   </data>
-  <data name="Aria2Option_bt-exclude-tracker-tip" xml:space="preserve">
+  <data name="Aria2Option_bt-exclude-tracker_Tip" xml:space="preserve">
     <value>可以使用 * 匹配所有地址，多个使用逗号分隔</value>
   </data>
   <data name="Aria2Option_bt-external-ip" xml:space="preserve">
@@ -652,7 +646,7 @@
     <value>无速度时自动停止时间</value>
   </data>
   <data name="Aria2Option_bt-tracker" xml:space="preserve">
-    <value>BT 服务器地址%多个使用逗号分隔</value>
+    <value>BT 服务器地址</value>
   </data>
   <data name="Aria2Option_bt-tracker-connect-timeout" xml:space="preserve">
     <value>BT 服务器连接超时时间</value>
@@ -835,7 +829,7 @@
     <value>已完成</value>
   </data>
   <data name="Status_Removed" xml:space="preserve">
-    <value>已取消</value>
+    <value>已移除</value>
   </data>
   <data name="Status_Error" xml:space="preserve">
     <value>下载出错</value>
@@ -900,13 +894,13 @@
   <data name="Load_Options_Fail" xml:space="preserve">
     <value>加载Aria2配置失败</value>
   </data>
-  <data name="Change_Options_Fail" xml:space="preserve">
+  <data name="Change_Options_Failed" xml:space="preserve">
     <value>更改Aria2配置失败</value>
   </data>
   <data name="Load_Task_Status_Fail" xml:space="preserve">
     <value>加载任务信息失败</value>
   </data>
-  <data name="Change_Task_File_Fail" xml:space="preserve">
+  <data name="Change_Task_File_Failed" xml:space="preserve">
     <value>更改任务文件失败</value>
   </data>
   <data name="Check_Program_Update_Failed" xml:space="preserve">
@@ -926,9 +920,6 @@
   </data>
   <data name="Duplicate_Server_Name" xml:space="preserve">
     <value>存在重名服务器</value>
-  </data>
-  <data name="No_Browser_Found" xml:space="preserve">
-    <value>未找到浏览器</value>
   </data>
   <data name="Aria2_Update_Available" xml:space="preserve">
     <value>Aria2有更新</value>
@@ -950,5 +941,50 @@
   </data>
   <data name="Purge_Task_Failed" xml:space="preserve">
     <value>清理任务失败</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="Enable_Aria2_Notification" xml:space="preserve">
+    <value>启用Aria2通知</value>
+  </data>
+  <data name="Download_Start" xml:space="preserve">
+    <value>下载开始</value>
+  </data>
+  <data name="Download_Pause" xml:space="preserve">
+    <value>下载暂停</value>
+  </data>
+  <data name="Download_Stop" xml:space="preserve">
+    <value>下载停止</value>
+  </data>
+  <data name="Download_Complete" xml:space="preserve">
+    <value>下载完成</value>
+  </data>
+  <data name="Download_Error" xml:space="preserve">
+    <value>下载出错</value>
+  </data>
+  <data name="BtDownload_Complete" xml:space="preserve">
+    <value>种子下载完成</value>
+  </data>
+  <data name="Open_File_Location" xml:space="preserve">
+    <value>打开文件位置</value>
+  </data>
+  <data name="Open_File_Location_Failed" xml:space="preserve">
+    <value>打开文件位置失败</value>
+  </data>
+  <data name="Open_Website_Failed" xml:space="preserve">
+    <value>打开网页失败</value>
+  </data>
+  <data name="Theme_ReStart" xml:space="preserve">
+    <value>需要重启以更改主题</value>
+  </data>
+  <data name="Current_Server" xml:space="preserve">
+    <value>当前服务器</value>
+  </data>
+  <data name="Aria2Option_bt-tracker_Tip" xml:space="preserve">
+    <value>多个使用逗号分隔</value>
+  </data>
+  <data name="Aria2Option_no-proxy_Tip" xml:space="preserve">
+    <value>多个使用逗号分隔</value>
   </data>
 </root>

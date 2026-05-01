@@ -1,0 +1,114 @@
+﻿<mah:MetroWindow x:Class="Aria2Manager.Views.Aria2ServersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+        mc:Ignorable="d"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        TitleBarHeight="25"
+        TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+        WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
+        Title="{x:Static loc:Strings.Aria2_Servers}" Height="430" Width="260" WindowStartupLocation="CenterOwner">
+    <TabControl>
+        <TabControl.Resources>
+            <!-- 保留MahApps原有样式，只修改字体相关属性 -->
+            <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" FontSize="20" FontWeight="Normal" Margin="6,2"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </TabControl.Resources>
+        <TabItem Header="{x:Static loc:Strings.Server_Options}">
+            <Grid MinHeight="335">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="14*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="130" MinHeight="24" ItemsSource="{Binding AvailableServers}" DisplayMemberPath="Name" SelectedIndex ="{Binding CurrentEditServerIndex}"/>
+                    <Button Grid.Column="1" Content="{x:Static loc:Strings.New}" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="24" MinWidth="42" Command="{Binding AddNewServerCommand}"/>
+                    <Button Grid.Column="2" Content="{x:Static loc:Strings.Remove}" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="24" MinWidth="42" Command="{Binding DeleteServerCommand}"/>
+                </Grid>
+                <Grid Grid.Row="1" Margin="8,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding CurrentEditServer.Name}" VerticalAlignment="Center" MinWidth="120" MinHeight="20"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Server_Name}" VerticalAlignment="Center" MinHeight="20"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Server_Address}" VerticalAlignment="Center" MinHeight="20" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Server_Port}" VerticalAlignment="Center" MinHeight="20" Grid.Row="2"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Server_Secret}" VerticalAlignment="Center" MinHeight="20" Grid.Row="3"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding CurrentEditServer.Address}" VerticalAlignment="Center" MinWidth="120" MinHeight="20" Grid.Row="1"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding CurrentEditServer.Port}" VerticalAlignment="Center" MinWidth="120" MinHeight="20" Grid.Row="2"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" Grid.Row="3" TextWrapping="Wrap" Text="{Binding CurrentEditServer.Secret}" VerticalAlignment="Center" MinWidth="120" MinHeight="20"/>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Button Content="{x:Static loc:Strings.Save}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="84" MinHeight="22" Grid.Column="1" Command="{Binding SaveServersCommand}"/>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Content="{x:Static loc:Strings.Use_Https}" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="20" MinWidth="57" IsChecked="{Binding CurrentEditServer.IsHttps}"/>
+                    <CheckBox Grid.Column="1" Content="{x:Static loc:Strings.Use_Proxy}" HorizontalAlignment="Center" MinHeight="20" MinWidth="57" VerticalAlignment="Center" IsChecked="{Binding CurrentEditServer.UseProxy}"/>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <CheckBox Content="{x:Static loc:Strings.Local_Server}" MinHeight="20" MinWidth="57" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding CurrentEditServer.IsLocalServer}"/>
+                </Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="{x:Static loc:Strings.Proxy_Settings}">
+            <Grid Margin="10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Button Content="{x:Static loc:Strings.Save}" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" MinHeight="25" MinWidth="102" Command="{Binding SaveProxyCommand}" Grid.ColumnSpan="2"/>
+                <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_Type}" VerticalAlignment="Center" MinHeight="22" MinWidth="95"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_Address}" VerticalAlignment="Center" MinHeight="22" MinWidth="95" Grid.Row="1"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_Port}" VerticalAlignment="Center" MinHeight="22" MinWidth="95" Grid.Row="2"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_User}" VerticalAlignment="Center" MinHeight="22" MinWidth="95" Grid.Row="3"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Proxy.Address}" VerticalAlignment="Center" MinWidth="109" Height="20"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Proxy.Port}" VerticalAlignment="Center" MinWidth="109" MinHeight="20"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Proxy.User}" VerticalAlignment="Center" MinWidth="109" MinHeight="20"/>
+                    <ComboBox Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MinWidth="109" SelectedValue="{Binding Proxy.Type}" ItemsSource="{Binding ProxyTypes}"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_Passwd}" VerticalAlignment="Center" MinHeight="22" MinWidth="95" Grid.Row="4"/>
+                    <TextBox Grid.Column="1" HorizontalAlignment="Right" Grid.Row="4" TextWrapping="Wrap" Text="{Binding Proxy.Passwd}" VerticalAlignment="Center" MinWidth="109" MinHeight="20"/>
+                </Grid>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</mah:MetroWindow>

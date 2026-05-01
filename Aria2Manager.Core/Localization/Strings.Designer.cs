@@ -22,7 +22,7 @@ namespace Aria2Manager.Core.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Aria2Manager.Core.Localization {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Aria2Manager.Core.Localization.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace Aria2Manager.Core.Localization {
         ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 About 的本地化字符串。
         /// </summary>
-        internal static string About {
+        public static string About {
             get {
                 return ResourceManager.GetString("About", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Add 的本地化字符串。
         /// </summary>
-        internal static string Add {
+        public static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Advanced Settings 的本地化字符串。
         /// </summary>
-        internal static string Advanced_Options {
+        public static string Advanced_Options {
             get {
                 return ResourceManager.GetString("Advanced_Options", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enabled Features 的本地化字符串。
         /// </summary>
-        internal static string Aria2_Features {
+        public static string Aria2_Features {
             get {
                 return ResourceManager.GetString("Aria2_Features", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Aria2 Settings 的本地化字符串。
         /// </summary>
-        internal static string Aria2_Options {
+        public static string Aria2_Options {
             get {
                 return ResourceManager.GetString("Aria2_Options", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Aria2 Servers 的本地化字符串。
         /// </summary>
-        internal static string Aria2_Servers {
+        public static string Aria2_Servers {
             get {
                 return ResourceManager.GetString("Aria2_Servers", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Aria2 Status 的本地化字符串。
         /// </summary>
-        internal static string Aria2_Status {
+        public static string Aria2_Status {
             get {
                 return ResourceManager.GetString("Aria2_Status", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Aria2 update available 的本地化字符串。
         /// </summary>
-        internal static string Aria2_Update_Available {
+        public static string Aria2_Update_Available {
             get {
                 return ResourceManager.GetString("Aria2_Update_Available", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Aria2 Version 的本地化字符串。
         /// </summary>
-        internal static string Aria2_Version {
+        public static string Aria2_Version {
             get {
                 return ResourceManager.GetString("Aria2_Version", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Aria2 Website 的本地化字符串。
         /// </summary>
-        internal static string Aria2_Website {
+        public static string Aria2_Website {
             get {
                 return ResourceManager.GetString("Aria2_Website", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Server 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_all_proxy {
+        public static string Aria2Option_all_proxy {
             get {
                 return ResourceManager.GetString("Aria2Option_all-proxy", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Server Password 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_all_proxy_passwd {
+        public static string Aria2Option_all_proxy_passwd {
             get {
                 return ResourceManager.GetString("Aria2Option_all-proxy-passwd", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Server Username 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_all_proxy_user {
+        public static string Aria2Option_all_proxy_user {
             get {
                 return ResourceManager.GetString("Aria2Option_all-proxy-user", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Allow Overwrite 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_allow_overwrite {
+        public static string Aria2Option_allow_overwrite {
             get {
                 return ResourceManager.GetString("Aria2Option_allow-overwrite", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Allow Piece Length Change 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_allow_piece_length_change {
+        public static string Aria2Option_allow_piece_length_change {
             get {
                 return ResourceManager.GetString("Aria2Option_allow-piece-length-change", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Always Resume 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_always_resume {
+        public static string Aria2Option_always_resume {
             get {
                 return ResourceManager.GetString("Aria2Option_always-resume", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Async DNS 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_async_dns {
+        public static string Aria2Option_async_dns {
             get {
                 return ResourceManager.GetString("Aria2Option_async-dns", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Auto File Renaming 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_auto_file_renaming {
+        public static string Aria2Option_auto_file_renaming {
             get {
                 return ResourceManager.GetString("Aria2Option_auto-file-renaming", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Auto Save Interval 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_auto_save_interval {
+        public static string Aria2Option_auto_save_interval {
             get {
                 return ResourceManager.GetString("Aria2Option_auto-save-interval", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Detach Seed Only Tasks 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_detach_seed_only {
+        public static string Aria2Option_bt_detach_seed_only {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-detach-seed-only", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable Hook After Hash Check 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_enable_hook_after_hash_check {
+        public static string Aria2Option_bt_enable_hook_after_hash_check {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-enable-hook-after-hash-check", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable Local Peer Discovery (LPD) 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_enable_lpd {
+        public static string Aria2Option_bt_enable_lpd {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-enable-lpd", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Exclude BT Tracker Addresses 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_exclude_tracker {
+        public static string Aria2Option_bt_exclude_tracker {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-exclude-tracker", resourceCulture);
             }
@@ -270,16 +270,16 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Use * to match all addresses, comma separated 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_exclude_tracker_tip {
+        public static string Aria2Option_bt_exclude_tracker_Tip {
             get {
-                return ResourceManager.GetString("Aria2Option_bt-exclude-tracker-tip", resourceCulture);
+                return ResourceManager.GetString("Aria2Option_bt-exclude-tracker_Tip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 External IP Address 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_external_ip {
+        public static string Aria2Option_bt_external_ip {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-external-ip", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Force Encryption 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_force_encryption {
+        public static string Aria2Option_bt_force_encryption {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-force-encryption", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Hash Check Before Seeding 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_hash_check_seed {
+        public static string Aria2Option_bt_hash_check_seed {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-hash-check-seed", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Load Saved Metadata 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_load_saved_metadata {
+        public static string Aria2Option_bt_load_saved_metadata {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-load-saved-metadata", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Open Files 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_max_open_files {
+        public static string Aria2Option_bt_max_open_files {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-max-open-files", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Peers 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_max_peers {
+        public static string Aria2Option_bt_max_peers {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-max-peers", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Download Metadata Only 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_metadata_only {
+        public static string Aria2Option_bt_metadata_only {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-metadata-only", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Min Crypto Level 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_min_crypto_level {
+        public static string Aria2Option_bt_min_crypto_level {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-min-crypto-level", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Prioritize Piece 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_prioritize_piece {
+        public static string Aria2Option_bt_prioritize_piece {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-prioritize-piece", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Remove Unselected Files 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_remove_unselected_file {
+        public static string Aria2Option_bt_remove_unselected_file {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-remove-unselected-file", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Request Peer Speed Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_request_peer_speed_limit {
+        public static string Aria2Option_bt_request_peer_speed_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-request-peer-speed-limit", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Require Crypto 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_require_crypto {
+        public static string Aria2Option_bt_require_crypto {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-require-crypto", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Save Metadata 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_save_metadata {
+        public static string Aria2Option_bt_save_metadata {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-save-metadata", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Seed Unverified 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_seed_unverified {
+        public static string Aria2Option_bt_seed_unverified {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-seed-unverified", resourceCulture);
             }
@@ -405,16 +405,16 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Auto Stop Timeout When No Speed 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_stop_timeout {
+        public static string Aria2Option_bt_stop_timeout {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-stop-timeout", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 BT Tracker Addresses (Comma separated) 的本地化字符串。
+        ///   查找类似 BT Tracker Addresses 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_tracker {
+        public static string Aria2Option_bt_tracker {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-tracker", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 BT Tracker Connect Timeout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_tracker_connect_timeout {
+        public static string Aria2Option_bt_tracker_connect_timeout {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-tracker-connect-timeout", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 BT Tracker Connection Interval 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_tracker_interval {
+        public static string Aria2Option_bt_tracker_interval {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-tracker-interval", resourceCulture);
             }
@@ -441,16 +441,25 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 BT Tracker Timeout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_bt_tracker_timeout {
+        public static string Aria2Option_bt_tracker_timeout {
             get {
                 return ResourceManager.GetString("Aria2Option_bt-tracker-timeout", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Comma separated 的本地化字符串。
+        /// </summary>
+        public static string Aria2Option_bt_tracker_Tip {
+            get {
+                return ResourceManager.GetString("Aria2Option_bt-tracker_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Check Certificate 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_check_certificate {
+        public static string Aria2Option_check_certificate {
             get {
                 return ResourceManager.GetString("Aria2Option_check-certificate", resourceCulture);
             }
@@ -459,7 +468,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Check Integrity 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_check_integrity {
+        public static string Aria2Option_check_integrity {
             get {
                 return ResourceManager.GetString("Aria2Option_check-integrity", resourceCulture);
             }
@@ -468,7 +477,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Conditional GET 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_conditional_get {
+        public static string Aria2Option_conditional_get {
             get {
                 return ResourceManager.GetString("Aria2Option_conditional-get", resourceCulture);
             }
@@ -477,7 +486,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Config File Path 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_conf_path {
+        public static string Aria2Option_conf_path {
             get {
                 return ResourceManager.GetString("Aria2Option_conf-path", resourceCulture);
             }
@@ -486,7 +495,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Connect Timeout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_connect_timeout {
+        public static string Aria2Option_connect_timeout {
             get {
                 return ResourceManager.GetString("Aria2Option_connect-timeout", resourceCulture);
             }
@@ -495,7 +504,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Console Log Level 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_console_log_level {
+        public static string Aria2Option_console_log_level {
             get {
                 return ResourceManager.GetString("Aria2Option_console-log-level", resourceCulture);
             }
@@ -504,7 +513,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Use UTF-8 for Content-Disposition 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_content_disposition_default_utf8 {
+        public static string Aria2Option_content_disposition_default_utf8 {
             get {
                 return ResourceManager.GetString("Aria2Option_content-disposition-default-utf8", resourceCulture);
             }
@@ -513,7 +522,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Continue Download 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_continue {
+        public static string Aria2Option_continue {
             get {
                 return ResourceManager.GetString("Aria2Option_continue", resourceCulture);
             }
@@ -522,7 +531,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable Daemon 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_daemon {
+        public static string Aria2Option_daemon {
             get {
                 return ResourceManager.GetString("Aria2Option_daemon", resourceCulture);
             }
@@ -531,7 +540,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Deferred Input 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_deferred_input {
+        public static string Aria2Option_deferred_input {
             get {
                 return ResourceManager.GetString("Aria2Option_deferred-input", resourceCulture);
             }
@@ -540,7 +549,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 DHT (IPv4) File Path 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_dht_file_path {
+        public static string Aria2Option_dht_file_path {
             get {
                 return ResourceManager.GetString("Aria2Option_dht-file-path", resourceCulture);
             }
@@ -549,7 +558,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 DHT (IPv6) File Path 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_dht_file_path6 {
+        public static string Aria2Option_dht_file_path6 {
             get {
                 return ResourceManager.GetString("Aria2Option_dht-file-path6", resourceCulture);
             }
@@ -558,7 +567,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 DHT Listen Port 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_dht_listen_port {
+        public static string Aria2Option_dht_listen_port {
             get {
                 return ResourceManager.GetString("Aria2Option_dht-listen-port", resourceCulture);
             }
@@ -567,7 +576,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 DHT Message Timeout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_dht_message_timeout {
+        public static string Aria2Option_dht_message_timeout {
             get {
                 return ResourceManager.GetString("Aria2Option_dht-message-timeout", resourceCulture);
             }
@@ -576,7 +585,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Download Path 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_dir {
+        public static string Aria2Option_dir {
             get {
                 return ResourceManager.GetString("Aria2Option_dir", resourceCulture);
             }
@@ -585,7 +594,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Disable IPv6 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_disable_ipv6 {
+        public static string Aria2Option_disable_ipv6 {
             get {
                 return ResourceManager.GetString("Aria2Option_disable-ipv6", resourceCulture);
             }
@@ -594,7 +603,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Disk Cache 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_disk_cache {
+        public static string Aria2Option_disk_cache {
             get {
                 return ResourceManager.GetString("Aria2Option_disk-cache", resourceCulture);
             }
@@ -603,7 +612,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Download Result 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_download_result {
+        public static string Aria2Option_download_result {
             get {
                 return ResourceManager.GetString("Aria2Option_download-result", resourceCulture);
             }
@@ -612,7 +621,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Dry Run 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_dry_run {
+        public static string Aria2Option_dry_run {
             get {
                 return ResourceManager.GetString("Aria2Option_dry-run", resourceCulture);
             }
@@ -621,7 +630,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 DSCP 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_dscp {
+        public static string Aria2Option_dscp {
             get {
                 return ResourceManager.GetString("Aria2Option_dscp", resourceCulture);
             }
@@ -630,7 +639,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable Console Color Output 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_color {
+        public static string Aria2Option_enable_color {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-color", resourceCulture);
             }
@@ -639,7 +648,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable DHT (IPv4) 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_dht {
+        public static string Aria2Option_enable_dht {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-dht", resourceCulture);
             }
@@ -648,7 +657,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable DHT (IPv6) 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_dht6 {
+        public static string Aria2Option_enable_dht6 {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-dht6", resourceCulture);
             }
@@ -657,7 +666,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable HTTP Keep-Alive 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_http_keep_alive {
+        public static string Aria2Option_enable_http_keep_alive {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-http-keep-alive", resourceCulture);
             }
@@ -666,7 +675,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable HTTP Pipelining 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_http_pipelining {
+        public static string Aria2Option_enable_http_pipelining {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-http-pipelining", resourceCulture);
             }
@@ -675,7 +684,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable MMap 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_mmap {
+        public static string Aria2Option_enable_mmap {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-mmap", resourceCulture);
             }
@@ -684,7 +693,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable Peer Exchange 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_peer_exchange {
+        public static string Aria2Option_enable_peer_exchange {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-peer-exchange", resourceCulture);
             }
@@ -693,7 +702,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable JSON-RPC/XML-RPC Server 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_enable_rpc {
+        public static string Aria2Option_enable_rpc {
             get {
                 return ResourceManager.GetString("Aria2Option_enable-rpc", resourceCulture);
             }
@@ -702,7 +711,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Event Poll Method 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_event_poll {
+        public static string Aria2Option_event_poll {
             get {
                 return ResourceManager.GetString("Aria2Option_event-poll", resourceCulture);
             }
@@ -711,7 +720,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 File Allocation Method 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_file_allocation {
+        public static string Aria2Option_file_allocation {
             get {
                 return ResourceManager.GetString("Aria2Option_file-allocation", resourceCulture);
             }
@@ -720,7 +729,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Follow Metalink Files 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_follow_metalink {
+        public static string Aria2Option_follow_metalink {
             get {
                 return ResourceManager.GetString("Aria2Option_follow-metalink", resourceCulture);
             }
@@ -729,7 +738,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Follow Torrent Files 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_follow_torrent {
+        public static string Aria2Option_follow_torrent {
             get {
                 return ResourceManager.GetString("Aria2Option_follow-torrent", resourceCulture);
             }
@@ -738,7 +747,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Force Save 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_force_save {
+        public static string Aria2Option_force_save {
             get {
                 return ResourceManager.GetString("Aria2Option_force-save", resourceCulture);
             }
@@ -747,7 +756,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 FTP Default Password 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_passwd {
+        public static string Aria2Option_ftp_passwd {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-passwd", resourceCulture);
             }
@@ -756,7 +765,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Passive Mode 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_pasv {
+        public static string Aria2Option_ftp_pasv {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-pasv", resourceCulture);
             }
@@ -765,7 +774,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 FTP Proxy Server 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_proxy {
+        public static string Aria2Option_ftp_proxy {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-proxy", resourceCulture);
             }
@@ -774,7 +783,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 FTP Proxy Server Password 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_proxy_passwd {
+        public static string Aria2Option_ftp_proxy_passwd {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-proxy-passwd", resourceCulture);
             }
@@ -783,7 +792,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 FTP Proxy Server Username 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_proxy_user {
+        public static string Aria2Option_ftp_proxy_user {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-proxy-user", resourceCulture);
             }
@@ -792,7 +801,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Reuse Connection 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_reuse_connection {
+        public static string Aria2Option_ftp_reuse_connection {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-reuse-connection", resourceCulture);
             }
@@ -801,7 +810,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Transfer Type 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_type {
+        public static string Aria2Option_ftp_type {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-type", resourceCulture);
             }
@@ -810,7 +819,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 FTP Default Username 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ftp_user {
+        public static string Aria2Option_ftp_user {
             get {
                 return ResourceManager.GetString("Aria2Option_ftp-user", resourceCulture);
             }
@@ -819,7 +828,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Hash Check Only 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_hash_check_only {
+        public static string Aria2Option_hash_check_only {
             get {
                 return ResourceManager.GetString("Aria2Option_hash-check-only", resourceCulture);
             }
@@ -828,7 +837,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Custom Headers 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_header {
+        public static string Aria2Option_header {
             get {
                 return ResourceManager.GetString("Aria2Option_header", resourceCulture);
             }
@@ -837,16 +846,16 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 One entry per line, formatted as &quot;Header-Name: Header-Value&quot; 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_header_tip {
+        public static string Aria2Option_header_Tip {
             get {
-                return ResourceManager.GetString("Aria2Option_header-tip", resourceCulture);
+                return ResourceManager.GetString("Aria2Option_header_Tip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Accept GZip 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_accept_gzip {
+        public static string Aria2Option_http_accept_gzip {
             get {
                 return ResourceManager.GetString("Aria2Option_http-accept-gzip", resourceCulture);
             }
@@ -855,7 +864,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Auth Challenge 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_auth_challenge {
+        public static string Aria2Option_http_auth_challenge {
             get {
                 return ResourceManager.GetString("Aria2Option_http-auth-challenge", resourceCulture);
             }
@@ -864,7 +873,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Disable Cache 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_no_cache {
+        public static string Aria2Option_http_no_cache {
             get {
                 return ResourceManager.GetString("Aria2Option_http-no-cache", resourceCulture);
             }
@@ -873,7 +882,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP Default Password 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_passwd {
+        public static string Aria2Option_http_passwd {
             get {
                 return ResourceManager.GetString("Aria2Option_http-passwd", resourceCulture);
             }
@@ -882,7 +891,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP Proxy Server 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_proxy {
+        public static string Aria2Option_http_proxy {
             get {
                 return ResourceManager.GetString("Aria2Option_http-proxy", resourceCulture);
             }
@@ -891,7 +900,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP Proxy Server Password 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_proxy_passwd {
+        public static string Aria2Option_http_proxy_passwd {
             get {
                 return ResourceManager.GetString("Aria2Option_http-proxy-passwd", resourceCulture);
             }
@@ -900,7 +909,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP Proxy Server Username 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_proxy_user {
+        public static string Aria2Option_http_proxy_user {
             get {
                 return ResourceManager.GetString("Aria2Option_http-proxy-user", resourceCulture);
             }
@@ -909,7 +918,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP Default Username 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_http_user {
+        public static string Aria2Option_http_user {
             get {
                 return ResourceManager.GetString("Aria2Option_http-user", resourceCulture);
             }
@@ -918,7 +927,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTPS Proxy Server 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_https_proxy {
+        public static string Aria2Option_https_proxy {
             get {
                 return ResourceManager.GetString("Aria2Option_https-proxy", resourceCulture);
             }
@@ -927,7 +936,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTPS Proxy Server Password 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_https_proxy_passwd {
+        public static string Aria2Option_https_proxy_passwd {
             get {
                 return ResourceManager.GetString("Aria2Option_https-proxy-passwd", resourceCulture);
             }
@@ -936,7 +945,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTPS Proxy Server Username 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_https_proxy_user {
+        public static string Aria2Option_https_proxy_user {
             get {
                 return ResourceManager.GetString("Aria2Option_https-proxy-user", resourceCulture);
             }
@@ -945,7 +954,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Human Readable Output 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_human_readable {
+        public static string Aria2Option_human_readable {
             get {
                 return ResourceManager.GetString("Aria2Option_human-readable", resourceCulture);
             }
@@ -954,7 +963,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Keep Unfinished Download Results 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_keep_unfinished_download_result {
+        public static string Aria2Option_keep_unfinished_download_result {
             get {
                 return ResourceManager.GetString("Aria2Option_keep-unfinished-download-result", resourceCulture);
             }
@@ -963,7 +972,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Listen Port 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_listen_port {
+        public static string Aria2Option_listen_port {
             get {
                 return ResourceManager.GetString("Aria2Option_listen-port", resourceCulture);
             }
@@ -972,7 +981,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Log File 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_log {
+        public static string Aria2Option_log {
             get {
                 return ResourceManager.GetString("Aria2Option_log", resourceCulture);
             }
@@ -981,7 +990,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Log Level 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_log_level {
+        public static string Aria2Option_log_level {
             get {
                 return ResourceManager.GetString("Aria2Option_log-level", resourceCulture);
             }
@@ -990,7 +999,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Lowest Speed Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_lowest_speed_limit {
+        public static string Aria2Option_lowest_speed_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_lowest-speed-limit", resourceCulture);
             }
@@ -999,7 +1008,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Concurrent Downloads 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_concurrent_downloads {
+        public static string Aria2Option_max_concurrent_downloads {
             get {
                 return ResourceManager.GetString("Aria2Option_max-concurrent-downloads", resourceCulture);
             }
@@ -1008,7 +1017,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Connections Per Server 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_connection_per_server {
+        public static string Aria2Option_max_connection_per_server {
             get {
                 return ResourceManager.GetString("Aria2Option_max-connection-per-server", resourceCulture);
             }
@@ -1017,7 +1026,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Download Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_download_limit {
+        public static string Aria2Option_max_download_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_max-download-limit", resourceCulture);
             }
@@ -1026,7 +1035,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Download Results 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_download_result {
+        public static string Aria2Option_max_download_result {
             get {
                 return ResourceManager.GetString("Aria2Option_max-download-result", resourceCulture);
             }
@@ -1035,7 +1044,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max File Not Found Tries 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_file_not_found {
+        public static string Aria2Option_max_file_not_found {
             get {
                 return ResourceManager.GetString("Aria2Option_max-file-not-found", resourceCulture);
             }
@@ -1044,7 +1053,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max MMap Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_mmap_limit {
+        public static string Aria2Option_max_mmap_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_max-mmap-limit", resourceCulture);
             }
@@ -1053,7 +1062,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Overall Download Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_overall_download_limit {
+        public static string Aria2Option_max_overall_download_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_max-overall-download-limit", resourceCulture);
             }
@@ -1062,7 +1071,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Overall Upload Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_overall_upload_limit {
+        public static string Aria2Option_max_overall_upload_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_max-overall-upload-limit", resourceCulture);
             }
@@ -1071,7 +1080,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Resume Failure Tries 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_resume_failure_tries {
+        public static string Aria2Option_max_resume_failure_tries {
             get {
                 return ResourceManager.GetString("Aria2Option_max-resume-failure-tries", resourceCulture);
             }
@@ -1080,7 +1089,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Tries 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_tries {
+        public static string Aria2Option_max_tries {
             get {
                 return ResourceManager.GetString("Aria2Option_max-tries", resourceCulture);
             }
@@ -1089,7 +1098,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Upload Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_max_upload_limit {
+        public static string Aria2Option_max_upload_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_max-upload-limit", resourceCulture);
             }
@@ -1098,7 +1107,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Base URI 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_metalink_base_uri {
+        public static string Aria2Option_metalink_base_uri {
             get {
                 return ResourceManager.GetString("Aria2Option_metalink-base-uri", resourceCulture);
             }
@@ -1107,7 +1116,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable Unique Protocol 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_metalink_enable_unique_protocol {
+        public static string Aria2Option_metalink_enable_unique_protocol {
             get {
                 return ResourceManager.GetString("Aria2Option_metalink-enable-unique-protocol", resourceCulture);
             }
@@ -1116,7 +1125,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Language 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_metalink_language {
+        public static string Aria2Option_metalink_language {
             get {
                 return ResourceManager.GetString("Aria2Option_metalink-language", resourceCulture);
             }
@@ -1125,7 +1134,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Preferred Server Location 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_metalink_location {
+        public static string Aria2Option_metalink_location {
             get {
                 return ResourceManager.GetString("Aria2Option_metalink-location", resourceCulture);
             }
@@ -1134,7 +1143,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Operating System 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_metalink_os {
+        public static string Aria2Option_metalink_os {
             get {
                 return ResourceManager.GetString("Aria2Option_metalink-os", resourceCulture);
             }
@@ -1143,7 +1152,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Preferred Protocol 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_metalink_preferred_protocol {
+        public static string Aria2Option_metalink_preferred_protocol {
             get {
                 return ResourceManager.GetString("Aria2Option_metalink-preferred-protocol", resourceCulture);
             }
@@ -1152,7 +1161,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Version 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_metalink_version {
+        public static string Aria2Option_metalink_version {
             get {
                 return ResourceManager.GetString("Aria2Option_metalink-version", resourceCulture);
             }
@@ -1161,7 +1170,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Min Split Size 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_min_split_size {
+        public static string Aria2Option_min_split_size {
             get {
                 return ResourceManager.GetString("Aria2Option_min-split-size", resourceCulture);
             }
@@ -1170,7 +1179,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Min TLS Version 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_min_tls_version {
+        public static string Aria2Option_min_tls_version {
             get {
                 return ResourceManager.GetString("Aria2Option_min-tls-version", resourceCulture);
             }
@@ -1179,7 +1188,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 .netrc File Path 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_netrc_path {
+        public static string Aria2Option_netrc_path {
             get {
                 return ResourceManager.GetString("Aria2Option_netrc-path", resourceCulture);
             }
@@ -1188,7 +1197,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Disable Config File 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_no_conf {
+        public static string Aria2Option_no_conf {
             get {
                 return ResourceManager.GetString("Aria2Option_no-conf", resourceCulture);
             }
@@ -1197,7 +1206,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 No File Allocation Limit 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_no_file_allocation_limit {
+        public static string Aria2Option_no_file_allocation_limit {
             get {
                 return ResourceManager.GetString("Aria2Option_no-file-allocation-limit", resourceCulture);
             }
@@ -1206,25 +1215,34 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Disable netrc 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_no_netrc {
+        public static string Aria2Option_no_netrc {
             get {
                 return ResourceManager.GetString("Aria2Option_no-netrc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 No Proxy Server List (Comma separated) 的本地化字符串。
+        ///   查找类似 No Proxy Server List 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_no_proxy {
+        public static string Aria2Option_no_proxy {
             get {
                 return ResourceManager.GetString("Aria2Option_no-proxy", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Comma separated 的本地化字符串。
+        /// </summary>
+        public static string Aria2Option_no_proxy_Tip {
+            get {
+                return ResourceManager.GetString("Aria2Option_no-proxy_Tip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Optimize Concurrent Downloads 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_optimize_concurrent_downloads {
+        public static string Aria2Option_optimize_concurrent_downloads {
             get {
                 return ResourceManager.GetString("Aria2Option_optimize-concurrent-downloads", resourceCulture);
             }
@@ -1233,7 +1251,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable Parameterized URI Support 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_parameterized_uri {
+        public static string Aria2Option_parameterized_uri {
             get {
                 return ResourceManager.GetString("Aria2Option_parameterized-uri", resourceCulture);
             }
@@ -1242,7 +1260,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Pause After Metadata Download 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_pause_metadata {
+        public static string Aria2Option_pause_metadata {
             get {
                 return ResourceManager.GetString("Aria2Option_pause-metadata", resourceCulture);
             }
@@ -1251,7 +1269,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Peer Agent 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_peer_agent {
+        public static string Aria2Option_peer_agent {
             get {
                 return ResourceManager.GetString("Aria2Option_peer-agent", resourceCulture);
             }
@@ -1260,7 +1278,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Peer ID Prefix 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_peer_id_prefix {
+        public static string Aria2Option_peer_id_prefix {
             get {
                 return ResourceManager.GetString("Aria2Option_peer-id-prefix", resourceCulture);
             }
@@ -1269,7 +1287,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Piece Length 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_piece_length {
+        public static string Aria2Option_piece_length {
             get {
                 return ResourceManager.GetString("Aria2Option_piece-length", resourceCulture);
             }
@@ -1278,7 +1296,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Server Request Method 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_proxy_method {
+        public static string Aria2Option_proxy_method {
             get {
                 return ResourceManager.GetString("Aria2Option_proxy-method", resourceCulture);
             }
@@ -1287,7 +1305,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Disable Console Output 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_quiet {
+        public static string Aria2Option_quiet {
             get {
                 return ResourceManager.GetString("Aria2Option_quiet", resourceCulture);
             }
@@ -1296,7 +1314,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Real-time Chunk Checksum 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_realtime_chunk_checksum {
+        public static string Aria2Option_realtime_chunk_checksum {
             get {
                 return ResourceManager.GetString("Aria2Option_realtime-chunk-checksum", resourceCulture);
             }
@@ -1305,7 +1323,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Referer 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_referer {
+        public static string Aria2Option_referer {
             get {
                 return ResourceManager.GetString("Aria2Option_referer", resourceCulture);
             }
@@ -1314,7 +1332,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Get Remote File Time 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_remote_time {
+        public static string Aria2Option_remote_time {
             get {
                 return ResourceManager.GetString("Aria2Option_remote-time", resourceCulture);
             }
@@ -1323,7 +1341,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Remove Control File 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_remove_control_file {
+        public static string Aria2Option_remove_control_file {
             get {
                 return ResourceManager.GetString("Aria2Option_remove-control-file", resourceCulture);
             }
@@ -1332,7 +1350,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Retry Wait Time 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_retry_wait {
+        public static string Aria2Option_retry_wait {
             get {
                 return ResourceManager.GetString("Aria2Option_retry-wait", resourceCulture);
             }
@@ -1341,7 +1359,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Reuse URI 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_reuse_uri {
+        public static string Aria2Option_reuse_uri {
             get {
                 return ResourceManager.GetString("Aria2Option_reuse-uri", resourceCulture);
             }
@@ -1350,7 +1368,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Open File Descriptors 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_rlimit_nofile {
+        public static string Aria2Option_rlimit_nofile {
             get {
                 return ResourceManager.GetString("Aria2Option_rlimit-nofile", resourceCulture);
             }
@@ -1359,7 +1377,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Accept All Remote Requests 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_rpc_allow_origin_all {
+        public static string Aria2Option_rpc_allow_origin_all {
             get {
                 return ResourceManager.GetString("Aria2Option_rpc-allow-origin-all", resourceCulture);
             }
@@ -1368,7 +1386,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Listen on All Interfaces 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_rpc_listen_all {
+        public static string Aria2Option_rpc_listen_all {
             get {
                 return ResourceManager.GetString("Aria2Option_rpc-listen-all", resourceCulture);
             }
@@ -1377,7 +1395,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Listen Port 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_rpc_listen_port {
+        public static string Aria2Option_rpc_listen_port {
             get {
                 return ResourceManager.GetString("Aria2Option_rpc-listen-port", resourceCulture);
             }
@@ -1386,7 +1404,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Max Request Size 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_rpc_max_request_size {
+        public static string Aria2Option_rpc_max_request_size {
             get {
                 return ResourceManager.GetString("Aria2Option_rpc-max-request-size", resourceCulture);
             }
@@ -1395,7 +1413,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Save Uploaded Metadata 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_rpc_save_upload_metadata {
+        public static string Aria2Option_rpc_save_upload_metadata {
             get {
                 return ResourceManager.GetString("Aria2Option_rpc-save-upload-metadata", resourceCulture);
             }
@@ -1404,7 +1422,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Enable SSL/TLS 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_rpc_secure {
+        public static string Aria2Option_rpc_secure {
             get {
                 return ResourceManager.GetString("Aria2Option_rpc-secure", resourceCulture);
             }
@@ -1413,7 +1431,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Save Cookies Path 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_save_cookies {
+        public static string Aria2Option_save_cookies {
             get {
                 return ResourceManager.GetString("Aria2Option_save-cookies", resourceCulture);
             }
@@ -1422,7 +1440,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Save Not Found Files 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_save_not_found {
+        public static string Aria2Option_save_not_found {
             get {
                 return ResourceManager.GetString("Aria2Option_save-not-found", resourceCulture);
             }
@@ -1431,7 +1449,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Save Session File 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_save_session {
+        public static string Aria2Option_save_session {
             get {
                 return ResourceManager.GetString("Aria2Option_save-session", resourceCulture);
             }
@@ -1440,7 +1458,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Save Session Interval 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_save_session_interval {
+        public static string Aria2Option_save_session_interval {
             get {
                 return ResourceManager.GetString("Aria2Option_save-session-interval", resourceCulture);
             }
@@ -1449,7 +1467,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Min Seed Ratio 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_seed_ratio {
+        public static string Aria2Option_seed_ratio {
             get {
                 return ResourceManager.GetString("Aria2Option_seed-ratio", resourceCulture);
             }
@@ -1458,7 +1476,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Min Seed Time 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_seed_time {
+        public static string Aria2Option_seed_time {
             get {
                 return ResourceManager.GetString("Aria2Option_seed-time", resourceCulture);
             }
@@ -1467,7 +1485,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Server Stat File 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_server_stat_of {
+        public static string Aria2Option_server_stat_of {
             get {
                 return ResourceManager.GetString("Aria2Option_server-stat-of", resourceCulture);
             }
@@ -1476,7 +1494,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Server Stat Timeout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_server_stat_timeout {
+        public static string Aria2Option_server_stat_timeout {
             get {
                 return ResourceManager.GetString("Aria2Option_server-stat-timeout", resourceCulture);
             }
@@ -1485,7 +1503,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Show Console Readout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_show_console_readout {
+        public static string Aria2Option_show_console_readout {
             get {
                 return ResourceManager.GetString("Aria2Option_show-console-readout", resourceCulture);
             }
@@ -1494,7 +1512,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Socket Receive Buffer Size 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_socket_recv_buffer_size {
+        public static string Aria2Option_socket_recv_buffer_size {
             get {
                 return ResourceManager.GetString("Aria2Option_socket-recv-buffer-size", resourceCulture);
             }
@@ -1503,7 +1521,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Connections Per Task 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_split {
+        public static string Aria2Option_split {
             get {
                 return ResourceManager.GetString("Aria2Option_split", resourceCulture);
             }
@@ -1512,7 +1530,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 SSH Host Key Checksum 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_ssh_host_key_md {
+        public static string Aria2Option_ssh_host_key_md {
             get {
                 return ResourceManager.GetString("Aria2Option_ssh-host-key-md", resourceCulture);
             }
@@ -1521,7 +1539,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Auto Stop Time 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_stop {
+        public static string Aria2Option_stop {
             get {
                 return ResourceManager.GetString("Aria2Option_stop", resourceCulture);
             }
@@ -1530,7 +1548,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Stream Piece Selector Algorithm 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_stream_piece_selector {
+        public static string Aria2Option_stream_piece_selector {
             get {
                 return ResourceManager.GetString("Aria2Option_stream-piece-selector", resourceCulture);
             }
@@ -1539,7 +1557,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Download Summary Interval 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_summary_interval {
+        public static string Aria2Option_summary_interval {
             get {
                 return ResourceManager.GetString("Aria2Option_summary-interval", resourceCulture);
             }
@@ -1548,7 +1566,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Timeout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_timeout {
+        public static string Aria2Option_timeout {
             get {
                 return ResourceManager.GetString("Aria2Option_timeout", resourceCulture);
             }
@@ -1557,7 +1575,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Truncate Console Readout 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_truncate_console_readout {
+        public static string Aria2Option_truncate_console_readout {
             get {
                 return ResourceManager.GetString("Aria2Option_truncate-console-readout", resourceCulture);
             }
@@ -1566,7 +1584,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 URI Selector Algorithm 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_uri_selector {
+        public static string Aria2Option_uri_selector {
             get {
                 return ResourceManager.GetString("Aria2Option_uri-selector", resourceCulture);
             }
@@ -1575,7 +1593,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Use HEAD Method 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_use_head {
+        public static string Aria2Option_use_head {
             get {
                 return ResourceManager.GetString("Aria2Option_use-head", resourceCulture);
             }
@@ -1584,7 +1602,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Custom User Agent 的本地化字符串。
         /// </summary>
-        internal static string Aria2Option_user_agent {
+        public static string Aria2Option_user_agent {
             get {
                 return ResourceManager.GetString("Aria2Option_user-agent", resourceCulture);
             }
@@ -1593,7 +1611,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Basic Settings 的本地化字符串。
         /// </summary>
-        internal static string Basic_Options {
+        public static string Basic_Options {
             get {
                 return ResourceManager.GetString("Basic_Options", resourceCulture);
             }
@@ -1602,7 +1620,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 BitTorrent Settings 的本地化字符串。
         /// </summary>
-        internal static string BitTorrent_Options {
+        public static string BitTorrent_Options {
             get {
                 return ResourceManager.GetString("BitTorrent_Options", resourceCulture);
             }
@@ -1611,34 +1629,43 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Browse 的本地化字符串。
         /// </summary>
-        internal static string Browse {
+        public static string Browse {
             get {
                 return ResourceManager.GetString("Browse", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 BtDownload_Complete 的本地化字符串。
+        /// </summary>
+        public static string BtDownload_Complete {
+            get {
+                return ResourceManager.GetString("BtDownload_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Failed to change Aria2 options 的本地化字符串。
         /// </summary>
-        internal static string Change_Options_Fail {
+        public static string Change_Options_Failed {
             get {
-                return ResourceManager.GetString("Change_Options_Fail", resourceCulture);
+                return ResourceManager.GetString("Change_Options_Failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Failed to change task files 的本地化字符串。
         /// </summary>
-        internal static string Change_Task_File_Fail {
+        public static string Change_Task_File_Failed {
             get {
-                return ResourceManager.GetString("Change_Task_File_Fail", resourceCulture);
+                return ResourceManager.GetString("Change_Task_File_Failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Check for Aria2 Updates 的本地化字符串。
         /// </summary>
-        internal static string Check_Aria2_Update {
+        public static string Check_Aria2_Update {
             get {
                 return ResourceManager.GetString("Check_Aria2_Update", resourceCulture);
             }
@@ -1647,7 +1674,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to check program update 的本地化字符串。
         /// </summary>
-        internal static string Check_Program_Update_Failed {
+        public static string Check_Program_Update_Failed {
             get {
                 return ResourceManager.GetString("Check_Program_Update_Failed", resourceCulture);
             }
@@ -1656,7 +1683,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Check for Updates 的本地化字符串。
         /// </summary>
-        internal static string Check_Update {
+        public static string Check_Update {
             get {
                 return ResourceManager.GetString("Check_Update", resourceCulture);
             }
@@ -1665,7 +1692,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Exit When Main Window is Closed 的本地化字符串。
         /// </summary>
-        internal static string Close_To_Exit {
+        public static string Close_To_Exit {
             get {
                 return ResourceManager.GetString("Close_To_Exit", resourceCulture);
             }
@@ -1674,16 +1701,43 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Connections 的本地化字符串。
         /// </summary>
-        internal static string Connections {
+        public static string Connections {
             get {
                 return ResourceManager.GetString("Connections", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Current Server 的本地化字符串。
+        /// </summary>
+        public static string Current_Server {
+            get {
+                return ResourceManager.GetString("Current_Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Download Complete 的本地化字符串。
+        /// </summary>
+        public static string Download_Complete {
+            get {
+                return ResourceManager.GetString("Download_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Download Error 的本地化字符串。
+        /// </summary>
+        public static string Download_Error {
+            get {
+                return ResourceManager.GetString("Download_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Download Info 的本地化字符串。
         /// </summary>
-        internal static string Download_Info {
+        public static string Download_Info {
             get {
                 return ResourceManager.GetString("Download_Info", resourceCulture);
             }
@@ -1692,7 +1746,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Download Link 的本地化字符串。
         /// </summary>
-        internal static string Download_Link {
+        public static string Download_Link {
             get {
                 return ResourceManager.GetString("Download_Link", resourceCulture);
             }
@@ -1701,34 +1755,61 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Multiple links supported, one address per line 的本地化字符串。
         /// </summary>
-        internal static string Download_Link_tip {
+        public static string Download_Link_Tip {
             get {
-                return ResourceManager.GetString("Download_Link_tip", resourceCulture);
+                return ResourceManager.GetString("Download_Link_Tip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Download Path 的本地化字符串。
         /// </summary>
-        internal static string Download_Path {
+        public static string Download_Path {
             get {
                 return ResourceManager.GetString("Download_Path", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Download Pause 的本地化字符串。
+        /// </summary>
+        public static string Download_Pause {
+            get {
+                return ResourceManager.GetString("Download_Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Download Speed 的本地化字符串。
         /// </summary>
-        internal static string Download_Speed {
+        public static string Download_Speed {
             get {
                 return ResourceManager.GetString("Download_Speed", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Download Start 的本地化字符串。
+        /// </summary>
+        public static string Download_Start {
+            get {
+                return ResourceManager.GetString("Download_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Download Stop 的本地化字符串。
+        /// </summary>
+        public static string Download_Stop {
+            get {
+                return ResourceManager.GetString("Download_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Downloaded 的本地化字符串。
         /// </summary>
-        internal static string Downloaded {
+        public static string Downloaded {
             get {
                 return ResourceManager.GetString("Downloaded", resourceCulture);
             }
@@ -1737,7 +1818,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Duplicate server name 的本地化字符串。
         /// </summary>
-        internal static string Duplicate_Server_Name {
+        public static string Duplicate_Server_Name {
             get {
                 return ResourceManager.GetString("Duplicate_Server_Name", resourceCulture);
             }
@@ -1746,16 +1827,25 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Edit 的本地化字符串。
         /// </summary>
-        internal static string Edit {
+        public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Enable Aria2 Notification 的本地化字符串。
+        /// </summary>
+        public static string Enable_Aria2_Notification {
+            get {
+                return ResourceManager.GetString("Enable_Aria2_Notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enabled 的本地化字符串。
         /// </summary>
-        internal static string Enabled {
+        public static string Enabled {
             get {
                 return ResourceManager.GetString("Enabled", resourceCulture);
             }
@@ -1764,7 +1854,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 ETA 的本地化字符串。
         /// </summary>
-        internal static string ETA {
+        public static string ETA {
             get {
                 return ResourceManager.GetString("ETA", resourceCulture);
             }
@@ -1773,7 +1863,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Exit 的本地化字符串。
         /// </summary>
-        internal static string Exit {
+        public static string Exit {
             get {
                 return ResourceManager.GetString("Exit", resourceCulture);
             }
@@ -1782,7 +1872,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 File Name 的本地化字符串。
         /// </summary>
-        internal static string File_Name {
+        public static string File_Name {
             get {
                 return ResourceManager.GetString("File_Name", resourceCulture);
             }
@@ -1791,7 +1881,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 File List 的本地化字符串。
         /// </summary>
-        internal static string Files_List {
+        public static string Files_List {
             get {
                 return ResourceManager.GetString("Files_List", resourceCulture);
             }
@@ -1800,7 +1890,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 FTP/SFTP Settings 的本地化字符串。
         /// </summary>
-        internal static string FTPSFTP_Options {
+        public static string FTPSFTP_Options {
             get {
                 return ResourceManager.GetString("FTPSFTP_Options", resourceCulture);
             }
@@ -1809,7 +1899,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Header 的本地化字符串。
         /// </summary>
-        internal static string Header {
+        public static string Header {
             get {
                 return ResourceManager.GetString("Header", resourceCulture);
             }
@@ -1818,7 +1908,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Use &quot;:&quot; to separate key and value, one entry per line 的本地化字符串。
         /// </summary>
-        internal static string Header_Tip {
+        public static string Header_Tip {
             get {
                 return ResourceManager.GetString("Header_Tip", resourceCulture);
             }
@@ -1827,7 +1917,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Help 的本地化字符串。
         /// </summary>
-        internal static string Help {
+        public static string Help {
             get {
                 return ResourceManager.GetString("Help", resourceCulture);
             }
@@ -1836,7 +1926,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP Settings 的本地化字符串。
         /// </summary>
-        internal static string HTTP_Options {
+        public static string HTTP_Options {
             get {
                 return ResourceManager.GetString("HTTP_Options", resourceCulture);
             }
@@ -1845,34 +1935,16 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP Password 的本地化字符串。
         /// </summary>
-        internal static string HTTP_Passwd {
+        public static string HTTP_Passwd {
             get {
                 return ResourceManager.GetString("HTTP_Passwd", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 HTTP Proxy Address 的本地化字符串。
-        /// </summary>
-        internal static string Http_Proxy_Address {
-            get {
-                return ResourceManager.GetString("Http_Proxy_Address", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 HTTP Proxy Port 的本地化字符串。
-        /// </summary>
-        internal static string Http_Proxy_Port {
-            get {
-                return ResourceManager.GetString("Http_Proxy_Port", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 HTTP Username 的本地化字符串。
         /// </summary>
-        internal static string HTTP_User {
+        public static string HTTP_User {
             get {
                 return ResourceManager.GetString("HTTP_User", resourceCulture);
             }
@@ -1881,7 +1953,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTP/FTP/SFTP Settings 的本地化字符串。
         /// </summary>
-        internal static string HTTPFTPSFTP_Options {
+        public static string HTTPFTPSFTP_Options {
             get {
                 return ResourceManager.GetString("HTTPFTPSFTP_Options", resourceCulture);
             }
@@ -1890,7 +1962,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Info Hash 的本地化字符串。
         /// </summary>
-        internal static string Info_Hash {
+        public static string Info_Hash {
             get {
                 return ResourceManager.GetString("Info_Hash", resourceCulture);
             }
@@ -1899,7 +1971,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Close Aria2 on Exit 的本地化字符串。
         /// </summary>
-        internal static string Kill_Aria2 {
+        public static string Kill_Aria2 {
             get {
                 return ResourceManager.GetString("Kill_Aria2", resourceCulture);
             }
@@ -1908,7 +1980,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Close Aria2 when exiting the program (only affects Aria2 started by this program) 的本地化字符串。
         /// </summary>
-        internal static string Kill_Aria2_Tip {
+        public static string Kill_Aria2_Tip {
             get {
                 return ResourceManager.GetString("Kill_Aria2_Tip", resourceCulture);
             }
@@ -1917,7 +1989,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Need restart to change language 的本地化字符串。
         /// </summary>
-        internal static string Language_ReStart {
+        public static string Language_ReStart {
             get {
                 return ResourceManager.GetString("Language_ReStart", resourceCulture);
             }
@@ -1926,7 +1998,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to load Aria2 options 的本地化字符串。
         /// </summary>
-        internal static string Load_Options_Fail {
+        public static string Load_Options_Fail {
             get {
                 return ResourceManager.GetString("Load_Options_Fail", resourceCulture);
             }
@@ -1935,7 +2007,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to load task stutus 的本地化字符串。
         /// </summary>
-        internal static string Load_Task_Status_Fail {
+        public static string Load_Task_Status_Fail {
             get {
                 return ResourceManager.GetString("Load_Task_Status_Fail", resourceCulture);
             }
@@ -1944,7 +2016,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Local Server 的本地化字符串。
         /// </summary>
-        internal static string Local_Server {
+        public static string Local_Server {
             get {
                 return ResourceManager.GetString("Local_Server", resourceCulture);
             }
@@ -1953,7 +2025,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 MetaLink 的本地化字符串。
         /// </summary>
-        internal static string MetaLink {
+        public static string MetaLink {
             get {
                 return ResourceManager.GetString("MetaLink", resourceCulture);
             }
@@ -1962,7 +2034,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Metalink Settings 的本地化字符串。
         /// </summary>
-        internal static string Metalink_Options {
+        public static string Metalink_Options {
             get {
                 return ResourceManager.GetString("Metalink_Options", resourceCulture);
             }
@@ -1971,7 +2043,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Name 的本地化字符串。
         /// </summary>
-        internal static string Name {
+        public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
             }
@@ -1980,7 +2052,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 New 的本地化字符串。
         /// </summary>
-        internal static string New {
+        public static string New {
             get {
                 return ResourceManager.GetString("New", resourceCulture);
             }
@@ -1989,25 +2061,43 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to add new Aria2 task 的本地化字符串。
         /// </summary>
-        internal static string New_Task_Fail {
+        public static string New_Task_Fail {
             get {
                 return ResourceManager.GetString("New_Task_Fail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   查找类似 No browser found 的本地化字符串。
+        ///   查找类似 Open File Location 的本地化字符串。
         /// </summary>
-        internal static string No_Browser_Found {
+        public static string Open_File_Location {
             get {
-                return ResourceManager.GetString("No_Browser_Found", resourceCulture);
+                return ResourceManager.GetString("Open_File_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Failed to open file location 的本地化字符串。
+        /// </summary>
+        public static string Open_File_Location_Failed {
+            get {
+                return ResourceManager.GetString("Open_File_Location_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Failed to open website 的本地化字符串。
+        /// </summary>
+        public static string Open_Website_Failed {
+            get {
+                return ResourceManager.GetString("Open_Website_Failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Overview 的本地化字符串。
         /// </summary>
-        internal static string OverView {
+        public static string OverView {
             get {
                 return ResourceManager.GetString("OverView", resourceCulture);
             }
@@ -2016,7 +2106,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Pause 的本地化字符串。
         /// </summary>
-        internal static string Pause {
+        public static string Pause {
             get {
                 return ResourceManager.GetString("Pause", resourceCulture);
             }
@@ -2025,7 +2115,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Pause All 的本地化字符串。
         /// </summary>
-        internal static string Pause_All {
+        public static string Pause_All {
             get {
                 return ResourceManager.GetString("Pause_All", resourceCulture);
             }
@@ -2034,7 +2124,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to pause task 的本地化字符串。
         /// </summary>
-        internal static string Pause_Task_Failed {
+        public static string Pause_Task_Failed {
             get {
                 return ResourceManager.GetString("Pause_Task_Failed", resourceCulture);
             }
@@ -2043,7 +2133,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Language 的本地化字符串。
         /// </summary>
-        internal static string Program_Language {
+        public static string Program_Language {
             get {
                 return ResourceManager.GetString("Program_Language", resourceCulture);
             }
@@ -2052,7 +2142,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Program Settings 的本地化字符串。
         /// </summary>
-        internal static string Program_Settings {
+        public static string Program_Settings {
             get {
                 return ResourceManager.GetString("Program_Settings", resourceCulture);
             }
@@ -2061,7 +2151,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Theme 的本地化字符串。
         /// </summary>
-        internal static string Program_Theme {
+        public static string Program_Theme {
             get {
                 return ResourceManager.GetString("Program_Theme", resourceCulture);
             }
@@ -2070,7 +2160,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Program up to date 的本地化字符串。
         /// </summary>
-        internal static string Program_Up_To_Date {
+        public static string Program_Up_To_Date {
             get {
                 return ResourceManager.GetString("Program_Up_To_Date", resourceCulture);
             }
@@ -2079,7 +2169,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Program update available 的本地化字符串。
         /// </summary>
-        internal static string Program_Update_Available {
+        public static string Program_Update_Available {
             get {
                 return ResourceManager.GetString("Program_Update_Available", resourceCulture);
             }
@@ -2088,7 +2178,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Progress 的本地化字符串。
         /// </summary>
-        internal static string Progress {
+        public static string Progress {
             get {
                 return ResourceManager.GetString("Progress", resourceCulture);
             }
@@ -2097,7 +2187,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Properties 的本地化字符串。
         /// </summary>
-        internal static string Properties {
+        public static string Properties {
             get {
                 return ResourceManager.GetString("Properties", resourceCulture);
             }
@@ -2106,7 +2196,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Address 的本地化字符串。
         /// </summary>
-        internal static string Proxy_Address {
+        public static string Proxy_Address {
             get {
                 return ResourceManager.GetString("Proxy_Address", resourceCulture);
             }
@@ -2115,7 +2205,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Password 的本地化字符串。
         /// </summary>
-        internal static string Proxy_Passwd {
+        public static string Proxy_Passwd {
             get {
                 return ResourceManager.GetString("Proxy_Passwd", resourceCulture);
             }
@@ -2124,7 +2214,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Port 的本地化字符串。
         /// </summary>
-        internal static string Proxy_Port {
+        public static string Proxy_Port {
             get {
                 return ResourceManager.GetString("Proxy_Port", resourceCulture);
             }
@@ -2133,7 +2223,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Network Proxy 的本地化字符串。
         /// </summary>
-        internal static string Proxy_Settings {
+        public static string Proxy_Settings {
             get {
                 return ResourceManager.GetString("Proxy_Settings", resourceCulture);
             }
@@ -2142,7 +2232,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Type 的本地化字符串。
         /// </summary>
-        internal static string Proxy_Type {
+        public static string Proxy_Type {
             get {
                 return ResourceManager.GetString("Proxy_Type", resourceCulture);
             }
@@ -2151,7 +2241,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Username 的本地化字符串。
         /// </summary>
-        internal static string Proxy_User {
+        public static string Proxy_User {
             get {
                 return ResourceManager.GetString("Proxy_User", resourceCulture);
             }
@@ -2160,7 +2250,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Purge All 的本地化字符串。
         /// </summary>
-        internal static string Purge_All {
+        public static string Purge_All {
             get {
                 return ResourceManager.GetString("Purge_All", resourceCulture);
             }
@@ -2169,7 +2259,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to purge tasks 的本地化字符串。
         /// </summary>
-        internal static string Purge_Task_Failed {
+        public static string Purge_Task_Failed {
             get {
                 return ResourceManager.GetString("Purge_Task_Failed", resourceCulture);
             }
@@ -2178,7 +2268,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Ratio 的本地化字符串。
         /// </summary>
-        internal static string Ratio {
+        public static string Ratio {
             get {
                 return ResourceManager.GetString("Ratio", resourceCulture);
             }
@@ -2187,7 +2277,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Remove 的本地化字符串。
         /// </summary>
-        internal static string Remove {
+        public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
             }
@@ -2196,7 +2286,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Remove local files? 的本地化字符串。
         /// </summary>
-        internal static string Remove_Local_Files {
+        public static string Remove_Local_Files {
             get {
                 return ResourceManager.GetString("Remove_Local_Files", resourceCulture);
             }
@@ -2205,7 +2295,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to remove task 的本地化字符串。
         /// </summary>
-        internal static string Remove_Task_Failed {
+        public static string Remove_Task_Failed {
             get {
                 return ResourceManager.GetString("Remove_Task_Failed", resourceCulture);
             }
@@ -2214,7 +2304,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Resume 的本地化字符串。
         /// </summary>
-        internal static string Resume {
+        public static string Resume {
             get {
                 return ResourceManager.GetString("Resume", resourceCulture);
             }
@@ -2223,7 +2313,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Resume All 的本地化字符串。
         /// </summary>
-        internal static string Resume_All {
+        public static string Resume_All {
             get {
                 return ResourceManager.GetString("Resume_All", resourceCulture);
             }
@@ -2232,7 +2322,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 RPC Settings 的本地化字符串。
         /// </summary>
-        internal static string RPC_Options {
+        public static string RPC_Options {
             get {
                 return ResourceManager.GetString("RPC_Options", resourceCulture);
             }
@@ -2241,7 +2331,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Save 的本地化字符串。
         /// </summary>
-        internal static string Save {
+        public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
@@ -2250,7 +2340,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Seed Ratio 的本地化字符串。
         /// </summary>
-        internal static string Seed_Ratio {
+        public static string Seed_Ratio {
             get {
                 return ResourceManager.GetString("Seed_Ratio", resourceCulture);
             }
@@ -2259,7 +2349,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Seed Time 的本地化字符串。
         /// </summary>
-        internal static string Seed_Time {
+        public static string Seed_Time {
             get {
                 return ResourceManager.GetString("Seed_Time", resourceCulture);
             }
@@ -2268,7 +2358,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Seeds 的本地化字符串。
         /// </summary>
-        internal static string Seeds {
+        public static string Seeds {
             get {
                 return ResourceManager.GetString("Seeds", resourceCulture);
             }
@@ -2277,7 +2367,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Seeds/Connections 的本地化字符串。
         /// </summary>
-        internal static string Seeds_And_Connections {
+        public static string Seeds_And_Connections {
             get {
                 return ResourceManager.GetString("Seeds_And_Connections", resourceCulture);
             }
@@ -2286,7 +2376,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Server Address 的本地化字符串。
         /// </summary>
-        internal static string Server_Address {
+        public static string Server_Address {
             get {
                 return ResourceManager.GetString("Server_Address", resourceCulture);
             }
@@ -2295,7 +2385,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Server Name 的本地化字符串。
         /// </summary>
-        internal static string Server_Name {
+        public static string Server_Name {
             get {
                 return ResourceManager.GetString("Server_Name", resourceCulture);
             }
@@ -2304,7 +2394,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Server Configuration 的本地化字符串。
         /// </summary>
-        internal static string Server_Options {
+        public static string Server_Options {
             get {
                 return ResourceManager.GetString("Server_Options", resourceCulture);
             }
@@ -2313,7 +2403,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Server Port 的本地化字符串。
         /// </summary>
-        internal static string Server_Port {
+        public static string Server_Port {
             get {
                 return ResourceManager.GetString("Server_Port", resourceCulture);
             }
@@ -2322,16 +2412,25 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Server Secret 的本地化字符串。
         /// </summary>
-        internal static string Server_Secret {
+        public static string Server_Secret {
             get {
                 return ResourceManager.GetString("Server_Secret", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Show 的本地化字符串。
+        /// </summary>
+        public static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Size 的本地化字符串。
         /// </summary>
-        internal static string Size {
+        public static string Size {
             get {
                 return ResourceManager.GetString("Size", resourceCulture);
             }
@@ -2340,7 +2439,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Speed 的本地化字符串。
         /// </summary>
-        internal static string Speed {
+        public static string Speed {
             get {
                 return ResourceManager.GetString("Speed", resourceCulture);
             }
@@ -2349,7 +2448,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Start Aria2 with Program 的本地化字符串。
         /// </summary>
-        internal static string Start_Aria2 {
+        public static string Start_Aria2 {
             get {
                 return ResourceManager.GetString("Start_Aria2", resourceCulture);
             }
@@ -2358,7 +2457,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Use default Aria2 executable and config file 的本地化字符串。
         /// </summary>
-        internal static string Start_Aria2_Tip {
+        public static string Start_Aria2_Tip {
             get {
                 return ResourceManager.GetString("Start_Aria2_Tip", resourceCulture);
             }
@@ -2367,7 +2466,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Minimize to Tray on Startup 的本地化字符串。
         /// </summary>
-        internal static string Start_Minimize {
+        public static string Start_Minimize {
             get {
                 return ResourceManager.GetString("Start_Minimize", resourceCulture);
             }
@@ -2376,7 +2475,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Status 的本地化字符串。
         /// </summary>
-        internal static string Status {
+        public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
             }
@@ -2385,7 +2484,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Active 的本地化字符串。
         /// </summary>
-        internal static string Status_Active {
+        public static string Status_Active {
             get {
                 return ResourceManager.GetString("Status_Active", resourceCulture);
             }
@@ -2394,7 +2493,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 All 的本地化字符串。
         /// </summary>
-        internal static string Status_All {
+        public static string Status_All {
             get {
                 return ResourceManager.GetString("Status_All", resourceCulture);
             }
@@ -2403,7 +2502,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Completed 的本地化字符串。
         /// </summary>
-        internal static string Status_Complete {
+        public static string Status_Complete {
             get {
                 return ResourceManager.GetString("Status_Complete", resourceCulture);
             }
@@ -2412,7 +2511,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Error 的本地化字符串。
         /// </summary>
-        internal static string Status_Error {
+        public static string Status_Error {
             get {
                 return ResourceManager.GetString("Status_Error", resourceCulture);
             }
@@ -2421,7 +2520,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Paused 的本地化字符串。
         /// </summary>
-        internal static string Status_Paused {
+        public static string Status_Paused {
             get {
                 return ResourceManager.GetString("Status_Paused", resourceCulture);
             }
@@ -2430,7 +2529,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Removed 的本地化字符串。
         /// </summary>
-        internal static string Status_Removed {
+        public static string Status_Removed {
             get {
                 return ResourceManager.GetString("Status_Removed", resourceCulture);
             }
@@ -2439,7 +2538,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Stopped 的本地化字符串。
         /// </summary>
-        internal static string Status_Stopped {
+        public static string Status_Stopped {
             get {
                 return ResourceManager.GetString("Status_Stopped", resourceCulture);
             }
@@ -2448,7 +2547,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Waiting 的本地化字符串。
         /// </summary>
-        internal static string Status_Waiting {
+        public static string Status_Waiting {
             get {
                 return ResourceManager.GetString("Status_Waiting", resourceCulture);
             }
@@ -2457,16 +2556,25 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Need restart to change theme and language 的本地化字符串。
         /// </summary>
-        internal static string Theme_Language_ReStart {
+        public static string Theme_Language_ReStart {
             get {
                 return ResourceManager.GetString("Theme_Language_ReStart", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   查找类似 Need restart to change theme 的本地化字符串。
+        /// </summary>
+        public static string Theme_ReStart {
+            get {
+                return ResourceManager.GetString("Theme_ReStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Tools 的本地化字符串。
         /// </summary>
-        internal static string Tools {
+        public static string Tools {
             get {
                 return ResourceManager.GetString("Tools", resourceCulture);
             }
@@ -2475,7 +2583,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Torrent 的本地化字符串。
         /// </summary>
-        internal static string Torrent {
+        public static string Torrent {
             get {
                 return ResourceManager.GetString("Torrent", resourceCulture);
             }
@@ -2484,7 +2592,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Trackers Source 的本地化字符串。
         /// </summary>
-        internal static string Trackers_Source {
+        public static string Trackers_Source {
             get {
                 return ResourceManager.GetString("Trackers_Source", resourceCulture);
             }
@@ -2493,7 +2601,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Update Interval (Days) 的本地化字符串。
         /// </summary>
-        internal static string Trackers_Update_Interval {
+        public static string Trackers_Update_Interval {
             get {
                 return ResourceManager.GetString("Trackers_Update_Interval", resourceCulture);
             }
@@ -2502,7 +2610,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to unpause task 的本地化字符串。
         /// </summary>
-        internal static string Unpause_Task_Failed {
+        public static string Unpause_Task_Failed {
             get {
                 return ResourceManager.GetString("Unpause_Task_Failed", resourceCulture);
             }
@@ -2511,7 +2619,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Update Trackers on Startup 的本地化字符串。
         /// </summary>
-        internal static string Update_BT_Trackers {
+        public static string Update_BT_Trackers {
             get {
                 return ResourceManager.GetString("Update_BT_Trackers", resourceCulture);
             }
@@ -2520,7 +2628,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Failed to update trackers 的本地化字符串。
         /// </summary>
-        internal static string Update_Trackers_Failed {
+        public static string Update_Trackers_Failed {
             get {
                 return ResourceManager.GetString("Update_Trackers_Failed", resourceCulture);
             }
@@ -2529,7 +2637,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Upload Speed 的本地化字符串。
         /// </summary>
-        internal static string Upload_Speed {
+        public static string Upload_Speed {
             get {
                 return ResourceManager.GetString("Upload_Speed", resourceCulture);
             }
@@ -2538,7 +2646,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Uploaded 的本地化字符串。
         /// </summary>
-        internal static string Uploaded {
+        public static string Uploaded {
             get {
                 return ResourceManager.GetString("Uploaded", resourceCulture);
             }
@@ -2547,7 +2655,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 HTTPS 的本地化字符串。
         /// </summary>
-        internal static string Use_Https {
+        public static string Use_Https {
             get {
                 return ResourceManager.GetString("Use_Https", resourceCulture);
             }
@@ -2556,7 +2664,7 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Proxy Connection 的本地化字符串。
         /// </summary>
-        internal static string Use_Proxy {
+        public static string Use_Proxy {
             get {
                 return ResourceManager.GetString("Use_Proxy", resourceCulture);
             }

@@ -62,10 +62,6 @@ rpc-listen-all=true
 rpc-listen-port=6800
 # 设置的RPC授权令牌, v1.18.4新增功能, 取代 --rpc-user 和 --rpc-passwd 选项
 #rpc-secret=
-# 设置的RPC访问用户名, 此选项新版已废弃, 建议改用 --rpc-secret 选项
-#rpc-user=<USER>
-# 设置的RPC访问密码, 此选项新版已废弃, 建议改用 --rpc-secret 选项
-#rpc-passwd=<PASSWD>
 
 ## BT/PT下载相关 ##
 # 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true
@@ -105,14 +101,6 @@ bt-remove-unselected-file=true
 ## BT 服务器地址 ##
 #bt-tracker=
 ";
-        //获取系统默认下载目录
-        private static string GetSystemDownloadsPath()
-        {
-            //获取Win/Linux/Mac下的用户主目录
-            string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string downloadPath = Path.Combine(userProfile, "Downloads");
-            return downloadPath.Replace('\\', '/');
-        }
         //生成Aria2配置文件和会话文件
         public static void InitializeAria2Environment()
         {
@@ -133,9 +121,9 @@ bt-remove-unselected-file=true
             //使用模板生成aria2.conf文件
             if (!File.Exists(confPath))
             {
-                string downloadPath = GetSystemDownloadsPath();
+                string downloadPath = FileSystemHelper.GetDefaultDownloadDirectory();
                 string finalConfContent = ConfTemplate.Replace("{DownloadDir}", downloadPath);
-                File.WriteAllText(confPath, finalConfContent, System.Text.Encoding.UTF8);
+                File.WriteAllText(confPath, finalConfContent, new System.Text.UTF8Encoding(false));
             }
         }
     }

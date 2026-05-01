@@ -8,13 +8,14 @@ namespace Aria2Manager.Core.ViewModels
     public partial class AboutViewModel
     {
         private IUIService _uiService;
-        public string AppName { get; set; } = "Aria2Manager";
-        public string AppVersion { get; set; } = $"V{GlobalContext.AppVersion}";
-        public string AuthorName { get; set; } = "Ftbom";
-        public string AuthorEmail { get; set; } = "lz490070@gmail.com";
-        public string AuthorGithub { get; set; } = "https://github.com/Ftbom";
-        public string AuthorGithubName { get; set; } = "Ftbom";
-        public string AuthorWebsite { get; set; } = "https://ftbom.github.io";
+        public string AppName => GlobalContext.AppName;
+        public string AppVersion => $"V{GlobalContext.AppVersion}";
+        public string AppWebsite => "https://github.com/Ftbom/Aria2Manager";
+        public string AuthorName => "Ftbom";
+        public string AuthorEmail => "lz490070@gmail.com";
+        public string AuthorGithub => "https://github.com/Ftbom";
+        public string AuthorGithubName => "Ftbom";
+        public string AuthorWebsite => "https://ftbom.github.io";
         public AboutViewModel(IUIService uiService)
         {
             _uiService = uiService;
@@ -35,6 +36,11 @@ namespace Aria2Manager.Core.ViewModels
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Up_To_Date"), "Info", MsgBoxLevel.Information);
             }
+        }
+        [RelayCommand]
+        private async Task OpenWebsite(string url)
+        {
+            await OpenWebsiteHelper.Open(url, _uiService);
         }
     }
 }

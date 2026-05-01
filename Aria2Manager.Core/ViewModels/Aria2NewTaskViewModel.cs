@@ -80,7 +80,7 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Fail"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"), "Error", MsgBoxLevel.Error);
             }
         }
         //当IsTorrentEnabled改变时，自动调用该Partial方法
@@ -144,19 +144,26 @@ namespace Aria2Manager.Core.ViewModels
                     }
                     if (!String.IsNullOrWhiteSpace(HeaderString))
                     {
-                        var HeaderList = new List<string>();
-                        foreach (var header in HeaderString.Split('\n'))
+                        var headerList = new List<string>();
+                        var headerStrs = HeaderString.Split(
+                            new[] { '\r', '\n' },
+                            StringSplitOptions.RemoveEmptyEntries
+                        );
+                        foreach (var header in headerStrs)
                         {
-                            HeaderList.Add(header);
+                            headerList.Add(header);
                         }
-                        options["header"] = HeaderList.ToArray();
+                        options["header"] = headerList.ToArray();
                     }
-                    await Server.AddUrlTask(Urls.Split('\n').ToList<string>(), options);
+                    await Server.AddUrlsTask(Urls.Split(
+                        new[] { '\r', '\n' },
+                        StringSplitOptions.RemoveEmptyEntries
+                    ).ToList<string>(), options);
                 }
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("New_Task_Fail"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("New_Task_Failed"), "Error", MsgBoxLevel.Error);
             }
             if (!string.IsNullOrEmpty(WindowId))
             {
@@ -164,7 +171,7 @@ namespace Aria2Manager.Core.ViewModels
             }
         }
         [RelayCommand]
-        private async Task BrowseFiles(string? filter)
+        private async Task BrowseFileOrFolder(string? filter)
         {
             if (filter == "torrent")
             {

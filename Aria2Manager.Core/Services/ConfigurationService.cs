@@ -9,7 +9,8 @@ namespace Aria2Manager.Core.Services
     {
         private readonly string _filePath;
         private readonly XmlSerializer _serializer;
-        public ConfigurationService(string fileName)
+        private readonly Func<T> _defaultFactory; //默认值生成器
+        public ConfigurationService(string fileName, Func<T> defaultFactory)
         {
             string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configurations");
             if (!Directory.Exists(dir))
@@ -18,13 +19,14 @@ namespace Aria2Manager.Core.Services
             }
             _filePath = Path.Combine(dir, fileName);
             _serializer = new XmlSerializer(typeof(T));
+            _defaultFactory = defaultFactory;
         }
         // 加载配置
         public T Load()
         {
             if (!File.Exists(_filePath))
             {
-                T newConfig = new T();
+                T newConfig = _defaultFactory();
                 Save(newConfig); // 不存在则创建默认并保存
                 return newConfig;
             }
@@ -45,7 +47,7 @@ namespace Aria2Manager.Core.Services
             catch (Exception ex)
             {
                 LogHelper.Error($"Failed to load configuration of {typeof(T)}", ex, false);
-                return new T(); // 加载配置失败返回默认值
+                return _defaultFactory(); // 加载配置失败返回默认值
             }
         }
         // 保存配置
@@ -67,7 +69,7 @@ namespace Aria2Manager.Core.Services
     {
         public static T? LoadAndMigrate(string filePath)
         {
-            if (!File.Exists(filePath)) { return new T(); }
+            if (!File.Exists(filePath)) { return null; }
             return typeof(T).Name switch
             {
                 nameof(ServerSettings) => MigrateServerConfig(filePath) as T,
@@ -84,14 +86,7 @@ namespace Aria2Manager.Core.Services
             {
                 return MigrateServerConfigV1ToV2(doc);
             }
-            else if (fileVersion == ServerSettings.Version)
-            {
-                return null;
-            }
-            else
-            {
-                return new ServerSettings();
-            }
+            return null;
         }
         private static ServerSettings MigrateServerConfigV1ToV2(XDocument doc)
         {

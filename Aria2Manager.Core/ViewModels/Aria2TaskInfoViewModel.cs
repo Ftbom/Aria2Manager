@@ -13,9 +13,22 @@ namespace Aria2Manager.Core.ViewModels
     public class FileViewModel
     {
         private DownloadStatusFile _model;
-        public FileViewModel(DownloadStatusFile model) => _model = model;
+        private readonly Action _onSelectionChanged; //回调委托
+        public FileViewModel(DownloadStatusFile model, Action onSelectionChanged)
+        {
+            _model = model;
+            _onSelectionChanged = onSelectionChanged;
+        }
         public int Index => _model.Index; //序号
-        public bool Selected => _model.Selected; //是否下载
+        public bool Selected
+        {
+            get => _model.Selected;
+            set
+            {
+                _model.Selected = value;
+                _onSelectionChanged?.Invoke();
+            }
+        }
         public string Name => Path.GetFileName(_model.Path); //名称
     }
     public class TaskInfoViewModel : ObservableObject
@@ -53,14 +66,14 @@ namespace Aria2Manager.Core.ViewModels
                 }
             }
         }
-        public void Update(DownloadStatusResult result)
+        public void Update(DownloadStatusResult result, Action onFileSelectionChanged)
         {
             _task = new TaskViewModel(result);
             DownloadPath = result.Dir;
             Hash = result.InfoHash ?? "--";
             foreach (var file in result.Files)
             {
-                Files.Add(new FileViewModel(file));
+                Files.Add(new FileViewModel(file, onFileSelectionChanged));
             }
             OnPropertyChanged(string.Empty); //通知所有属性更新
         }
@@ -83,14 +96,13 @@ namespace Aria2Manager.Core.ViewModels
             try
             {
                 var task = await Server.GetTaskStatus(_gid);
-                TaskInfo.Update(task);
+                TaskInfo.Update(task, async () => await OnSelectTaskFiles());
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Task_Status_Fail"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Task_Status_Failed"), "Error", MsgBoxLevel.Error);
             }
         }
-        [RelayCommand]
         private async Task OnSelectTaskFiles()
         {
             TaskInfo.RefreshFileCheckable();

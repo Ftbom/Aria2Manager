@@ -7,11 +7,11 @@ namespace Aria2Manager.Core.Services
 {
     public abstract class UIServiceBase : IUIService
     {
-        public string ShowWindow(WindowType windowType, object? dataContext = null)
+        public string ShowWindow(WindowType windowType, object? dataContext = null, string? ownerWindowId = null)
         {
             string windowId = Guid.NewGuid().ToString();
             InjectWindowIdIfAware(windowId, dataContext);
-            ShowPhysicalWindow(windowId, windowType, dataContext);
+            ShowPhysicalWindow(windowId, windowType, dataContext, ownerWindowId);
             return windowId;
         }
         public async Task ShowDialogAsync(WindowType windowType, object? dataContext = null)
@@ -20,13 +20,13 @@ namespace Aria2Manager.Core.Services
             InjectWindowIdIfAware(windowId, dataContext);
             await ShowPhysicalDialogAsync(windowId, windowType, dataContext);
         }
-        public void Exit()
+        public async Task Exit()
         {
             //执行清理操作
             GlobalContext.Instance.CancelAllTasks();
-            if (GlobalContext.Instance.AppSettings.CloseToExit)
+            if (GlobalContext.Instance.AppSettings.KillAria2)
             {
-                Aria2ProcessHelper.KillAria2Process();
+                await Aria2ProcessHelper.KillAria2Process();
             }
             //退出应用
             ExitApplication();
@@ -40,10 +40,11 @@ namespace Aria2Manager.Core.Services
             }
         }
         //非模态窗口
-        protected abstract void ShowPhysicalWindow(string windowId, WindowType windowType, object? dataContext);
+        protected abstract void ShowPhysicalWindow(string windowId, WindowType windowType, object? dataContext, string? ownerWindowId = null);
         //模态对话框
         protected abstract Task<bool?> ShowPhysicalDialogAsync(string windowId, WindowType windowType, object? dataContext);
         protected abstract void ExitApplication();
+        public abstract string DefaultTheme { get; }
         public abstract List<string> ThemeList { get; }
         public abstract void CloseWindow(string windowId);
         public abstract Task<bool?> ShowMessageBoxAsync(string message, string title, MsgBoxLevel icon = MsgBoxLevel.Information);
