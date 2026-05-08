@@ -53,7 +53,7 @@ namespace Aria2Manager.WPF.Services
                 window.Owner = ownerWindow;
                 window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
-            else if (Application.Current.MainWindow != null && Application.Current.MainWindow != window)
+            else if (Application.Current.MainWindow != null && Application.Current.MainWindow.Content != null && Application.Current.MainWindow != window)
             {
                 window.Owner = Application.Current.MainWindow;
                 window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
