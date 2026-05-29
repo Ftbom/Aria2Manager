@@ -69,10 +69,7 @@ namespace Aria2Manager.Core
             }
             //初始化Aria2通知服务
             _aria2Notification = new Aria2NotificationService(uiService, Aria2Server.GetTaskStatus);
-            if (AppSettings.EnableAria2Notification && _aria2Notification != null)
-            {
-                await _aria2Notification.StartListeningAsync(GetCurrentAria2Server());
-            }
+            await ChangeNotification(GetCurrentAria2Server());
             try
             {
                 //检查程序更新
@@ -105,10 +102,6 @@ namespace Aria2Manager.Core
             {
                 await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Update_Trackers_Failed"), "Error", MsgBoxLevel.Error);
             }
-            if (AppSettings.EnableAria2Notification)
-            {
-
-            }
         }
         private void SyncAria2ServerNames()
         {
@@ -128,6 +121,20 @@ namespace Aria2Manager.Core
                 }
             }
         }
+        private async Task ChangeNotification(Aria2Server server)
+        {
+            if (_aria2Notification != null)
+            {
+                if (AppSettings.EnableAria2Notification)
+                {
+                    await _aria2Notification.StartListeningAsync(server);
+                }
+                else
+                {
+                    await _aria2Notification.StopListeningAsync();
+                }
+            }
+        }
         //取消Aria2异步任务
         public void CancelAllTasks()
         {
@@ -137,17 +144,7 @@ namespace Aria2Manager.Core
         }
         public async void SaveSettings()
         {
-            if (_aria2Notification != null)
-            {
-                if (AppSettings.EnableAria2Notification)
-                {
-                    await _aria2Notification.StartListeningAsync(GetCurrentAria2Server());
-                }
-                else
-                {
-                    await _aria2Notification.StopListeningAsync();
-                }
-            }
+            await ChangeNotification(GetCurrentAria2Server());
             _settingsConfigService.Save(AppSettings);
         }
         public async void SaveServers()
@@ -155,10 +152,7 @@ namespace Aria2Manager.Core
             CancelAllTasks();
             Aria2Server newServer = GetCurrentAria2Server();
             Aria2Server.Update(newServer);
-            if (AppSettings.EnableAria2Notification && _aria2Notification != null)
-            {
-                await _aria2Notification.StartListeningAsync(newServer);
-            }
+            await ChangeNotification(newServer);
             SyncAria2ServerNames();
             _serversConfigService.Save(ServerSettings);
             OnServersUpdated?.Invoke();

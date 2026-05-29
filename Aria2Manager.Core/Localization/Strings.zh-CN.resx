@@ -891,9 +891,6 @@
   <data name="New_Task_Fail" xml:space="preserve">
     <value>新建Aria2任务失败</value>
   </data>
-  <data name="Load_Options_Fail" xml:space="preserve">
-    <value>加载Aria2配置失败</value>
-  </data>
   <data name="Change_Options_Failed" xml:space="preserve">
     <value>更改Aria2配置失败</value>
   </data>
@@ -995,5 +992,8 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>确定</value>
+  </data>
+  <data name="Load_Options_Failed" xml:space="preserve">
+    <value>加载Aria2配置失败</value>
   </data>
 </root>
