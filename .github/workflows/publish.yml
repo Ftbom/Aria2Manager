@@ -27,13 +27,13 @@ jobs:
     - name: Publish x64 project with version
       run: |
         $version = "${{ env.TAG_NAME }}"
-        dotnet publish Aria2Manager.WPF/Aria2Manager.WPF.csproj --configuration Release --output ./publish-x64 /p:Version=$version --self-contained true -r win-x64
+        dotnet publish Aria2Manager.WPF/Aria2Manager.WPF.csproj --configuration Release --output ./publish-x64 /p:Version=$version /p:DebugType=none /p:DebugSymbols=false --self-contained true -r win-x64
       shell: pwsh
     
     - name: Publish x86 project with version
       run: |
         $version = "${{ env.TAG_NAME }}"
-        dotnet publish Aria2Manager.WPF/Aria2Manager.WPF.csproj --configuration Release --output ./publish-x86 /p:Version=$version --self-contained true -r win-x86
+        dotnet publish Aria2Manager.WPF/Aria2Manager.WPF.csproj --configuration Release --output ./publish-x86 /p:Version=$version /p:DebugType=none /p:DebugSymbols=false --self-contained true -r win-x86
       shell: pwsh
 
     - name: Download latest aria2 and place in publish dir

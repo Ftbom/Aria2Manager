@@ -16,6 +16,10 @@ namespace Aria2Manager.Core.ViewModels
         [ObservableProperty]
         private string? _downloadPath = string.Empty;
         [ObservableProperty]
+        private string? _torrentPath = string.Empty;
+        [ObservableProperty]
+        private string? _metaLinkPath = string.Empty;
+        [ObservableProperty]
         private string? _seedRatio = string.Empty;
         [ObservableProperty]
         private string? _seedTime = string.Empty;
@@ -40,8 +44,6 @@ namespace Aria2Manager.Core.ViewModels
         public bool IsUrlEnabled => !IsTorrentEnabled && !IsMetalinkEnabled;
         public bool IsDownloadPathBrowseEnabled => Server.ServerInfo.IsLocal;
         public string? Urls { get; set; } = string.Empty;
-        public string? TorrentPath { get; set; } = string.Empty;
-        public string? MetaLinkPath { get; set; } = string.Empty;
         public string? HeaderString { get; set; } = string.Empty;
         public string? FileName { get; set; } = string.Empty;
         public Aria2NewTaskViewModel(IUIService uiService)

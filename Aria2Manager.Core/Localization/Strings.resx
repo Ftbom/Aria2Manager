@@ -891,9 +891,6 @@
   <data name="New_Task_Fail" xml:space="preserve">
     <value>Failed to add new Aria2 task</value>
   </data>
-  <data name="Load_Options_Fail" xml:space="preserve">
-    <value>Failed to load Aria2 options</value>
-  </data>
   <data name="Change_Options_Failed" xml:space="preserve">
     <value>Failed to change Aria2 options</value>
   </data>
@@ -995,5 +992,8 @@
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="Load_Options_Failed" xml:space="preserve">
+    <value>Failed to load aria2 options</value>
   </data>
 </root>

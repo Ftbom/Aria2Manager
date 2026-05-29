@@ -79,12 +79,16 @@ namespace Aria2Manager.Core.Services
                 ServerInfo.IsConnected = true;
                 return results;
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to get current tasks list", ex, false);
-                ServerInfo.IsConnected = false;
-                return new List<DownloadStatusResult>();
             }
+            ServerInfo.IsConnected = false;
+            return new List<DownloadStatusResult>();
         }
         public async Task GetAria2Status()
         {
@@ -96,6 +100,10 @@ namespace Aria2Manager.Core.Services
                 ServerInfo.NumActive = status.NumActive;
                 ServerInfo.NumWaiting = status.NumWaiting;
                 ServerInfo.NumStopped = status.NumStopped;
+            }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
             }
             catch (Exception ex)
             {
@@ -120,11 +128,15 @@ namespace Aria2Manager.Core.Services
                     key => allOptions.TryGetValue(key, out var value) ? value : null
                 );
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to get aria2 options", ex);
-                return new Dictionary<string, string?>();
             }
+            return new Dictionary<string, string?>();
         }
         public async Task<List<string>> AddMetalinkTask(byte[] metalink, IDictionary<string, object> options)
         {
@@ -132,11 +144,15 @@ namespace Aria2Manager.Core.Services
             {
                 return await _aria2Client.AddMetalinkAsync(metalink, options, cancellationToken: GlobalContext.Instance.GlobalCancelToken);
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to add Metalink task", ex);
-                return new List<string>();
             }
+            return new List<string>();
         }
         public async Task<string> AddTorrentTask(byte[] torrent, IDictionary<string, object> options)
         {
@@ -144,11 +160,15 @@ namespace Aria2Manager.Core.Services
             {
                 return await _aria2Client.AddTorrentAsync(torrent, options: options, cancellationToken: GlobalContext.Instance.GlobalCancelToken);
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to add Torrent task", ex);
-                return String.Empty;
             }
+            return String.Empty;
         }
         public async Task<List<string>> AddUrlsTask(List<string> urls, IDictionary<string, object> options)
         {
@@ -161,11 +181,15 @@ namespace Aria2Manager.Core.Services
                 }
                 return gidList;
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to add URL task", ex);
-                return new List<string>();
             }
+            return new List<string>();
         }
         public async Task<DownloadStatusResult> GetTaskStatus(string gid)
         {
@@ -173,11 +197,15 @@ namespace Aria2Manager.Core.Services
             {
                 return await _aria2Client.TellStatusAsync(gid, GlobalContext.Instance.GlobalCancelToken);
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to get task status", ex);
-                return new DownloadStatusResult { Gid = gid };
             }
+            return new DownloadStatusResult { Gid = gid };
         }
         public async Task ChangeAria2Options(IDictionary<string, string> options, string? gid = null)
         {
@@ -192,6 +220,10 @@ namespace Aria2Manager.Core.Services
                     await _aria2Client.ChangeGlobalOptionAsync(options, GlobalContext.Instance.GlobalCancelToken);
                 }
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to change aria2 options", ex);
@@ -203,11 +235,15 @@ namespace Aria2Manager.Core.Services
             {
                 return await _aria2Client.GetVersionAsync(GlobalContext.Instance.GlobalCancelToken);
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to get aria2 version", ex);
-                return new VersionResult();
             }
+            return new VersionResult();
         }
         public async Task<DownloadStatusResult> RemoveTask(string gid)
         {
@@ -224,11 +260,15 @@ namespace Aria2Manager.Core.Services
                 }
                 return task;
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to remove aria2 task", ex);
-                return new DownloadStatusResult { Gid = gid };
             }
+            return new DownloadStatusResult { Gid = gid };
         }
         public async Task UnpauseTask(string? gid = null)
         {
@@ -240,6 +280,10 @@ namespace Aria2Manager.Core.Services
                     return;
                 }
                 await _aria2Client.UnpauseAsync(gid, GlobalContext.Instance.GlobalCancelToken);
+            }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
             }
             catch (Exception ex)
             {
@@ -257,6 +301,10 @@ namespace Aria2Manager.Core.Services
                 }
                 await _aria2Client.PauseAsync(gid, GlobalContext.Instance.GlobalCancelToken);
             }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
             catch (Exception ex)
             {
                 LogHelper.Error("Failed to pause aria2 task", ex);
@@ -267,6 +315,10 @@ namespace Aria2Manager.Core.Services
             try
             {
                 await _aria2Client.PurgeDownloadResultAsync(GlobalContext.Instance.GlobalCancelToken);
+            }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
             }
             catch (Exception ex)
             {

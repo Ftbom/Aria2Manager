@@ -1996,11 +1996,11 @@ namespace Aria2Manager.Core.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Failed to load Aria2 options 的本地化字符串。
+        ///   查找类似 Failed to load aria2 options 的本地化字符串。
         /// </summary>
-        public static string Load_Options_Fail {
+        public static string Load_Options_Failed {
             get {
-                return ResourceManager.GetString("Load_Options_Fail", resourceCulture);
+                return ResourceManager.GetString("Load_Options_Failed", resourceCulture);
             }
         }
         

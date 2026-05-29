@@ -14,9 +14,13 @@ namespace Aria2Manager.Core.ViewModels
         }
         private async void LoadAria2Status()
         {
-            var status = await GlobalContext.Instance.Aria2Server.GetAria2Version();
-            Aria2Version = status.Version;
-            EnabledFeatures = status.EnabledFeatures;
+            try
+            {
+                var status = await GlobalContext.Instance.Aria2Server.GetAria2Version();
+                Aria2Version = status.Version;
+                EnabledFeatures = status.EnabledFeatures;
+            }
+            catch { }
         }
     }
 }
