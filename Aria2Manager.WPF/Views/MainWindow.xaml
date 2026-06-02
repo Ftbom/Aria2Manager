@@ -159,7 +159,7 @@
         <StatusBar DockPanel.Dock="Bottom" Background="{DynamicResource MahApps.Brushes.Gray10}">
             <StatusBarItem Height="37" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox ItemsSource="{Binding ServerNames, Mode=OneWay}" SelectedItem="{Binding CurrentServerName}" Margin="2,0,2,0"/>
+                    <ComboBox ItemsSource="{Binding ServerNames, Mode=OneWay}" IsEnabled="{Binding CanSwitchServer}" SelectedItem="{Binding CurrentServerName}" Margin="2,0,2,0"/>
                     <Ellipse Width="16" Height="16">
                         <Ellipse.Style>
                             <Style TargetType="Ellipse">

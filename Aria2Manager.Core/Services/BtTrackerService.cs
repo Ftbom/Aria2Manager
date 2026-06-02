@@ -36,7 +36,7 @@ namespace Aria2Manager.Core.Services
                     //更新配置文件
                     _trackerConfig.LastUpdateDay = nowDays;
                     GlobalContext.Instance.AppSettings.Trackers.LastUpdate = nowDays;
-                    GlobalContext.Instance.SaveSettings();
+                    _ = GlobalContext.Instance.SaveSettings();
                 }
                 catch (Exception ex)
                 {

@@ -70,6 +70,7 @@ namespace Aria2Manager.Core.ViewModels
             if (AvailableServers.Select(s => s.Name).Distinct().Count() != AvailableServers.Count)
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Duplicate_Server_Name"), "Warn", MsgBoxLevel.Warning);
+                return;
             }
             string oldServerName = GlobalContext.Instance.ServerSettings.Current;
             GlobalContext.Instance.ServerSettings.ServerConfigs.Clear();
@@ -86,14 +87,14 @@ namespace Aria2Manager.Core.ViewModels
             {
                 GlobalContext.Instance.ServerSettings.Current = AvailableServers[0].Name; //重置当前服务器为第一个
             }
-            GlobalContext.Instance.SaveServers();
+            _ = GlobalContext.Instance.SaveServers();
             await Task.Delay(500); //点击按钮后等待一段时间再启用，防止用户连续点击
         }
         [RelayCommand]
         private async Task SaveProxy()
         {
             GlobalContext.Instance.ServerSettings.Proxy = Proxy.DeepClone();
-            GlobalContext.Instance.SaveServers();
+            _ = GlobalContext.Instance.SaveServers();
             await Task.Delay(500); //点击按钮后等待一段时间再启用，防止用户连续点击
         }
     }

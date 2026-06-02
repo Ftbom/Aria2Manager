@@ -32,7 +32,7 @@ namespace Aria2Manager.Core.ViewModels
                 ThemeNeedRestart = await _uiService.ChangeThemeAsync(Settings.Theme);
             }
             GlobalContext.Instance.AppSettings = Settings.DeepClone();
-            GlobalContext.Instance.SaveSettings();
+            _ = GlobalContext.Instance.SaveSettings();
             if (LanguageChanged)
             {
                 if (ThemeNeedRestart)

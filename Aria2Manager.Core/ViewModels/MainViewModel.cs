@@ -91,6 +91,8 @@ namespace Aria2Manager.Core.ViewModels
         private CancellationTokenSource? _refreshCts;
         private Aria2ServerService Server => GlobalContext.Instance.Aria2Server; //Aria2服务器服务实例
         [ObservableProperty]
+        private bool _canSwitchServer = true; //能否进行服务器切换
+        [ObservableProperty]
         private string _currentServerName = GlobalContext.Instance.ServerSettings.Current;
         public string? WindowId { get; set; }
         public ObservableCollection<string> ServerNames => GlobalContext.Instance.Aria2ServerNames; //Aria2服务器名称列表
@@ -110,11 +112,13 @@ namespace Aria2Manager.Core.ViewModels
                 CurrentServerName = GlobalContext.Instance.ServerSettings.Current;
             };
         }
-        partial void OnCurrentServerNameChanged(string value)
+        async partial void OnCurrentServerNameChanged(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return;
+            CanSwitchServer = false; //切换服务器过程中禁止再次切换
             GlobalContext.Instance.ServerSettings.Current = value;
-            GlobalContext.Instance.SaveServers();
+            await GlobalContext.Instance.SaveServers();
+            CanSwitchServer = true;
         }
         //启动循环
         public void StartRefreshLoop()

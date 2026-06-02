@@ -18,6 +18,7 @@ namespace Aria2Manager.Core.Services
         private Func<string, Task<DownloadStatusResult>> _statusFunc;
         private readonly HashSet<string> _notifiedStartGids = new HashSet<string>(); //缓存gid，避免重复通知下载开始事件
         private readonly object _gidLock = new object(); //锁对象，保护gid缓存的线程安全
+        private readonly SemaphoreSlim _connectionLock = new SemaphoreSlim(1, 1); //异步锁，确保同时只有一个线程
         public Aria2NotificationService(IUIService uiService, Func<string, Task<DownloadStatusResult>> statusFunc)
         {
             _uiService = uiService;
@@ -49,50 +50,68 @@ namespace Aria2Manager.Core.Services
             }
             return proxy;
         }
+        private async Task StopInternalAsync()
+        {
+            try
+            {
+                if (_eventSubscription != null)
+                {
+                    _eventSubscription.Dispose();
+                }
+                if (_aria2WebsocketClient != null)
+                {
+                    await _aria2WebsocketClient.Stop(WebSocketCloseStatus.NormalClosure, "Client stopped listening");
+                    _aria2WebsocketClient.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error("Error occurred while stopping websocket client", ex, false);
+            }
+            finally
+            {
+                _eventSubscription = null;
+                _aria2WebsocketClient = null;
+            }
+        }
         //停止监听
         public async Task StopListeningAsync()
         {
-            if (_eventSubscription != null)
-            {
-                _eventSubscription.Dispose();
-                _eventSubscription = null;
-            }
-            if (_aria2WebsocketClient != null)
-            {
-                try
-                {
-                    await _aria2WebsocketClient.Stop(WebSocketCloseStatus.NormalClosure, "Client stopped listening");
-                }
-                catch (Exception ex)
-                {
-                    LogHelper.Warning("Error occurred while stopping websocket client", ex);
-                }
-                finally
-                {
-                    _aria2WebsocketClient.Dispose();
-                    _aria2WebsocketClient = null;
-                }
-            }
+            await _connectionLock.WaitAsync();
+            await StopInternalAsync();
+            _connectionLock.Release();
         }
         //启动或切换监听
         public async Task StartListeningAsync(Aria2Server server)
         {
-            await StopListeningAsync();
-            string wsScheme = server.IsHttps ? "wss" : "ws";
-            var wsUri = new Uri($"{wsScheme}://{server.Address}:{server.Port}/jsonrpc");
-            var factory = new Func<ClientWebSocket>(() =>
+            await _connectionLock.WaitAsync();
+            try
             {
-                var client = new ClientWebSocket();
-                if (server.UseProxy)
+                await StopInternalAsync();
+                string wsScheme = server.IsHttps ? "wss" : "ws";
+                var wsUri = new Uri($"{wsScheme}://{server.Address}:{server.Port}/jsonrpc");
+                var factory = new Func<ClientWebSocket>(() =>
                 {
-                    client.Options.Proxy = GetProxy(GlobalContext.Instance.ServerSettings.Proxy.DeepClone(), server.UseProxy);
-                }
-                return client;
-            });
-            _aria2WebsocketClient = new WebsocketClient(wsUri, factory);
-            // 重新启动并重新订阅事件
-            _eventSubscription = _aria2WebsocketClient!.MessageReceived.Subscribe(HandleAria2Message);
-            await _aria2WebsocketClient.Start();
+                    var client = new ClientWebSocket();
+                    if (server.UseProxy)
+                    {
+                        client.Options.Proxy = GetProxy(GlobalContext.Instance.ServerSettings.Proxy.DeepClone(), server.UseProxy);
+                    }
+                    return client;
+                });
+                _aria2WebsocketClient = new WebsocketClient(wsUri, factory);
+                // 重新启动并重新订阅事件
+                _eventSubscription = _aria2WebsocketClient!.MessageReceived.Subscribe(HandleAria2Message);
+                await _aria2WebsocketClient.Start();
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error("Error occurred while starting websocket client", ex, false);
+            }
+            finally
+            {
+                _connectionLock.Release();
+            }
         }
         private async void HandleAria2Message(ResponseMessage msg)
         {
