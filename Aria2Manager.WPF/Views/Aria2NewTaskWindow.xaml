@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+        xmlns:loc="clr-namespace:Aria2Manager.WPF.Localization"
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         TitleBarHeight="25"
         TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
         WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
-        Title="{x:Static loc:Strings.New}" Height="350" Width="600" WindowStartupLocation="CenterOwner">
+        Title="{Binding [New], Source={x:Static loc:WpfLocalizer.Instance}}" Height="350" Width="600" WindowStartupLocation="CenterOwner">
     <TabControl>
         <TabControl.Resources>
             <!-- 保留MahApps原有样式，只修改字体相关属性 -->
@@ -23,7 +23,7 @@
                 </Setter>
             </Style>
         </TabControl.Resources>
-        <TabItem Header="{x:Static loc:Strings.Download_Info}">
+        <TabItem Header="{Binding [Download_Info], Source={x:Static loc:WpfLocalizer.Instance}}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20*"/>
@@ -39,8 +39,8 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="{x:Static loc:Strings.Download_Link}" VerticalAlignment="Center" MinHeight="18"/>
-                    <TextBox HorizontalAlignment="Center" Grid.Row="1" mah:TextBoxHelper.Watermark="{x:Static loc:Strings.Download_Link_Tip}"
+                    <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" TextWrapping="Wrap" Text="{Binding [Download_Link], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center" MinHeight="18"/>
+                    <TextBox HorizontalAlignment="Center" Grid.Row="1" mah:TextBoxHelper.Watermark="{Binding [Download_Link_Tip], Source={x:Static loc:WpfLocalizer.Instance}}"
                              Text="{Binding Urls}"  VerticalAlignment="Center" MinHeight="85" IsEnabled="{Binding IsUrlEnabled}" MinWidth="574"
                              AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                 </Grid>
@@ -51,8 +51,8 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox Content="{x:Static loc:Strings.Torrent}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsTorrentEnabled}"/>
-                    <Button Grid.Column="2" Content="{x:Static loc:Strings.Browse}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="79"  IsEnabled="{Binding IsTorrentEnabled}" Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="torrent"/>
+                    <CheckBox Content="{Binding [Torrent], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsTorrentEnabled}"/>
+                    <Button Grid.Column="2" Content="{Binding [Browse], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="79"  IsEnabled="{Binding IsTorrentEnabled}" Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="torrent"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding TorrentPath}" VerticalAlignment="Center" MinWidth="376" MinHeight="20" IsEnabled="{Binding IsTorrentEnabled}"/>
                 </Grid>
                 <Separator Grid.Row="3"/>
@@ -62,15 +62,15 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <CheckBox Content="{x:Static loc:Strings.MetaLink}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsMetalinkEnabled}"/>
-                    <Button Grid.Column="2" Content="{x:Static loc:Strings.Browse}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="79"  IsEnabled="{Binding IsMetalinkEnabled}"  Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="metalink"/>
+                    <CheckBox Content="{Binding [MetaLink], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding IsMetalinkEnabled}"/>
+                    <Button Grid.Column="2" Content="{Binding [Browse], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="79"  IsEnabled="{Binding IsMetalinkEnabled}"  Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="metalink"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding MetaLinkPath}" VerticalAlignment="Center" MinWidth="376" MinHeight="20"  IsEnabled="{Binding IsMetalinkEnabled}"/>
                 </Grid>
                 <Separator Grid.Row="5"/>
-                <Button Content="{x:Static loc:Strings.Add}" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" MinWidth="75" Command="{Binding AddNewTaskCommand}"/>
+                <Button Content="{Binding [Add], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" MinWidth="75" Command="{Binding AddNewTaskCommand}"/>
             </Grid>
         </TabItem>
-        <TabItem Header="{x:Static loc:Strings.Basic_Options}">
+        <TabItem Header="{Binding [Basic_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="10*"/>
@@ -83,13 +83,13 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="8*"/>
                 </Grid.RowDefinitions>
-                <Button Content="{x:Static loc:Strings.Add}" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" MinWidth="75" Command="{Binding AddNewTaskCommand}"/>
+                <Button Content="{Binding [Add], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" MinWidth="75" Command="{Binding AddNewTaskCommand}"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="4*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.File_Name}" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [File_Name], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding FileName}" VerticalAlignment="Center" Width="455" IsEnabled="{Binding IsUrlEnabled}"/>
                 </Grid>
                 <Separator Grid.Row="1"/>
@@ -99,9 +99,9 @@
                         <ColumnDefinition Width="4*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Download_Path}" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Download_Path], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding DownloadPath}" VerticalAlignment="Center" MinWidth="358"/>
-                    <Button Content="{x:Static loc:Strings.Browse}" IsEnabled="{Binding IsDownloadPathBrowseEnabled}" HorizontalAlignment="Center" Grid.Column="2" VerticalAlignment="Center" MinWidth="52"  Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="folder"/>
+                    <Button Content="{Binding [Browse], Source={x:Static loc:WpfLocalizer.Instance}}" IsEnabled="{Binding IsDownloadPathBrowseEnabled}" HorizontalAlignment="Center" Grid.Column="2" VerticalAlignment="Center" MinWidth="52"  Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="folder"/>
                 </Grid>
                 <Separator Grid.Row="3"/>
                 <Grid Grid.Row="4">
@@ -111,8 +111,8 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.HTTP_User}" VerticalAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.HTTP_Passwd}" VerticalAlignment="Center" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [HTTP_User], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [HTTP_Passwd], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center" Grid.Column="2"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding HttpUser}" VerticalAlignment="Center" MinWidth="166" IsEnabled="{Binding IsUrlEnabled}"/>
                     <TextBox Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding HttpPasswd}" VerticalAlignment="Center" MinWidth="166" IsEnabled="{Binding IsUrlEnabled}"/>
                 </Grid>
@@ -124,15 +124,15 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Seed_Ratio}" VerticalAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Seed_Time}" VerticalAlignment="Center" Grid.Column="2"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Seed_Ratio], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Seed_Time], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center" Grid.Column="2"/>
                     <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding SeedRatio}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsTorrentEnabled}"/>
                     <TextBox Grid.Column="3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding SeedTime}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsTorrentEnabled}"/>
                 </Grid>
                 <Separator Grid.Row="7"/>
             </Grid>
         </TabItem>
-        <TabItem Header="{x:Static loc:Strings.Advanced_Options}">
+        <TabItem Header="{Binding [Advanced_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20*"/>
@@ -147,9 +147,9 @@
                         <ColumnDefinition Width="6*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Header}"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Header], Source={x:Static loc:WpfLocalizer.Instance}}"/>
                     </StackPanel>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Text="{Binding HeaderString}" mah:TextBoxHelper.Watermark="{x:Static loc:Strings.Header_Tip}"
+                    <TextBox Grid.Column="1" HorizontalAlignment="Center" Text="{Binding HeaderString}" mah:TextBoxHelper.Watermark="{Binding [Header_Tip], Source={x:Static loc:WpfLocalizer.Instance}}"
                              AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Center" MinWidth="489" MinHeight="114" IsEnabled="{Binding IsUrlEnabled}"/>
                 </Grid>
                 <Separator Grid.Row="1"></Separator>
@@ -167,7 +167,7 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_Address}" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Proxy_Address], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                         <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyAddress}" VerticalAlignment="Center" MinWidth="166" IsEnabled="{Binding IsUrlEnabled}"/>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -176,7 +176,7 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyPort}" VerticalAlignment="Center" MinWidth="166"  IsEnabled="{Binding IsUrlEnabled}"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_Port}" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Proxy_Port], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -184,7 +184,7 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyUser}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsUrlEnabled}"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_User}" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Proxy_User], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -192,11 +192,11 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ProxyPasswd}" VerticalAlignment="Center" Width="166" IsEnabled="{Binding IsUrlEnabled}"/>
-                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Proxy_Passwd}" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Proxy_Passwd], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     </Grid>
                 </Grid>
                 <Separator Grid.Row="3"/>
-                <Button Content="{x:Static loc:Strings.Add}" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" MinWidth="75" Command="{Binding AddNewTaskCommand}"/>
+                <Button Content="{Binding [Add], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" MinWidth="75" Command="{Binding AddNewTaskCommand}"/>
             </Grid>
         </TabItem>
     </TabControl>

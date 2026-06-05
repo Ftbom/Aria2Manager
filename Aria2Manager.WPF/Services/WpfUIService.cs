@@ -1,17 +1,17 @@
 ﻿using Aria2Manager.Core.Enums;
 using Aria2Manager.Core.Models;
 using Aria2Manager.Core.Services;
+using Aria2Manager.WPF.Localization;
 using Aria2Manager.WPF.Views;
+using ControlzEx.Theming;
+using Hardcodet.Wpf.TaskbarNotification;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using ControlzEx.Theming;
-using Hardcodet.Wpf.TaskbarNotification;
-using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using Aria2Manager.Core.Helpers;
 
 namespace Aria2Manager.WPF.Services
 {
@@ -99,8 +99,8 @@ namespace Aria2Manager.WPF.Services
                     : MessageDialogStyle.Affirmative;
                 var settings = new MetroDialogSettings
                 {
-                    AffirmativeButtonText = icon == MsgBoxLevel.Question ? LanguageHelper.GetString("Yes") : LanguageHelper.GetString("OK"),
-                    NegativeButtonText = LanguageHelper.GetString("No"),
+                    AffirmativeButtonText = icon == MsgBoxLevel.Question ? WpfLocalizer.Instance.GetString("Yes") : WpfLocalizer.Instance.GetString("OK"),
+                    NegativeButtonText = WpfLocalizer.Instance.GetString("No"),
                     AnimateShow = true,
                     AnimateHide = true
                 };

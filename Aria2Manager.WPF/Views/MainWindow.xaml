@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+        xmlns:loc="clr-namespace:Aria2Manager.WPF.Localization"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -18,85 +18,85 @@
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top" MinHeight="30">
-            <MenuItem Header="{x:Static loc:Strings.Edit}">
-                <MenuItem Header="{x:Static loc:Strings.Add}" Command="{Binding OpenAria2NewTaskCommand}">
+            <MenuItem Header="{Binding [Edit], Source={x:Static loc:WpfLocalizer.Instance}}">
+                <MenuItem Header="{Binding [Add], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAria2NewTaskCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Pause}" Command="{Binding PauseTaskCommand}">
+                <MenuItem Header="{Binding [Pause], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Resume}" Command="{Binding UnpauseTaskCommand}">
+                <MenuItem Header="{Binding [Resume], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding UnpauseTaskCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Remove}" Command="{Binding RemoveTaskCommand}">
+                <MenuItem Header="{Binding [Remove], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding RemoveTaskCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Properties}" Command="{Binding OpenAria2TaskInfoCommand}">
+                <MenuItem Header="{Binding [Properties], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAria2TaskInfoCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static loc:Strings.Resume_All}" Command="{Binding UnpauseAllTaskCommand}">
+                <MenuItem Header="{Binding [Resume_All], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding UnpauseAllTaskCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF144;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Pause_All}" Command="{Binding PauseAllTaskCommand}">
+                <MenuItem Header="{Binding [Pause_All], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding PauseAllTaskCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF28B;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Purge_All}" Command="{Binding PurgeAllTaskCommand}">
+                <MenuItem Header="{Binding [Purge_All], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding PurgeAllTaskCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xf12d;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static loc:Strings.Tools}">
-                <MenuItem Header="{x:Static loc:Strings.Aria2_Servers}" Command="{Binding OpenAria2ServersCommand}">
+            <MenuItem Header="{Binding [Tools], Source={x:Static loc:WpfLocalizer.Instance}}">
+                <MenuItem Header="{Binding [Aria2_Servers], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAria2ServersCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF828;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Aria2_Options}" Command="{Binding OpenAria2OptionsCommand}">
+                <MenuItem Header="{Binding [Aria2_Options], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAria2OptionsCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF1DE;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Program_Settings}" Command="{Binding OpenSettingsCommand}">
+                <MenuItem Header="{Binding [Program_Settings], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenSettingsCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF013;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static loc:Strings.Exit}" Command="{Binding ExitCommand}" >
+                <MenuItem Header="{Binding [Exit], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding ExitCommand}" >
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF00D;" FontFamily="{StaticResource FontAwesome}" FontSize="20" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{x:Static loc:Strings.Help}" InputGestureText="">
-                <MenuItem Header="{x:Static loc:Strings.Aria2_Website}" Command="{Binding OpenAria2WebsiteCommand}">
+            <MenuItem Header="{Binding [Help], Source={x:Static loc:WpfLocalizer.Instance}}" InputGestureText="">
+                <MenuItem Header="{Binding [Aria2_Website], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAria2WebsiteCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF0AC;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{x:Static loc:Strings.Aria2_Status}" Command="{Binding OpenAria2StatusCommand}">
+                <MenuItem Header="{Binding [Aria2_Status], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAria2StatusCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF059;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{x:Static loc:Strings.About}" Command="{Binding OpenAboutCommand}">
+                <MenuItem Header="{Binding [About], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAboutCommand}">
                     <MenuItem.Icon>
                         <TextBlock Text="&#xF05A;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                     </MenuItem.Icon>
@@ -108,50 +108,50 @@
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding OpenAria2NewTaskCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="+" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Add}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Add], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding RemoveTaskCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Remove}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Remove], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding UnpauseTaskCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Resume}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Resume], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding PauseTaskCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Pause}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Pause], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0"  Command="{Binding OpenAria2TaskInfoCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Properties}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Properties], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Separator/>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding UnpauseAllTaskCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF144;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Resume_All}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Resume_All], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding PauseAllTaskCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF28B;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Pause_All}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Pause_All], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Command="{Binding PurgeAllTaskCommand}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xf12d;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent}" FontSize="24" Margin="0,0,2,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Purge_All}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [Purge_All], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </ToolBar>
@@ -176,10 +176,10 @@
             </StatusBarItem>
             <StatusBarItem Height="37" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Text="{x:Static loc:Strings.Upload_Speed}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Text="{Binding [Upload_Speed], Source={x:Static loc:WpfLocalizer.Instance}}" Margin="0,0,2,0"/>
                     <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" TextWrapping="Wrap" Text="{Binding ServerUploadSpeed, Mode=OneWay}" Margin="0,0,2,0"/>
                     <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" TextWrapping="Wrap" Text="," Margin="0,0,2,0"/>
-                    <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Text="{x:Static loc:Strings.Download_Speed}" Margin="0,0,2,0"/>
+                    <TextBlock TextWrapping="Wrap" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Text="{Binding [Download_Speed], Source={x:Static loc:WpfLocalizer.Instance}}" Margin="0,0,2,0"/>
                     <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" TextWrapping="Wrap" Text="{Binding ServerDownloadSpeed, Mode=OneWay}" Margin="0,0,2,0"/>
                 </StackPanel>
             </StatusBarItem>
@@ -194,27 +194,27 @@
             <ListView Grid.Column="2" ItemsSource="{Binding Aria2TaskCollection}" SelectedValue="{Binding SelectedTaskGid}" SelectedValuePath="Gid">
                 <ListView.ContextMenu >
                     <ContextMenu>
-                        <MenuItem Header="{x:Static loc:Strings.Pause}" Command="{Binding PauseTaskCommand}">
+                        <MenuItem Header="{Binding [Pause], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xF04C;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="{x:Static loc:Strings.Resume}" Command="{Binding UnpauseTaskCommand}">
+                        <MenuItem Header="{Binding [Resume], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding UnpauseTaskCommand}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xF04B;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="{x:Static loc:Strings.Remove}" Command="{Binding RemoveTaskCommand}">
+                        <MenuItem Header="{Binding [Remove], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding RemoveTaskCommand}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xF1F8;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="{x:Static loc:Strings.Properties}" Command="{Binding OpenAria2TaskInfoCommand}">
+                        <MenuItem Header="{Binding [Properties], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenAria2TaskInfoCommand}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xf15c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="{x:Static loc:Strings.Open_File_Location}" Command="{Binding OpenFileLocationCommand}" Visibility="{Binding ServerStatus.IsLocal, Mode=OneWay, Converter={StaticResource BoolToVis}}">
+                        <MenuItem Header="{Binding [Open_File_Location], Source={x:Static loc:WpfLocalizer.Instance}}" Command="{Binding OpenFileLocationCommand}" Visibility="{Binding ServerStatus.IsLocal, Mode=OneWay, Converter={StaticResource BoolToVis}}">
                             <MenuItem.Icon>
                                 <TextBlock Text="&#xf07c;" FontFamily="{StaticResource FontAwesome}" FontSize="15" />
                             </MenuItem.Icon>
@@ -223,8 +223,8 @@
                 </ListView.ContextMenu>
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="{x:Static loc:Strings.Name}" Width="200" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Progress}" Width="120">
+                        <GridViewColumn Header="{Binding [Name], Source={x:Static loc:WpfLocalizer.Instance}}" Width="200" DisplayMemberBinding="{Binding Name, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Progress], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -234,16 +234,16 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="{x:Static loc:Strings.Size}" Width="120" DisplayMemberBinding="{Binding Size, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Downloaded}" Width="120" DisplayMemberBinding="{Binding Downloaded, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.ETA}" Width="120" DisplayMemberBinding="{Binding ETA, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Status}" Width="120" DisplayMemberBinding="{Binding Status, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Download_Speed}" Width="120" DisplayMemberBinding="{Binding DownloadSpeed, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Uploaded}" Width="120" DisplayMemberBinding="{Binding Uploaded, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Upload_Speed}" Width="120" DisplayMemberBinding="{Binding UploadSpeed, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Ratio}" Width="120" DisplayMemberBinding="{Binding Ratio, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Connections}" Width="120" DisplayMemberBinding="{Binding Connections, Mode=OneWay}"/>
-                        <GridViewColumn Header="{x:Static loc:Strings.Seeds}" Width="120" DisplayMemberBinding="{Binding NumSeeders, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Size], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding Size, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Downloaded], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding Downloaded, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [ETA], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding ETA, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Status], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding Status, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Download_Speed], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding DownloadSpeed, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Uploaded], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding Uploaded, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Upload_Speed], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding UploadSpeed, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Ratio], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding Ratio, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Connections], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding Connections, Mode=OneWay}"/>
+                        <GridViewColumn Header="{Binding [Seeds], Source={x:Static loc:WpfLocalizer.Instance}}" Width="120" DisplayMemberBinding="{Binding NumSeeders, Mode=OneWay}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -251,25 +251,25 @@
                 <ListBoxItem Tag="all" Margin="5,5,0,5" IsSelected="True">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF111;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Status_All}" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_All], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Tag="active" Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF358;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Status_Active}" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_Active], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Tag="waiting" Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF017;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Status_Waiting}" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_Waiting], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ListBoxItem>
                 <ListBoxItem Tag="stopped" Margin="5,0,0,5">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="&#xF28D;" FontFamily="{StaticResource FontAwesome}" Foreground="{DynamicResource MahApps.Brushes.Accent3}" FontSize="20" Margin="0,0,5,0" />
-                        <TextBlock TextWrapping="Wrap" Text="{x:Static loc:Strings.Status_Stopped}" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_Stopped], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ListBoxItem>
             </ListBox>

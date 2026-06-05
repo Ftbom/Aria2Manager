@@ -3,18 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+        xmlns:loc="clr-namespace:Aria2Manager.WPF.Localization"
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         TitleBarHeight="25"
         TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
         WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
-        Title="{x:Static loc:Strings.Aria2_Status}" Height="350" Width="300" WindowStartupLocation="CenterOwner">
+        Title="{Binding [Aria2_Status], Source={x:Static loc:WpfLocalizer.Instance}}" Height="350" Width="300" WindowStartupLocation="CenterOwner">
     <Grid Margin="20">
         <StackPanel>
-            <TextBlock Text="{x:Static loc:Strings.Aria2_Version}" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+            <TextBlock Text="{Binding [Aria2_Version], Source={x:Static loc:WpfLocalizer.Instance}}" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
             <TextBlock Text="{Binding Aria2Version, Mode=OneWay}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Text="{x:Static loc:Strings.Aria2_Features}" FontWeight="Bold" FontSize="14" Margin="0,15,0,5"/>
+            <TextBlock Text="{Binding [Aria2_Features], Source={x:Static loc:WpfLocalizer.Instance}}" FontWeight="Bold" FontSize="14" Margin="0,15,0,5"/>
             <ItemsControl ItemsSource="{Binding EnabledFeatures, Mode=OneWay}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>

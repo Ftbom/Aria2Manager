@@ -8,6 +8,85 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Aria2Manager.Core.ViewModels
 {
+    public class Aria2OptionsHelper
+    {
+        public record Aria2OptionsData(
+            string? DownloadPath = null,
+            string? SeedRatio = null,
+            string? SeedTime = null,
+            string? HttpUser = null,
+            string? HttpPasswd = null,
+            string? ProxyAddress = null,
+            string? ProxyPort = null,
+            string? ProxyUser = null,
+            string? ProxyPasswd = null);
+        public static async Task<Aria2OptionsData> LoadAria2Options(Aria2ServerService server, IUIService uiService, string? gid = null)
+        {
+            try
+            {
+                var Options = await server.GetAria2Options(["dir", "seed-ratio", "seed-time", "http-user",
+                                    "http-passwd", "all-proxy-passwd", "all-proxy-user", "all-proxy"], gid);
+                var ProxyAddress = string.Empty;
+                var ProxyPort = string.Empty;
+                var rawProxyOption = Options["all-proxy"];
+                if (!String.IsNullOrWhiteSpace(rawProxyOption))
+                {
+                    try
+                    {
+                        if (!rawProxyOption.Contains("://"))
+                        {
+                            rawProxyOption = "http://" + rawProxyOption;
+                        }
+                        if (Uri.TryCreate(rawProxyOption, UriKind.Absolute, out var uri))
+                        {
+                            ProxyAddress = $"{uri.Scheme}://{uri.Host}";
+                            ProxyPort = uri.Port.ToString();
+                        }
+                        else
+                        {
+                            LogHelper.Warning($"Failed to parse all-proxy option: {rawProxyOption}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Warning("Failed to parse all-proxy option", ex);
+                        ProxyAddress = null;
+                        ProxyPort = null;
+                    }
+                }
+                return new Aria2OptionsData(
+                    DownloadPath: Options["dir"],
+                    SeedRatio: Options["seed-ratio"],
+                    SeedTime: Options["seed-time"],
+                    HttpUser: Options["http-user"],
+                    HttpPasswd: Options["http-passwd"],
+                    ProxyAddress: ProxyAddress,
+                    ProxyPort: ProxyPort,
+                    ProxyUser: Options["all-proxy-user"],
+                    ProxyPasswd: Options["all-proxy-passwd"]
+                );
+            }
+            catch
+            {
+                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"), "Error", MsgBoxLevel.Error);
+            }
+            return new Aria2OptionsData();
+        }
+        public static void AddOptions(Dictionary<string, object> options, string key, string? value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                options[key] = value;
+            }
+        }
+        public static void AddOptions(Dictionary<string, string> options, string key, string? value)
+        {
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                options[key] = value;
+            }
+        }
+    }
     public partial class Aria2NewTaskViewModel : ObservableObject, IWindowAware
     {
         private Aria2ServerService Server => GlobalContext.Instance.Aria2Server;
@@ -49,41 +128,7 @@ namespace Aria2Manager.Core.ViewModels
         public Aria2NewTaskViewModel(IUIService uiService)
         {
             _uiService = uiService;
-            LoadAria2Options();
-        }
-        private async void LoadAria2Options()
-        {
-            try
-            {
-                var Options = await Server.GetAria2Options(["dir", "seed-ratio", "seed-time", "http-user",
-                                    "http-passwd", "all-proxy-passwd", "all-proxy-user", "all-proxy"]);
-                DownloadPath = Options["dir"];
-                SeedRatio = Options["seed-ratio"];
-                SeedTime = Options["seed-time"];
-                HttpUser = Options["http-user"];
-                HttpPasswd = Options["http-passwd"];
-                ProxyUser = Options["all-proxy-user"];
-                ProxyPasswd = Options["all-proxy-passwd"];
-                if (!String.IsNullOrWhiteSpace(Options["all-proxy"]))
-                {
-                    try
-                    {
-                        var ProxySplit = Options["all-proxy"]?.Replace("http://", "").Replace("https://", "").Replace("/", "").Split(':');
-                        ProxyAddress = ProxySplit?[0];
-                        ProxyPort = ProxySplit?[1];
-                    }
-                    catch (Exception ex)
-                    {
-                        LogHelper.Warning("Failed to parse all-proxy option", ex);
-                        ProxyAddress = null;
-                        ProxyPort = null;
-                    }
-                }
-            }
-            catch
-            {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"), "Error", MsgBoxLevel.Error);
-            }
+            InitializeOptions();
         }
         //当IsTorrentEnabled改变时，自动调用该Partial方法
         partial void OnIsTorrentEnabledChanged(bool value)
@@ -100,19 +145,25 @@ namespace Aria2Manager.Core.ViewModels
                 IsTorrentEnabled = false; // 互斥逻辑
             }
         }
-        private void AddOptions(Dictionary<string, object> options, string key, string? value)
+        private async void InitializeOptions()
         {
-            if (!String.IsNullOrWhiteSpace(value))
-            {
-                options[key] = value;
-            }
+            var optionsData = await Aria2OptionsHelper.LoadAria2Options(Server, _uiService);
+            DownloadPath = optionsData.DownloadPath;
+            SeedRatio = optionsData.SeedRatio;
+            SeedTime = optionsData.SeedTime;
+            HttpUser = optionsData.HttpUser;
+            HttpPasswd = optionsData.HttpPasswd;
+            ProxyAddress = optionsData.ProxyAddress;
+            ProxyPort = optionsData.ProxyPort;
+            ProxyUser = optionsData.ProxyUser;
+            ProxyPasswd = optionsData.ProxyPasswd;
         }
         [RelayCommand]
         private async Task AddNewTask()
         {
             if (!Server.ServerInfo.IsConnected) //服务器连接出错，直接退出
             {
-                if (!string.IsNullOrEmpty(WindowId))
+                if (!string.IsNullOrWhiteSpace(WindowId))
                 {
                     _uiService.CloseWindow(WindowId);
                 }
@@ -121,7 +172,7 @@ namespace Aria2Manager.Core.ViewModels
             try
             {
                 var options = new Dictionary<string, object>();
-                AddOptions(options, "dir", DownloadPath);
+                Aria2OptionsHelper.AddOptions(options, "dir", DownloadPath);
                 //按种类分别设置
                 if (IsMetalinkEnabled && !String.IsNullOrWhiteSpace(MetaLinkPath))
                 {
@@ -129,20 +180,20 @@ namespace Aria2Manager.Core.ViewModels
                 }
                 else if (IsTorrentEnabled && !String.IsNullOrWhiteSpace(TorrentPath))
                 {
-                    AddOptions(options, "seed-time", SeedTime);
-                    AddOptions(options, "seed-ratio", SeedRatio);
+                    Aria2OptionsHelper.AddOptions(options, "seed-time", SeedTime);
+                    Aria2OptionsHelper.AddOptions(options, "seed-ratio", SeedRatio);
                     await Server.AddTorrentTask(File.ReadAllBytes(TorrentPath), options);
                 }
                 else if (!String.IsNullOrWhiteSpace(Urls))
                 {
-                    AddOptions(options, "out", FileName);
-                    AddOptions(options, "http-user", HttpUser);
-                    AddOptions(options, "http-passwd", HttpPasswd);
-                    AddOptions(options, "all-proxy-passwd", ProxyPasswd);
-                    AddOptions(options, "all-proxy-user", ProxyUser);
+                    Aria2OptionsHelper.AddOptions(options, "out", FileName);
+                    Aria2OptionsHelper.AddOptions(options, "http-user", HttpUser);
+                    Aria2OptionsHelper.AddOptions(options, "http-passwd", HttpPasswd);
+                    Aria2OptionsHelper.AddOptions(options, "all-proxy-passwd", ProxyPasswd);
+                    Aria2OptionsHelper.AddOptions(options, "all-proxy-user", ProxyUser);
                     if ((!String.IsNullOrWhiteSpace(ProxyAddress)) && (!String.IsNullOrWhiteSpace(ProxyPort)))
                     {
-                        options["all-proxy"] = "http://" + ProxyAddress + ":" + ProxyPort;
+                        options["all-proxy"] = ProxyAddress + ":" + ProxyPort;
                     }
                     if (!String.IsNullOrWhiteSpace(HeaderString))
                     {
@@ -167,7 +218,7 @@ namespace Aria2Manager.Core.ViewModels
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("New_Task_Failed"), "Error", MsgBoxLevel.Error);
             }
-            if (!string.IsNullOrEmpty(WindowId))
+            if (!string.IsNullOrWhiteSpace(WindowId))
             {
                 _uiService.CloseWindow(WindowId);
             }

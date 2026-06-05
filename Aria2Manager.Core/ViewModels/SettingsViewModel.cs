@@ -25,7 +25,7 @@ namespace Aria2Manager.Core.ViewModels
         [RelayCommand]
         private async Task SaveSettings()
         {
-            bool LanguageChanged = Settings.Language != GlobalContext.Instance.AppSettings.Language;
+            LanguageHelper.ChangeLanguage(Settings.Language); //应用语言
             bool ThemeNeedRestart = false;
             if (Settings.Theme != GlobalContext.Instance.AppSettings.Theme)
             {
@@ -33,18 +33,7 @@ namespace Aria2Manager.Core.ViewModels
             }
             GlobalContext.Instance.AppSettings = Settings.DeepClone();
             _ = GlobalContext.Instance.SaveSettings();
-            if (LanguageChanged)
-            {
-                if (ThemeNeedRestart)
-                {
-                    await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Theme_Language_ReStart"), "Info", MsgBoxLevel.Information);
-                }
-                else
-                {
-                    await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Language_ReStart"), "Info", MsgBoxLevel.Information);
-                }
-            }
-            else if (ThemeNeedRestart)
+            if (ThemeNeedRestart)
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Theme_ReStart"), "Info", MsgBoxLevel.Information);
             }

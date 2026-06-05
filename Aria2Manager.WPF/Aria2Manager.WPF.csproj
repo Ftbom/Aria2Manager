@@ -36,4 +36,23 @@
   <ItemGroup>
     <ProjectReference Include="..\Aria2Manager.Core\Aria2Manager.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Localization\WpfStrings.Designer.cs">
+      <DependentUpon>WpfStrings.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\WpfStrings.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>WpfStrings.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\WpfStrings.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

@@ -164,24 +164,30 @@ namespace Aria2Manager.Core.ViewModels
             OnPropertyChanged(nameof(ServerDownloadSpeed));
             OnPropertyChanged(nameof(ServerUploadSpeed));
             var latestTasks = await Server.GetAria2Tasks(status);
-            var toRemoveList = Aria2TaskCollection.Where(vm => !latestTasks.Any(m => m.Gid == vm.Gid)).ToList();
-            foreach (var item in toRemoveList)
-            {
-                Aria2TaskCollection.Remove(item); //移除不存在的任务
-            }
+            var existingTasksDict = Aria2TaskCollection.ToDictionary(vm => vm.Gid);
+            var tasksToAdd = new List<TaskViewModel>();
             foreach (var model in latestTasks)
             {
-                var existingTask = Aria2TaskCollection.FirstOrDefault(vm => vm.Gid == model.Gid);
-                if (existingTask != null)
+                if (existingTasksDict.TryGetValue(model.Gid, out var existingTask))
                 {
-                    //更新现有项
-                    existingTask.Update(model);
+                    //更新已存在任务的状态
+                    existingTask.Update(model); //引用类型，更新Aria2TaskCollection中的对象
+                    existingTasksDict.Remove(model.Gid);
                 }
                 else
                 {
-                    //添加到新任务
-                    Aria2TaskCollection.Add(new TaskViewModel(model));
+                    //新任务添加到列表
+                    tasksToAdd.Add(new TaskViewModel(model));
                 }
+            }
+            //删除不存在任务
+            foreach (var taskToRemove in existingTasksDict.Values)
+            {
+                Aria2TaskCollection.Remove(taskToRemove);
+            }
+            foreach (var taskToAdd in tasksToAdd)
+            {
+                Aria2TaskCollection.Add(taskToAdd);
             }
         }
         [RelayCommand]
@@ -265,7 +271,7 @@ namespace Aria2Manager.Core.ViewModels
             {
                 FileSystemHelper.Delete(Path.Combine(task.Dir, task.InfoHash + ".torrent"));
             }
-            
+
         }
         [RelayCommand]
         private async Task RemoveTask()
