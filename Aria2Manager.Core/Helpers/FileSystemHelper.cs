@@ -50,7 +50,7 @@ namespace Aria2Manager.Core.Helpers
                     {
                         string[] lines = File.ReadAllLines(configPath);
                         string? downloadLine = lines.FirstOrDefault(l => l.StartsWith("XDG_DOWNLOAD_DIR="));
-                        if (!string.IsNullOrEmpty(downloadLine))
+                        if (!string.IsNullOrWhiteSpace(downloadLine))
                         {
                             string dir = downloadLine.Split('=')[1].Trim('\"');
                             downloadPath = dir.Replace("$HOME", userProfile);

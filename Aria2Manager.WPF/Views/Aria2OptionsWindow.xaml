@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+        xmlns:loc="clr-namespace:Aria2Manager.WPF.Localization"
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         TitleBarHeight="25"
         TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
         WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
-        Title="{x:Static loc:Strings.Aria2_Options}" Height="580" Width="600" WindowStartupLocation="CenterOwner">
+        Title="{Binding [Aria2_Options], Source={x:Static loc:WpfLocalizer.Instance}}" Height="580" Width="600" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <!--ListViewItem关闭选中样式-->
         <Style TargetType="{x:Type ListViewItem}">
@@ -66,40 +66,40 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Header="{x:Static loc:Strings.Basic_Options}">
+            <TabItem Header="{Binding [Basic_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding BasicOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
-            <TabItem Header="{x:Static loc:Strings.HTTPFTPSFTP_Options}">
+            <TabItem Header="{Binding [HTTPFTPSFTP_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding HttpFtpSftpOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
-            <TabItem Header="{x:Static loc:Strings.HTTP_Options}">
+            <TabItem Header="{Binding [HTTP_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding HttpOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
-            <TabItem Header="{x:Static loc:Strings.FTPSFTP_Options}">
+            <TabItem Header="{Binding [FTPSFTP_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding FtpSftpOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
-            <TabItem Header="{x:Static loc:Strings.BitTorrent_Options}">
+            <TabItem Header="{Binding [BitTorrent_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding BTOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
-            <TabItem Header="{x:Static loc:Strings.Metalink_Options}">
+            <TabItem Header="{Binding [Metalink_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding MetalinkOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
-            <TabItem Header="{x:Static loc:Strings.RPC_Options}">
+            <TabItem Header="{Binding [RPC_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding RPCOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
-            <TabItem Header="{x:Static loc:Strings.Advanced_Options}">
+            <TabItem Header="{Binding [Advanced_Options], Source={x:Static loc:WpfLocalizer.Instance}}">
                 <ListView  HorizontalContentAlignment="Stretch" ItemsSource="{Binding AdvancedOptions}"
                            ItemTemplate="{StaticResource OptionList}"/>
             </TabItem>
         </TabControl>
-        <Button Content="{x:Static loc:Strings.Save}" Grid.Row="1" MinWidth="150"
+        <Button Content="{Binding [Save], Source={x:Static loc:WpfLocalizer.Instance}}" Grid.Row="1" MinWidth="150"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeAria2OptionsCommand}"/>
     </Grid>
 </mah:MetroWindow>

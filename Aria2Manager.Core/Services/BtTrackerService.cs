@@ -23,6 +23,7 @@ namespace Aria2Manager.Core.Services
         }
         public async Task<List<string>?> CheckTrackersUpdate()
         {
+            if (!_trackerConfig.EnableUpdate) { return null; }
             string source = _trackerConfig.SelectedSource;
             if (string.IsNullOrWhiteSpace(source) || !BtTrackers.Sources.ContainsKey(source)) { return null; }
             //当前时间
@@ -36,7 +37,7 @@ namespace Aria2Manager.Core.Services
                     //更新配置文件
                     _trackerConfig.LastUpdateDay = nowDays;
                     GlobalContext.Instance.AppSettings.Trackers.LastUpdate = nowDays;
-                    GlobalContext.Instance.SaveSettings();
+                    _ = GlobalContext.Instance.SaveSettings();
                 }
                 catch (Exception ex)
                 {

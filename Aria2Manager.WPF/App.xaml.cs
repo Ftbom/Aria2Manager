@@ -3,6 +3,7 @@ using Aria2Manager.Core.Enums;
 using Aria2Manager.Core.Helpers;
 using Aria2Manager.Core.Models;
 using Aria2Manager.Core.ViewModels;
+using Aria2Manager.WPF.Localization;
 using Aria2Manager.WPF.Services;
 using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro.Controls;
@@ -39,6 +40,11 @@ namespace Aria2Manager.WPF
         {
             InitLogger();
             _uiService = new WpfUIService();
+            //绑定WPF语言切换事件
+            LanguageHelper.OnLanguageChanged += culture =>
+            {
+                WpfLocalizer.Instance.ChangeCulture(culture);
+            };
         }
         protected override void OnExit(ExitEventArgs e)
         {
@@ -55,12 +61,12 @@ namespace Aria2Manager.WPF
                 {
                     await GlobalContext.Instance.Aria2Server.GetAria2Status();
                     textBlock.Text = $"{GlobalContext.AppName}\n" +
-                        $"{LanguageHelper.GetString("Current_Server")}:{_aria2Status.ServerName}\n" +
-                        $"{LanguageHelper.GetString("Download_Speed")}:{FormatterHelper.BytesToString(_aria2Status.DownloadSpeed)}/s\n" +
-                        $"{LanguageHelper.GetString("Upload_Speed")}:{FormatterHelper.BytesToString(_aria2Status.UploadSpeed)}/s\n" +
-                        $"{LanguageHelper.GetString("Status_Active")}:{_aria2Status.NumActive}\n" +
-                        $"{LanguageHelper.GetString("Status_Waiting")}:{_aria2Status.NumWaiting}\n" +
-                        $"{LanguageHelper.GetString("Status_Stopped")}:{_aria2Status.NumStopped}";
+                        $"{WpfLocalizer.Instance.GetString("Current_Server")}:{_aria2Status.ServerName}\n" +
+                        $"{WpfLocalizer.Instance.GetString("Download_Speed")}:{FormatterHelper.BytesToString(_aria2Status.DownloadSpeed)}/s\n" +
+                        $"{WpfLocalizer.Instance.GetString("Upload_Speed")}:{FormatterHelper.BytesToString(_aria2Status.UploadSpeed)}/s\n" +
+                        $"{WpfLocalizer.Instance.GetString("TaskStatus_Active")}:{_aria2Status.NumActive}\n" +
+                        $"{WpfLocalizer.Instance.GetString("TaskStatus_Waiting")}:{_aria2Status.NumWaiting}\n" +
+                        $"{WpfLocalizer.Instance.GetString("TaskStatus_Stopped")}:{_aria2Status.NumStopped}";
                 }
             }
         }

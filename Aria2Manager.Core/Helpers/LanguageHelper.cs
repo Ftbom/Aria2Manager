@@ -6,6 +6,7 @@ namespace Aria2Manager.Core.Helpers
 {
     public static class LanguageHelper
     {
+        public static event Action<CultureInfo>? OnLanguageChanged; //语言切换事件
         //获取当前系统语言
         public static CultureInfo CurrentCulture { get; private set; } = CultureInfo.CurrentUICulture;
         //获取翻译后的字符串，如果找不到对应的key，返回key本身
@@ -27,6 +28,7 @@ namespace Aria2Manager.Core.Helpers
                 var cultureInfo = CultureInfo.GetCultureInfo(language);
                 CurrentCulture = cultureInfo;
                 Strings.Culture = cultureInfo;
+                OnLanguageChanged?.Invoke(cultureInfo); //触发语言切换事件
             }
             catch (Exception ex)
             {

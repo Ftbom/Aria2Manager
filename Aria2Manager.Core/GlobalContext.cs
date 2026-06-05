@@ -58,7 +58,7 @@ namespace Aria2Manager.Core
             else
             {
                 AppSettings.Theme = uiService.DefaultTheme;
-                SaveSettings();
+                _ = SaveSettings();
                 await uiService.ChangeThemeAsync(uiService.DefaultTheme);
             }
             //启动Aria2进程
@@ -142,12 +142,12 @@ namespace Aria2Manager.Core
             _globalCts.Dispose();
             _globalCts = new();
         }
-        public async void SaveSettings()
+        public async Task SaveSettings()
         {
             await ChangeNotification(GetCurrentAria2Server());
             _settingsConfigService.Save(AppSettings);
         }
-        public async void SaveServers()
+        public async Task SaveServers()
         {
             CancelAllTasks();
             Aria2Server newServer = GetCurrentAria2Server();

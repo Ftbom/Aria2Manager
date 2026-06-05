@@ -1,6 +1,6 @@
 ﻿<Application x:Class="Aria2Manager.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+             xmlns:loc="clr-namespace:Aria2Manager.WPF.Localization"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Startup="Application_Startup"
              ShutdownMode="OnExplicitShutdown">
@@ -29,9 +29,9 @@
                         </tb:TaskbarIcon.TrayToolTip>
                         <tb:TaskbarIcon.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="{x:Static loc:Strings.Show}" Click="Show_Click"/>
+                                <MenuItem Header="{Binding [Show], Source={x:Static loc:WpfLocalizer.Instance}}" Click="Show_Click"/>
                                 <Separator/>
-                                <MenuItem Header="{x:Static loc:Strings.Exit}" Click="Exit_Click"/>
+                                <MenuItem Header="{Binding [Exit], Source={x:Static loc:WpfLocalizer.Instance}}" Click="Exit_Click"/>
                             </ContextMenu>
                         </tb:TaskbarIcon.ContextMenu>
                     </tb:TaskbarIcon>

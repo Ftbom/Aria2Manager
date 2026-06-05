@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:loc="clr-namespace:Aria2Manager.Core.Localization;assembly=Aria2Manager.Core"
+        xmlns:loc="clr-namespace:Aria2Manager.WPF.Localization"
         mc:Ignorable="d"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         TitleBarHeight="25"
         TitleForeground="{DynamicResource MahApps.Brushes.ThemeForeground}"
         WindowTitleBrush="{DynamicResource MahApps.Brushes.Accent3}"
-        Title="{x:Static loc:Strings.Program_Settings}" Height="250" Width="600" WindowStartupLocation="CenterOwner">
+        Title="{Binding [Program_Settings], Source={x:Static loc:WpfLocalizer.Instance}}" Height="250" Width="600" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -26,9 +26,9 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Program_Language}" VerticalAlignment="Center"/>
+            <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Program_Language], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="180" ItemsSource="{Binding LanguageList}" DisplayMemberPath="NativeName" SelectedValuePath="Name" SelectedValue="{Binding Settings.Language}"/>
-            <TextBlock Grid.Column="2" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Static loc:Strings.Program_Theme}" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="2" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding [Program_Theme], Source={x:Static loc:WpfLocalizer.Instance}}" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="180" ItemsSource="{Binding ThemeList}" SelectedValue="{Binding Settings.Theme}"/>
         </Grid>
         <Grid Grid.Row="1">
@@ -37,25 +37,25 @@
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <CheckBox Content="{x:Static loc:Strings.Close_To_Exit}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.CloseToExit}"/>
-            <CheckBox Grid.Column="1" Content="{x:Static loc:Strings.Start_Minimize}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.StartMin}"/>
-            <CheckBox Grid.Column="2" Content="{x:Static loc:Strings.Check_Update}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.CheckUpdate}"/>
+            <CheckBox Content="{Binding [Close_To_Exit], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.CloseToExit}"/>
+            <CheckBox Grid.Column="1" Content="{Binding [Start_Minimize], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.StartMin}"/>
+            <CheckBox Grid.Column="2" Content="{Binding [Check_Update], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Settings.CheckUpdate}"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <CheckBox Content="{x:Static loc:Strings.Start_Aria2}" ToolTip="{x:Static loc:Strings.Start_Aria2_Tip}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="{Binding Settings.StartAria2}"/>
-            <CheckBox Content="{x:Static loc:Strings.Kill_Aria2}" ToolTip="{x:Static loc:Strings.Kill_Aria2_Tip}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" IsChecked="{Binding Settings.KillAria2}"/>
+            <CheckBox Content="{Binding [Start_Aria2], Source={x:Static loc:WpfLocalizer.Instance}}" ToolTip="{Binding [Start_Aria2_Tip], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="{Binding Settings.StartAria2}"/>
+            <CheckBox Content="{Binding [Kill_Aria2], Source={x:Static loc:WpfLocalizer.Instance}}" ToolTip="{Binding [Kill_Aria2_Tip], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" IsChecked="{Binding Settings.KillAria2}"/>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <CheckBox Content="{x:Static loc:Strings.Check_Aria2_Update}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="{Binding Settings.CheckAria2Update}"/>
-            <CheckBox Content="{x:Static loc:Strings.Enable_Aria2_Notification}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" IsChecked="{Binding Settings.EnableAria2Notification}"/>
+            <CheckBox Content="{Binding [Check_Aria2_Update], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" IsChecked="{Binding Settings.CheckAria2Update}"/>
+            <CheckBox Content="{Binding [Enable_Aria2_Notification], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" IsChecked="{Binding Settings.EnableAria2Notification}"/>
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
@@ -63,13 +63,13 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="8*"/>
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{x:Static loc:Strings.Update_BT_Trackers}" IsChecked="{Binding Settings.Trackers.EnableUpdate}"/>
+            <CheckBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding [Update_BT_Trackers], Source={x:Static loc:WpfLocalizer.Instance}}" IsChecked="{Binding Settings.Trackers.EnableUpdate}"/>
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{x:Static loc:Strings.Trackers_Source}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{Binding [Trackers_Source], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="120" ItemsSource="{Binding TrackersSources}"
                           SelectedValue="{Binding Settings.Trackers.TrackersSource}" IsEnabled="{Binding Settings.Trackers.EnableUpdate}"/>
             </Grid>
@@ -78,10 +78,10 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{x:Static loc:Strings.Trackers_Update_Interval}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{Binding [Trackers_Update_Interval], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="50" Text="{Binding Settings.Trackers.UpdateInterval}" IsEnabled="{Binding Settings.Trackers.EnableUpdate}"/>
             </Grid>
         </Grid>
-        <Button Content="{x:Static loc:Strings.Save}" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" MinWidth="76" Command="{Binding SaveSettingsCommand}"/>
+        <Button Content="{Binding [Save], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" MinWidth="76" Command="{Binding SaveSettingsCommand}"/>
     </Grid>
 </mah:MetroWindow>
