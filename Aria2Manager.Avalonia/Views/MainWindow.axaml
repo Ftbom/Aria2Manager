@@ -1,20 +1,320 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Aria2Manager.Avalonia.ViewModels"
+        xmlns:cvt="using:Aria2manager.Avalonia.Converters"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels" 
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Aria2Manager.Avalonia.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Aria2Manager.Avalonia">
+        x:DataType="vm:MainViewModel"
+        Container.Name="MainWindowContainer" Container.Sizing="Width"
+        Icon="/Assets/app.ico" Title="Aria2Manager"
+        Width="800" Height="450" MinWidth="450" MinHeight="310">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+    <Window.Styles>
+        <Style Selector="SplitView#TaskView">
+            <Setter Property="IsPaneOpen" Value="True" />
+        </Style>
+        <ContainerQuery Name="MainWindowContainer" Query="max-width:500">
+            <Style Selector="SplitView#TaskView">
+                <Setter Property="IsPaneOpen" Value="False" />
+            </Style>
+        </ContainerQuery>
+        <Style Selector="Border#SearchBorder">
+            <Setter Property="MinWidth" Value="200" />
+        </Style>
+        <ContainerQuery Name="MainWindowContainer" Query="min-width:1000">
+            <Style Selector="Border#SearchBorder">
+                <Setter Property="MinWidth" Value="350" />
+            </Style>
+        </ContainerQuery>
+        <ContainerQuery Name="MainWindowContainer" Query="min-width:1200">
+            <Style Selector="Border#SearchBorder">
+                <Setter Property="MinWidth" Value="500" />
+            </Style>
+        </ContainerQuery>
+        <ContainerQuery Name="MainWindowContainer" Query="min-width:1400">
+            <Style Selector="Border#SearchBorder">
+                <Setter Property="MinWidth" Value="700" />
+            </Style>
+        </ContainerQuery>
+        <ContainerQuery Name="MainWindowContainer" Query="min-width:1600">
+            <Style Selector="Border#SearchBorder">
+                <Setter Property="MinWidth" Value="900" />
+            </Style>
+        </ContainerQuery>
+    </Window.Styles>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Window.Resources>
+        <cvt:TaskTagConverter x:Key="TagConverter"/>
+        <cvt:TaskGidConverter x:Key="GidConverter"/>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top">
+            <Menu MinHeight="30">
+                <MenuItem Header="{Binding [Edit], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                    <MenuItem Header="{Binding [Add], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2NewTaskCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconAdd}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Pause], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconPause}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Resume], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseTaskCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconUnPause}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Remove], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding RemoveTaskCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconRemove}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Properties], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2TaskInfoCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconProperties}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="{Binding [Resume_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseAllTaskCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconUnPauseAll}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Pause_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseAllTaskCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconPauseAll}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Purge_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PurgeAllTaskCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconPurgeAll}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{Binding [Tools], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                    <MenuItem Header="{Binding [Aria2_Servers], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2ServersCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconServers}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Aria2_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2OptionsCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconOptions}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Program_Settings], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenSettingsCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconSettings}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="{Binding [Exit], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding ExitCommand}" >
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconExit}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{Binding [Help], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                    <MenuItem Header="{Binding [Aria2_Website], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2WebsiteCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconWebsite}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{Binding [Aria2_Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2StatusCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconStatus}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="{Binding [About], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAboutCommand}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconAbout}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            
+            <Border Padding="5,4">
+                <CommandBar IsDynamicOverflowEnabled="True" Background="Transparent">
+                    <CommandBar.Content>
+                        <Border CornerRadius="15" x:Name="SearchBorder" HorizontalAlignment="Center">
+                            <TextBox PlaceholderText="{Binding [Search_Task], Source={x:Static loc:AvaloniaLocalizer.Instance}}" BorderThickness="0"
+                                     VerticalContentAlignment="Center" FontSize="14" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                                <TextBox.InnerLeftContent>
+                                    <PathIcon Data="{StaticResource IconSearch}" Foreground="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                              Width="18" Height="18" Margin="10,0,0,0" />
+                                </TextBox.InnerLeftContent>
+                            </TextBox>
+                        </Border>
+                    </CommandBar.Content>
+                    <CommandBar.PrimaryCommands>
+                        <CommandBarButton Label="{Binding [Add], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2NewTaskCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconAdd}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                        <CommandBarButton Label="{Binding [Pause], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconPause}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                        <CommandBarButton Label="{Binding [Resume], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseTaskCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconUnPause}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                        <CommandBarButton Label="{Binding [Remove], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding RemoveTaskCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconRemove}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                        <CommandBarButton Label="{Binding [Properties], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2TaskInfoCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconProperties}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                        <CommandBarSeparator />
+                        <CommandBarButton Label="{Binding [Resume_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseAllTaskCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconUnPauseAll}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                        <CommandBarButton Label="{Binding [Pause_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseAllTaskCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconPauseAll}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                        <CommandBarButton Label="{Binding [Purge_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PurgeAllTaskCommand}">
+                            <CommandBarButton.Icon>
+                                <PathIcon Data="{StaticResource IconPurgeAll}" Foreground="{DynamicResource SystemAccentColor}" />
+                            </CommandBarButton.Icon>
+                        </CommandBarButton>
+                    </CommandBar.PrimaryCommands>
+                </CommandBar>
+            </Border>
+        </StackPanel>
+        
+        <Border DockPanel.Dock="Bottom" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" BorderBrush="{DynamicResource SystemControlDefaultBaseLowBrush}"
+                BorderThickness="0,1,0,0" Height="37" Padding="8,0">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
+                    <ComboBox ItemsSource="{Binding ServerNames}" SelectedItem="{Binding CurrentServerName}" MinHeight="24" Padding="8,2"/>
+                    <Ellipse Width="16" Height="16" Classes.connected="{Binding ServerStatus.IsConnected}">
+                        <Ellipse.Styles>
+                            <Style Selector="Ellipse">
+                                <Setter Property="Fill" Value="{DynamicResource SystemControlDefaultBaseLowBrush}" />
+                            </Style>
+                            <Style Selector="Ellipse.connected">
+                                <Setter Property="Fill" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+                            </Style>
+                        </Ellipse.Styles>
+                    </Ellipse>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="4">
+                    <TextBlock Text="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding ServerUploadSpeed}" VerticalAlignment="Center"/>
+                    <TextBlock Text="," VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding ServerDownloadSpeed}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <SplitView x:Name="TaskView" DisplayMode="Inline" OpenPaneLength="150" PaneBackground="Transparent">
+            <SplitView.Pane>
+                <Border BorderThickness="0,0,1,0" BorderBrush="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                    <ListBox SelectedItem="{Binding SelectedStatus, Mode=OneWayToSource, Converter={StaticResource TagConverter}}" Background="Transparent">
+                        <ListBoxItem Tag="all" Margin="5,5,0,5" IsSelected="True">
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource IconStatusAll}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Tag="active" Margin="5,0,0,5">
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource IconStatusActive}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_Active], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Tag="waiting" Margin="5,0,0,5">
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource IconStatusWaiting}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_Waiting], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Tag="stopped" Margin="5,0,0,5">
+                            <StackPanel Orientation="Horizontal">
+                                <PathIcon Data="{StaticResource IconStatusStopped}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding [TaskStatus_Stopped], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+                </Border>
+            </SplitView.Pane>
+
+            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True"
+                      ItemsSource="{Binding Aria2TaskCollection}" SelectedItem="{Binding SelectedTaskGid, Mode=OneWayToSource, Converter={StaticResource GidConverter}}">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{Binding [Pause], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource IconPause}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{Binding [Resume], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseTaskCommand}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource IconUnPause}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{Binding [Remove], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding RemoveTaskCommand}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource IconRemove}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{Binding [Properties], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2TaskInfoCommand}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource IconProperties}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="{Binding [Open_File_Location], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenFileLocationCommand}"
+                                  IsVisible="{Binding ServerStatus.IsLocal, Mode=OneWay}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource IconFileLocation}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" Binding="{Binding Name, Mode=OneWay}"/>
+                    <DataGridTemplateColumn Header="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5,0">
+                                    <ProgressBar Maximum="100" Value="{Binding Progress, Mode=OneWay}" Height="15" VerticalAlignment="Center"/>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Progress, Mode=OneWay}" FontSize="12"/>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Size, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Downloaded, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [ETA], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding ETA, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Status, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding DownloadSpeed, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Uploaded, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding UploadSpeed, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Ratio, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Connections, Mode=OneWay}"/>
+                    <DataGridTextColumn Header="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding NumSeeders, Mode=OneWay}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </SplitView>
+    </DockPanel>
 
 </Window>

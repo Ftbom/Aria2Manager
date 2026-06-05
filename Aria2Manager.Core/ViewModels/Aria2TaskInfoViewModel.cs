@@ -282,6 +282,7 @@ namespace Aria2Manager.Core.ViewModels
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Options_Failed"), "Error", MsgBoxLevel.Error);
             }
+            await Task.Delay(500);
         }
     }
 }
