@@ -22,26 +22,26 @@
             </Style>
         </ContainerQuery>
         <Style Selector="Border#SearchBorder">
-            <Setter Property="MinWidth" Value="200" />
+            <Setter Property="Width" Value="200" />
         </Style>
         <ContainerQuery Name="MainWindowContainer" Query="min-width:1000">
             <Style Selector="Border#SearchBorder">
-                <Setter Property="MinWidth" Value="350" />
+                <Setter Property="Width" Value="350" />
             </Style>
         </ContainerQuery>
         <ContainerQuery Name="MainWindowContainer" Query="min-width:1200">
             <Style Selector="Border#SearchBorder">
-                <Setter Property="MinWidth" Value="500" />
+                <Setter Property="Width" Value="500" />
             </Style>
         </ContainerQuery>
         <ContainerQuery Name="MainWindowContainer" Query="min-width:1400">
             <Style Selector="Border#SearchBorder">
-                <Setter Property="MinWidth" Value="700" />
+                <Setter Property="Width" Value="700" />
             </Style>
         </ContainerQuery>
         <ContainerQuery Name="MainWindowContainer" Query="min-width:1600">
             <Style Selector="Border#SearchBorder">
-                <Setter Property="MinWidth" Value="900" />
+                <Setter Property="Width" Value="900" />
             </Style>
         </ContainerQuery>
     </Window.Styles>
@@ -208,7 +208,7 @@
                     <Ellipse Width="16" Height="16" Classes.connected="{Binding ServerStatus.IsConnected}">
                         <Ellipse.Styles>
                             <Style Selector="Ellipse">
-                                <Setter Property="Fill" Value="{DynamicResource SystemControlDefaultBaseLowBrush}" />
+                                <Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
                             </Style>
                             <Style Selector="Ellipse.connected">
                                 <Setter Property="Fill" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
@@ -258,9 +258,8 @@
                 </Border>
             </SplitView.Pane>
 
-            <DataGrid AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True"
-                      ItemsSource="{Binding Aria2TaskCollection}" SelectedItem="{Binding SelectedTaskGid, Mode=OneWayToSource, Converter={StaticResource GidConverter}}">
-                <DataGrid.ContextMenu>
+            <Grid Background="Transparent">
+                <Grid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{Binding [Pause], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
                             <MenuItem.Icon>
@@ -289,31 +288,35 @@
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>
-                </DataGrid.ContextMenu>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" Binding="{Binding Name, Mode=OneWay}"/>
-                    <DataGridTemplateColumn Header="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid Margin="5,0">
-                                    <ProgressBar Maximum="100" Value="{Binding Progress, Mode=OneWay}" Height="15" VerticalAlignment="Center"/>
-                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Progress, Mode=OneWay}" FontSize="12"/>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Size, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Downloaded, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [ETA], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding ETA, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Status, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding DownloadSpeed, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Uploaded, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding UploadSpeed, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Ratio, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Connections, Mode=OneWay}"/>
-                    <DataGridTextColumn Header="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding NumSeeders, Mode=OneWay}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                </Grid.ContextMenu>
+
+                <DataGrid AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True"
+                      ItemsSource="{Binding Aria2TaskCollection}" SelectedItem="{Binding SelectedTaskGid, Mode=OneWayToSource, Converter={StaticResource GidConverter}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" Binding="{Binding Name, Mode=OneWay}"/>
+                        <DataGridTemplateColumn Header="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="5,0">
+                                        <ProgressBar Maximum="100" Value="{Binding Progress, Mode=OneWay}" Height="15" VerticalAlignment="Center"/>
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Progress, Mode=OneWay}" FontSize="12"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Size, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Downloaded, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [ETA], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding ETA, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Status, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding DownloadSpeed, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Uploaded, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding UploadSpeed, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Ratio, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Connections, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding NumSeeders, Mode=OneWay}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </SplitView>
     </DockPanel>
 

@@ -1,16 +1,17 @@
-﻿using Aria2Manager.Core.Enums;
+﻿using Aria2Manager.Avalonia.Localization;
+using Aria2Manager.Avalonia.Themes;
+using Aria2Manager.Avalonia.Views;
+using Aria2Manager.Core.Enums;
 using Aria2Manager.Core.Models;
 using Aria2Manager.Core.Services;
-using Aria2Manager.Avalonia.Views;
-using Aria2Manager.Core.Helpers;
 using Avalonia;
-using Avalonia.Media;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Notifications;
 using Avalonia.Layout;
+using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using Avalonia.Styling;
+using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +22,24 @@ namespace Aria2Manager.Avalonia.Services
     public class AvaloniaUIService : UIServiceBase
     {
         private readonly Dictionary<string, Window> _openWindows = new();
-        private WindowNotificationManager? _notificationManager;
-        public override string DefaultTheme => "Light";
-        public override List<string> ThemeList { get; } = new List<string>
-        {
-            "Light", "Dark"
-        };
+        public override string DefaultTheme => "Default";
+        public override List<string> ThemeList { get; } = ThemePresetsData.GetDefaultPresets().Select(t => t.Name).ToList();
         protected override void ShowPhysicalWindow(string windowId, WindowType windowType, object? dataContext, string? ownerWindowId = null)
         {
             var window = CreateWindow(windowType, dataContext);
             var desktop = Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            window.Closed += (s, e) => _openWindows.Remove(windowId);
+            if (windowType == WindowType.MainWindow && desktop != null)
+            {
+                desktop.MainWindow = window;
+            }
+            window.Closed += (s, e) =>
+            {
+                _openWindows.Remove(windowId);
+                if (desktop != null && desktop.MainWindow == window)
+                {
+                    desktop.MainWindow = null;
+                }
+            };
             _openWindows[windowId] = window;
             if (!string.IsNullOrWhiteSpace(ownerWindowId) && _openWindows.TryGetValue(ownerWindowId, out Window? ownerWindow))
             {
@@ -63,6 +71,7 @@ namespace Aria2Manager.Avalonia.Services
             }
             else
             {
+                window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 window.Show();
                 return null;
             }
@@ -87,7 +96,7 @@ namespace Aria2Manager.Avalonia.Services
             var activeWindow = _openWindows.Values.FirstOrDefault(x => x.IsActive) ?? desktop?.MainWindow;
             bool dialogResult = false;
             var tcs = new TaskCompletionSource<bool?>();
-            // 动态构建原生的 Avalonia Window 作为对话框
+            //动态构建原生的 Avalonia Window 作为对话框
             var dialogWindow = new Window
             {
                 Title = title,
@@ -113,16 +122,16 @@ namespace Aria2Manager.Avalonia.Services
             };
             if (icon == MsgBoxLevel.Question)
             {
-                var btnYes = new Button { Content = LanguageHelper.GetString("Yes") ?? "Yes", Width = 80, HorizontalContentAlignment = HorizontalAlignment.Center };
+                var btnYes = new Button { Content = AvaloniaLocalizer.Instance.GetString("Yes"), Width = 80, HorizontalContentAlignment = HorizontalAlignment.Center };
                 btnYes.Click += (s, e) => { dialogResult = true; dialogWindow.Close(); };
-                var btnNo = new Button { Content = LanguageHelper.GetString("No") ?? "No", Width = 80, HorizontalContentAlignment = HorizontalAlignment.Center };
+                var btnNo = new Button { Content = AvaloniaLocalizer.Instance.GetString("No"), Width = 80, HorizontalContentAlignment = HorizontalAlignment.Center };
                 btnNo.Click += (s, e) => { dialogResult = false; dialogWindow.Close(); };
                 buttonPanel.Children.Add(btnYes);
                 buttonPanel.Children.Add(btnNo);
             }
             else
             {
-                var btnOk = new Button { Content = LanguageHelper.GetString("OK") ?? "OK", Width = 80, HorizontalContentAlignment = HorizontalAlignment.Center };
+                var btnOk = new Button { Content = AvaloniaLocalizer.Instance.GetString("OK"), Width = 80, HorizontalContentAlignment = HorizontalAlignment.Center };
                 btnOk.Click += (s, e) => { dialogResult = true; dialogWindow.Close(); };
                 buttonPanel.Children.Add(btnOk);
             }
@@ -166,20 +175,7 @@ namespace Aria2Manager.Avalonia.Services
         }
         public override void ShowTrayNotification(string message, string title = "Aria2Manager", MsgBoxLevel icon = MsgBoxLevel.Information)
         {
-            var desktop = Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
-            var mainWindow = desktop?.MainWindow;
-            if (mainWindow == null) return;
-            if (_notificationManager == null)
-            {
-                var topLevel = TopLevel.GetTopLevel(mainWindow);
-                if (topLevel == null) return;
-                _notificationManager = new WindowNotificationManager(topLevel)
-                {
-                    Position = NotificationPosition.BottomRight, // 通知弹出的位置
-                    MaxItems = 3 // 屏幕上最多同时显示的通知数量
-                };
-            }
-            // 映射图标类型
+            //映射图标类型
             NotificationType notificationType = icon switch
             {
                 MsgBoxLevel.Information => NotificationType.Information,
@@ -187,23 +183,10 @@ namespace Aria2Manager.Avalonia.Services
                 MsgBoxLevel.Error => NotificationType.Error,
                 _ => NotificationType.Information
             };
-            // 发送通知
-            _notificationManager.Show(new Notification(title, message, notificationType, TimeSpan.FromSeconds(3)));
         }
         public override Task<bool> ChangeThemeAsync(string theme)
         {
-            if (Application.Current != null)
-            {
-                if (theme.Contains("Dark", StringComparison.OrdinalIgnoreCase))
-                {
-                    Application.Current.RequestedThemeVariant = ThemeVariant.Dark;
-                }
-                else
-                {
-                    Application.Current.RequestedThemeVariant = ThemeVariant.Light;
-                }
-                return Task.FromResult(true);
-            }
+            ThemeManager.ApplyPreset(theme);
             return Task.FromResult(false);
         }
         private Window CreateWindow(WindowType windowType, object? dataContext)

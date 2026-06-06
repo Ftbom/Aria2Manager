@@ -73,15 +73,21 @@ namespace Aria2Manager.Core
             try
             {
                 //检查程序更新
-                if (await UpdateCheckerHelper.CheckProgramUpdate() == true)
+                if (AppSettings.CheckUpdate)
                 {
-                    uiService.ShowTrayNotification(LanguageHelper.GetString("Program_Update_Available"));
+                    if (await UpdateCheckerHelper.CheckProgramUpdate() == true)
+                    {
+                        uiService.ShowTrayNotification(LanguageHelper.GetString("Program_Update_Available"));
+                    }
                 }
                 //检查Aria2更新
-                var aria2Version = await Aria2Server.GetAria2Version();
-                if (await UpdateCheckerHelper.CheckAria2Update(aria2Version.Version) == true)
+                if (AppSettings.CheckAria2Update)
                 {
-                    uiService.ShowTrayNotification(LanguageHelper.GetString("Aria2_Update_Available"));
+                    var aria2Version = await Aria2Server.GetAria2Version();
+                    if (await UpdateCheckerHelper.CheckAria2Update(aria2Version.Version) == true)
+                    {
+                        uiService.ShowTrayNotification(LanguageHelper.GetString("Aria2_Update_Available"));
+                    }
                 }
             }
             catch { }

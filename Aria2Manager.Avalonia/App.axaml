@@ -2,9 +2,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vms="using:Aria2Manager.Core.ViewModels"
              xmlns:views="using:Aria2Manager.Avalonia.Views"
+             xmlns:loc="using:Aria2Manager.Avalonia.Localization"
              x:Class="Aria2Manager.Avalonia.App"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+    
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Assets/app.ico" ToolTipText="Aria2Manager" Clicked="Show_Click">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="{Binding [Show], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Click="Show_Click"/>
+                        <NativeMenuItem Header="{Binding [Exit], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Click="Exit_Click"/>
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
 
     <Application.DataTemplates>
         <DataTemplate DataType="{x:Type vms:MainViewModel}">
