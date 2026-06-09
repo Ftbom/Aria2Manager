@@ -10,6 +10,8 @@ namespace Aria2Manager.Core.ViewModels
 {
     public partial class SettingsViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private bool _enableTrackersUpdate;
         public AppSettings Settings { get; set; } = GlobalContext.Instance.AppSettings.DeepClone(); //应用设置
         public List<CultureInfo> LanguageList { get; set; } //语言列表
         public List<string> ThemeList { get; private set; } //主题列表
@@ -21,6 +23,11 @@ namespace Aria2Manager.Core.ViewModels
             LanguageList = LanguageHelper.GetSupportedLanguages();
             TrackersSources = BtTrackers.Sources.Keys.ToList();
             ThemeList = uiService.ThemeList;
+            EnableTrackersUpdate = Settings.Trackers.EnableUpdate;
+        }
+        partial void OnEnableTrackersUpdateChanged(bool value)
+        {
+            Settings.Trackers.EnableUpdate = value;
         }
         [RelayCommand]
         private async Task SaveSettings()

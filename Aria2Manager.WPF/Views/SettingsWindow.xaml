@@ -63,7 +63,7 @@
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="8*"/>
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding [Update_BT_Trackers], Source={x:Static loc:WpfLocalizer.Instance}}" IsChecked="{Binding Settings.Trackers.EnableUpdate}"/>
+            <CheckBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding [Update_BT_Trackers], Source={x:Static loc:WpfLocalizer.Instance}}" IsChecked="{Binding EnableTrackersUpdate}"/>
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
@@ -71,7 +71,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{Binding [Trackers_Source], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <ComboBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="120" ItemsSource="{Binding TrackersSources}"
-                          SelectedValue="{Binding Settings.Trackers.TrackersSource}" IsEnabled="{Binding Settings.Trackers.EnableUpdate}"/>
+                          SelectedValue="{Binding Settings.Trackers.TrackersSource}" IsEnabled="{Binding EnableTrackersUpdate}"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Grid.ColumnDefinitions>
@@ -79,7 +79,7 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Grid.Column="0" Text="{Binding [Trackers_Update_Interval], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="50" Text="{Binding Settings.Trackers.UpdateInterval}" IsEnabled="{Binding Settings.Trackers.EnableUpdate}"/>
+                <TextBox Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="50" Text="{Binding Settings.Trackers.UpdateInterval}" IsEnabled="{Binding EnableTrackersUpdate}"/>
             </Grid>
         </Grid>
         <Button Content="{Binding [Save], Source={x:Static loc:WpfLocalizer.Instance}}" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Center" MinWidth="76" Command="{Binding SaveSettingsCommand}"/>

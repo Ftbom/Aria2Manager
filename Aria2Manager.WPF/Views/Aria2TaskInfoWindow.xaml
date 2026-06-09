@@ -81,7 +81,7 @@
             <ListBox ItemsSource="{Binding TaskInfo.Files}" IsEnabled="{Binding TaskInfo.FileListCheckable, Mode=OneWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding Selected, UpdateSourceTrigger=PropertyChanged}">
+                        <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding Selected}" IsEnabled="{Binding CancelAble}">
                         </CheckBox>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

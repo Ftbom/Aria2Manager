@@ -11,7 +11,6 @@ using Avalonia.Controls.Notifications;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using Avalonia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +48,14 @@ namespace Aria2Manager.Avalonia.Services
             else if (desktop?.MainWindow != null && desktop.MainWindow != window)
             {
                 window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-                window.Show(desktop.MainWindow);
+                if (desktop.MainWindow.IsVisible)
+                {
+                    window.Show(desktop.MainWindow);
+                }
+                else
+                {
+                    window.Show();
+                }
             }
             else
             {
@@ -194,13 +200,13 @@ namespace Aria2Manager.Avalonia.Services
             Window window = windowType switch
             {
                 WindowType.MainWindow => new MainWindow(),
-                //WindowType.SettingsWindow => new SettingsWindow(),
-                //WindowType.AboutWindow => new AboutWindow(),
-                //WindowType.Aria2ServersWindow => new Aria2ServersWindow(),
-                //WindowType.Aria2NewTaskWindow => new Aria2NewTaskWindow(),
-                //WindowType.Aria2OptionsWindow => new Aria2OptionsWindow(),
-                //WindowType.Aria2TaskInfoWindow => new Aria2TaskInfoWindow(),
-                //WindowType.Aria2StatusWindow => new Aria2StatusWindow(),
+                WindowType.SettingsWindow => new SettingsWindow(),
+                WindowType.AboutWindow => new AboutWindow(),
+                WindowType.Aria2ServersWindow => new Aria2ServersWindow(),
+                WindowType.Aria2NewTaskWindow => new Aria2NewTaskWindow(),
+                WindowType.Aria2OptionsWindow => new Aria2OptionsWindow(),
+                WindowType.Aria2TaskInfoWindow => new Aria2TaskInfoWindow(),
+                WindowType.Aria2StatusWindow => new Aria2StatusWindow(),
                 _ => throw new ArgumentOutOfRangeException(nameof(windowType), $"未配置该窗口类型的实例化逻辑: {windowType}")
             };
             if (dataContext != null)

@@ -150,11 +150,8 @@
   <data name="Download_Info" xml:space="preserve">
     <value>Download Info</value>
   </data>
-  <data name="Download_Link" xml:space="preserve">
-    <value>Download Link</value>
-  </data>
   <data name="Download_Link_Tip" xml:space="preserve">
-    <value>Multiple links supported, one address per line</value>
+    <value>Input download links(Multiple links supported, one address per line)</value>
   </data>
   <data name="MetaLink" xml:space="preserve">
     <value>MetaLink</value>
@@ -295,7 +292,7 @@
     <value>Trackers Source</value>
   </data>
   <data name="Trackers_Update_Interval" xml:space="preserve">
-    <value>Update Interval (Days)</value>
+    <value>Update Interval</value>
   </data>
   <data name="Start_Aria2" xml:space="preserve">
     <value>Start Aria2 with Program</value>
@@ -331,7 +328,7 @@
     <value>Enabled Features</value>
   </data>
   <data name="Check_Update" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>Check for Program Updates</value>
   </data>
   <data name="TaskStatus_All" xml:space="preserve">
     <value>All</value>
@@ -420,7 +417,31 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="Search_Task" xml:space="preserve">
-    <value>Search for tasks</value>
+  <data name="Filter_Task" xml:space="preserve">
+    <value>Filter tasks</value>
+  </data>
+  <data name="Aria2" xml:space="preserve">
+    <value>Aria2</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="BT_Tracker" xml:space="preserve">
+    <value>BT Tracker</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="New_Download" xml:space="preserve">
+    <value>New Download</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>Min</value>
   </data>
 </root>

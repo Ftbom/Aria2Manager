@@ -2,7 +2,6 @@
 using Avalonia.Data.Converters;
 using System;
 using System.Globalization;
-using Aria2Manager.Core.Enums;
 
 namespace Aria2manager.Avalonia.Converters
 {

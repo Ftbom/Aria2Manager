@@ -150,11 +150,8 @@
   <data name="Download_Info" xml:space="preserve">
     <value>下载项信息</value>
   </data>
-  <data name="Download_Link" xml:space="preserve">
-    <value>下载链接</value>
-  </data>
   <data name="Download_Link_Tip" xml:space="preserve">
-    <value>支持多个链接，每个地址占一行</value>
+    <value>输入下载链接（支持多个链接，每个地址占一行）</value>
   </data>
   <data name="MetaLink" xml:space="preserve">
     <value>MetaLink</value>
@@ -295,7 +292,7 @@
     <value>Trackers来源</value>
   </data>
   <data name="Trackers_Update_Interval" xml:space="preserve">
-    <value>更新间隔(天)</value>
+    <value>更新间隔</value>
   </data>
   <data name="Start_Aria2" xml:space="preserve">
     <value>随程序启动Aria2</value>
@@ -310,7 +307,7 @@
     <value>退出程序时关闭Aria2，仅对通过程序启动的Aria2有效</value>
   </data>
   <data name="Check_Aria2_Update" xml:space="preserve">
-    <value>检查Aria2更新</value>
+    <value>启动时检查Aria2更新</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>帮助</value>
@@ -331,7 +328,7 @@
     <value>已启用的功能</value>
   </data>
   <data name="Check_Update" xml:space="preserve">
-    <value>检查更新</value>
+    <value>启动时检查程序更新</value>
   </data>
   <data name="TaskStatus_All" xml:space="preserve">
     <value>全部</value>
@@ -420,7 +417,31 @@
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
-  <data name="Search_Task" xml:space="preserve">
-    <value>搜索任务</value>
+  <data name="Filter_Task" xml:space="preserve">
+    <value>过滤任务</value>
+  </data>
+  <data name="Aria2" xml:space="preserve">
+    <value>Aria2</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="BT_Tracker" xml:space="preserve">
+    <value>BT Tracker</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>开</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="New_Download" xml:space="preserve">
+    <value>添加下载</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>分</value>
   </data>
 </root>

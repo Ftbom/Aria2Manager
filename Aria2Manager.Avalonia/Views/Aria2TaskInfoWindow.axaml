@@ -1,0 +1,175 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="400"
+        x:Class="Aria2Manager.Avalonia.Views.Aria2TaskInfoWindow"
+        x:DataType="vm:Aria2TaskInfoViewModel" Height="400" Width="650"
+        Title="{Binding [Properties], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style Selector="SelectableTextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="MinHeight" Value="40"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer > StackPanel">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Spacing" Value="10"/>
+        </Style>
+        <Style Selector="StackPanel > Grid">
+            <Setter Property="RowSpacing" Value="10"/>
+            <Setter Property="ColumnSpacing" Value="10"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto, *" Margin="5,15,5,15" RowSpacing="15">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="15,0,0,0">
+            <StackPanel.Styles>
+                <Style Selector="PathIcon">
+                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                </Style>
+                <Style Selector="PathIcon.enabled">
+                    <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}"/>
+                </Style>
+            </StackPanel.Styles>
+            <Button Background="Transparent" BorderThickness="0" IsEnabled="{Binding TaskInfo.CanPause}" Command="{Binding PauseTaskCommand}">
+                <PathIcon Data="{StaticResource IconPause}" Classes.enabled="{Binding TaskInfo.CanPause}" Width="10" Height="10"/>
+            </Button>
+            <Button Background="Transparent" BorderThickness="0" IsEnabled="{Binding TaskInfo.CanResume}" Command="{Binding UnPauseTaskCommand}">
+                <PathIcon Data="{StaticResource IconUnPause}" Classes.enabled="{Binding TaskInfo.CanResume}" Width="10" Height="10"/>
+            </Button>
+        </StackPanel>
+
+        <TabControl Grid.Row="1" TabStripPlacement="Left">
+            <TabItem Header="{Binding [OverView], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnSpacing="30">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <SelectableTextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TaskInfo.Name, Mode=OneWay}" TextTrimming="CharacterEllipsis"
+                                       ToolTip.Tip="{Binding TaskInfo.Name}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TaskInfo.Size, Mode=OneWay}"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding TaskInfo.Status, Mode=OneWay}"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1">
+                                <Run Text="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <Run Text="{Binding TaskInfo.Downloaded, Mode=OneWay}"/>
+                                <Run Text=", "/>
+                                <Run Text="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <Run Text="{Binding TaskInfo.Uploaded, Mode=OneWay}"/>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding [Download_Path], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <SelectableTextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TaskInfo.DownloadPath, Mode=OneWay}"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="{Binding [Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <TextBlock Grid.Row="5" Grid.Column="1">
+                                <Run Text="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <Run Text="{Binding TaskInfo.DownloadSpeed, Mode=OneWay}"/>
+                                <Run Text=", "/>
+                                <Run Text="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <Run Text="{Binding TaskInfo.UploadSpeed, Mode=OneWay}"/>
+                            </TextBlock>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="{Binding [Info_Hash], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding TaskInfo.Hash, Mode=OneWay}"/>
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding TaskInfo.Ratio, Mode=OneWay}"/>
+
+                            <TextBlock Grid.Row="8" Grid.Column="0" Text="{Binding [Seeds_And_Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                            <TextBlock Grid.Row="8" Grid.Column="1">
+                                <Run Text="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <Run Text="{Binding TaskInfo.Connections, Mode=OneWay}"/>
+                                <Run Text=", "/>
+                                <Run Text="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <Run Text="{Binding TaskInfo.Seeders, Mode=OneWay}"/>
+                            </TextBlock>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{Binding [Files_List], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ListBox ItemsSource="{Binding TaskInfo.Files}" IsEnabled="{Binding TaskInfo.FileListCheckable, Mode=OneWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding Selected}" IsEnabled="{Binding CancelAble}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+
+            <TabItem Header="{Binding [Settings], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <Grid RowDefinitions="*, Auto">
+                        <StackPanel>
+                            <Grid ColumnDefinitions="Auto, *, Auto, *" RowDefinitions="Auto, Auto, Auto, Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Seed_Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TaskInfo.SeedRatio}" IsEnabled="{Binding TaskInfo.IsBittorrent}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding [Seed_Time], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding TaskInfo.SeedTime}" IsEnabled="{Binding TaskInfo.IsBittorrent}"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [HTTP_User], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TaskInfo.HttpUser}" IsEnabled="{Binding TaskInfo.IsHttp}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding [HTTP_Passwd], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding TaskInfo.HttpPasswd}" IsEnabled="{Binding TaskInfo.IsHttp}" PasswordChar="*"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Proxy_Address], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TaskInfo.ProxyAddress}" IsEnabled="{Binding TaskInfo.IsHttp}"/>
+                                <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding [Proxy_Port], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding TaskInfo.ProxyPort}" IsEnabled="{Binding TaskInfo.IsHttp}"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [Proxy_User], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TaskInfo.ProxyUser}" IsEnabled="{Binding TaskInfo.IsHttp}"/>
+                                <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding [Proxy_Passwd], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding TaskInfo.ProxyPasswd}" IsEnabled="{Binding TaskInfo.IsHttp}" PasswordChar="*"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <Border Grid.Row="1" Background="{DynamicResource ThemeControlMidBrush}" Padding="20,15">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="{Binding [Save], Source={x:Static loc:AvaloniaLocalizer.Instance}}" MinWidth="120"
+                                        Command="{Binding ChangeOptionsCommand}" HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

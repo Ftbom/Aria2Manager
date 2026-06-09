@@ -12,6 +12,10 @@
                 <TrayIcon.Menu>
                     <NativeMenu>
                         <NativeMenuItem Header="{Binding [Show], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Click="Show_Click"/>
+                        <NativeMenuItemSeparator/>
+                        <NativeMenuItem Header="{Binding [New_Download], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Click="NewDownload_Click"/>
+                        <NativeMenuItem Header="{Binding [Settings], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Click="Settings_Click"/>
+                        <NativeMenuItemSeparator/>
                         <NativeMenuItem Header="{Binding [Exit], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Click="Exit_Click"/>
                     </NativeMenu>
                 </TrayIcon.Menu>

@@ -12,6 +12,7 @@ using Serilog;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Aria2Manager.Avalonia
 {
@@ -43,10 +44,7 @@ namespace Aria2Manager.Avalonia
             {
                 //桌面环境
                 desktop.Exit += OnExit;
-                if (!GlobalContext.Instance.AppSettings.StartMin) //是否打开主窗口
-                {
-                    _uiService.ShowWindow(WindowType.MainWindow, new MainViewModel(_uiService));
-                }
+                _uiService.ShowWindow(WindowType.MainWindow, new MainViewModel(_uiService));
             }
             base.OnFrameworkInitializationCompleted();
         }
@@ -66,6 +64,18 @@ namespace Aria2Manager.Avalonia
         private async void Exit_Click(object? sender, EventArgs e)
         {
             await _uiService.Exit();
+        }
+        public async Task OpenSettings()
+        {
+            _uiService.ShowWindow(WindowType.SettingsWindow, new SettingsViewModel(_uiService));
+        }
+        private async void Settings_Click(object? sender, EventArgs e)
+        {
+            await OpenSettings();
+        }
+        private async void NewDownload_Click(object? sender, EventArgs e)
+        {
+            _uiService.ShowWindow(WindowType.Aria2NewTaskWindow, new Aria2NewTaskViewModel(_uiService));
         }
         private void Show_Click(object? sender, EventArgs e)
         {

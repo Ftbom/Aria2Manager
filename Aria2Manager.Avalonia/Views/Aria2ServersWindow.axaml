@@ -1,0 +1,123 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="350" d:DesignHeight="480"
+        x:Class="Aria2Manager.Avalonia.Views.Aria2ServersWindow"
+        x:DataType="vm:Aria2ServersViewModel" Height="480" Width="350"
+        Title="{Binding [Aria2_Servers], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Window.Styles>
+        <Style Selector="ComboBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style Selector="ToggleSwitch">
+            <Setter Property="OnContent" Value="{Binding [Yes], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+            <Setter Property="OffContent" Value="{Binding [No], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="MinHeight" Value="40"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer > StackPanel">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Spacing" Value="10"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer > StackPanel > Grid">
+            <Setter Property="RowSpacing" Value="10"/>
+            <Setter Property="ColumnSpacing" Value="10"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="*, Auto">
+        <TabControl>
+            <TabItem Header="{Binding [Server_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Grid ColumnDefinitions="*, Auto, Auto">
+                            <ComboBox Grid.Column="0" ItemsSource="{Binding AvailableServers}" DisplayMemberBinding="{Binding Name}"
+                                      SelectedIndex="{Binding CurrentEditServerIndex}"/>
+                            <Button Grid.Column="1" Content="{Binding [New], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                    Command="{Binding AddNewServerCommand}"/>
+                            <Button Grid.Column="2" Content="{Binding [Remove], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                    Command="{Binding DeleteServerCommand}"/>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+                            <TextBlock Grid.Row="0" Text="{Binding [Server_Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentEditServer.Name}"/>
+                        
+                            <TextBlock Grid.Row="1" Text="{Binding [Server_Address], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentEditServer.Address}"/>
+                        
+                            <TextBlock Grid.Row="2" Text="{Binding [Server_Port], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentEditServer.Port}"/>
+                        
+                            <TextBlock Grid.Row="3" Text="{Binding [Server_Secret], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEditServer.Secret}" PasswordChar="*"/>
+
+                            <TextBlock Grid.Row="4" Text="{Binding [Use_Https], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <ToggleSwitch Grid.Row="4" Grid.Column="1" IsChecked="{Binding CurrentEditServer.IsHttps}"/>
+
+                            <TextBlock Grid.Row="5" Text="{Binding [Use_Proxy], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <ToggleSwitch Grid.Row="5" Grid.Column="1" IsChecked="{Binding CurrentEditServer.UseProxy}"/>
+
+                            <TextBlock Grid.Row="6" Text="{Binding [Local_Server], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <ToggleSwitch Grid.Row="6" Grid.Column="1" IsChecked="{Binding CurrentEditServer.IsLocalServer}"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{Binding [Proxy_Settings], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto">
+                            <TextBlock Grid.Row="0" Text="{Binding [Proxy_Type], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <ComboBox Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Proxy.Type}" ItemsSource="{Binding ProxyTypes}"/>
+                        
+                            <TextBlock Grid.Row="1" Text="{Binding [Proxy_Address], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Proxy.Address}"/>
+                        
+                            <TextBlock Grid.Row="2" Text="{Binding [Proxy_Port], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Proxy.Port}"/>
+                        
+                            <TextBlock Grid.Row="3" Text="{Binding [Proxy_User], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Proxy.User}"/>
+
+                            <TextBlock Grid.Row="4" Text="{Binding [Proxy_Passwd], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Proxy.Passwd}" PasswordChar="*"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <Border Grid.Row="1" Background="{DynamicResource ThemeControlMidBrush}" Padding="20,15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="{Binding [Save], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                        Command="{Binding SaveServerSettingsCommand}" MinWidth="120" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

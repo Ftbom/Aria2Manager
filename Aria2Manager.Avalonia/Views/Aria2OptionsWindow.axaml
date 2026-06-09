@@ -1,0 +1,96 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Aria2Manager.Avalonia.Views.Aria2OptionsWindow"
+        x:DataType="vm:Aria2OptionsViewModel" Height="500" Width="750"
+        Title="{Binding [Aria2_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Window.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="MinHeight" Value="40"/>
+        </Style>
+    </Window.Styles>
+
+    <Window.Resources>
+        <DataTemplate x:Key="SettingItemTemplate" x:DataType="vm:OptionViewModel">
+            <Grid Margin="0,8" ColumnDefinitions="3*, 5*">
+                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,0,5,0"
+                           ToolTip.Tip="{Binding Description}"/>
+                <TextBox Grid.Column="1" Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                         IsEnabled="{Binding !ReadOnly}" TextWrapping="Wrap" AcceptsReturn="True"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Grid.Row="0" TabStripPlacement="Left">
+            <TabItem Header="{Binding [Basic_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding BasicOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding [HTTPFTPSFTP_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding HttpFtpSftpOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding [HTTP_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding HttpOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding [FTPSFTP_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding FtpSftpOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding [BitTorrent_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding BTOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding [Metalink_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding MetalinkOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding [RPC_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding RPCOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="{Binding [Advanced_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding AdvancedOptions}" ItemTemplate="{StaticResource SettingItemTemplate}"
+                                  Margin="20,10,20,20"/>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <Border Grid.Row="1" Background="{DynamicResource ThemeControlMidBrush}" Padding="20,15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="{Binding [Save], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                        Command="{Binding ChangeAria2OptionsCommand}" MinWidth="120" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

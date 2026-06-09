@@ -144,8 +144,8 @@
                 <CommandBar IsDynamicOverflowEnabled="True" Background="Transparent">
                     <CommandBar.Content>
                         <Border CornerRadius="15" x:Name="SearchBorder" HorizontalAlignment="Center">
-                            <TextBox PlaceholderText="{Binding [Search_Task], Source={x:Static loc:AvaloniaLocalizer.Instance}}" BorderThickness="0"
-                                     VerticalContentAlignment="Center" FontSize="14" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                            <TextBox x:Name="FilterTextBox" PlaceholderText="{Binding [Filter_Task], Source={x:Static loc:AvaloniaLocalizer.Instance}}" BorderThickness="0"
+                                     VerticalContentAlignment="Center" FontSize="14" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" TextChanged="FilterText_Changed">
                                 <TextBox.InnerLeftContent>
                                     <PathIcon Data="{StaticResource IconSearch}" Foreground="{DynamicResource SystemControlForegroundBaseLowBrush}"
                                               Width="18" Height="18" Margin="10,0,0,0" />
@@ -204,7 +204,7 @@
                 BorderThickness="0,1,0,0" Height="37" Padding="8,0">
             <Grid ColumnDefinitions="Auto, *, Auto">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Spacing="8">
-                    <ComboBox ItemsSource="{Binding ServerNames}" SelectedItem="{Binding CurrentServerName}" MinHeight="24" Padding="8,2"/>
+                    <ComboBox ItemsSource="{Binding ServerNames}" SelectedItem="{Binding CurrentServerName}" IsEnabled="{Binding CanSwitchServer}" MinHeight="24" Padding="8,2"/>
                     <Ellipse Width="16" Height="16" Classes.connected="{Binding ServerStatus.IsConnected}">
                         <Ellipse.Styles>
                             <Style Selector="Ellipse">
@@ -290,11 +290,11 @@
                     </ContextMenu>
                 </Grid.ContextMenu>
 
-                <DataGrid AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True"
+                <DataGrid x:Name="TaskList" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True"
                       ItemsSource="{Binding Aria2TaskCollection}" SelectedItem="{Binding SelectedTaskGid, Mode=OneWayToSource, Converter={StaticResource GidConverter}}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" Binding="{Binding Name, Mode=OneWay}"/>
-                        <DataGridTemplateColumn Header="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120">
+                        <DataGridTextColumn Header="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" Binding="{Binding Name, Mode=OneWay}" SortMemberPath="Name"/>
+                        <DataGridTemplateColumn Header="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" SortMemberPath="Progress">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid Margin="5,0">
@@ -304,16 +304,16 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Size, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Downloaded, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [ETA], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding ETA, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Status, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding DownloadSpeed, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Uploaded, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding UploadSpeed, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Ratio, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Connections, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding NumSeeders, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Size, Mode=OneWay}" SortMemberPath="SizeBytes"/>
+                        <DataGridTextColumn Header="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Downloaded, Mode=OneWay}" SortMemberPath="DownloadedBytes"/>
+                        <DataGridTextColumn Header="{Binding [ETA], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding ETA, Mode=OneWay}" SortMemberPath="EtaSeconds"/>
+                        <DataGridTextColumn Header="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Status, Mode=OneWay}" SortMemberPath="Status"/>
+                        <DataGridTextColumn Header="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding DownloadSpeed, Mode=OneWay}" SortMemberPath="DownloadSpeedBytes"/>
+                        <DataGridTextColumn Header="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Uploaded, Mode=OneWay}" SortMemberPath="UploadedBytes"/>
+                        <DataGridTextColumn Header="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding UploadSpeed, Mode=OneWay}" SortMemberPath="UploadSpeedBytes"/>
+                        <DataGridTextColumn Header="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Ratio, Mode=OneWay}" SortMemberPath="Ratio"/>
+                        <DataGridTextColumn Header="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding Connections, Mode=OneWay}" SortMemberPath="Connections"/>
+                        <DataGridTextColumn Header="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="120" Binding="{Binding NumSeeders, Mode=OneWay}" SortMemberPath="NumSeeders"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
