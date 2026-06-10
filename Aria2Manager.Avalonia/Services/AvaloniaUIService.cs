@@ -207,6 +207,7 @@ namespace Aria2Manager.Avalonia.Services
                 WindowType.Aria2OptionsWindow => new Aria2OptionsWindow(),
                 WindowType.Aria2TaskInfoWindow => new Aria2TaskInfoWindow(),
                 WindowType.Aria2StatusWindow => new Aria2StatusWindow(),
+                WindowType.Aria2ConfigFileWindow => new Aria2ConfigFileWindow(),
                 _ => throw new ArgumentOutOfRangeException(nameof(windowType), $"未配置该窗口类型的实例化逻辑: {windowType}")
             };
             if (dataContext != null)

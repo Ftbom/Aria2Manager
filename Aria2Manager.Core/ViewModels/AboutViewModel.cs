@@ -26,15 +26,18 @@ namespace Aria2Manager.Core.ViewModels
             bool? result = await UpdateCheckerHelper.CheckProgramUpdate();
             if (result == null)
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Check_Program_Update_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Check_Program_Update_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
             else if (result == true)
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Update_Available"), "Info", MsgBoxLevel.Information);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Update_Available"),
+                    LanguageHelper.GetString("Info"), MsgBoxLevel.Information);
             }
             else
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Up_To_Date"), "Info", MsgBoxLevel.Information);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Up_To_Date"),
+                    LanguageHelper.GetString("Info"), MsgBoxLevel.Information);
             }
         }
         [RelayCommand]

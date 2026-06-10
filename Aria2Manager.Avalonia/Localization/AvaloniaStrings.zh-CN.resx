@@ -453,4 +453,10 @@
   <data name="Uncompleted" xml:space="preserve">
     <value>未完成</value>
   </data>
+  <data name="Aria2_Config_File" xml:space="preserve">
+    <value>Aria2配置文件</value>
+  </data>
+  <data name="Restart_Aria2" xml:space="preserve">
+    <value>重启Aria2...</value>
+  </data>
 </root>

@@ -5,6 +5,7 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using Avalonia.Input;
 using System;
 
 namespace Aria2Manager.Avalonia.Views
@@ -96,6 +97,13 @@ namespace Aria2Manager.Avalonia.Views
         {
             //每次文本变化时刷新过滤结果
             _collectionView?.Refresh();
+        }
+        private void TaskList_DoubleTapped(object? sender, TappedEventArgs e)
+        {
+            if (this.DataContext is MainViewModel coreVm)
+            {
+                coreVm.OpenAria2TaskInfoCommand.Execute(null);
+            }
         }
     }
 }

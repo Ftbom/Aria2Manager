@@ -61,6 +61,15 @@ namespace Aria2Manager.Core.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Need restart Aria2 to change configuration 的本地化字符串。
+        /// </summary>
+        public static string Aria2_Restart_Needed {
+            get {
+                return ResourceManager.GetString("Aria2_Restart_Needed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Aria2 update available 的本地化字符串。
         /// </summary>
         public static string Aria2_Update_Available {
@@ -1618,6 +1627,33 @@ namespace Aria2Manager.Core.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Info 的本地化字符串。
+        /// </summary>
+        public static string Info {
+            get {
+                return ResourceManager.GetString("Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Failed to load config file 的本地化字符串。
+        /// </summary>
+        public static string Load_Config_File_Failed {
+            get {
+                return ResourceManager.GetString("Load_Config_File_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Failed to load aria2 options 的本地化字符串。
         /// </summary>
         public static string Load_Options_Failed {
@@ -1699,6 +1735,15 @@ namespace Aria2Manager.Core.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Question 的本地化字符串。
+        /// </summary>
+        public static string Question {
+            get {
+                return ResourceManager.GetString("Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Remove local files? 的本地化字符串。
         /// </summary>
         public static string Remove_Local_Files {
@@ -1713,6 +1758,15 @@ namespace Aria2Manager.Core.Localization {
         public static string Remove_Task_Failed {
             get {
                 return ResourceManager.GetString("Remove_Task_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Failed to save config file 的本地化字符串。
+        /// </summary>
+        public static string Save_Config_File_Failed {
+            get {
+                return ResourceManager.GetString("Save_Config_File_Failed", resourceCulture);
             }
         }
         
@@ -1773,9 +1827,9 @@ namespace Aria2Manager.Core.Localization {
         /// <summary>
         ///   查找类似 Need restart to change theme 的本地化字符串。
         /// </summary>
-        public static string Theme_ReStart {
+        public static string Theme_ReStart_Needed {
             get {
-                return ResourceManager.GetString("Theme_ReStart", resourceCulture);
+                return ResourceManager.GetString("Theme_ReStart_Needed", resourceCulture);
             }
         }
         
@@ -1794,6 +1848,15 @@ namespace Aria2Manager.Core.Localization {
         public static string Update_Trackers_Failed {
             get {
                 return ResourceManager.GetString("Update_Trackers_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

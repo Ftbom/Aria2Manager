@@ -681,7 +681,7 @@
   <data name="Open_Website_Failed" xml:space="preserve">
     <value>打开网页失败</value>
   </data>
-  <data name="Theme_ReStart" xml:space="preserve">
+  <data name="Theme_ReStart_Needed" xml:space="preserve">
     <value>需要重启以更改主题</value>
   </data>
   <data name="Aria2Option_bt-tracker_Tip" xml:space="preserve">
@@ -695,5 +695,26 @@
   </data>
   <data name="Purge_Task_Failed" xml:space="preserve">
     <value>清理任务失败</value>
+  </data>
+  <data name="Aria2_Restart_Needed" xml:space="preserve">
+    <value>需要重启Aria2以更改配置</value>
+  </data>
+  <data name="Load_Config_File_Failed" xml:space="preserve">
+    <value>加载配置文件失败</value>
+  </data>
+  <data name="Save_Config_File_Failed" xml:space="preserve">
+    <value>保存配置文件失败</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>提示</value>
   </data>
 </root>

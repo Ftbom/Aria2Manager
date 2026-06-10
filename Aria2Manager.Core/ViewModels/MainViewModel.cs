@@ -224,6 +224,11 @@ namespace Aria2Manager.Core.ViewModels
             _uiService.ShowDialogAsync(WindowType.Aria2TaskInfoWindow, new Aria2TaskInfoViewModel(_uiService, SelectedTaskGid));
         }
         [RelayCommand]
+        private async Task OpenAria2ConfigFile()
+        {
+            await _uiService.ShowDialogAsync(WindowType.Aria2ConfigFileWindow, new Aria2ConfigFileViewModel(_uiService));
+        }
+        [RelayCommand]
         private void OpenAria2Options()
         {
             _uiService.ShowWindow(WindowType.Aria2OptionsWindow, new Aria2OptionsViewModel(_uiService), WindowId);
@@ -263,7 +268,8 @@ namespace Aria2Manager.Core.ViewModels
         }
         private async Task DeleteLocalFiles(DownloadStatusResult task)
         {
-            if (await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Local_Files"), "Question", MsgBoxLevel.Question) != true)
+            if (await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Local_Files"),
+                LanguageHelper.GetString("Question"), MsgBoxLevel.Question) != true)
             {
                 return;
             }
@@ -307,7 +313,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -320,7 +327,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -332,7 +340,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -345,7 +354,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -357,7 +367,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -369,7 +380,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Purge_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Purge_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -393,7 +405,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Open_File_Location_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Open_File_Location_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
     }

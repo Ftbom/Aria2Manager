@@ -681,7 +681,7 @@
   <data name="Open_Website_Failed" xml:space="preserve">
     <value>Failed to open website</value>
   </data>
-  <data name="Theme_ReStart" xml:space="preserve">
+  <data name="Theme_ReStart_Needed" xml:space="preserve">
     <value>Need restart to change theme</value>
   </data>
   <data name="Aria2Option_bt-tracker_Tip" xml:space="preserve">
@@ -695,5 +695,26 @@
   </data>
   <data name="Purge_Task_Failed" xml:space="preserve">
     <value>Failed to purge tasks</value>
+  </data>
+  <data name="Aria2_Restart_Needed" xml:space="preserve">
+    <value>Need restart Aria2 to change configuration</value>
+  </data>
+  <data name="Load_Config_File_Failed" xml:space="preserve">
+    <value>Failed to load config file</value>
+  </data>
+  <data name="Save_Config_File_Failed" xml:space="preserve">
+    <value>Failed to save config file</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
   </data>
 </root>

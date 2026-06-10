@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+        x:Class="Aria2Manager.Avalonia.Views.Aria2ConfigFileWindow"
+        x:DataType="vm:Aria2ConfigFileViewModel" Height="400" Width="600"
+        Title="{Binding [Aria2_Config_File], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Grid>
+        <Grid RowDefinitions="*, Auto">
+            <TextBox Text="{Binding ConfigFileContent, Mode=TwoWay}" Margin="5, 10, 5, 0" HorizontalAlignment="Stretch"
+                     TextWrapping="Wrap" AcceptsReturn="True" IsEnabled="{Binding !IsSavingFile}"/>
+
+            <Border Grid.Row="1" Background="{DynamicResource ThemeControlMidBrush}" Padding="20,15">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="{Binding [Save], Source={x:Static loc:AvaloniaLocalizer.Instance}}" IsEnabled="{Binding !IsSavingFile}"
+                            Command="{Binding SaveConfigFileCommand}" MinWidth="120" HorizontalContentAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid Background="{DynamicResource SystemControlForegroundBaseLowBrush}" IsVisible="{Binding IsSavingFile}" ZIndex="999">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                <ProgressBar IsIndeterminate="True" Width="150" Height="20"/>
+                <TextBlock Text="{Binding [Restart_Aria2], Source={x:Static loc:AvaloniaLocalizer.Instance}}" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -42,7 +42,8 @@ namespace Aria2Manager.Core.ViewModels
             _ = GlobalContext.Instance.SaveSettings();
             if (ThemeNeedRestart)
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Theme_ReStart"), "Info", MsgBoxLevel.Information);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Theme_ReStart_Needed"),
+                    LanguageHelper.GetString("Info"), MsgBoxLevel.Information);
             }
             else
             {

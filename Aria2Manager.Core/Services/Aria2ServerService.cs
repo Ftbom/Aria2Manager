@@ -325,5 +325,22 @@ namespace Aria2Manager.Core.Services
                 LogHelper.Error("Failed to purge aria2 tasks", ex);
             }
         }
+        public async Task<string?> GetConfigFilePath()
+        {
+            try
+            {
+                var options = await GetAria2Options(["conf-path"]);
+                return options.TryGetValue("conf-path", out var value) ? value : null;
+            }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error("Failed to get aria2 config file path", ex);
+            }
+            return null;
+        }
     }
 }

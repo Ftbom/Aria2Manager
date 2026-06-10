@@ -69,7 +69,8 @@ namespace Aria2Manager.Core.ViewModels
         {
             if (AvailableServers.Select(s => s.Name).Distinct().Count() != AvailableServers.Count)
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Duplicate_Server_Name"), "Warn", MsgBoxLevel.Warning);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Duplicate_Server_Name"),
+                    LanguageHelper.GetString("Warning"), MsgBoxLevel.Warning);
                 return;
             }
             string oldServerName = GlobalContext.Instance.ServerSettings.Current;

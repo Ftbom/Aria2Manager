@@ -453,4 +453,10 @@
   <data name="Uncompleted" xml:space="preserve">
     <value>Uncompleted</value>
   </data>
+  <data name="Aria2_Config_File" xml:space="preserve">
+    <value>Aria2 Config File</value>
+  </data>
+  <data name="Restart_Aria2" xml:space="preserve">
+    <value>Restart Aria2...</value>
+  </data>
 </root>

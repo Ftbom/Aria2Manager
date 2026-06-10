@@ -103,6 +103,12 @@
                             <PathIcon Data="{StaticResource IconServers}" />
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header="{Binding [Aria2_Config_File], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2ConfigFileCommand}"
+                                  IsVisible="{Binding ServerStatus.IsLocal, Mode=OneWay}">
+                            <MenuItem.Icon>
+                                <PathIcon Data="{StaticResource IconEditFile}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                     <MenuItem Header="{Binding [Aria2_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2OptionsCommand}">
                         <MenuItem.Icon>
                             <PathIcon Data="{StaticResource IconOptions}" />
@@ -291,7 +297,7 @@
                 </Grid.ContextMenu>
 
                 <DataGrid x:Name="TaskList" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal" CanUserReorderColumns="True" CanUserResizeColumns="True"
-                      ItemsSource="{Binding Aria2TaskCollection}" SelectedItem="{Binding SelectedTaskGid, Mode=OneWayToSource, Converter={StaticResource GidConverter}}">
+                      ItemsSource="{Binding Aria2TaskCollection}" SelectedItem="{Binding SelectedTaskGid, Mode=OneWayToSource, Converter={StaticResource GidConverter}}" DoubleTapped="TaskList_DoubleTapped">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" Binding="{Binding Name, Mode=OneWay}" SortMemberPath="Name"/>
                         <DataGridTemplateColumn Header="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Width="200" SortMemberPath="Progress">

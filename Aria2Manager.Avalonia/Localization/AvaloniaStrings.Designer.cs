@@ -97,6 +97,15 @@ namespace Aria2Manager.Avalonia.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Aria2 Config File 的本地化字符串。
+        /// </summary>
+        internal static string Aria2_Config_File {
+            get {
+                return ResourceManager.GetString("Aria2_Config_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enabled Features 的本地化字符串。
         /// </summary>
         internal static string Aria2_Features {
@@ -741,6 +750,15 @@ namespace Aria2Manager.Avalonia.Localization {
         internal static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Restart Aria2... 的本地化字符串。
+        /// </summary>
+        internal static string Restart_Aria2 {
+            get {
+                return ResourceManager.GetString("Restart_Aria2", resourceCulture);
             }
         }
         

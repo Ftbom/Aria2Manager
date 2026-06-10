@@ -233,7 +233,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Task_Status_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Task_Status_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         //文件选择改变时的回调函数
@@ -266,7 +267,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Task_File_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Task_File_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
             TaskInfo.IsChangingFileSelection = false;
         }
@@ -280,7 +282,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -293,7 +296,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -327,7 +331,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Options_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Options_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
             await Task.Delay(500);
         }

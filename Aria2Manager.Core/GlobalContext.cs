@@ -106,7 +106,8 @@ namespace Aria2Manager.Core
             }
             catch
             {
-                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Update_Trackers_Failed"), "Error", MsgBoxLevel.Error);
+                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Update_Trackers_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         private void SyncAria2ServerNames()

@@ -68,7 +68,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"), "Error", MsgBoxLevel.Error);
+                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
             return new Aria2OptionsData();
         }
@@ -216,7 +217,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("New_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("New_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
             if (!string.IsNullOrWhiteSpace(WindowId))
             {
