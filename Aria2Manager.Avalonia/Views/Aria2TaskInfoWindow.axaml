@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:loc="using:Aria2Manager.Avalonia.Localization"
         xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        xmlns:cc="using:Aria2Manager.Avalonia.Controls"
         mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="400"
         x:Class="Aria2Manager.Avalonia.Views.Aria2TaskInfoWindow"
         x:DataType="vm:Aria2TaskInfoViewModel" Height="400" Width="650"
@@ -47,7 +48,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25" Margin="15,0,0,0">
             <StackPanel.Styles>
                 <Style Selector="PathIcon">
-                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseLowBrush}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
                 </Style>
                 <Style Selector="PathIcon.enabled">
                     <Setter Property="Foreground" Value="{DynamicResource SystemAccentColor}"/>
@@ -65,7 +66,7 @@
             <TabItem Header="{Binding [OverView], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
                 <ScrollViewer>
                     <StackPanel>
-                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnSpacing="30">
+                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnSpacing="30">
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
                             <SelectableTextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TaskInfo.Name, Mode=OneWay}" TextTrimming="CharacterEllipsis"
                                        ToolTip.Tip="{Binding TaskInfo.Name}"/>
@@ -120,6 +121,25 @@
                                 <Run Text="{Binding TaskInfo.Seeders, Mode=OneWay}"/>
                             </TextBlock>
                         </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{Binding [Blocks], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Spacing="16">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <Border Width="12" Height="12" Background="{DynamicResource SystemAccentColor}" CornerRadius="2"/>
+                                <TextBlock Text="{Binding [Completed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <Border Width="12" Height="12" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}" CornerRadius="2"/>
+                                <TextBlock Text="{Binding [Uncompleted], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <cc:PieceMapControl Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Pieces="{Binding TaskInfo.Pieces}" Height="125" HorizontalAlignment="Stretch"
+                                            CompletedBrush="{DynamicResource SystemAccentColor}" PendingBrush="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"/>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

@@ -444,4 +444,13 @@
   <data name="Min" xml:space="preserve">
     <value>分</value>
   </data>
+  <data name="Blocks" xml:space="preserve">
+    <value>区块信息</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="Uncompleted" xml:space="preserve">
+    <value>未完成</value>
+  </data>
 </root>

@@ -169,6 +169,15 @@ namespace Aria2Manager.Avalonia.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Blocks 的本地化字符串。
+        /// </summary>
+        internal static string Blocks {
+            get {
+                return ResourceManager.GetString("Blocks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Browse 的本地化字符串。
         /// </summary>
         internal static string Browse {
@@ -210,6 +219,15 @@ namespace Aria2Manager.Avalonia.Localization {
         internal static string Close_To_Exit {
             get {
                 return ResourceManager.GetString("Close_To_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Completed 的本地化字符串。
+        /// </summary>
+        internal static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
             }
         }
         
@@ -984,6 +1002,15 @@ namespace Aria2Manager.Avalonia.Localization {
         internal static string Trackers_Update_Interval {
             get {
                 return ResourceManager.GetString("Trackers_Update_Interval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Uncompleted 的本地化字符串。
+        /// </summary>
+        internal static string Uncompleted {
+            get {
+                return ResourceManager.GetString("Uncompleted", resourceCulture);
             }
         }
         

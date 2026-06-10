@@ -444,4 +444,13 @@
   <data name="Min" xml:space="preserve">
     <value>Min</value>
   </data>
+  <data name="Blocks" xml:space="preserve">
+    <value>Blocks</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Uncompleted" xml:space="preserve">
+    <value>Uncompleted</value>
+  </data>
 </root>
