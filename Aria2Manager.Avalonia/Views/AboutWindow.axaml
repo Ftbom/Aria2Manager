@@ -16,8 +16,14 @@
                     <Image Source="/Assets/app.ico" Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,5,0"/>
                     <TextBlock Text="{Binding AppName, Mode=OneWay}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock Text="{Binding AppVersion, Mode=OneWay}" FontWeight="Black" FontSize="14" HorizontalAlignment="Center"
-                           VerticalAlignment="Center" Margin="0,5,0,5"/>
+                <TextBlock FontWeight="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} V{1}">
+                            <Binding Path="UIName" Mode="OneWay"/>
+                            <Binding Path="UIVersion" Mode="OneWay"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
                 <TextBlock Text="{Binding AuthorName, Mode=OneWay, StringFormat='Copyright © {0}'}" FontSize="14" HorizontalAlignment="Center"
                            VerticalAlignment="Center" Margin="0,5,0,5"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0">

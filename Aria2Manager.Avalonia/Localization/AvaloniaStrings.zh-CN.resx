@@ -328,7 +328,7 @@
     <value>已启用的功能</value>
   </data>
   <data name="Check_Update" xml:space="preserve">
-    <value>启动时检查程序更新</value>
+    <value>检查程序更新</value>
   </data>
   <data name="TaskStatus_All" xml:space="preserve">
     <value>全部</value>

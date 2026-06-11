@@ -87,16 +87,16 @@ namespace Aria2Manager.Avalonia.Controls
                     Math.Max(0.1, blockWidth - 0.2), //留出微小缝隙
                     Math.Max(0.1, blockHeight - 0.2)
                 );
-                var dynamicBrush = PendingBrush;
+                context.DrawRectangle(PendingBrush, null, rect); //绘制底色
                 if (completedCount > 0)
                 {
                     double completionRatio = (double)completedCount / rangeLength;
                     //如果只完成一部分，半透明绘制
                     Color baseColor = (CompletedBrush is ISolidColorBrush scb) ? scb.Color : Colors.LimeGreen;
                     var alphaColor = Color.FromArgb((byte)(completionRatio * 255), baseColor.R, baseColor.G, baseColor.B);
-                    dynamicBrush = new SolidColorBrush(alphaColor);
+                    var dynamicBrush = new SolidColorBrush(alphaColor);
+                    context.DrawRectangle(dynamicBrush, null, rect);
                 }
-                context.DrawRectangle(dynamicBrush, null, rect);
             }
         }
     }

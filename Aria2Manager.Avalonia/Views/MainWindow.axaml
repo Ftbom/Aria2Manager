@@ -5,12 +5,12 @@
         xmlns:loc="using:Aria2Manager.Avalonia.Localization"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:Aria2Manager.Core.ViewModels" 
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="820" d:DesignHeight="450"
         x:Class="Aria2Manager.Avalonia.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Container.Name="MainWindowContainer" Container.Sizing="Width"
-        Icon="/Assets/app.ico" Title="Aria2Manager"
-        Width="800" Height="450" MinWidth="450" MinHeight="310">
+        Icon="/Assets/app.ico" Title="Aria2Manager" WindowStartupLocation="CenterScreen"
+        Width="820" Height="450" MinWidth="450" MinHeight="310">
 
     <Window.Styles>
         <Style Selector="SplitView#TaskView">
@@ -160,43 +160,43 @@
                         </Border>
                     </CommandBar.Content>
                     <CommandBar.PrimaryCommands>
-                        <CommandBarButton Label="{Binding [Add], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2NewTaskCommand}">
+                        <CommandBarButton MinWidth="70" Label="{Binding [Add], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2NewTaskCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconAdd}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>
                         </CommandBarButton>
-                        <CommandBarButton Label="{Binding [Pause], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
+                        <CommandBarButton MinWidth="70" Label="{Binding [Pause], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseTaskCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconPause}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>
                         </CommandBarButton>
-                        <CommandBarButton Label="{Binding [Resume], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseTaskCommand}">
+                        <CommandBarButton MinWidth="70" Label="{Binding [Resume], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseTaskCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconUnPause}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>
                         </CommandBarButton>
-                        <CommandBarButton Label="{Binding [Remove], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding RemoveTaskCommand}">
+                        <CommandBarButton MinWidth="70" Label="{Binding [Remove], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding RemoveTaskCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconRemove}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>
                         </CommandBarButton>
-                        <CommandBarButton Label="{Binding [Properties], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2TaskInfoCommand}">
+                        <CommandBarButton MinWidth="70" Label="{Binding [Properties], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding OpenAria2TaskInfoCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconProperties}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>
                         </CommandBarButton>
                         <CommandBarSeparator />
-                        <CommandBarButton Label="{Binding [Resume_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseAllTaskCommand}">
+                        <CommandBarButton MinWidth="75" Label="{Binding [Resume_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding UnpauseAllTaskCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconUnPauseAll}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>
                         </CommandBarButton>
-                        <CommandBarButton Label="{Binding [Pause_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseAllTaskCommand}">
+                        <CommandBarButton MinWidth="75" Label="{Binding [Pause_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PauseAllTaskCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconPauseAll}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>
                         </CommandBarButton>
-                        <CommandBarButton Label="{Binding [Purge_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PurgeAllTaskCommand}">
+                        <CommandBarButton MinWidth="75" Label="{Binding [Purge_All], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Command="{Binding PurgeAllTaskCommand}">
                             <CommandBarButton.Icon>
                                 <PathIcon Data="{StaticResource IconPurgeAll}" Foreground="{DynamicResource SystemAccentColor}" />
                             </CommandBarButton.Icon>

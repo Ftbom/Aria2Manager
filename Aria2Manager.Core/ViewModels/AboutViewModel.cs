@@ -9,7 +9,9 @@ namespace Aria2Manager.Core.ViewModels
     {
         private IUIService _uiService;
         public string AppName => GlobalContext.AppName;
-        public string AppVersion => $"V{GlobalContext.AppVersion}";
+        public string CoreVersion => GlobalContext.CoreVersion;
+        public string UIName => _uiService.UIName;
+        public string UIVersion => _uiService.UIVersion;
         public string AppWebsite => "https://github.com/Ftbom/Aria2Manager";
         public string AuthorName => "Ftbom";
         public string AuthorEmail => "lz490070@gmail.com";
@@ -23,7 +25,7 @@ namespace Aria2Manager.Core.ViewModels
         [RelayCommand]
         private async Task CheckProgramUpdate()
         {
-            bool? result = await UpdateCheckerHelper.CheckProgramUpdate();
+            bool? result = await UpdateCheckerHelper.CheckProgramUpdate(UIVersion, UIName.ToLower());
             if (result == null)
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Check_Program_Update_Failed"),

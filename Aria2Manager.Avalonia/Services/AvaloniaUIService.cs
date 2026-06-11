@@ -1,6 +1,7 @@
 ﻿using Aria2Manager.Avalonia.Localization;
 using Aria2Manager.Avalonia.Themes;
 using Aria2Manager.Avalonia.Views;
+using Aria2Manager.Core;
 using Aria2Manager.Core.Enums;
 using Aria2Manager.Core.Models;
 using Aria2Manager.Core.Services;
@@ -21,6 +22,8 @@ namespace Aria2Manager.Avalonia.Services
     public class AvaloniaUIService : UIServiceBase
     {
         private readonly Dictionary<string, Window> _openWindows = new();
+        public override string UIName => "Avalonia";
+        public override string UIVersion => GlobalContext.CoreVersion;
         public override string DefaultTheme => "Default";
         public override List<string> ThemeList { get; } = ThemePresetsData.GetDefaultPresets().Select(t => t.Name).ToList();
         protected override void ShowPhysicalWindow(string windowId, WindowType windowType, object? dataContext, string? ownerWindowId = null)
