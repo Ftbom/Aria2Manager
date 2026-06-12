@@ -34,10 +34,6 @@ jobs:
         echo "TAG_NAME=$tag" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
       shell: pwsh
 
-    - name: Restore dependencies
-      run: dotnet restore Aria2Manager.sln
-      shell: pwsh
-
     - name: Publish win-x64
       run: |
         dotnet publish Aria2Manager.WPF/Aria2Manager.WPF.csproj --configuration Release --output ./publish/win-x64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r win-x64

@@ -72,6 +72,15 @@
 
 ---
 
+## 🛠️ 开发环境配置
+
+本项目依赖托管在 GitHub Packages 的 [NuGet 包](https://github.com/Ftbom?tab=packages&repo_name=DesktopNotifications)，在执行编译前，需要准备有 `read:packages` 权限的 GitHub Personal Access Token，并配置以下系统环境变量供 `nuget.config` 读取：
+
+* `GITHUB_PACKAGE_USER`：你的 GitHub 用户名
+* `GITHUB_PACKAGE_TOKEN`：你的 Github Token
+
+---
+
 ## 🙏 鸣谢
 
 本项目的实现引用或借鉴了以下开源项目：

@@ -34,11 +34,10 @@ jobs:
         echo "TAG_NAME=$tag" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
       shell: pwsh
 
-    - name: Restore dependencies
-      run: dotnet restore Aria2Manager.sln
-      shell: pwsh
-
     - name: Publish win-x64
+      env:
+        GITHUB_PACKAGE_USER: ${{ github.actor }}
+        GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/win-x64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r win-x64
         Get-ChildItem -Path "./publish/win-x64" -Filter "*.pdb" -Recurse | Remove-Item -Force -ErrorAction SilentlyContinue
@@ -115,11 +114,10 @@ jobs:
         echo "TAG_NAME=$CLEAN_TAG" >> $GITHUB_ENV
       shell: bash
 
-    - name: Restore dependencies
-      run: dotnet restore Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj
-      shell: bash
-
     - name: Publish linux-x64
+      env:
+        GITHUB_PACKAGE_USER: ${{ github.actor }}
+        GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/linux-x64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r linux-x64
         find ./publish/linux-x64 -type f -name "*.pdb" -delete
@@ -171,11 +169,10 @@ jobs:
         echo "TAG_NAME=$CLEAN_TAG" >> $GITHUB_ENV
       shell: bash
 
-    - name: Restore dependencies
-      run: dotnet restore Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj
-      shell: bash
-
     - name: Publish osx-x64
+      env:
+        GITHUB_PACKAGE_USER: ${{ github.actor }}
+        GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/osx-x64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r osx-x64
         find ./publish/osx-x64 -type f -name "*.pdb" -delete

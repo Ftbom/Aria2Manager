@@ -11,7 +11,7 @@ namespace Aria2Manager.Core
         private static readonly Lazy<GlobalContext> _instance = new(() => new GlobalContext()); // 唯一性
         public static GlobalContext Instance => _instance.Value;
         private CancellationTokenSource _globalCts = new(); //用于管理Aria2异步取消信号
-        public static string CoreVersion = "1.0.9"; //应用版本
+        public static string CoreVersion = "2.0.0"; //应用版本
         public static string AppName = "Aria2Manager"; //应用版本
         // 保存的配置信息
         private readonly ConfigurationService<AppSettings> _settingsConfigService;

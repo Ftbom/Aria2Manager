@@ -20,7 +20,7 @@ namespace Aria2Manager.WPF.Services
         private readonly Dictionary<string, Window> _openWindows = new();
         public TaskbarIcon? TaskBar { get; set; }
         public override string UIName => "WPF";
-        public override string UIVersion => "1.0.8";
+        public override string UIVersion => "1.0.9";
         public override string DefaultTheme => "Light.Green";
         public override List<string> ThemeList { get; } = new List<string> {
                 "Light.Green", "Dark.Green",

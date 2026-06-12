@@ -72,6 +72,15 @@ This project currently maintains two UI framework branches. Please visit the [Re
 
 ---
 
+## 🛠️ Development Environment Setup
+
+This project depends on [NuGet packages](https://github.com/Ftbom?tab=packages&repo_name=DesktopNotifications) hosted on GitHub Packages. Before building the project, you must prepare a GitHub Personal Access Token (PAT) with `read:packages` permissions and configure the following system environment variables for `nuget.config` to read:
+
+* `GITHUB_PACKAGE_USER`: Your GitHub username
+* `GITHUB_PACKAGE_TOKEN`: Your GitHub Token
+
+---
+
 ## 🙏 Acknowledgements
 
 This project uses or is inspired by the following open-source projects:

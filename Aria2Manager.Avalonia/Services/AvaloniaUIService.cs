@@ -8,13 +8,16 @@ using Aria2Manager.Core.Services;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Controls.Notifications;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using DesktopNotifications.Apple;
+using DesktopNotifications.FreeDesktop;
+using DesktopNotifications.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Aria2Manager.Avalonia.Services
@@ -22,10 +25,31 @@ namespace Aria2Manager.Avalonia.Services
     public class AvaloniaUIService : UIServiceBase
     {
         private readonly Dictionary<string, Window> _openWindows = new();
+        private DesktopNotifications.INotificationManager? _notificationManager;
         public override string UIName => "Avalonia";
         public override string UIVersion => GlobalContext.CoreVersion;
         public override string DefaultTheme => "Default";
         public override List<string> ThemeList { get; } = ThemePresetsData.GetDefaultPresets().Select(t => t.Name).ToList();
+        public AvaloniaUIService()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                _notificationManager = new FreeDesktopNotificationManager();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                _notificationManager = new WindowsNotificationManager();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                _notificationManager = new AppleNotificationManager();
+            }
+            else
+            {
+                _notificationManager = null;
+            }
+            _notificationManager?.Initialize();
+        }
         protected override void ShowPhysicalWindow(string windowId, WindowType windowType, object? dataContext, string? ownerWindowId = null)
         {
             var window = CreateWindow(windowType, dataContext);
@@ -184,14 +208,12 @@ namespace Aria2Manager.Avalonia.Services
         }
         public override void ShowTrayNotification(string message, string title = "Aria2Manager", MsgBoxLevel icon = MsgBoxLevel.Information)
         {
-            //映射图标类型
-            NotificationType notificationType = icon switch
+            var notification = new DesktopNotifications.Notification
             {
-                MsgBoxLevel.Information => NotificationType.Information,
-                MsgBoxLevel.Warning => NotificationType.Warning,
-                MsgBoxLevel.Error => NotificationType.Error,
-                _ => NotificationType.Information
+                Title = title,
+                Body = message,
             };
+            _notificationManager?.ShowNotification(notification);
         }
         public override Task<bool> ChangeThemeAsync(string theme)
         {
