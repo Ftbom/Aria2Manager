@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="250"
+        x:Class="Aria2Manager.Avalonia.Views.AboutWindow"
+        x:DataType="vm:AboutViewModel" Height="250" Width="250"
+        Title="{Binding [About], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Grid>
+        <Grid Margin="20">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
+                    <Image Source="/Assets/app.ico" Width="24" Height="24" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock Text="{Binding AppName, Mode=OneWay}" FontWeight="Bold" FontSize="20" VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock FontWeight="Black" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,5">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} V{1}">
+                            <Binding Path="UIName" Mode="OneWay"/>
+                            <Binding Path="UIVersion" Mode="OneWay"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Text="{Binding AuthorName, Mode=OneWay, StringFormat='Copyright © {0}'}" FontSize="14" HorizontalAlignment="Center"
+                           VerticalAlignment="Center" Margin="0,5,0,5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0">
+                    <PathIcon Data="{StaticResource IconWebsite}" Margin="0,0,15,0" Tapped="Website_Tapped" Cursor="Hand"/>
+                    <PathIcon Data="{StaticResource IconGithub}" Margin="0,0,0,0" Tapped="Github_Tapped"  Cursor="Hand"/>
+                </StackPanel>
+                <Button Content="{Binding [Check_Update], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Margin="0,10,0,5"
+                        Command="{Binding CheckProgramUpdateCommand}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+
+</Window>

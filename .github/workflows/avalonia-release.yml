@@ -1,0 +1,224 @@
+name: Avalonia Build and Release
+
+on:
+  push:
+    tags:
+      - 'avalonia-v*'
+  workflow_dispatch:
+    inputs:
+      manual_tag:
+        description: '输入Tag (例如: avalonia-v2.0.0 或直接输入 2.0.0)'
+        required: true
+        default: 'avalonia-v2.0.0'
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v6
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Extract tag name
+      run: |
+        if ("${{ github.event_name }}" -eq "workflow_dispatch") {
+            $tag = "${{ inputs.manual_tag }}" -replace '^avalonia-v', ''
+        } else {
+            $tag = "$env:GITHUB_REF" -replace '^refs/tags/avalonia-v', ''
+        }
+        echo "TAG_NAME=$tag" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      shell: pwsh
+
+    - name: Publish win-x64
+      env:
+        GITHUB_PACKAGE_USER: ${{ github.actor }}
+        GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/win-x64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r win-x64
+        Get-ChildItem -Path "./publish/win-x64" -Filter "*.pdb" -Recurse | Remove-Item -Force -ErrorAction SilentlyContinue
+        New-Item -ItemType Directory -Force -Path "./publish/win-x64-bundle"
+        Copy-Item -Path "./publish/win-x64/*" -Destination "./publish/win-x64-bundle" -Recurse
+      shell: pwsh
+
+    - name: Publish win-arm64
+      run: |
+        dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/win-arm64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r win-arm64
+        Get-ChildItem -Path "./publish/win-arm64" -Filter "*.pdb" -Recurse | Remove-Item -Force -ErrorAction SilentlyContinue
+      shell: pwsh
+
+    - name: Download and inject aria2 to bundle
+      run: |
+        $headers = @{
+            Authorization = "Bearer ${{ secrets.GITHUB_TOKEN }}"
+        }
+        $releaseData = Invoke-RestMethod -Uri "https://api.github.com/repos/aria2/aria2/releases/latest" -Headers $headers
+        $asset = $releaseData.assets | Where-Object { $_.name -match "win-64bit.*\.zip$" } | Select-Object -First 1
+        Write-Host "Downloading x64 aria2 from: $($asset.browser_download_url)"
+        Invoke-WebRequest -Uri $asset.browser_download_url -OutFile "aria2_x64_download.zip"
+        Expand-Archive -Path "aria2_x64_download.zip" -DestinationPath "aria2_x64_extract" -Force
+        $exe = Get-ChildItem -Path "aria2_x64_extract" -Filter "aria2c.exe" -Recurse | Select-Object -First 1
+        if ($exe) {
+            New-Item -ItemType Directory -Force -Path "./publish/win-x64-bundle/Aria2"
+            Move-Item -Path $exe.FullName -Destination "./publish/win-x64-bundle/Aria2/aria2c.exe" -Force
+            Write-Host "Successfully extracted and moved to ./publish/win-x64-bundle/Aria2/aria2c.exe"
+        } else {
+            Write-Error "Could not find win64 aria2c.exe in the downloaded archive."
+            exit 1
+        }
+        Remove-Item -Path "aria2_x64_download.zip" -Force
+        Remove-Item -Path "aria2_x64_extract" -Recurse -Force
+      shell: pwsh
+
+    - name: Zip published files with tag name
+      run: |
+        Compress-Archive -Path ./publish/win-x64/* -DestinationPath ./Aria2Manager.Avalonia.${{ env.TAG_NAME }}.win-x64.zip
+        Compress-Archive -Path ./publish/win-x64-bundle/* -DestinationPath ./Aria2Manager.Avalonia.${{ env.TAG_NAME }}.win-x64-bundle.zip
+        Compress-Archive -Path ./publish/win-arm64/* -DestinationPath ./Aria2Manager.Avalonia.${{ env.TAG_NAME }}.win-arm64.zip
+      shell: pwsh
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: windows-assets
+        path: |
+          Aria2Manager.Avalonia.${{ env.TAG_NAME }}.win-x64.zip
+          Aria2Manager.Avalonia.${{ env.TAG_NAME }}.win-x64-bundle.zip
+          Aria2Manager.Avalonia.${{ env.TAG_NAME }}.win-arm64.zip
+        retention-days: 1
+
+  build_linux:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v6
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Extract tag name
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          RAW_TAG="${{ inputs.manual_tag }}"
+          CLEAN_TAG="${RAW_TAG#avalonia-v}"
+        else
+          CLEAN_TAG="${GITHUB_REF#refs/tags/avalonia-v}"
+        fi
+        echo "TAG_NAME=$CLEAN_TAG" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Publish linux-x64
+      env:
+        GITHUB_PACKAGE_USER: ${{ github.actor }}
+        GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/linux-x64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r linux-x64
+        find ./publish/linux-x64 -type f -name "*.pdb" -delete
+        chmod +x ./publish/linux-x64/Aria2Manager
+      shell: bash
+
+    - name: Publish linux-arm64
+      run: |
+        dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/linux-arm64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r linux-arm64
+        find ./publish/linux-arm64 -type f -name "*.pdb" -delete
+        chmod +x ./publish/linux-arm64/Aria2Manager
+      shell: bash
+
+    - name: Tar published files with tag name
+      run: |
+        cd publish/linux-x64 && tar -czvf ../../Aria2Manager.Avalonia.${{ env.TAG_NAME }}.linux-x64.tar.gz . && cd ../..
+        cd publish/linux-arm64 && tar -czvf ../../Aria2Manager.Avalonia.${{ env.TAG_NAME }}.linux-arm64.tar.gz . && cd ../..
+      shell: bash
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: linux-assets
+        path: |
+          Aria2Manager.Avalonia.${{ env.TAG_NAME }}.linux-x64.tar.gz
+          Aria2Manager.Avalonia.${{ env.TAG_NAME }}.linux-arm64.tar.gz
+        retention-days: 1
+
+  build_macos:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v6
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Extract tag name
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          RAW_TAG="${{ inputs.manual_tag }}"
+          CLEAN_TAG="${RAW_TAG#avalonia-v}"
+        else
+          CLEAN_TAG="${GITHUB_REF#refs/tags/avalonia-v}"
+        fi
+        echo "TAG_NAME=$CLEAN_TAG" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Publish osx-x64
+      env:
+        GITHUB_PACKAGE_USER: ${{ github.actor }}
+        GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/osx-x64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r osx-x64
+        find ./publish/osx-x64 -type f -name "*.pdb" -delete
+        chmod +x ./publish/osx-x64/Aria2Manager
+      shell: bash
+
+    - name: Publish osx-arm64
+      run: |
+        dotnet publish Aria2Manager.Avalonia/Aria2Manager.Avalonia.csproj --configuration Release --output ./publish/osx-arm64 /p:Version=${{ env.TAG_NAME }} /p:DebugType=none /p:DebugSymbols=false --self-contained true -r osx-arm64
+        find ./publish/osx-arm64 -type f -name "*.pdb" -delete
+        chmod +x ./publish/osx-arm64/Aria2Manager
+      shell: bash
+
+    - name: Tar published files with tag name
+      run: |
+        cd publish/osx-x64 && tar -czvf ../../Aria2Manager.Avalonia.${{ env.TAG_NAME }}.macos-x64.tar.gz . && cd ../..
+        cd publish/osx-arm64 && tar -czvf ../../Aria2Manager.Avalonia.${{ env.TAG_NAME }}.macos-arm64.tar.gz . && cd ../..
+      shell: bash
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: macos-assets
+        path: |
+          Aria2Manager.Avalonia.${{ env.TAG_NAME }}.macos-x64.tar.gz
+          Aria2Manager.Avalonia.${{ env.TAG_NAME }}.macos-arm64.tar.gz
+        retention-days: 1
+
+  create_release:
+    needs: [build_windows, build_linux, build_macos]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+
+    steps:
+    - name: Download all assets
+      uses: actions/download-artifact@v8
+      with:
+        path: ./release-assets
+        merge-multiple: true
+
+    - name: Display downloaded files
+      run: ls -R ./release-assets
+
+    - name: Create GitHub Release and upload all artifacts
+      uses: softprops/action-gh-release@v3
+      with:
+        files: ./release-assets/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

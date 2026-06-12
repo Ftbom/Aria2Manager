@@ -11,7 +11,7 @@ namespace Aria2Manager.Core
         private static readonly Lazy<GlobalContext> _instance = new(() => new GlobalContext()); // 唯一性
         public static GlobalContext Instance => _instance.Value;
         private CancellationTokenSource _globalCts = new(); //用于管理Aria2异步取消信号
-        public static string AppVersion = "1.0.8"; //应用版本
+        public static string CoreVersion = "2.0.0"; //应用版本
         public static string AppName = "Aria2Manager"; //应用版本
         // 保存的配置信息
         private readonly ConfigurationService<AppSettings> _settingsConfigService;
@@ -73,15 +73,21 @@ namespace Aria2Manager.Core
             try
             {
                 //检查程序更新
-                if (await UpdateCheckerHelper.CheckProgramUpdate() == true)
+                if (AppSettings.CheckUpdate)
                 {
-                    uiService.ShowTrayNotification(LanguageHelper.GetString("Program_Update_Available"));
+                    if (await UpdateCheckerHelper.CheckProgramUpdate(uiService.UIVersion, uiService.UIName.ToLower()) == true)
+                    {
+                        uiService.ShowTrayNotification(LanguageHelper.GetString("Program_Update_Available"));
+                    }
                 }
                 //检查Aria2更新
-                var aria2Version = await Aria2Server.GetAria2Version();
-                if (await UpdateCheckerHelper.CheckAria2Update(aria2Version.Version) == true)
+                if (AppSettings.CheckAria2Update)
                 {
-                    uiService.ShowTrayNotification(LanguageHelper.GetString("Aria2_Update_Available"));
+                    var aria2Version = await Aria2Server.GetAria2Version();
+                    if (await UpdateCheckerHelper.CheckAria2Update(aria2Version.Version) == true)
+                    {
+                        uiService.ShowTrayNotification(LanguageHelper.GetString("Aria2_Update_Available"));
+                    }
                 }
             }
             catch { }
@@ -100,7 +106,8 @@ namespace Aria2Manager.Core
             }
             catch
             {
-                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Update_Trackers_Failed"), "Error", MsgBoxLevel.Error);
+                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Update_Trackers_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         private void SyncAria2ServerNames()

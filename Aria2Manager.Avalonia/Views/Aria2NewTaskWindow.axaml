@@ -1,0 +1,126 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="320"
+        x:Class="Aria2Manager.Avalonia.Views.Aria2NewTaskWindow"
+        x:DataType="vm:Aria2NewTaskViewModel" Height="320" Width="600"
+        Title="{Binding [New], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="MinHeight" Value="40"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer > StackPanel">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Spacing" Value="10"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer > StackPanel > Grid">
+            <Setter Property="RowSpacing" Value="10"/>
+            <Setter Property="ColumnSpacing" Value="10"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="*, Auto">
+        <TabControl>
+            <TabItem Header="{Binding [Server_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBox PlaceholderText="{Binding [Download_Link_Tip], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                 Text="{Binding Urls}" IsEnabled="{Binding IsUrlEnabled}" MinHeight="100"/>
+
+                        <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto">
+                            <CheckBox Grid.Row="0" Content="{Binding [Torrent], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                      IsChecked="{Binding IsTorrentEnabled}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TorrentPath}" IsEnabled="{Binding IsTorrentEnabled}"/>
+                            <Button Grid.Row="0" Grid.Column="2" Content="{Binding [Browse], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                    Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="torrent" IsEnabled="{Binding IsTorrentEnabled}"/>
+
+                            <CheckBox Grid.Row="1" Content="{Binding [MetaLink], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                      IsChecked="{Binding IsMetalinkEnabled}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding MetaLinkPath}" IsEnabled="{Binding IsMetalinkEnabled}"/>
+                            <Button Grid.Row="1" Grid.Column="2" Content="{Binding [Browse], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                    Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="metalink" IsEnabled="{Binding IsMetalinkEnabled}"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{Binding [Basic_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [File_Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding FileName}" IsEnabled="{Binding IsUrlEnabled}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Download_Path], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DownloadPath}"/>
+                            <Button Grid.Row="1" Grid.Column="2" Content="{Binding [Browse], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                    Command="{Binding BrowseFileOrFolderCommand}" CommandParameter="folder" IsEnabled="{Binding IsDownloadPathBrowseEnabled}"/>
+                        </Grid>
+                        <Grid ColumnDefinitions="Auto, *, Auto, *" RowDefinitions="Auto, Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [HTTP_User], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding HttpUser}" IsEnabled="{Binding IsUrlEnabled}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding [HTTP_Passwd], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding HttpPasswd}" IsEnabled="{Binding IsUrlEnabled}" PasswordChar="*"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Seed_Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <NumericUpDown Grid.Row="1" Grid.Column="1" Text="{Binding SeedRatio}" IsEnabled="{Binding IsTorrentEnabled}" Minimum="0"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding [Seed_Time], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <NumericUpDown Grid.Row="1" Grid.Column="3" Text="{Binding SeedTime}" IsEnabled="{Binding IsTorrentEnabled}"
+                                           InnerRightContent="{Binding [Min], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Minimum="0"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="{Binding [Advanced_Options], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Grid ColumnDefinitions="Auto, *, Auto, *" RowDefinitions="Auto, Auto, Auto">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Header], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" PlaceholderText="{Binding [Header_Tip], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                     Text="{Binding HeaderString}" IsEnabled="{Binding IsUrlEnabled}" MinHeight="100"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Proxy_Address], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ProxyAddress}" IsEnabled="{Binding IsUrlEnabled}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding [Proxy_Port], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding ProxyPort}" IsEnabled="{Binding IsUrlEnabled}"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Proxy_User], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ProxyUser}" IsEnabled="{Binding IsUrlEnabled}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding [Proxy_Passwd], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding ProxyPasswd}" IsEnabled="{Binding IsUrlEnabled}" PasswordChar="*"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <Border Grid.Row="1" Background="{DynamicResource ThemeControlMidBrush}" Padding="20,15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="{Binding [Add], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                        Command="{Binding AddNewTaskCommand}" MinWidth="120" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

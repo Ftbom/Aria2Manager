@@ -45,7 +45,8 @@ namespace Aria2Manager.Core.ViewModels
                 }
             }
         }
-        public string Size => FormatterHelper.BytesToString(_model.TotalLength);
+        public string Size => FormatterHelper.BytesToString(SizeBytes);
+        public long SizeBytes => _model.TotalLength;
         public double Progress
         {
             get
@@ -70,17 +71,33 @@ namespace Aria2Manager.Core.ViewModels
                 }
                 else
                 {
-                    return FormatterHelper.SecondsToString(
-                        Convert.ToInt32((double)(_model.TotalLength - _model.CompletedLength) / _model.DownloadSpeed)
-                    );
+                    return FormatterHelper.SecondsToString(EtaSeconds);
+                }
+            }
+        }
+        public long EtaSeconds
+        {
+            get
+            {
+                if (_model.DownloadSpeed == 0)
+                {
+                    return Int64.MaxValue;
+                }
+                else
+                {
+                    return Convert.ToInt64((double)(_model.TotalLength - _model.CompletedLength) / _model.DownloadSpeed);
                 }
             }
         }
         public string Status => LanguageHelper.GetString(_statusKeys[_model.Status]); //下载状态，本地化语言
-        public string UploadSpeed => FormatterHelper.BytesToString(_model.UploadSpeed) + "/s";
-        public string DownloadSpeed => FormatterHelper.BytesToString(_model.DownloadSpeed) + "/s";
-        public string Uploaded => FormatterHelper.BytesToString(_model.UploadLength);
-        public string Downloaded => FormatterHelper.BytesToString(_model.CompletedLength);
+        public string UploadSpeed => FormatterHelper.BytesToString(UploadSpeedBytes) + "/s";
+        public long UploadSpeedBytes => _model.UploadSpeed;
+        public string DownloadSpeed => FormatterHelper.BytesToString(DownloadSpeedBytes) + "/s";
+        public long DownloadSpeedBytes => _model.DownloadSpeed;
+        public string Uploaded => FormatterHelper.BytesToString(UploadedBytes);
+        public long UploadedBytes => _model.UploadLength;
+        public string Downloaded => FormatterHelper.BytesToString(DownloadedBytes);
+        public long DownloadedBytes => _model.CompletedLength;
         public double Ratio => _model.CompletedLength == 0 ? 0 : Math.Round((double)_model.UploadLength / _model.CompletedLength, 2);
         public long Connections => _model.Connections;
         public long? NumSeeders => _model.NumSeeders;
@@ -207,6 +224,11 @@ namespace Aria2Manager.Core.ViewModels
             _uiService.ShowDialogAsync(WindowType.Aria2TaskInfoWindow, new Aria2TaskInfoViewModel(_uiService, SelectedTaskGid));
         }
         [RelayCommand]
+        private async Task OpenAria2ConfigFile()
+        {
+            await _uiService.ShowDialogAsync(WindowType.Aria2ConfigFileWindow, new Aria2ConfigFileViewModel(_uiService));
+        }
+        [RelayCommand]
         private void OpenAria2Options()
         {
             _uiService.ShowWindow(WindowType.Aria2OptionsWindow, new Aria2OptionsViewModel(_uiService), WindowId);
@@ -232,21 +254,22 @@ namespace Aria2Manager.Core.ViewModels
             await OpenWebsiteHelper.Open("https://aria2.github.io", _uiService);
         }
         [RelayCommand]
-        private void Exit()
+        private async Task Exit()
         {
-            _uiService.Exit();
+            await _uiService.Exit();
         }
         [RelayCommand]
-        private void Close()
+        private async Task Close()
         {
             if (GlobalContext.Instance.AppSettings.CloseToExit)
             {
-                _uiService.Exit();
+                await _uiService.Exit();
             }
         }
         private async Task DeleteLocalFiles(DownloadStatusResult task)
         {
-            if (await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Local_Files"), "Question", MsgBoxLevel.Question) != true)
+            if (await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Local_Files"),
+                LanguageHelper.GetString("Question"), MsgBoxLevel.Question) != true)
             {
                 return;
             }
@@ -290,7 +313,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Remove_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -303,7 +327,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -315,7 +340,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Unpause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -328,7 +354,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -340,7 +367,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Pause_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -352,7 +380,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Purge_Task_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Purge_Task_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         [RelayCommand]
@@ -376,7 +405,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Open_File_Location_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Open_File_Location_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
     }

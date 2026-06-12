@@ -1,0 +1,134 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Aria2Manager.Avalonia.Views.SettingsWindow"
+        x:DataType="vm:SettingsViewModel" Height="300" Width="750"
+        Title="{Binding [Program_Settings], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+        </Style>
+        <Style Selector="ComboBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        <Style Selector="ToggleSwitch">
+            <Setter Property="OnContent" Value="{Binding [On], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+            <Setter Property="OffContent" Value="{Binding [Off], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="MinHeight" Value="40"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer">
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+        <Style Selector="TabItem > ScrollViewer > StackPanel">
+            <Setter Property="Spacing" Value="10"/>
+            <Setter Property="Margin" Value="10,10"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="*, Auto">
+    <TabControl Grid.Row="0" TabStripPlacement="Left">
+        <TabItem Header="{Binding [General], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+            <ScrollViewer>
+                <StackPanel>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Program_Language], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding LanguageList}" DisplayMemberBinding="{Binding NativeName}"
+                                  SelectedValueBinding="{Binding Name}" SelectedValue="{Binding Settings.Language}"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Program_Theme], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding ThemeList}" SelectedValue="{Binding Settings.Theme}"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Close_To_Exit], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.CloseToExit}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Start_Minimize], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.StartMin}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Check_Update], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.CheckUpdate}" />
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="{Binding [Aria2], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+            <ScrollViewer>
+                <StackPanel>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Start_Aria2], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   ToolTip.Tip="{Binding [Start_Aria2_Tip], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.StartAria2}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Kill_Aria2], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   ToolTip.Tip="{Binding [Kill_Aria2_Tip], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.KillAria2}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Check_Aria2_Update], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.CheckAria2Update}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Enable_Aria2_Notification], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.EnableAria2Notification}" />
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="{Binding [BT_Tracker], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+            <ScrollViewer>
+                <StackPanel>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Update_BT_Trackers], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding EnableTrackersUpdate}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Trackers_Source], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding TrackersSources}"
+                                  SelectedItem="{Binding Settings.Trackers.TrackersSource}" IsEnabled="{Binding EnableTrackersUpdate}"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Trackers_Update_Interval], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <NumericUpDown Grid.Column="1" Value="{Binding Settings.Trackers.UpdateInterval}" IsEnabled="{Binding EnableTrackersUpdate}"
+                                       Minimum="0" InnerRightContent="{Binding [Days], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+
+        <Border Grid.Row="1" Background="{DynamicResource ThemeControlMidBrush}" Padding="20,15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="{Binding [Save], Source={x:Static loc:AvaloniaLocalizer.Instance}}" Click="SaveSettings"
+                        MinWidth="120" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+
+</Window>

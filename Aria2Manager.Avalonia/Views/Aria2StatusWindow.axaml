@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:loc="using:Aria2Manager.Avalonia.Localization"
+        xmlns:vm="using:Aria2Manager.Core.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300"
+        x:Class="Aria2Manager.Avalonia.Views.Aria2StatusWindow"
+        x:DataType="vm:Aria2StatusViewModel" Height="300" Width="300"
+        Title="{Binding [Aria2_Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
+
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="{Binding [Aria2_Version], Source={x:Static loc:AvaloniaLocalizer.Instance}}" FontWeight="Bold" FontSize="16"
+                       Margin="0,0,0,10"/>
+            <TextBlock Text="{Binding Aria2Version, Mode=OneWay}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding [Aria2_Features], Source={x:Static loc:AvaloniaLocalizer.Instance}}" FontWeight="Bold" FontSize="14"
+                       Margin="0,15,0,5"/>
+            <ItemsControl ItemsSource="{Binding EnabledFeatures, Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <Binding Path="." StringFormat="•  {0}" />
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+
+</Window>

@@ -160,7 +160,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
         private async void ReadOptions(Dictionary<string, string> options, ObservableCollection<OptionViewModel> optionVMs)
@@ -193,7 +194,8 @@ namespace Aria2Manager.Core.ViewModels
             }
             catch
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Options_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Change_Options_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
     }

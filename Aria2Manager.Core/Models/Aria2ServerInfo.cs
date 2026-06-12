@@ -17,11 +17,12 @@ namespace Aria2Manager.Core.Models
         private int _numStopped = 0; //当前停止任务数
         [ObservableProperty]
         private int _numWaiting = 0; //当前等待任务数
+        [ObservableProperty]
+        private bool _isLocal = true; //是否本地服务器
         public string ServerName { get; set; } = "New"; //服务器名称
         public string ServerAddress { get; set; } = "127.0.0.1"; //服务器地址
         public int ServerPort { get; set; } = 6800; //服务器端口
         public string ServerSecret { get; set; } = ""; //服务器密钥
-        public bool IsLocal { get; set; } = true; //是否本地服务器
         public bool IsHttps { get; set; } = false; //是否使用https
         public bool UseProxy { get; set; } = false; //是否使用代理进行连接
         public Aria2ServerInfo() { }

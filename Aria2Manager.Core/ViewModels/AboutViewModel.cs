@@ -9,7 +9,9 @@ namespace Aria2Manager.Core.ViewModels
     {
         private IUIService _uiService;
         public string AppName => GlobalContext.AppName;
-        public string AppVersion => $"V{GlobalContext.AppVersion}";
+        public string CoreVersion => GlobalContext.CoreVersion;
+        public string UIName => _uiService.UIName;
+        public string UIVersion => _uiService.UIVersion;
         public string AppWebsite => "https://github.com/Ftbom/Aria2Manager";
         public string AuthorName => "Ftbom";
         public string AuthorEmail => "lz490070@gmail.com";
@@ -23,18 +25,21 @@ namespace Aria2Manager.Core.ViewModels
         [RelayCommand]
         private async Task CheckProgramUpdate()
         {
-            bool? result = await UpdateCheckerHelper.CheckProgramUpdate();
+            bool? result = await UpdateCheckerHelper.CheckProgramUpdate(UIVersion, UIName.ToLower());
             if (result == null)
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Check_Program_Update_Failed"), "Error", MsgBoxLevel.Error);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Check_Program_Update_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
             else if (result == true)
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Update_Available"), "Info", MsgBoxLevel.Information);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Update_Available"),
+                    LanguageHelper.GetString("Info"), MsgBoxLevel.Information);
             }
             else
             {
-                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Up_To_Date"), "Info", MsgBoxLevel.Information);
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Program_Up_To_Date"),
+                    LanguageHelper.GetString("Info"), MsgBoxLevel.Information);
             }
         }
         [RelayCommand]

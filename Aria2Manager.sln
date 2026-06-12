@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria2Manager.Core", "Aria2M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria2Manager.WPF", "Aria2Manager.WPF\Aria2Manager.WPF.csproj", "{5478FDCD-2AEB-DB5E-A08B-86DA017A60E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aria2Manager.Avalonia", "Aria2Manager.Avalonia\Aria2Manager.Avalonia.csproj", "{F59472E0-78A9-4110-B52C-F48091E6B853}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5478FDCD-2AEB-DB5E-A08B-86DA017A60E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5478FDCD-2AEB-DB5E-A08B-86DA017A60E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5478FDCD-2AEB-DB5E-A08B-86DA017A60E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F59472E0-78A9-4110-B52C-F48091E6B853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F59472E0-78A9-4110-B52C-F48091E6B853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F59472E0-78A9-4110-B52C-F48091E6B853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F59472E0-78A9-4110-B52C-F48091E6B853}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

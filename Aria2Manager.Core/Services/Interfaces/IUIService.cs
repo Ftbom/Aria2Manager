@@ -7,6 +7,8 @@ namespace Aria2Manager.Core.Services.Interfaces
     //窗口调度服务接口
     public interface IUIService
     {
+        string UIName { get; }
+        string UIVersion { get; }
         string DefaultTheme { get; }
         List<string> ThemeList { get; }
         //打开一个非模态窗口，返回id

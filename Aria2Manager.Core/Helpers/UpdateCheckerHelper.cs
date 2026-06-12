@@ -11,11 +11,11 @@ namespace Aria2Manager.Core.Helpers
             _httpClient.Timeout = TimeSpan.FromSeconds(15);
         }
         //检查程序更新
-        public static async Task<bool?> CheckProgramUpdate()
+        public static async Task<bool?> CheckProgramUpdate(string appVersion, string? prefix)
         {
-            string latestTag = await GetGithubLatestTag("https://api.github.com/repos/Ftbom/Aria2Manager/releases");
-            latestTag = latestTag.Replace("v", "");
-            return CompareVersions(GlobalContext.AppVersion, latestTag);
+            string latestTag = await GetGithubLatestTag("https://api.github.com/repos/Ftbom/Aria2Manager/releases", prefix);
+            latestTag = latestTag.Replace($"{prefix}-v", "");
+            return CompareVersions(appVersion, latestTag);
         }
         //检查Aria2更新
         public static async Task<bool?> CheckAria2Update(string aria2Version)
@@ -37,7 +37,7 @@ namespace Aria2Manager.Core.Helpers
             }
             return current != latest;
         }
-        private static async Task<string> GetGithubLatestTag(string url)
+        private static async Task<string> GetGithubLatestTag(string url, string? prefix = null)
         {
             try
             {
@@ -45,8 +45,23 @@ namespace Aria2Manager.Core.Helpers
                 using var doc = JsonDocument.Parse(response);
                 if (doc.RootElement.ValueKind == JsonValueKind.Array && doc.RootElement.GetArrayLength() > 0)
                 {
-                    // 获取第一个Release的标签名
-                    return doc.RootElement[0].GetProperty("tag_name").GetString() ?? "";
+                    foreach (var release in doc.RootElement.EnumerateArray())
+                    {
+                        var tagName = release.GetProperty("tag_name").GetString() ?? "";
+                        if (prefix == null)
+                        {
+                            //获取第一个Release的标签名
+                            return tagName;
+                        }
+                        else
+                        {
+                            //获取指定前缀的第一个Release的标签名
+                            if (tagName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                            {
+                                return tagName;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)

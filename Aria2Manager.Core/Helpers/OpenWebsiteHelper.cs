@@ -27,7 +27,8 @@ namespace Aria2Manager.Core.Helpers
             }
             catch
             {
-                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Open_Website_Failed"), "Error", MsgBoxLevel.Error);
+                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Open_Website_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
             }
         }
     }

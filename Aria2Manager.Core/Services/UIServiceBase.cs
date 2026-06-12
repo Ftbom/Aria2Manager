@@ -44,6 +44,8 @@ namespace Aria2Manager.Core.Services
         //模态对话框
         protected abstract Task<bool?> ShowPhysicalDialogAsync(string windowId, WindowType windowType, object? dataContext);
         protected abstract void ExitApplication();
+        public abstract string UIName { get; }
+        public abstract string UIVersion { get; }
         public abstract string DefaultTheme { get; }
         public abstract List<string> ThemeList { get; }
         public abstract void CloseWindow(string windowId);
