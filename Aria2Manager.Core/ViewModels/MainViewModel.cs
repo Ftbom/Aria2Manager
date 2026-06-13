@@ -294,7 +294,6 @@ namespace Aria2Manager.Core.ViewModels
             {
                 FileSystemHelper.Delete(Path.Combine(task.Dir, task.InfoHash + ".torrent"));
             }
-
         }
         [RelayCommand]
         private async Task RemoveTask()
@@ -391,16 +390,24 @@ namespace Aria2Manager.Core.ViewModels
             try
             {
                 var task = await Server.GetTaskStatus(SelectedTaskGid);
-                if (task != null)
+                if (task.Bittorrent == null) //非种子
                 {
-                    if (task.Bittorrent != null && task.Bittorrent.Info == null) //种子METEDATA
-                    {
-                        FileSystemHelper.ShowInExplorer(Path.Combine(task.Dir, task.InfoHash + ".torrent"));
-                    }
-                    else
+                    FileSystemHelper.ShowInExplorer(task.Files[0].Path);
+                }
+                else if (task.Bittorrent.Info != null) //种子
+                {
+                    if (task.Bittorrent.Mode == "single") //单文件种子
                     {
                         FileSystemHelper.ShowInExplorer(task.Files[0].Path);
                     }
+                    else
+                    {
+                        FileSystemHelper.ShowInExplorer(Path.Combine(task.Dir, task.Bittorrent.Info.Name));
+                    }
+                }
+                else //种子METADATA
+                {
+                    FileSystemHelper.ShowInExplorer(Path.Combine(task.Dir, task.InfoHash + ".torrent"));
                 }
             }
             catch
