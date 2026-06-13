@@ -5,12 +5,12 @@
         xmlns:loc="using:Aria2Manager.Avalonia.Localization"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:Aria2Manager.Core.ViewModels" 
-        mc:Ignorable="d" d:DesignWidth="820" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450"
         x:Class="Aria2Manager.Avalonia.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Container.Name="MainWindowContainer" Container.Sizing="Width"
         Icon="/Assets/app.ico" Title="Aria2Manager" WindowStartupLocation="CenterScreen"
-        Width="820" Height="450" MinWidth="450" MinHeight="310">
+        Width="900" Height="450" MinWidth="450" MinHeight="310">
 
     <Window.Styles>
         <Style Selector="SplitView#TaskView">

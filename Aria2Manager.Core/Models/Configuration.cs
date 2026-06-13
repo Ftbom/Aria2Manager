@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Globalization;
+using System.Xml.Serialization;
 
 namespace Aria2Manager.Core.Models
 {
@@ -14,7 +15,7 @@ namespace Aria2Manager.Core.Models
             get => CurrentVersion;
             set => CurrentVersion = value;
         }
-        public string Language { get; set; } = "en-US";
+        public string Language { get; set; } = CultureInfo.CurrentUICulture.Name;
         public string Theme { get; set; } = string.Empty;
         public bool StartMin { get; set; } = false;
         public bool CloseToExit { get; set; } = false;

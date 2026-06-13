@@ -23,9 +23,21 @@ namespace Aria2Manager.Core.Helpers
         //语言切换
         public static void ChangeLanguage(string language)
         {
+            CultureInfo cultureInfo;
             try
             {
-                var cultureInfo = CultureInfo.GetCultureInfo(language);
+                try
+                {
+                    cultureInfo = CultureInfo.GetCultureInfo(language);
+                }
+                catch
+                {
+                    cultureInfo = CultureInfo.GetCultureInfo("en-US"); //默认回退到英语
+                }
+                if (!GetSupportedLanguages().Contains(cultureInfo))
+                {
+                    cultureInfo = CultureInfo.GetCultureInfo("en-US");
+                }
                 CurrentCulture = cultureInfo;
                 Strings.Culture = cultureInfo;
                 OnLanguageChanged?.Invoke(cultureInfo); //触发语言切换事件
