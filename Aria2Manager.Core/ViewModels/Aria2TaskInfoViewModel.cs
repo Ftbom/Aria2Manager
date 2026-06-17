@@ -16,11 +16,13 @@ namespace Aria2Manager.Core.ViewModels
         private bool _selected; //文件是否选中
         [ObservableProperty]
         private bool _cancelAble = true; //文件是否可取消选中
+        private string _baseDir; //下载任务的基础目录
         private DownloadStatusFile _model;
         private readonly Action _onSelectionChanged; //状态改变时的回调函数
-        public FileViewModel(DownloadStatusFile model, Action onSelectionChanged)
+        public FileViewModel(DownloadStatusFile model, string baseDir, Action onSelectionChanged)
         {
             _model = model;
+            _baseDir = baseDir;
             _selected = model.Selected;
             _onSelectionChanged = onSelectionChanged;
         }
@@ -30,6 +32,23 @@ namespace Aria2Manager.Core.ViewModels
         }
         public int Index => _model.Index; //序号
         public string Name => Path.GetFileName(_model.Path); //名称
+        public string Directory
+        {
+            get
+            {
+                string? dirName = Path.GetDirectoryName(_model.Path);
+                if (string.IsNullOrWhiteSpace(dirName))
+                {
+                    return string.Empty;
+                }
+                string rePath = Path.GetRelativePath(_baseDir, dirName);
+                if (rePath == ".")
+                {
+                    return string.Empty;
+                }
+                return rePath;
+            }
+        }
         partial void OnSelectedChanged(bool value)
         {
             _onSelectionChanged();
@@ -124,7 +143,7 @@ namespace Aria2Manager.Core.ViewModels
             {
                 foreach (var file in result.Files)
                 {
-                    Files.Add(new FileViewModel(file, _onFileSelectionChanged));
+                    Files.Add(new FileViewModel(file, result.Dir, _onFileSelectionChanged));
                 }
             }
             bool justOneSelecedFile = result.Files?.Count(file => file.Selected) == 1; //是否仅有一个文件被选中

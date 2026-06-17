@@ -145,10 +145,17 @@
             </TabItem>
 
             <TabItem Header="{Binding [Files_List], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
-                <ListBox ItemsSource="{Binding TaskInfo.Files}" IsEnabled="{Binding TaskInfo.FileListCheckable, Mode=OneWay}">
+                <ListBox ItemsSource="{Binding TaskInfo.Files}" IsEnabled="{Binding TaskInfo.FileListCheckable, Mode=OneWay}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding Name, Mode=OneWay}" IsChecked="{Binding Selected}" IsEnabled="{Binding CancelAble}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding Selected}" IsEnabled="{Binding CancelAble}"/>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+                                    <TextBlock Text="{Binding Directory, Mode=OneWay}" Foreground="{DynamicResource SystemControlForegroundBaseLowBrush}" FontSize="13"
+                                               IsVisible="{Binding Directory, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                                </StackPanel>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
