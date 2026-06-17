@@ -114,6 +114,7 @@ namespace Aria2Manager.Core.ViewModels
         public string? WindowId { get; set; }
         public ObservableCollection<string> ServerNames => GlobalContext.Instance.Aria2ServerNames; //Aria2服务器名称列表
         public Aria2ServerInfo ServerStatus => GlobalContext.Instance.Aria2Server.ServerInfo; //Aria2服务器状态信息
+        public int TaskNumAll => ServerStatus.NumActive + ServerStatus.NumWaiting + ServerStatus.NumStopped;
         public string ServerDownloadSpeed => FormatterHelper.BytesToString(ServerStatus.DownloadSpeed) + "/s";
         public string ServerUploadSpeed => FormatterHelper.BytesToString(ServerStatus.UploadSpeed) + "/s";
         public string? SelectedTaskGid { get; set; } //当前选中任务的GID
@@ -177,7 +178,8 @@ namespace Aria2Manager.Core.ViewModels
         private async Task RefreshTaskLoop(Aria2TaskStatus status)
         {
             await Server.GetAria2Status();
-            //刷新服务器速度
+            //刷新服务器信息
+            OnPropertyChanged(nameof(TaskNumAll));
             OnPropertyChanged(nameof(ServerDownloadSpeed));
             OnPropertyChanged(nameof(ServerUploadSpeed));
             var latestTasks = await Server.GetAria2Tasks(status);
