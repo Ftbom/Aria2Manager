@@ -215,18 +215,22 @@
                         <Ellipse.Styles>
                             <Style Selector="Ellipse">
                                 <Setter Property="Fill" Value="{DynamicResource SystemControlForegroundBaseLowBrush}" />
+                                <Setter Property="ToolTip.Tip" Value="{Binding [Disconnected], Source={x:Static loc:AvaloniaLocalizer.Instance}}" />
                             </Style>
                             <Style Selector="Ellipse.connected">
                                 <Setter Property="Fill" Value="{DynamicResource SystemControlHighlightAccentBrush}" />
+                                <Setter Property="ToolTip.Tip" Value="{Binding [Connected], Source={x:Static loc:AvaloniaLocalizer.Instance}}" />
                             </Style>
                         </Ellipse.Styles>
                     </Ellipse>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="4">
-                    <TextBlock Text="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                    <PathIcon Data="{StaticResource IconUp}" Foreground="{DynamicResource SystemAccentColor}"
+                                                  ToolTip.Tip="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
                     <TextBlock Text="{Binding ServerUploadSpeed}" VerticalAlignment="Center"/>
-                    <TextBlock Text="," VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}" VerticalAlignment="Center"/>
+                    <TextBlock Text=" " VerticalAlignment="Center"/>
+                    <PathIcon Data="{StaticResource IconDown}" Foreground="{DynamicResource SystemAccentColor}"
+                                                  ToolTip.Tip="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
                     <TextBlock Text="{Binding ServerDownloadSpeed}" VerticalAlignment="Center"/>
                 </StackPanel>
             </Grid>

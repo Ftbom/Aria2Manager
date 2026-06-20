@@ -471,4 +471,10 @@
   <data name="Seeder" xml:space="preserve">
     <value>做种者</value>
   </data>
+  <data name="Connected" xml:space="preserve">
+    <value>已连接</value>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>断开连接</value>
+  </data>
 </root>

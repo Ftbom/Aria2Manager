@@ -241,6 +241,15 @@ namespace Aria2Manager.Avalonia.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Connected 的本地化字符串。
+        /// </summary>
+        internal static string Connected {
+            get {
+                return ResourceManager.GetString("Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Connections 的本地化字符串。
         /// </summary>
         internal static string Connections {
@@ -264,6 +273,15 @@ namespace Aria2Manager.Avalonia.Localization {
         internal static string Days {
             get {
                 return ResourceManager.GetString("Days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disconnected 的本地化字符串。
+        /// </summary>
+        internal static string Disconnected {
+            get {
+                return ResourceManager.GetString("Disconnected", resourceCulture);
             }
         }
         

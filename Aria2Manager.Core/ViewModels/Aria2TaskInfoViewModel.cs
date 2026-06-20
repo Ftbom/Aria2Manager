@@ -116,7 +116,7 @@ namespace Aria2Manager.Core.ViewModels
         [ObservableProperty]
         private string _downloadSpeed = "--";
         [ObservableProperty]
-        private string _UploadSpeed = "--";
+        private string _uploadSpeed = "--";
         [ObservableProperty]
         private string _hash = "--";
         [ObservableProperty]
