@@ -459,4 +459,16 @@
   <data name="Restart_Aria2" xml:space="preserve">
     <value>Restart Aria2...</value>
   </data>
+  <data name="Peers" xml:space="preserve">
+    <value>Peers</value>
+  </data>
+  <data name="Peer_Download_Speed" xml:space="preserve">
+    <value>Download speed that obtains from this peer</value>
+  </data>
+  <data name="Peer_Upload_Speed" xml:space="preserve">
+    <value>Upload speed that uploads to this peer</value>
+  </data>
+  <data name="Seeder" xml:space="preserve">
+    <value>Seeder</value>
+  </data>
 </root>

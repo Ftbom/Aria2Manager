@@ -628,6 +628,33 @@ namespace Aria2Manager.Avalonia.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Download speed that obtains from this peer 的本地化字符串。
+        /// </summary>
+        internal static string Peer_Download_Speed {
+            get {
+                return ResourceManager.GetString("Peer_Download_Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Upload speed that uploads to this peer 的本地化字符串。
+        /// </summary>
+        internal static string Peer_Upload_Speed {
+            get {
+                return ResourceManager.GetString("Peer_Upload_Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Peers 的本地化字符串。
+        /// </summary>
+        internal static string Peers {
+            get {
+                return ResourceManager.GetString("Peers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Language 的本地化字符串。
         /// </summary>
         internal static string Program_Language {
@@ -813,6 +840,15 @@ namespace Aria2Manager.Avalonia.Localization {
         internal static string Seed_Time {
             get {
                 return ResourceManager.GetString("Seed_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Seeder 的本地化字符串。
+        /// </summary>
+        internal static string Seeder {
+            get {
+                return ResourceManager.GetString("Seeder", resourceCulture);
             }
         }
         

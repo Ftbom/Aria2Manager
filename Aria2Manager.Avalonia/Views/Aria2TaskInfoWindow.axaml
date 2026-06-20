@@ -161,6 +161,36 @@
                 </ListBox>
             </TabItem>
 
+            <TabItem Header="{Binding [Peers], Source={x:Static loc:AvaloniaLocalizer.Instance}}" IsVisible="{Binding TaskInfo.IsPeersVisible, Mode=OneWay}"
+                     IsSelected="{Binding IsRefreshBTPeers}">
+                <ListBox ItemsSource="{Binding TaskInfo.BTPeers}" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <cc:PieceMapControl Pieces="{Binding Pieces}" Height="15" HorizontalAlignment="Stretch" DisplayMode="ProgressBar"
+                                            CompletedBrush="{DynamicResource SystemAccentColor}" PendingBrush="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"/>
+                                <Grid ColumnDefinitions="Auto, *, Auto">
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="2">
+                                        <PathIcon Data="{StaticResource IconSeeder}" Foreground="{DynamicResource SystemAccentColor}" IsVisible="{Binding IsSeeder}"
+                                                  Width="13" Height="13" ToolTip.Tip="{Binding [Seeder], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                        <TextBlock Text="{Binding Address}"/>
+                                        <TextBlock Text="{Binding PeerId}" Foreground="{DynamicResource SystemControlForegroundBaseLowBrush}" FontSize="13"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="2">
+                                        <PathIcon Data="{StaticResource IconDown}" Foreground="{DynamicResource SystemAccentColor}" Width="13" Height="13"
+                                                  ToolTip.Tip="{Binding [Peer_Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                        <TextBlock Text="{Binding DownloadSpeed}"/>
+                                        <PathIcon Data="{StaticResource IconUp}" Foreground="{DynamicResource SystemAccentColor}" Width="13" Height="13"
+                                                  ToolTip.Tip="{Binding [Peer_Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                        <TextBlock Text="{Binding UploadSpeed}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+
             <TabItem Header="{Binding [Settings], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
                 <ScrollViewer>
                     <Grid RowDefinitions="*, Auto">

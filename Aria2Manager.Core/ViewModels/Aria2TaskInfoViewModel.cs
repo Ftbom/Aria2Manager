@@ -9,6 +9,28 @@ using System.Collections.ObjectModel;
 
 namespace Aria2Manager.Core.ViewModels
 {
+    public partial class BTPeerViewModel : ObservableObject
+    {
+        private long? _numPieces;
+        private PeerResult _model;
+        public string PeerId => BTPeerIdParser.Parse(_model.PeerId);
+        public string Address => $"{_model.Ip}:{_model.Port}";
+        public bool[] Pieces => BitfieldParser.Parse(_model.Bitfield, _numPieces);
+        public string DownloadSpeed => FormatterHelper.BytesToString(Convert.ToInt64(_model.DownloadSpeed)) + "/s";
+        public string UploadSpeed => FormatterHelper.BytesToString(Convert.ToInt64(_model.UploadSpeed)) + "/s";
+        public bool IsSeeder => _model.Seeder;
+        public BTPeerViewModel(PeerResult model, long? numPieces)
+        {
+            _model = model;
+            _numPieces = numPieces;
+        }
+        public void Update(PeerResult newModel, long? numPieces)
+        {
+            _model = newModel;
+            _numPieces = numPieces;
+            OnPropertyChanged(string.Empty); //通知所有属性更新
+        }
+    }
     //下载项的文件
     public partial class FileViewModel : ObservableObject
     {
@@ -56,8 +78,10 @@ namespace Aria2Manager.Core.ViewModels
     }
     public partial class TaskInfoViewModel : ObservableObject
     {
+        private long? _numPieces = null; //总块数，用于解析下载进度
         private readonly Action _onFileSelectionChanged; //文件改变时的回调函数
         internal bool IsChangingFileSelection { get; set; } = false; //正在更改文件选择，避免重复触发
+        public ObservableCollection<BTPeerViewModel> BTPeers { get; private set; } = new ObservableCollection<BTPeerViewModel>();
         public ObservableCollection<FileViewModel> Files { get; } = new ObservableCollection<FileViewModel>();
         [ObservableProperty]
         private bool _fileListCheckable = true;
@@ -108,6 +132,8 @@ namespace Aria2Manager.Core.ViewModels
         [ObservableProperty]
         private bool _isHttp = true;
         [ObservableProperty]
+        private bool _isPeersVisible = false;
+        [ObservableProperty]
         private bool _canChangeOptions = false;
         [ObservableProperty]
         private bool _canPause = true;
@@ -132,9 +158,11 @@ namespace Aria2Manager.Core.ViewModels
             Ratio = task.Ratio;
             Seeders = task.NumSeeders?.ToString() ?? "--";
             Connections = task.Connections.ToString();
-            Pieces = ParseBitfield(result.Bitfield, result.NumPieces);
+            _numPieces = result.NumPieces;
+            Pieces = BitfieldParser.Parse(result.Bitfield, _numPieces);
             CanChangeOptions = result.Status is "paused" or "waiting";
             IsBittorrent = CanChangeOptions && result.Bittorrent != null;
+            IsPeersVisible = result.Status == "active" && result.Bittorrent != null && result.Bittorrent.Info != null;
             IsHttp = CanChangeOptions && result.Bittorrent == null;
             CanPause = result.Status == "active" || result.Status == "waiting";
             CanResume = result.Status == "paused";
@@ -153,31 +181,31 @@ namespace Aria2Manager.Core.ViewModels
             }
             FileListCheckable = !IsChangingFileSelection && CanChangeOptions;
         }
-        private bool[] ParseBitfield(string bitfieldHex, long? numPieces)
+        public void UpdatePeers(IList<PeerResult> peers)
         {
-            if (string.IsNullOrWhiteSpace(bitfieldHex) || !numPieces.HasValue)
+            var existingPeersDict = BTPeers.ToDictionary(vm => vm.Address);
+            var PeersToAdd = new List<BTPeerViewModel>();
+            foreach (var model in peers)
             {
-                return new bool[0];
-            }
-            bool[] piecesStatus = new bool[numPieces.Value];
-            int pieceIndex = 0;
-            foreach (char hexChar in bitfieldHex)
-            {
-                //将十六进制字符转换为4位整数
-                int val = Convert.ToInt32(hexChar.ToString(), 16);
-                //依次读取4个bit
-                for (int i = 3; i >= 0; i--)
+                var address = $"{model.Ip}:{model.Port}";
+                if (existingPeersDict.TryGetValue(address, out var existingPeer))
                 {
-                    if (pieceIndex >= numPieces)
-                    {
-                        break; //忽略填充的多余位
-                    }
-                    //位运算判断该bit是否为1
-                    piecesStatus[pieceIndex] = (val & (1 << i)) != 0;
-                    pieceIndex++;
+                    existingPeer.Update(model, _numPieces);
+                    existingPeersDict.Remove(address);
+                }
+                else
+                {
+                    PeersToAdd.Add(new BTPeerViewModel(model, _numPieces));
                 }
             }
-            return piecesStatus;
+            foreach (var peerToRemove in existingPeersDict.Values)
+            {
+                BTPeers.Remove(peerToRemove);
+            }
+            foreach (var peerToAdd in PeersToAdd)
+            {
+                BTPeers.Add(peerToAdd);
+            }
         }
     }
     public partial class Aria2TaskInfoViewModel
@@ -187,6 +215,7 @@ namespace Aria2Manager.Core.ViewModels
         private readonly string _gid;
         private Aria2ServerService Server => GlobalContext.Instance.Aria2Server; //Aria2服务器服务实例
         public TaskInfoViewModel TaskInfo { get; private set; }
+        public bool IsRefreshBTPeers { get; set; } = false; //是否刷新BT连接Peer列表
         public Aria2TaskInfoViewModel(IUIService uiService, string gid)
         {
             _uiService = uiService;
@@ -196,15 +225,25 @@ namespace Aria2Manager.Core.ViewModels
         }
         private async void InitTaskOptions()
         {
-            var optionsData = await Aria2OptionsHelper.LoadAria2Options(Server, _uiService, _gid);
-            TaskInfo.SeedRatio = optionsData.SeedRatio;
-            TaskInfo.SeedTime = optionsData.SeedTime;
-            TaskInfo.HttpUser = optionsData.HttpUser;
-            TaskInfo.HttpPasswd = optionsData.HttpPasswd;
-            TaskInfo.ProxyAddress = optionsData.ProxyAddress;
-            TaskInfo.ProxyPort = optionsData.ProxyPort;
-            TaskInfo.ProxyUser = optionsData.ProxyUser;
-            TaskInfo.ProxyPasswd = optionsData.ProxyPasswd;
+            try
+            {
+                var optionsData = await Server.GetAria2Options(["seed-ratio", "seed-time", "http-user",
+                    "http-passwd", "all-proxy-passwd", "all-proxy-user", "all-proxy"], _gid);
+                var parsedOptions = Aria2OptionsHelper.ParseAria2Options(optionsData);
+                TaskInfo.SeedRatio = parsedOptions["seed-ratio"];
+                TaskInfo.SeedTime = parsedOptions["seed-time"];
+                TaskInfo.HttpUser = parsedOptions["http-user"];
+                TaskInfo.HttpPasswd = parsedOptions["http-passwd"];
+                TaskInfo.ProxyAddress = parsedOptions["proxy-address"];
+                TaskInfo.ProxyPort = parsedOptions["proxy-port"];
+                TaskInfo.ProxyUser = parsedOptions["all-proxy-user"];
+                TaskInfo.ProxyPasswd = parsedOptions["all-proxy-passwd"];
+            }
+            catch
+            {
+                await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Options_Failed"),
+                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
+            }
         }
         //启动循环
         public void StartRefreshLoop()
@@ -247,6 +286,11 @@ namespace Aria2Manager.Core.ViewModels
         {
             try
             {
+                if (TaskInfo.IsPeersVisible && IsRefreshBTPeers)
+                {
+                    var peers = await Server.GetTaskBTPeers(_gid);
+                    TaskInfo.UpdatePeers(peers); //更新BT连接Peer列表
+                }
                 var task = await Server.GetTaskStatus(_gid);
                 TaskInfo.Update(task); //更新任务信息
             }
@@ -254,6 +298,7 @@ namespace Aria2Manager.Core.ViewModels
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Load_Task_Status_Failed"),
                     LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
+                StopRefreshLoop();
             }
         }
         //文件选择改变时的回调函数
@@ -328,25 +373,26 @@ namespace Aria2Manager.Core.ViewModels
             }
             try
             {
-                var options = new Dictionary<string, string>();
+                var options = new Dictionary<string, string?>();
                 //按种类分别设置
                 if (TaskInfo.IsBittorrent)
                 {
-                    Aria2OptionsHelper.AddOptions(options, "seed-time", TaskInfo.SeedTime);
-                    Aria2OptionsHelper.AddOptions(options, "seed-ratio", TaskInfo.SeedRatio);
+                    options["seed-time"] = TaskInfo.SeedTime;
+                    options["seed-ratio"] = TaskInfo.SeedRatio;
                 }
                 else if (TaskInfo.IsHttp)
                 {
-                    Aria2OptionsHelper.AddOptions(options, "http-user", TaskInfo.HttpUser);
-                    Aria2OptionsHelper.AddOptions(options, "http-passwd", TaskInfo.HttpPasswd);
-                    Aria2OptionsHelper.AddOptions(options, "all-proxy-passwd", TaskInfo.ProxyPasswd);
-                    Aria2OptionsHelper.AddOptions(options, "all-proxy-user", TaskInfo.ProxyUser);
-                    if ((!String.IsNullOrWhiteSpace(TaskInfo.ProxyAddress)) && (!String.IsNullOrWhiteSpace(TaskInfo.ProxyPort)))
-                    {
-                        options["all-proxy"] = TaskInfo.ProxyAddress + ":" + TaskInfo.ProxyPort;
-                    }
+                    options["http-user"] = TaskInfo.HttpUser;
+                    options["http-passwd"] = TaskInfo.HttpPasswd;
+                    options["all-proxy-passwd"] = TaskInfo.ProxyPasswd;
+                    options["all-proxy-user"] = TaskInfo.ProxyUser;
+                    options["proxy-port"] = TaskInfo.ProxyPort;
+                    options["proxy-address"] = TaskInfo.ProxyAddress;
                 }
-                await Server.ChangeAria2Options(options, _gid);
+                await Server.ChangeAria2Options(Aria2OptionsHelper.MergeAria2Options(options)
+                    .Where(kvp => kvp.Value is string)
+                    .ToDictionary(kvp => kvp.Key, kvp => (string)kvp.Value),
+                    _gid);
             }
             catch
             {

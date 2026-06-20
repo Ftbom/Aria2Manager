@@ -459,4 +459,16 @@
   <data name="Restart_Aria2" xml:space="preserve">
     <value>重启Aria2...</value>
   </data>
+  <data name="Peers" xml:space="preserve">
+    <value>用户</value>
+  </data>
+  <data name="Peer_Download_Speed" xml:space="preserve">
+    <value>从此用户下载的速度</value>
+  </data>
+  <data name="Peer_Upload_Speed" xml:space="preserve">
+    <value>上传到此用户的速度</value>
+  </data>
+  <data name="Seeder" xml:space="preserve">
+    <value>做种者</value>
+  </data>
 </root>

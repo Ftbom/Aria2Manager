@@ -13,16 +13,15 @@ namespace Aria2Manager.Core.ViewModels
     {
         private string _id;
         [ObservableProperty]
-        private string _value;
+        private string? _value;
         public OptionViewModel(string id, bool readOnly = false)
         {
             _id = id;
-            _value = String.Empty;
             ReadOnly = readOnly;
             Name = LanguageHelper.GetString($"Aria2Option_{id}");
             Description = LanguageHelper.TryGetString($"Aria2Option_{id}_Tip");
         }
-        public void Update(string id, string value)
+        public void Update(string id, string? value)
         {
             if (id != _id) { return; }
             Value = value;
@@ -168,7 +167,7 @@ namespace Aria2Manager.Core.ViewModels
         {
             foreach (var option in optionVMs)
             {
-                if (String.IsNullOrWhiteSpace(option.Value))
+                if (option.Value == null)
                 {
                     continue;
                 }

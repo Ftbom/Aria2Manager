@@ -207,6 +207,22 @@ namespace Aria2Manager.Core.Services
             }
             return new DownloadStatusResult { Gid = gid };
         }
+        public async Task<IList<PeerResult>> GetTaskBTPeers(string gid)
+        {
+            try
+            {
+                return await _aria2Client.GetPeersAsync(gid, GlobalContext.Instance.GlobalCancelToken);
+            }
+            catch (OperationCanceledException)
+            {
+                LogHelper.Warning("Aria2 operation was canceled");
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Error("Failed to get task BT peers", ex);
+            }
+            return new List<PeerResult>();
+        }
         public async Task ChangeAria2Options(IDictionary<string, string> options, string? gid = null)
         {
             try
