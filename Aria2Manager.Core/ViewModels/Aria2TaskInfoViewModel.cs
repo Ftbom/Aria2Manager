@@ -13,7 +13,7 @@ namespace Aria2Manager.Core.ViewModels
     {
         private long? _numPieces;
         private PeerResult _model;
-        public string PeerId => BTPeerIdParser.Parse(_model.PeerId);
+        public string PeerId => BTPeerIdParser.Parse(_model.PeerId)?.ToString() ?? string.Empty;
         public string Address => $"{_model.Ip}:{_model.Port}";
         public bool[] Pieces => BitfieldParser.Parse(_model.Bitfield, _numPieces);
         public string DownloadSpeed => FormatterHelper.BytesToString(Convert.ToInt64(_model.DownloadSpeed)) + "/s";
