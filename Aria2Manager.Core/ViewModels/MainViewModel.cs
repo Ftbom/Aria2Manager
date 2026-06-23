@@ -107,10 +107,15 @@ namespace Aria2Manager.Core.ViewModels
         private readonly IUIService _uiService;
         private CancellationTokenSource? _refreshCts;
         private Aria2ServerService Server => GlobalContext.Instance.Aria2Server; //Aria2服务器服务实例
+        private CancellationTokenSource? _debounceCts;
         [ObservableProperty]
         private bool _canSwitchServer = true; //能否进行服务器切换
         [ObservableProperty]
         private string _currentServerName = GlobalContext.Instance.ServerSettings.Current;
+        [ObservableProperty]
+        private int _downloadSpeedLimit = 0;
+        [ObservableProperty]
+        private int _uploadSpeedLimit = 0;
         public string? WindowId { get; set; }
         public ObservableCollection<string> ServerNames => GlobalContext.Instance.Aria2ServerNames; //Aria2服务器名称列表
         public Aria2ServerInfo ServerStatus => GlobalContext.Instance.Aria2Server.ServerInfo; //Aria2服务器状态信息
@@ -129,6 +134,18 @@ namespace Aria2Manager.Core.ViewModels
                 OnPropertyChanged(nameof(ServerStatus));
                 CurrentServerName = GlobalContext.Instance.ServerSettings.Current;
             };
+            _ = LoadSpeedLimits();
+        }
+        private async Task LoadSpeedLimits()
+        {
+            try
+            {
+                var options = Aria2OptionsHelper.ParseAria2Options(await Server.GetAria2Options(["max-overall-download-limit",
+                "max-overall-upload-limit"]));
+                DownloadSpeedLimit = Int32.Parse(options["max-overall-download-limit"] ?? "0");
+                UploadSpeedLimit = Int32.Parse(options["max-overall-upload-limit"] ?? "0");
+            }
+            catch { }
         }
         async partial void OnCurrentServerNameChanged(string value)
         {
@@ -137,6 +154,38 @@ namespace Aria2Manager.Core.ViewModels
             GlobalContext.Instance.ServerSettings.Current = value;
             await GlobalContext.Instance.SaveServers();
             CanSwitchServer = true;
+        }
+        private async Task ExecuteChangeSpeedLimit(string key, int value, CancellationToken token)
+        {
+            try
+            {
+                //等待用户继续输入
+                await Task.Delay(800, token);
+                if (!token.IsCancellationRequested)
+                {
+                   await Server.ChangeAria2Options(new Dictionary<string, string>
+                    {
+                        { key, value.ToString() }
+                    });
+                }
+            }
+            catch {}
+        }
+        async partial void OnDownloadSpeedLimitChanged(int value)
+        {
+            _debounceCts?.Cancel();
+            _debounceCts?.Dispose();
+            _debounceCts = new CancellationTokenSource();
+            var token = _debounceCts.Token;
+            _ = ExecuteChangeSpeedLimit("max-overall-download-limit", value, token);
+        }
+        async partial void OnUploadSpeedLimitChanged(int value)
+        {
+            _debounceCts?.Cancel();
+            _debounceCts?.Dispose();
+            _debounceCts = new CancellationTokenSource();
+            var token = _debounceCts.Token;
+            _ = ExecuteChangeSpeedLimit("max-overall-upload-limit", value, token);
         }
         //启动循环
         public void StartRefreshLoop()
@@ -208,6 +257,11 @@ namespace Aria2Manager.Core.ViewModels
             {
                 Aria2TaskCollection.Add(taskToAdd);
             }
+        }
+        [RelayCommand]
+        private async Task LoadOverAllSpeeds()
+        {
+            await LoadSpeedLimits();
         }
         [RelayCommand]
         private void OpenAria2Servers()

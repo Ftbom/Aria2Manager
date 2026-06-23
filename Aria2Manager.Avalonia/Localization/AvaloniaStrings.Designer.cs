@@ -205,6 +205,15 @@ namespace Aria2Manager.Avalonia.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Bytes/Sec 的本地化字符串。
+        /// </summary>
+        internal static string Bytes_Sec {
+            get {
+                return ResourceManager.GetString("Bytes_Sec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Check for Aria2 Updates 的本地化字符串。
         /// </summary>
         internal static string Check_Aria2_Update {

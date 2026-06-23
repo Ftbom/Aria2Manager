@@ -477,4 +477,7 @@
   <data name="Disconnected" xml:space="preserve">
     <value>Disconnected</value>
   </data>
+  <data name="Bytes_Sec" xml:space="preserve">
+    <value>Bytes/Sec</value>
+  </data>
 </root>

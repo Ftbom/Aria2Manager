@@ -44,6 +44,9 @@
                 <Setter Property="Width" Value="900" />
             </Style>
         </ContainerQuery>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </Window.Styles>
 
     <Window.Resources>
@@ -224,15 +227,39 @@
                         </Ellipse.Styles>
                     </Ellipse>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="4">
-                    <PathIcon Data="{StaticResource IconUp}" Foreground="{DynamicResource SystemAccentColor}"
-                                                  ToolTip.Tip="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                    <TextBlock Text="{Binding ServerUploadSpeed}" VerticalAlignment="Center"/>
-                    <TextBlock Text=" " VerticalAlignment="Center"/>
-                    <PathIcon Data="{StaticResource IconDown}" Foreground="{DynamicResource SystemAccentColor}"
-                                                  ToolTip.Tip="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                    <TextBlock Text="{Binding ServerDownloadSpeed}" VerticalAlignment="Center"/>
-                </StackPanel>
+                <Grid Grid.Column="2">
+                    <ToggleButton x:Name="SpeedTrigger" Background="Transparent" BorderThickness="0" Padding="4" Command="{Binding LoadOverAllSpeedsCommand}">
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Spacing="4">
+                            <PathIcon Data="{StaticResource IconUp}" Foreground="{DynamicResource SystemAccentColor}"
+                                      ToolTip.Tip="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBlock Text="{Binding ServerUploadSpeed}"/>
+                            <TextBlock Text=" "/>
+                            <PathIcon Data="{StaticResource IconDown}" Foreground="{DynamicResource SystemAccentColor}"
+                                      ToolTip.Tip="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            <TextBlock Text="{Binding ServerDownloadSpeed}"/>
+                        </StackPanel>
+                    </ToggleButton>
+                    <Popup IsOpen="{Binding #SpeedTrigger.IsChecked, Mode=TwoWay}" PlacementTarget="{Binding #SpeedTrigger}" Placement="Top" MinWidth="400" IsLightDismissEnabled="True">
+                        <Grid RowDefinitions="*, Auto">
+                            <Border Grid.Row="0" Background="{DynamicResource SystemRegionColor}" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                    BorderThickness="1" CornerRadius="4" Padding="10">
+                                <Grid RowDefinitions="*, Auto" RowSpacing="10">
+                                    <TextBlock Grid.Row="0"/>
+                                    <Grid Grid.Row="1" ColumnDefinitions="Auto, *" RowDefinitions="*, *" ColumnSpacing="10" RowSpacing="5">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Aria2Option_max-overall-download-limit], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                        <NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Value="{Binding DownloadSpeedLimit}"
+                                                       InnerRightContent="{Binding [Bytes_Sec], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Aria2Option_max-overall-upload-limit], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                        <NumericUpDown Grid.Row="1" Grid.Column="1" Minimum="0" Value="{Binding UploadSpeedLimit}"
+                                                       InnerRightContent="{Binding [Bytes_Sec], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <Path Grid.Row="1" Fill="{DynamicResource SystemRegionColor}" Stroke="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                  StrokeThickness="1" Data="M 0,0 L 8,8 L 16,0" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </Popup>
+                </Grid>
             </Grid>
         </Border>
 
@@ -243,7 +270,7 @@
                         <ListBoxItem Tag="all" Margin="5,5,0,5" IsSelected="True">
                             <StackPanel Orientation="Horizontal">
                                 <PathIcon Data="{StaticResource IconStatusAll}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} ({1})">
                                             <Binding Path="[TaskStatus_All]" Source="{x:Static loc:AvaloniaLocalizer.Instance}" />
@@ -256,7 +283,7 @@
                         <ListBoxItem Tag="active" Margin="5,0,0,5">
                             <StackPanel Orientation="Horizontal">
                                 <PathIcon Data="{StaticResource IconStatusActive}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} ({1})">
                                             <Binding Path="[TaskStatus_Active]" Source="{x:Static loc:AvaloniaLocalizer.Instance}" />
@@ -269,7 +296,7 @@
                         <ListBoxItem Tag="waiting" Margin="5,0,0,5">
                             <StackPanel Orientation="Horizontal">
                                 <PathIcon Data="{StaticResource IconStatusWaiting}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} ({1})">
                                             <Binding Path="[TaskStatus_Waiting]" Source="{x:Static loc:AvaloniaLocalizer.Instance}" />
@@ -282,7 +309,7 @@
                         <ListBoxItem Tag="stopped" Margin="5,0,0,5">
                             <StackPanel Orientation="Horizontal">
                                 <PathIcon Data="{StaticResource IconStatusStopped}" Foreground="{DynamicResource SystemAccentColor}" Margin="0,0,10,0"/>
-                                <TextBlock TextWrapping="Wrap" VerticalAlignment="Center">
+                                <TextBlock TextWrapping="Wrap">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} ({1})">
                                             <Binding Path="[TaskStatus_Stopped]" Source="{x:Static loc:AvaloniaLocalizer.Instance}" />
@@ -337,7 +364,7 @@
                                 <DataTemplate>
                                     <Grid Margin="5,0">
                                         <ProgressBar Maximum="100" Value="{Binding Progress, Mode=OneWay}" Height="15" VerticalAlignment="Center"/>
-                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Progress, Mode=OneWay}" FontSize="12"/>
+                                        <TextBlock HorizontalAlignment="Center" Text="{Binding Progress, Mode=OneWay}" FontSize="12"/>
                                     </Grid>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
