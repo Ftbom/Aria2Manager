@@ -32,6 +32,7 @@ namespace Aria2Manager.Core.ViewModels
         [RelayCommand]
         private async Task SaveSettings()
         {
+            AutoStartHelper.SetAutoStart(GlobalContext.AppName, Settings.AutoStart);
             LanguageHelper.ChangeLanguage(Settings.Language); //应用语言
             bool ThemeNeedRestart = false;
             if (Settings.Theme != GlobalContext.Instance.AppSettings.Theme)

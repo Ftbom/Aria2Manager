@@ -475,9 +475,12 @@
     <value>已连接</value>
   </data>
   <data name="Disconnected" xml:space="preserve">
-    <value>断开连接</value>
+    <value>连接断开</value>
   </data>
   <data name="Bytes_Sec" xml:space="preserve">
     <value>字节/秒</value>
+  </data>
+  <data name="Launch_Startup" xml:space="preserve">
+    <value>开机自启</value>
   </data>
 </root>

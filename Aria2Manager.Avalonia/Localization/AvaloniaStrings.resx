@@ -480,4 +480,7 @@
   <data name="Bytes_Sec" xml:space="preserve">
     <value>Bytes/Sec</value>
   </data>
+  <data name="Launch_Startup" xml:space="preserve">
+    <value>Launch on startup</value>
+  </data>
 </root>

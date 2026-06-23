@@ -18,6 +18,7 @@ namespace Aria2Manager.Core.Models
         public string Language { get; set; } = CultureInfo.CurrentUICulture.Name;
         public string Theme { get; set; } = string.Empty;
         public bool StartMin { get; set; } = false;
+        public bool AutoStart { get; set; } = false;
         public bool CloseToExit { get; set; } = false;
         public bool CheckUpdate { get; set; } = false;
         public bool StartAria2 { get; set; } = true;

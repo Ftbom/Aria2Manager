@@ -65,6 +65,10 @@
                         <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.CloseToExit}" />
                     </Grid>
                     <Grid ColumnDefinitions="3*, 5*">
+                        <TextBlock Text="{Binding [Launch_Startup], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.AutoStart}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="3*, 5*">
                         <TextBlock Text="{Binding [Start_Minimize], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
                         <ToggleSwitch Grid.Column="1" IsChecked="{Binding Settings.StartMin}" />
                     </Grid>

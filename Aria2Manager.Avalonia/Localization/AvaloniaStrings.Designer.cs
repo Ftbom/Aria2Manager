@@ -520,6 +520,15 @@ namespace Aria2Manager.Avalonia.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Launch on startup 的本地化字符串。
+        /// </summary>
+        internal static string Launch_Startup {
+            get {
+                return ResourceManager.GetString("Launch_Startup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Local Server 的本地化字符串。
         /// </summary>
         internal static string Local_Server {
