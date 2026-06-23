@@ -46,10 +46,10 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageReference Include="Ftbom.DesktopNotifications" Version="1.0.0" />
-    <PackageReference Include="Ftbom.DesktopNotifications.Apple" Version="1.0.0" />
-    <PackageReference Include="Ftbom.DesktopNotifications.FreeDesktop" Version="1.0.0" />
-    <PackageReference Include="Ftbom.DesktopNotifications.Windows" Version="1.0.0" />
+    <PackageReference Include="Ftbom.DesktopNotifications" Version="1.0.1" />
+    <PackageReference Include="Ftbom.DesktopNotifications.Apple" Version="1.0.1" />
+    <PackageReference Include="Ftbom.DesktopNotifications.FreeDesktop" Version="1.0.1" />
+    <PackageReference Include="Ftbom.DesktopNotifications.Windows" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>

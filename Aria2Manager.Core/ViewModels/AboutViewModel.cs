@@ -25,7 +25,7 @@ namespace Aria2Manager.Core.ViewModels
         [RelayCommand]
         private async Task CheckProgramUpdate()
         {
-            bool? result = await UpdateCheckerHelper.CheckProgramUpdate(UIVersion, UIName.ToLower());
+            bool? result = await GlobalContext.Instance.UpdateCheckerService.CheckProgramUpdate(UIVersion, UIName.ToLower());
             if (result == null)
             {
                 await _uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Check_Program_Update_Failed"),

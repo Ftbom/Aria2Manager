@@ -12,6 +12,10 @@ namespace Aria2Manager.Core.Services
         {
             _trackerConfig = config;
         }
+        public void UpdateConfig(BtTrackers config)
+        {
+            _trackerConfig = config;
+        }
         //获取Trackers
         private async Task<List<string>> GetTrackers(string sourceUrl)
         {

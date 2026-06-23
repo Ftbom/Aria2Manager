@@ -210,6 +210,13 @@ namespace Aria2Manager.Avalonia.Services
         {
             var notification = new DesktopNotifications.Notification
             {
+                Level = icon switch
+                {
+                    MsgBoxLevel.Information => DesktopNotifications.NotificationLevel.Info,
+                    MsgBoxLevel.Warning => DesktopNotifications.NotificationLevel.Warning,
+                    MsgBoxLevel.Error => DesktopNotifications.NotificationLevel.Error,
+                    _ => null
+                },
                 Title = title,
                 Body = message,
             };

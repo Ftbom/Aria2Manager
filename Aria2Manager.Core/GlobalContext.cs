@@ -1,5 +1,4 @@
-﻿using Aria2Manager.Core.Enums;
-using Aria2Manager.Core.Helpers;
+﻿using Aria2Manager.Core.Helpers;
 using Aria2Manager.Core.Models;
 using Aria2Manager.Core.Services;
 using System.Collections.ObjectModel;
@@ -23,6 +22,9 @@ namespace Aria2Manager.Core
         public ServerSettings ServerSettings { get; set; }
         public Aria2ServerService Aria2Server { get; private set; } = null!;
         private Aria2NotificationService? _aria2Notification = null;
+        public UpdateCheckerService UpdateCheckerService = new UpdateCheckerService();
+        private Action<string>? _showTrayNotification;
+        private BtTrackerService? _trackerService = null;
         public event Action? OnServersUpdated; //服务器列表更新事件
         public Aria2Server GetCurrentAria2Server() => ServerSettings.ServerConfigs.FirstOrDefault(s => s.Name == ServerSettings.Current)
                                     ?? ServerSettings.ServerConfigs.First(); //如果找不到指定配置，默认选择第一个
@@ -75,39 +77,47 @@ namespace Aria2Manager.Core
                 //检查程序更新
                 if (AppSettings.CheckUpdate)
                 {
-                    if (await UpdateCheckerHelper.CheckProgramUpdate(uiService.UIVersion, uiService.UIName.ToLower()) == true)
+                    if (await UpdateCheckerService.CheckProgramUpdate(uiService.UIVersion, uiService.UIName.ToLower()) == true)
                     {
                         uiService.ShowTrayNotification(LanguageHelper.GetString("Program_Update_Available"));
                     }
                 }
+                _showTrayNotification = msg => uiService.ShowTrayNotification(msg);
+                OperationsForAria2Change();
+            }
+            catch { }
+            //初始化Tracker更新服务
+            _trackerService = new BtTrackerService(new BtTrackers(AppSettings.Trackers));
+        }
+        private async void OperationsForAria2Change()
+        {
+            try
+            {
                 //检查Aria2更新
                 if (AppSettings.CheckAria2Update)
                 {
                     var aria2Version = await Aria2Server.GetAria2Version();
-                    if (await UpdateCheckerHelper.CheckAria2Update(aria2Version.Version) == true)
+                    if (await UpdateCheckerService.CheckAria2Update(aria2Version.Version) == true)
                     {
-                        uiService.ShowTrayNotification(LanguageHelper.GetString("Aria2_Update_Available"));
+                        _showTrayNotification?.Invoke($"[{Aria2Server.ServerInfo.ServerName}] {LanguageHelper.GetString("Aria2_Update_Available")}");
                     }
                 }
-            }
-            catch { }
-            //更新Tracker
-            try
-            {
-                BtTrackerService trackerService = new BtTrackerService(new BtTrackers(AppSettings.Trackers));
-                var trackers = await trackerService.CheckTrackersUpdate();
-                if (trackers != null)
+                //更新Tracker列表
+                if (_trackerService != null)
                 {
-                    await Aria2Server.ChangeAria2Options(new Dictionary<string, string>
+                    var trackers = await _trackerService.CheckTrackersUpdate();
+                    if (trackers != null)
                     {
-                        { "bt-tracker", string.Join(",", trackers.ToArray())}
-                    });
-                }
+                        await Aria2Server.ChangeAria2Options(new Dictionary<string, string>
+                        {
+                            { "bt-tracker", string.Join(",", trackers.ToArray())}
+                        });
+                    }
+                } 
             }
-            catch
+            catch (Exception ex)
             {
-                await uiService.ShowMessageBoxAsync(LanguageHelper.GetString("Update_Trackers_Failed"),
-                    LanguageHelper.GetString("Error"), MsgBoxLevel.Error);
+                LogHelper.Warning("Failed to check updates for aria2.", ex);
             }
         }
         private void SyncAria2ServerNames()
@@ -152,6 +162,7 @@ namespace Aria2Manager.Core
         public async Task SaveSettings()
         {
             await ChangeNotification(GetCurrentAria2Server());
+            _trackerService?.UpdateConfig(new BtTrackers(AppSettings.Trackers));
             _settingsConfigService.Save(AppSettings);
         }
         public async Task SaveServers()
@@ -160,6 +171,7 @@ namespace Aria2Manager.Core
             Aria2Server newServer = GetCurrentAria2Server();
             Aria2Server.Update(newServer);
             await ChangeNotification(newServer);
+            OperationsForAria2Change();
             SyncAria2ServerNames();
             _serversConfigService.Save(ServerSettings);
             OnServersUpdated?.Invoke();

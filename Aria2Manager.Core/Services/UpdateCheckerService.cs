@@ -1,30 +1,32 @@
 ﻿using System.Text.Json;
+using Aria2Manager.Core.Helpers;
 
-namespace Aria2Manager.Core.Helpers
+namespace Aria2Manager.Core.Services
 {
-    public static class UpdateCheckerHelper
+    public class UpdateCheckerService
     {
-        private static readonly HttpClient _httpClient = new HttpClient();
-        static UpdateCheckerHelper()
+        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly Dictionary<string, string> _githubTagCache = new Dictionary<string, string>();
+        public UpdateCheckerService()
         {
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "Aria2Manager-Client");
             _httpClient.Timeout = TimeSpan.FromSeconds(15);
         }
         //检查程序更新
-        public static async Task<bool?> CheckProgramUpdate(string appVersion, string? prefix)
+        public async Task<bool?> CheckProgramUpdate(string appVersion, string? prefix)
         {
             string latestTag = await GetGithubLatestTag("https://api.github.com/repos/Ftbom/Aria2Manager/releases", prefix);
             latestTag = latestTag.Replace($"{prefix}-v", "");
             return CompareVersions(appVersion, latestTag);
         }
         //检查Aria2更新
-        public static async Task<bool?> CheckAria2Update(string aria2Version)
+        public async Task<bool?> CheckAria2Update(string aria2Version)
         {
-            string latestTag = await GetGithubLatestTag("https://api.github.com/repos/aria2/aria2/releases");
+            string latestTag = await GetGithubLatestTag("https://api.github.com/repos/aria2/aria2/releases", useCache: true);
             latestTag = latestTag.Replace("release-", "");
             return CompareVersions(aria2Version, latestTag);
         }
-        private static bool? CompareVersions(string current, string latest)
+        private bool? CompareVersions(string current, string latest)
         {
             if (string.IsNullOrWhiteSpace(latest) || string.IsNullOrWhiteSpace(current))
             {
@@ -37,8 +39,16 @@ namespace Aria2Manager.Core.Helpers
             }
             return current != latest;
         }
-        private static async Task<string> GetGithubLatestTag(string url, string? prefix = null)
+        private async Task<string> GetGithubLatestTag(string url, string? prefix = null, bool useCache = false)
         {
+            if (useCache)
+            {
+                if (_githubTagCache.TryGetValue(url, out string? cachedTag) && cachedTag != null)
+                {
+                    return cachedTag;
+                }
+            }
+            string tagName = string.Empty;
             try
             {
                 var response = await _httpClient.GetStringAsync(url);
@@ -47,18 +57,18 @@ namespace Aria2Manager.Core.Helpers
                 {
                     foreach (var release in doc.RootElement.EnumerateArray())
                     {
-                        var tagName = release.GetProperty("tag_name").GetString() ?? "";
+                        tagName = release.GetProperty("tag_name").GetString() ?? "";
                         if (prefix == null)
                         {
                             //获取第一个Release的标签名
-                            return tagName;
+                            break;
                         }
                         else
                         {
                             //获取指定前缀的第一个Release的标签名
                             if (tagName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
                             {
-                                return tagName;
+                                break;
                             }
                         }
                     }
@@ -68,7 +78,11 @@ namespace Aria2Manager.Core.Helpers
             {
                 LogHelper.Error($"Failed to get GitHub latest tag of '{url}'", ex, false);
             }
-            return string.Empty;
+            if (useCache)
+            {
+                _githubTagCache[url] = tagName;
+            }
+            return tagName;
         }
     }
 }
