@@ -57,6 +57,11 @@ This project currently maintains two UI framework branches. Please visit the [Re
     <img src="ScreenShots/Aria2TaskInfoWindow1.png" width="49%" alt="Task Details 1" />
     <img src="ScreenShots/Aria2TaskInfoWindow2.png" width="49%" alt="Task Details 2" />
   </p>
+
+  <p align="center">
+    <img src="ScreenShots/Aria2TaskInfoWindow3.png" width="49%" alt="Task Details 3" />
+    <img src="ScreenShots/Aria2TaskInfoWindow4.png" width="49%" alt="Task Details 4" />
+  </p>
   
   <p align="center">
     <img src="ScreenShots/Aria2OptionsWindow.png" width="49%" alt="Aria2 Options" style="vertical-align: top;" />

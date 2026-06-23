@@ -57,6 +57,11 @@
     <img src="ScreenShots/Aria2TaskInfoWindow1.png" width="49%" alt="任务详情 1" />
     <img src="ScreenShots/Aria2TaskInfoWindow2.png" width="49%" alt="任务详情 2" />
   </p>
+
+  <p align="center">
+    <img src="ScreenShots/Aria2TaskInfoWindow3.png" width="49%" alt="任务详情 3" />
+    <img src="ScreenShots/Aria2TaskInfoWindow4.png" width="49%" alt="任务详情 4" />
+  </p>
   
   <p align="center">
     <img src="ScreenShots/Aria2OptionsWindow.png" width="49%" alt="Aria2 选项" style="vertical-align: top;" />

@@ -243,9 +243,8 @@
                         <Grid RowDefinitions="*, Auto">
                             <Border Grid.Row="0" Background="{DynamicResource SystemRegionColor}" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
                                     BorderThickness="1" CornerRadius="4" Padding="10">
-                                <Grid RowDefinitions="*, Auto" RowSpacing="10">
-                                    <TextBlock Grid.Row="0"/>
-                                    <Grid Grid.Row="1" ColumnDefinitions="Auto, *" RowDefinitions="*, *" ColumnSpacing="10" RowSpacing="5">
+                                <Grid RowDefinitions="*" RowSpacing="10">
+                                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *" RowDefinitions="*, *" ColumnSpacing="10" RowSpacing="5">
                                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Aria2Option_max-overall-download-limit], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
                                         <NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Value="{Binding DownloadSpeedLimit}"
                                                        InnerRightContent="{Binding [Bytes_Sec], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
