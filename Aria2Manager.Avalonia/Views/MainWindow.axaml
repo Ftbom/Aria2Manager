@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:loc="using:Aria2Manager.Avalonia.Localization"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cc="using:Aria2Manager.Avalonia.Controls"
         xmlns:vm="using:Aria2Manager.Core.ViewModels" 
         mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="450"
         x:Class="Aria2Manager.Avalonia.Views.MainWindow"
@@ -239,12 +240,13 @@
                             <TextBlock Text="{Binding ServerDownloadSpeed}"/>
                         </StackPanel>
                     </ToggleButton>
-                    <Popup IsOpen="{Binding #SpeedTrigger.IsChecked, Mode=TwoWay}" PlacementTarget="{Binding #SpeedTrigger}" Placement="Top" MinWidth="400" IsLightDismissEnabled="True">
+                    <Popup IsOpen="{Binding #SpeedTrigger.IsChecked, Mode=TwoWay}" PlacementTarget="{Binding #SpeedTrigger}" Placement="Top" MinWidth="600" MinHeight="400" IsLightDismissEnabled="True">
                         <Grid RowDefinitions="*, Auto">
                             <Border Grid.Row="0" Background="{DynamicResource SystemRegionColor}" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
                                     BorderThickness="1" CornerRadius="4" Padding="10">
-                                <Grid RowDefinitions="*" RowSpacing="10">
-                                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *" RowDefinitions="*, *" ColumnSpacing="10" RowSpacing="5">
+                                <Grid RowDefinitions="*, Auto" RowSpacing="10">
+                                    <cc:NetSpeedLineChartControl Grid.Row="0" Datas="{Binding NetSpeedLineDatas}" DownloadColor="{DynamicResource SystemAccentColor}" UploadColor="{DynamicResource SystemChromeDisabledHighColor}"/>
+                                    <Grid Grid.Row="1" ColumnDefinitions="Auto, *" RowDefinitions="*, *" ColumnSpacing="10" RowSpacing="5">
                                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Aria2Option_max-overall-download-limit], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
                                         <NumericUpDown Grid.Row="0" Grid.Column="1" Minimum="0" Value="{Binding DownloadSpeedLimit}"
                                                        InnerRightContent="{Binding [Bytes_Sec], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>

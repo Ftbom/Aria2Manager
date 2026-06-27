@@ -5,9 +5,9 @@
         xmlns:loc="using:Aria2Manager.Avalonia.Localization"
         xmlns:vm="using:Aria2Manager.Core.ViewModels"
         xmlns:cc="using:Aria2Manager.Avalonia.Controls"
-        mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="400"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="Aria2Manager.Avalonia.Views.Aria2TaskInfoWindow"
-        x:DataType="vm:Aria2TaskInfoViewModel" Height="400" Width="650"
+        x:DataType="vm:Aria2TaskInfoViewModel" Height="600" Width="800"
         Title="{Binding [Properties], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
 
     <Window.Styles>
@@ -42,6 +42,11 @@
             <Setter Property="RowSpacing" Value="10"/>
             <Setter Property="ColumnSpacing" Value="10"/>
         </Style>
+        <Style Selector="ScrollViewer > Grid">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="RowSpacing" Value="10"/>
+            <Setter Property="ColumnSpacing" Value="10"/>
+        </Style>
     </Window.Styles>
 
     <Grid RowDefinitions="Auto, *" Margin="5,15,5,15" RowSpacing="15">
@@ -65,80 +70,81 @@
         <TabControl Grid.Row="1" TabStripPlacement="Left">
             <TabItem Header="{Binding [OverView], Source={x:Static loc:AvaloniaLocalizer.Instance}}">
                 <ScrollViewer>
-                    <StackPanel>
-                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" ColumnSpacing="30">
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                            <SelectableTextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TaskInfo.Name, Mode=OneWay}"/>
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, *" ColumnSpacing="30">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding [Name], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                        <SelectableTextBlock Grid.Row="0" Grid.Column="1" Text="{Binding TaskInfo.Name, Mode=OneWay}"/>
 
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TaskInfo.Size, Mode=OneWay}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding [Size], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding TaskInfo.Size, Mode=OneWay}"/>
 
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding TaskInfo.Status, Mode=OneWay}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding [Status], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding TaskInfo.Status, Mode=OneWay}"/>
 
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="1">
-                                <InlineUIContainer BaselineAlignment="Center">
-                                    <PathIcon Data="{StaticResource IconUped}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
-                                              ToolTip.Tip="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                                </InlineUIContainer>
-                                <Run Text="{Binding TaskInfo.Uploaded, Mode=OneWay}"/>
-                                <Run Text=" "/>
-                                <InlineUIContainer BaselineAlignment="Center">
-                                    <PathIcon Data="{StaticResource IconDowned}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
-                                              ToolTip.Tip="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                                </InlineUIContainer>
-                                <Run Text="{Binding TaskInfo.Downloaded, Mode=OneWay}"/>
-                            </TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding [Progress], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1">
+                            <InlineUIContainer BaselineAlignment="Center">
+                                <PathIcon Data="{StaticResource IconUped}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
+                                          ToolTip.Tip="{Binding [Uploaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </InlineUIContainer>
+                            <Run Text="{Binding TaskInfo.Uploaded, Mode=OneWay}"/>
+                            <Run Text=" "/>
+                            <InlineUIContainer BaselineAlignment="Center">
+                                <PathIcon Data="{StaticResource IconDowned}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
+                                          ToolTip.Tip="{Binding [Downloaded], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </InlineUIContainer>
+                            <Run Text="{Binding TaskInfo.Downloaded, Mode=OneWay}"/>
+                        </TextBlock>
 
-                            <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding [Download_Path], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <SelectableTextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TaskInfo.DownloadPath, Mode=OneWay}"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding [Download_Path], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <SelectableTextBlock Grid.Row="4" Grid.Column="1" Text="{Binding TaskInfo.DownloadPath, Mode=OneWay}"/>
 
-                            <TextBlock Grid.Row="5" Grid.Column="0" Text="{Binding [Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <TextBlock Grid.Row="5" Grid.Column="1">
-                                <InlineUIContainer BaselineAlignment="Center">
-                                    <PathIcon Data="{StaticResource IconUp}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
-                                              ToolTip.Tip="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                                </InlineUIContainer>
-                                <Run Text="{Binding TaskInfo.UploadSpeed, Mode=OneWay}"/>
-                                <Run Text=" "/>
-                                <InlineUIContainer BaselineAlignment="Center">
-                                    <PathIcon Data="{StaticResource IconDown}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
-                                              ToolTip.Tip="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                                </InlineUIContainer>
-                                <Run Text="{Binding TaskInfo.DownloadSpeed, Mode=OneWay}"/>
-                            </TextBlock>
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="{Binding [Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1">
+                            <InlineUIContainer BaselineAlignment="Center">
+                                <PathIcon Data="{StaticResource IconUp}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
+                                          ToolTip.Tip="{Binding [Upload_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </InlineUIContainer>
+                            <Run Text="{Binding TaskInfo.UploadSpeed, Mode=OneWay}"/>
+                            <Run Text=" "/>
+                            <InlineUIContainer BaselineAlignment="Center">
+                                <PathIcon Data="{StaticResource IconDown}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
+                                          ToolTip.Tip="{Binding [Download_Speed], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </InlineUIContainer>
+                            <Run Text="{Binding TaskInfo.DownloadSpeed, Mode=OneWay}"/>
+                        </TextBlock>
 
-                            <TextBlock Grid.Row="6" Grid.Column="0" Text="{Binding [Info_Hash], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding TaskInfo.Hash, Mode=OneWay}"/>
+                        <TextBlock Grid.Row="6" Grid.Column="0" Text="{Binding [Info_Hash], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding TaskInfo.Hash, Mode=OneWay}"/>
 
-                            <TextBlock Grid.Row="7" Grid.Column="0" Text="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding TaskInfo.Ratio, Mode=OneWay}"/>
+                        <TextBlock Grid.Row="7" Grid.Column="0" Text="{Binding [Ratio], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding TaskInfo.Ratio, Mode=OneWay}"/>
 
-                            <TextBlock Grid.Row="8" Grid.Column="0" Text="{Binding [Seeds_And_Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
-                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
-                            <TextBlock Grid.Row="8" Grid.Column="1">
-                                <InlineUIContainer BaselineAlignment="Center">
-                                    <PathIcon Data="{StaticResource IconConnection}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
-                                              ToolTip.Tip="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                                </InlineUIContainer>
-                                <Run Text="{Binding TaskInfo.Connections, Mode=OneWay}"/>
-                                <Run Text=" "/>
-                                <InlineUIContainer BaselineAlignment="Center">
-                                    <PathIcon Data="{StaticResource IconSeeder}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
-                                              ToolTip.Tip="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
-                                </InlineUIContainer>
-                                <Run Text="{Binding TaskInfo.Seeders, Mode=OneWay}"/>
-                            </TextBlock>
-                        </Grid>
-                    </StackPanel>
+                        <TextBlock Grid.Row="8" Grid.Column="0" Text="{Binding [Seeds_And_Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                        <TextBlock Grid.Row="8" Grid.Column="1">
+                            <InlineUIContainer BaselineAlignment="Center">
+                                <PathIcon Data="{StaticResource IconConnection}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
+                                          ToolTip.Tip="{Binding [Connections], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </InlineUIContainer>
+                            <Run Text="{Binding TaskInfo.Connections, Mode=OneWay}"/>
+                            <Run Text=" "/>
+                            <InlineUIContainer BaselineAlignment="Center">
+                                <PathIcon Data="{StaticResource IconSeeder}" Foreground="{DynamicResource SystemAccentColor}" Width="15" Height="15"
+                                          ToolTip.Tip="{Binding [Seeds], Source={x:Static loc:AvaloniaLocalizer.Instance}}"/>
+                            </InlineUIContainer>
+                            <Run Text="{Binding TaskInfo.Seeders, Mode=OneWay}"/>
+                        </TextBlock>
+
+                        <cc:NetSpeedLineChartControl Grid.Row="9" Grid.ColumnSpan="2" Datas="{Binding NetSpeedLineDatas}" HorizontalAlignment="Stretch"
+                                                     DownloadColor="{DynamicResource SystemAccentColor}" UploadColor="{DynamicResource SystemChromeDisabledHighColor}"/>
+                    </Grid>
                 </ScrollViewer>
             </TabItem>
 

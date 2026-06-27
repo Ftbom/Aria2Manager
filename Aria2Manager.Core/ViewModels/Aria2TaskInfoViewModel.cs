@@ -1,5 +1,6 @@
 ﻿using Aria2Manager.Core.Enums;
 using Aria2Manager.Core.Helpers;
+using Aria2Manager.Core.Models;
 using Aria2Manager.Core.Services;
 using Aria2Manager.Core.Services.Interfaces;
 using Aria2NET;
@@ -214,6 +215,7 @@ namespace Aria2Manager.Core.ViewModels
         private readonly IUIService _uiService;
         private readonly string _gid;
         private Aria2ServerService Server => GlobalContext.Instance.Aria2Server; //Aria2服务器服务实例
+        public ObservableCollection<NetSpeedData> NetSpeedLineDatas { get; private set; } = new ObservableCollection<NetSpeedData>();
         public TaskInfoViewModel TaskInfo { get; private set; }
         public bool IsRefreshBTPeers { get; set; } = false; //是否刷新BT连接Peer列表
         public Aria2TaskInfoViewModel(IUIService uiService, string gid)
@@ -266,6 +268,7 @@ namespace Aria2Manager.Core.ViewModels
                 _refreshCts.Dispose();
                 _refreshCts = null;
             }
+            NetSpeedLineDatas.Clear();
         }
         private async void ExecuteRefreshLoopAsync(CancellationToken token)
         {
@@ -293,6 +296,11 @@ namespace Aria2Manager.Core.ViewModels
                 }
                 var task = await Server.GetTaskStatus(_gid);
                 TaskInfo.Update(task); //更新任务信息
+                if (NetSpeedLineDatas.Count > 120)
+                {
+                    NetSpeedLineDatas.RemoveAt(0);
+                }
+                NetSpeedLineDatas.Add(new NetSpeedData(task.DownloadSpeed, task.UploadSpeed));
             }
             catch
             {

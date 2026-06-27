@@ -122,6 +122,7 @@ namespace Aria2Manager.Core.ViewModels
         public int TaskNumAll => ServerStatus.NumActive + ServerStatus.NumWaiting + ServerStatus.NumStopped;
         public string ServerDownloadSpeed => FormatterHelper.BytesToString(ServerStatus.DownloadSpeed) + "/s";
         public string ServerUploadSpeed => FormatterHelper.BytesToString(ServerStatus.UploadSpeed) + "/s";
+        public ObservableCollection<NetSpeedData> NetSpeedLineDatas { get; private set; } = new ObservableCollection<NetSpeedData>();
         public string? SelectedTaskGid { get; set; } //当前选中任务的GID
         public Aria2TaskStatus SelectedStatus { get; set; } = Aria2TaskStatus.all; //当前选中状态
         //Aria2任务列表
@@ -208,6 +209,7 @@ namespace Aria2Manager.Core.ViewModels
                 _refreshCts.Dispose();
                 _refreshCts = null;
             }
+            NetSpeedLineDatas.Clear();
         }
         private async void ExecuteRefreshLoopAsync(CancellationToken token)
         {
@@ -227,6 +229,11 @@ namespace Aria2Manager.Core.ViewModels
         private async Task RefreshTaskLoop(Aria2TaskStatus status)
         {
             await Server.GetAria2Status();
+            if (NetSpeedLineDatas.Count > 120)
+            {
+                NetSpeedLineDatas.RemoveAt(0);
+            }
+            NetSpeedLineDatas.Add(new NetSpeedData(ServerStatus.DownloadSpeed, ServerStatus.UploadSpeed));
             //刷新服务器信息
             OnPropertyChanged(nameof(TaskNumAll));
             OnPropertyChanged(nameof(ServerDownloadSpeed));
